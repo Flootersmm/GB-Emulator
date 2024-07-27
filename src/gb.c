@@ -255,10 +255,20 @@ GB *gb_init(const char *rom_path) {
             .f = 0,
             .pc = 0,
             .sp = 0},
-      .ram =
+      .mem =
           {
-              .item = NULL,
-              .size = 255,
+              .rom_bank0 = malloc(0x4000),
+              .rom_bank1 = malloc(0x4000),
+              .vram = malloc(0x2000),
+              .external_ram = malloc(0x2000),
+              .work_ram0 = malloc(0x1000),
+              .work_ram1 = malloc(0x1000),
+              .echo_ram = malloc(0x1E00),
+              .oam = malloc(0x00A0),
+              .io_registers = malloc(0x0080),
+              .hram = malloc(0x007F),
+              .interrupt_enable = malloc(1),
+              .size = GB_TOTAL_RAM_SIZE,
           },
       .cart =
           {
@@ -272,7 +282,27 @@ GB *gb_init(const char *rom_path) {
           },
   };
 
-  printf("%s\n", vm->rom_path);
+  if (!vm->mem.rom_bank0 || !vm->mem.rom_bank1 || !vm->mem.vram ||
+      !vm->mem.external_ram || !vm->mem.work_ram0 || !vm->mem.work_ram1 ||
+      !vm->mem.echo_ram || !vm->mem.oam || !vm->mem.io_registers ||
+      !vm->mem.hram || !vm->mem.interrupt_enable) {
+    fprintf(stderr, "Error allocating memory for GB RAM\n");
+    free(vm);
+    return NULL;
+  }
+
+  memset(vm->mem.rom_bank0, 0xFF, 0x4000);
+  memset(vm->mem.rom_bank1, 0xFF, 0x4000);
+  memset(vm->mem.vram, 0xFF, 0x2000);
+  memset(vm->mem.external_ram, 0xFF, 0x2000);
+  memset(vm->mem.work_ram0, 0xFF, 0x1000);
+  memset(vm->mem.work_ram1, 0xFF, 0x1000);
+  memset(vm->mem.echo_ram, 0xFF, 0x1E00);
+  memset(vm->mem.oam, 0xFF, 0x00A0);
+  memset(vm->mem.io_registers, 0xFF, 0x0080);
+  memset(vm->mem.hram, 0xFF, 0x007F);
+  *vm->mem.interrupt_enable = 0;
+
   FILE *fp = fopen(rom_path, "rb");
   if (fp == NULL) {
     fprintf(stderr, "Error opening rom at %s\n", rom_path);
@@ -285,8 +315,15 @@ GB *gb_init(const char *rom_path) {
   vm->cart.size = ftell(fp);
   fseek(fp, 0, SEEK_SET);
 
-  vm->cart.data = malloc(vm->cart.size + 1);
+  vm->cart.data = malloc(vm->cart.size);
+  if (!vm->cart.data) {
+    fprintf(stderr, "Error allocating memory for ROM\n");
+    fclose(fp);
+    gb_destroy(vm);
+    return NULL;
+  }
   fread(vm->cart.data, vm->cart.size, sizeof(u8), fp);
+
   fclose(fp);
 
   // TODO: place 256 byte program into 0x0000, this is the poweron program
@@ -296,7 +333,7 @@ GB *gb_init(const char *rom_path) {
 
   _cart_header_read(vm);
   _logo_check(vm);
-  if (cart_header_checksum_calc(vm) != vm->cart.header_checksum) {
+  if ((cart_header_checksum_calc(vm)) != vm->cart.header_checksum) {
     exit(EXIT_FAILURE);
   };
   _cart_header_set_flags(vm);
@@ -314,7 +351,23 @@ GB *gb_init(const char *rom_path) {
 /// @param vm GB vm
 ///
 /// @return 0 for success, -1 for failure
-int gb_destroy(GB *vm) { return 0; }
+int gb_destroy(GB *vm) {
+  free(vm->mem.rom_bank0);
+  free(vm->mem.rom_bank1);
+  free(vm->mem.vram);
+  free(vm->mem.external_ram);
+  free(vm->mem.work_ram0);
+  free(vm->mem.work_ram1);
+  free(vm->mem.echo_ram);
+  free(vm->mem.oam);
+  free(vm->mem.io_registers);
+  free(vm->mem.hram);
+  free(vm->mem.interrupt_enable);
+  free(vm->cart.data);
+  free(vm);
+  return 0;
+  return 0;
+}
 
 /// Initialise the power on sequence
 ///
@@ -336,6 +389,7 @@ int _gb_power_on(GB *vm) {
     if ((cart_byte_total & 1) != 0) { // If LSB != 0, halt
       vm->flag.halt = true;
       fprintf(stderr, "cart_byte_total lsb != 0\n");
+      gb_destroy(vm);
       exit(EXIT_FAILURE);
     }
   }
@@ -355,6 +409,38 @@ int _gb_power_on(GB *vm) {
   vm->r.hl = 0x014D;
   vm->r.pc = 0;
   vm->r.sp = 0xFFFE;
+
+  vm->mem.io_registers[0x05] = 0x00; // TIMA
+  vm->mem.io_registers[0x06] = 0x00; // TMA
+  vm->mem.io_registers[0x07] = 0x00; // TAC
+  vm->mem.io_registers[0x10] = 0x80; // NR10
+  vm->mem.io_registers[0x11] = 0xBF; // NR11
+  vm->mem.io_registers[0x12] = 0xF3; // NR12
+  vm->mem.io_registers[0x14] = 0xBF; // NR14
+  vm->mem.io_registers[0x16] = 0x3F; // NR21
+  vm->mem.io_registers[0x17] = 0x00; // NR22
+  vm->mem.io_registers[0x19] = 0xBF; // NR24
+  vm->mem.io_registers[0x1A] = 0x7F; // NR30
+  vm->mem.io_registers[0x1B] = 0xFF; // NR31
+  vm->mem.io_registers[0x1C] = 0x9F; // NR32
+  vm->mem.io_registers[0x1E] = 0xBF; // NR33
+  vm->mem.io_registers[0x20] = 0xFF; // NR41
+  vm->mem.io_registers[0x21] = 0x00; // NR42
+  vm->mem.io_registers[0x22] = 0x00; // NR43
+  vm->mem.io_registers[0x23] = 0xBF; // NR30
+  vm->mem.io_registers[0x24] = 0x77; // NR50
+  vm->mem.io_registers[0x25] = 0xF3; // NR51
+  vm->mem.io_registers[0x26] = 0xF1; // NR52
+  vm->mem.io_registers[0x40] = 0x91; // LCDC
+  vm->mem.io_registers[0x42] = 0x00; // SCY
+  vm->mem.io_registers[0x43] = 0x00; // SCX
+  vm->mem.io_registers[0x45] = 0x00; // LYC
+  vm->mem.io_registers[0x47] = 0xFC; // BGP
+  vm->mem.io_registers[0x48] = 0xFF; // OBP0
+  vm->mem.io_registers[0x49] = 0xFF; // OBP1
+  vm->mem.io_registers[0x4A] = 0x00; // WY
+  vm->mem.io_registers[0x4B] = 0x00; // WX
+  *vm->mem.interrupt_enable = 0x00;  // IE
 
   return 0;
 }

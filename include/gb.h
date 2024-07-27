@@ -42,6 +42,12 @@ extern "C" {
   X(HUDSON_HUC3, 0xFE, "Hudson HuC-3")                                         \
   X(HUDSON_HUC1, 0xFF, "Hudson HuC-1")
 
+/// RAM and High RAM definitions
+#define GB_RAM_SIZE 0x2000    /// 8 KB internal RAM
+#define GB_HIGH_RAM_SIZE 0x7F /// High RAM from FF80 to FFFE
+#define GB_IO_REG_SIZE 0x80   /// I/O Registers from FF00 to FF7F
+#define GB_TOTAL_RAM_SIZE (GB_RAM_SIZE + GB_HIGH_RAM_SIZE + GB_IO_REG_SIZE)
+
 /// Rust-like type defs
 typedef uint8_t u8;
 typedef int8_t i8;
@@ -143,11 +149,21 @@ typedef struct {
   ConsoleType type;
 } Flags;
 
-/// RAM, with u8 items and u32 size
+/// Memory map, with u8 items and u32 size
 typedef struct {
-  u8 *item;
+  u8 *rom_bank0;        ///> 0000-3FFF: ROM Bank 0
+  u8 *rom_bank1;        ///> 4000-7FFF: ROM Bank 1 (switchable)
+  u8 *vram;             ///> 8000-9FFF: Video RAM
+  u8 *external_ram;     ///> A000-BFFF: External RAM (cartridge RAM)
+  u8 *work_ram0;        ///> C000-CFFF: Work RAM Bank 0
+  u8 *work_ram1;        ///> D000-DFFF: Work RAM Bank 1 (switchable)
+  u8 *echo_ram;         ///> E000-FDFF: Echo RAM (mirrored from C000-DDFF)
+  u8 *oam;              ///> FE00-FE9F: Object Attribute Memory (OAM)
+  u8 *io_registers;     ///> FF00-FF7F: I/O Registers
+  u8 *hram;             ///> FF80-FFFE: High RAM (HRAM)
+  u8 *interrupt_enable; ///> FFFF: Interrupt Enable Register
   u32 size;
-} RAM;
+} Memory;
 
 /// ROM, with u8 items and u32 size
 typedef struct {
@@ -195,7 +211,7 @@ typedef struct {
   i32 dummy;
   const char *rom_path;
   Registers r;
-  RAM ram;
+  Memory mem;
   Flags flag;
   Cartridge cart;
   ZPM zpm;

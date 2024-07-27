@@ -186,92 +186,162 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::EndMenuBar();
   }
 
-  ImGui::Text("rom_path: %s", vm->rom_path);
-  ImGui::Text("ram.item: %p", vm->ram.item);
-  ImGui::Text("ram.size: %u", vm->ram.size);
-  ImGui::Text("Cart Size: %u bytes", vm->cart.size);
+  if (ImGui::TreeNode("ROM Info")) {
 
-  ImGui::Text("Title:");
-  ImGui::BeginGroup();
-  for (int i = 0; i < 16; i++) {
-    char display_char = vm->cart.title[i] == 0 ? '_' : vm->cart.title[i];
+    ImGui::Text("rom_path: %s", vm->rom_path);
+    ImGui::Text("mem.size: %u", vm->mem.size);
+    ImGui::Text("Cart Size: %u bytes", vm->cart.size);
+
+    ImGui::Text("Title:");
+    ImGui::BeginGroup();
+    for (int i = 0; i < 16; i++) {
+      char display_char = vm->cart.title[i] == 0 ? '_' : vm->cart.title[i];
+      ImGui::SameLine();
+      ImGui::Text(&display_char);
+    }
+    ImGui::EndGroup();
+
+    ImGui::Text("Manufacturer Code: %02X %02X %02X",
+                vm->cart.manufacturer_code[0], vm->cart.manufacturer_code[1],
+                vm->cart.manufacturer_code[2]);
+
+    switch (vm->flag.cgb) {
+    case NON_CGB:
+      ImGui::Text("CGB Flag: NON_CGB");
+      break;
+    case CGB_ENHANCED:
+      ImGui::Text("CGB Flag: CGB_ENHANCED");
+      break;
+    case CGB_ONLY:
+      ImGui::Text("CGB Flag: CGB_ONLY");
+      break;
+    default:
+      ImGui::Text("CGB Flag: Unknown CGB flag");
+      break;
+    }
+
+    ImGui::Text("Licensee: %s", licensee_get_name(vm));
+
+    ImGui::Text("SGB Flag: %s", vm->cart.sgb_flag ? "true" : "false");
+
+    ImGui::Text("Cartridge Type: %s",
+                cart_get_type_str(vm->cart.cartridge_enum));
+
+    ImGui::Text("Cart ROM Size: %s", rom_get_size_str(vm));
+
+    ImGui::Text("Cart RAM Size: %s", ram_get_size_str(vm));
+
+    ImGui::Text("Destination: %s", destination_code_get_str(vm));
+
+    ImGui::Text("Mask ROM Version Number: %02X", vm->cart.mask_rom_ver_number);
+
+    ImGui::Text("Header Checksum: %02X", vm->cart.header_checksum);
     ImGui::SameLine();
-    ImGui::Text(&display_char);
-  }
-  ImGui::EndGroup();
+    if ((!cart_header_checksum_calc(vm)) == (vm->cart.header_checksum)) {
+      ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Failed");
+    } else {
+      ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "Passed");
+    }
 
-  ImGui::Text("Manufacturer Code: %02X %02X %02X",
-              vm->cart.manufacturer_code[0], vm->cart.manufacturer_code[1],
-              vm->cart.manufacturer_code[2]);
+    ImGui::Text("Global Checksum: %02X %02X", vm->cart.global_checksum[0],
+                vm->cart.global_checksum[1]);
+    ImGui::SameLine();
+    if ((!cart_global_checksum_calc(vm)) ==
+        ((vm->cart.global_checksum[0] << 8) | vm->cart.global_checksum[1])) {
+      ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Failed");
+    } else {
+      ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "Passed");
+    }
 
-  switch (vm->flag.cgb) {
-  case NON_CGB:
-    ImGui::Text("CGB Flag: NON_CGB");
-    break;
-  case CGB_ENHANCED:
-    ImGui::Text("CGB Flag: CGB_ENHANCED");
-    break;
-  case CGB_ONLY:
-    ImGui::Text("CGB Flag: CGB_ONLY");
-    break;
-  default:
-    ImGui::Text("CGB Flag: Unknown CGB flag");
-    break;
-  }
-
-  ImGui::Text("Licensee: %s", licensee_get_name(vm));
-
-  ImGui::Text("SGB Flag: %s", vm->cart.sgb_flag ? "true" : "false");
-
-  ImGui::Text("Cartridge Type: %s", cart_get_type_str(vm->cart.cartridge_enum));
-
-  ImGui::Text("ROM Size: %s", rom_get_size_str(vm));
-
-  ImGui::Text("RAM Size: %s", ram_get_size_str(vm));
-
-  ImGui::Text("Destination: %s", destination_code_get_str(vm));
-
-  ImGui::Text("Mask ROM Version Number: %02X", vm->cart.mask_rom_ver_number);
-
-  ImGui::Text("Header Checksum: %02X", vm->cart.header_checksum);
-  ImGui::SameLine();
-  if (!cart_header_checksum_calc(vm) == vm->cart.header_checksum) {
-    ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Failed");
-  } else {
-    ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "Passed");
-  }
-
-  ImGui::Text("Global Checksum: %04X", vm->cart.global_checksum);
-  ImGui::SameLine();
-  if (!cart_global_checksum_calc(vm) ==
-      ((vm->cart.global_checksum[0] << 8) | vm->cart.global_checksum[1])) {
-    ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Failed");
-  } else {
-    ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "Passed");
-  }
-
-  ImGui::Text("Cartridge Logo:");
-  ImGui::NewLine();
-  ImGui::BeginGroup();
-  for (u32 i = 0x0104; i < 0x0134; i++) {
-    if (i != 0x0104 && (i - 0x0104) % 16 == 0) {
-      ImGui::TextWrapped("");
+    ImGui::Text("Cartridge Logo:");
+    ImGui::NewLine();
+    ImGui::BeginGroup();
+    for (u32 i = 0x0104; i < 0x0134; i++) {
+      if (i != 0x0104 && (i - 0x0104) % 16 == 0) {
+        ImGui::TextWrapped("");
+      }
+      ImGui::SameLine();
+      ImGui::Text("%02X", vm->cart.data[i]);
     }
     ImGui::SameLine();
-    ImGui::Text("%02X", vm->cart.data[i]);
-  }
-  ImGui::SameLine();
-  if (!vm->flag.logo_match) {
-    ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Failed");
-  } else {
-    ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "Passed");
+    if (!vm->flag.logo_match) {
+      ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "Failed");
+    } else {
+      ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "Passed");
+    }
+
+    ImGui::EndGroup();
+
+    ImGui::Text("vram.item: %p", vm->vram.item);
+    ImGui::Text("vram.size: %u", vm->vram.size);
+
+    ImGui::TreePop();
   }
 
-  ImGui::EndGroup();
+  if (ImGui::TreeNode("Registers")) {
+    ImGui::Text("A: $%02X", vm->r.a);
+    ImGui::Text("B: $%02X", vm->r.b);
+    ImGui::Text("C: $%02X", vm->r.c);
+    ImGui::Text("D: $%02X", vm->r.d);
+    ImGui::Text("E: $%02X", vm->r.e);
+    ImGui::Text("F: $%02X", vm->r.f);
+    ImGui::Text("H: $%02X", vm->r.h);
+    ImGui::Text("AF: $%04X", vm->r.af);
+    ImGui::Text("BC: $%04X", vm->r.bc);
+    ImGui::Text("DE: $%04X", vm->r.de);
+    ImGui::Text("HL: $%04X", vm->r.hl);
+    ImGui::Text("PC: $%04X", vm->r.pc);
+    ImGui::Text("SP: $%04X", vm->r.sp);
 
-  ImGui::Text("vram.item: %p", vm->vram.item);
-  ImGui::Text("vram.size: %u", vm->vram.size);
+    ImGui::TreePop();
+  }
+
+  if (ImGui::TreeNode("Initial Memory Locs")) {
+    const char *addresses[] = {
+        "[$FF05]", "[$FF06]", "[$FF07]", "[$FF10]", "[$FF11]", "[$FF12]",
+        "[$FF14]", "[$FF16]", "[$FF17]", "[$FF19]", "[$FF1A]", "[$FF1B]",
+        "[$FF1C]", "[$FF1E]", "[$FF20]", "[$FF21]", "[$FF22]", "[$FF23]",
+        "[$FF24]", "[$FF25]", "[$FF26]", "[$FF40]", "[$FF42]", "[$FF43]",
+        "[$FF45]", "[$FF47]", "[$FF48]", "[$FF49]", "[$FF4A]", "[$FF4B]",
+        "[$FFFF]"};
+
+    const uint16_t locations[] = {
+        0xFF05, 0xFF06, 0xFF07, 0xFF10, 0xFF11, 0xFF12, 0xFF14, 0xFF16,
+        0xFF17, 0xFF19, 0xFF1A, 0xFF1B, 0xFF1C, 0xFF1E, 0xFF20, 0xFF21,
+        0xFF22, 0xFF23, 0xFF24, 0xFF25, 0xFF26, 0xFF40, 0xFF42, 0xFF43,
+        0xFF45, 0xFF47, 0xFF48, 0xFF49, 0xFF4A, 0xFF4B, 0xFFFF};
+
+    const int numAddresses = sizeof(addresses) / sizeof(addresses[0]);
+    const int numColumns =
+        4; // Adjust this value to change the number of columns in the grid
+    const int numRows = (numAddresses + numColumns - 1) / numColumns;
+    const float rowHeight = ImGui::GetTextLineHeightWithSpacing();
+    const float windowHeight = rowHeight * (numRows + 1);
+
+    ImGui::BeginChild("MemoryGrid", ImVec2(0, windowHeight), true);
+
+    for (int i = 0; i < numAddresses; i += numColumns) {
+      for (int j = 0; j < numColumns; ++j) {
+        if (i + j < numAddresses) {
+          ImGui::Text("%s: $%02X", addresses[i + j],
+                      vm->mem.io_registers[locations[i + j] - 0xFF00]);
+          if (j < numColumns - 1)
+            ImGui::SameLine();
+        }
+      }
+    }
+
+    ImGui::EndChild();
+    ImGui::TreePop();
+  }
+  ImGui::SetCursorPosY((ImGui::GetWindowSize().y) - ImGui::GetFontSize() * 4);
+  ImGui::SliderFloat("Font scale", &fontScale, 1.0f, 3.0f, "%.1f");
+  ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
+              1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+
   ImGui::SliderFloat("GB Scale", &scale, 1.0f, 6.0f, "%1.0f");
+  ImGui::GetIO().FontGlobalScale = fontScale;
+
   ImGui::End();
 }
 
