@@ -1,0 +1,29 @@
+#include "dear_imgui/imgui.h"
+#include "dear_imgui/imgui_wrapper.h"
+#include "gb.h"
+#include <GLFW/glfw3.h>
+#include <ctype.h>
+#include <map>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+
+int main(int argc, char **argv) {
+
+  // print help
+  // init gb
+  // open gui
+
+  GlFWindow *window = initialise_window();
+  vm = initialise_gb();
+  init_imgui(window, vm);
+
+  main_loop(window);
+
+  cleanup_imgui();
+  destroy_gb(vm);
+  glfwDestroyWindow(window);
+  glfwTerminate();
+
+  return 0;
+}

@@ -1,0 +1,4 @@
+CompileFlags:
+  Add: [-I/home/conrad/projects/gb/include/]
+  Add: [-I/home/conrad/projects/gb/include/dear_imgui/]
+
