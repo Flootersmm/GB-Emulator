@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -57,6 +58,8 @@ typedef uint32_t u32;
 typedef int32_t i32;
 typedef unsigned int u32;
 typedef int i32;
+
+typedef struct GB GB;
 
 /// Cartridge type enum
 ///
@@ -151,17 +154,18 @@ typedef struct {
 
 /// Memory map, with u8 items and u32 size
 typedef struct {
-  u8 *rom_bank0;        ///> 0000-3FFF: ROM Bank 0
-  u8 *rom_bank1;        ///> 4000-7FFF: ROM Bank 1 (switchable)
-  u8 *vram;             ///> 8000-9FFF: Video RAM
-  u8 *external_ram;     ///> A000-BFFF: External RAM (cartridge RAM)
-  u8 *work_ram0;        ///> C000-CFFF: Work RAM Bank 0
-  u8 *work_ram1;        ///> D000-DFFF: Work RAM Bank 1 (switchable)
-  u8 *echo_ram;         ///> E000-FDFF: Echo RAM (mirrored from C000-DDFF)
-  u8 *oam;              ///> FE00-FE9F: Object Attribute Memory (OAM)
-  u8 *io_registers;     ///> FF00-FF7F: I/O Registers
-  u8 *hram;             ///> FF80-FFFE: High RAM (HRAM)
-  u8 *interrupt_enable; ///> FFFF: Interrupt Enable Register
+  u8 *data;             ///> 0x0000-FFFF
+  u8 *rom_bank0;        ///> 0x0000-3FFF: ROM Bank 0
+  u8 *rom_bank1;        ///> 0x4000-7FFF: ROM Bank 1 (switchable)
+  u8 *vram;             ///> 0x8000-9FFF: Video RAM
+  u8 *external_ram;     ///> 0xA000-BFFF: External RAM (cartridge RAM)
+  u8 *wram0;            ///> 0xC000-CFFF: Work RAM Bank 0
+  u8 *wram1;            ///> 0xD000-DFFF: Work RAM Bank 1 (switchable)
+  u8 *echo_ram;         ///> 0xE000-FDFF: Echo RAM (mirrored from C000-DDFF)
+  u8 *oam;              ///> 0xFE00-FE9F: Object Attribute Memory (OAM)
+  u8 *io_registers;     ///> 0xFF00-FF7F: I/O Registers
+  u8 *hram;             ///> 0xFF80-FFFE: High RAM (HRAM)
+  u8 *interrupt_enable; ///> 0xFFFF: Interrupt Enable Register
   u32 size;
 } Memory;
 
@@ -199,15 +203,31 @@ typedef struct {
   u32 size;
 } VRAM;
 
+typedef void (*FuncNoOp)(GB *vm);
+typedef void (*FuncU8Op)(GB *vm, u8 operand);
+typedef void (*FuncU16Op)(GB *vm, u16 operand);
+
+/// Enum for function types in OPS struct
+typedef enum {
+  NO_OP,
+  U8_OP,
+  U16_OP,
+} OpType;
+
 /// Opcode, with function pointer array
 typedef struct {
   const char *debug_str;
   u8 length;
-  void (*exec)();
-} OPS[256];
+  OpType type;
+  union {
+    FuncNoOp func_no_op;
+    FuncU8Op func_u8_op;
+    FuncU16Op func_u16_op;
+  } func;
+} OPS;
 
 /// Main GB struct
-typedef struct {
+struct GB {
   i32 dummy;
   const char *rom_path;
   Registers r;
@@ -217,7 +237,9 @@ typedef struct {
   ZPM zpm;
   VRAM vram;
   OPS op;
-} GB;
+};
+
+extern const OPS ops[256];
 
 // gb.c forward declarations
 GB *gb_init(const char *rom_path);
@@ -237,9 +259,19 @@ void _cart_header_set_flags(GB *vm);
 void step(GB *vm);
 u8 read_u8(GB *vm, u16 addr);
 u16 read_u16(GB *vm, u16 addr);
+void _reg_set_flag(GB *vm, u8 z, u8 n, u8 h, u8 c);
 
 // ops.c forward declarations
-void nop();
+void nop(GB *vm);
+void jp_nn(GB *vm, u16 operand);
+void inc_a(GB *vm, u8 operand);
+void inc_b(GB *vm, u8 operand);
+void inc_c(GB *vm, u8 operand);
+void inc_d(GB *vm, u8 operand);
+void inc_e(GB *vm, u8 operand);
+void inc_h(GB *vm, u8 operand);
+void inc_l(GB *vm, u8 operand);
+void inc_hl(GB *vm, u8 operand);
 
 // gui.c forward declarations
 GLFWwindow *window_init(void);

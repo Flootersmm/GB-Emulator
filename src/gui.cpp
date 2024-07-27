@@ -1,6 +1,7 @@
 #include "dear_imgui/imgui.h"
 #include "dear_imgui/imgui_wrapper.h"
 #include "gb.h"
+#include "shared.h"
 #include <ctype.h>
 #include <map>
 #include <stdio.h>
@@ -349,24 +350,24 @@ void main_loop(GLFWwindow *window, GB *vm) {
   ImGuiIO &io = ImGui::GetIO();
   (void)io;
 
-  while (!glfwWindowShouldClose(window)) {
-    if (ImGui::IsKeyPressed(ImGuiKey_Escape)) {
-      imgui_cleanup();
-      gb_destroy(vm);
-      glfwDestroyWindow(window);
-      glfwTerminate();
-      return;
-    }
-
+  while (!glfwWindowShouldClose(window) && running) {
     glfwPollEvents();
     imgui_new_frame();
 
-    draw_window_crude_debug(vm);
+    {
+      std::lock_guard<std::mutex> lock(emu_mutex);
+      draw_window_crude_debug(vm);
+    }
     draw_window_texture();
 
     glClear(GL_COLOR_BUFFER_BIT);
     imgui_render();
     glfwSwapBuffers(window);
+
+    if (ImGui::IsKeyPressed(ImGuiKey_Escape)) {
+      running = false;
+      return;
+    }
 
     cycles++;
     if (cycles % updateInterval == 0) {
