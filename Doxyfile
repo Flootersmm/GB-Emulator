@@ -1,0 +1,169 @@
+# Doxyfile 1.9.2
+
+# Project related settings
+PROJECT_NAME           = "GB Emulator"
+PROJECT_NUMBER         = "0.1"
+PROJECT_BRIEF          = "A Gameboy emulator in C, using Dear ImGUI (cpp)."
+PROJECT_LOGO           = 
+
+# Input related settings
+INPUT                  = src include
+FILE_PATTERNS          = *.c *.h *.cpp
+RECURSIVE              = YES
+EXCLUDE                = *imgui* !imgui_wrapper.h !imgui_wrapper.cpp *imstb*
+EXCLUDE_SYMLINKS       = NO
+EXCLUDE_PATTERNS       = *imgui* !imgui_wrapper.h !imgui_wrapper.cpp *imstb*
+
+# Build related settings
+OUTPUT_DIRECTORY       = docs
+CREATE_SUBDIRS         = NO
+ALLOW_UNICODE_NAMES    = NO
+OUTPUT_LANGUAGE        = English
+BRIEF_MEMBER_DESC      = YES
+REPEAT_BRIEF           = YES
+ALWAYS_DETAILED_SEC    = NO
+INLINE_INHERITED_MEMB  = YES
+FULL_PATH_NAMES        = YES
+STRIP_FROM_PATH        = 
+STRIP_FROM_INC_PATH    = 
+SHORT_NAMES            = NO
+JAVADOC_AUTOBRIEF      = YES
+
+# Dot related settings
+HAVE_DOT               = YES
+DOT_FONTNAME           = Helvetica
+DOT_FONTSIZE           = 10
+DOT_FONTPATH           = 
+CLASS_GRAPH            = YES
+COLLABORATION_GRAPH    = YES
+GROUP_GRAPHS           = NO
+INCLUDE_GRAPH          = YES
+INCLUDED_BY_GRAPH      = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+GRAPHICAL_HIERARCHY    = YES
+DIRECTORY_GRAPH        = YES
+DOT_IMAGE_FORMAT       = png
+DOT_PATH               = 
+DOTFILE_DIRS           = 
+DOT_GRAPH_MAX_NODES    = 50
+MAX_DOT_GRAPH_DEPTH    = 0
+DOT_TRANSPARENT        = NO
+DOT_MULTI_TARGETS      = NO
+
+# Generate output
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+HTML_FILE_EXTENSION    = .html
+HTML_COLORSTYLE_HUE    = 220
+HTML_COLORSTYLE_SAT    = 100
+HTML_COLORSTYLE_GAMMA  = 80
+HTML_TIMESTAMP         = YES
+HTML_DYNAMIC_SECTIONS  = YES
+
+GENERATE_LATEX         = NO
+GENERATE_MAN           = NO
+GENERATE_RTF           = NO
+GENERATE_XML           = NO
+GENERATE_DOCBOOK       = NO
+GENERATE_AUTOGEN_DEF   = NO
+
+# Other settings
+EXTRACT_ALL            = YES 
+EXTRACT_PRIVATE        = YES 
+EXTRACT_STATIC         = YES 
+EXTRACT_LOCAL_CLASSES  = YES
+HIDE_UNDOC_MEMBERS     = YES
+HIDE_UNDOC_CLASSES     = YES
+HIDE_FRIEND_COMPOUNDS  = NO
+HIDE_IN_BODY_DOCS      = NO
+
+# If set to YES, a graphical hierarchy of all classes will be generated
+SHOW_INCLUDE_FILES     = YES
+SHOW_GROUPED_MEMB_INC  = NO
+SHOW_USED_FILES        = YES
+SHOW_FILES             = YES
+SHOW_NAMESPACES        = YES
+SHOW_DIRECTORIES       = YES
+
+# If set to YES, the inheritance and collaboration graphs will be generated
+CALLER_GRAPH           = YES
+CALL_GRAPH             = YES
+
+# File versioning
+GENERATE_TREEVIEW      = YES
+USE_MDFILE_AS_MAINPAGE = README.md
+MARKDOWN_SUPPORT       = YES
+
+# Input filtering
+FILTER_SOURCE_FILES    = NO
+FILTER_PATTERNS        = 
+FILTER_SOURCE_PATTERNS = 
+INPUT_FILTER           = 
+INPUT_FILTER_IGNORE_PATTERNS = 
+INPUT_FILTER_PATTERNS  = 
+
+# Sources encoding
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = YES
+STRIP_CODE_COMMENTS    = YES
+REFERENCES_RELATION    = NO
+
+# Preprocessor related
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = NO
+SEARCH_INCLUDES        = YES
+SKIP_FUNCTION_MACROS   = NO
+
+# Project directory layout
+LAYOUT_FILE            = 
+
+# Boost related settings
+BUILTIN_STL_SUPPORT    = YES
+CPP_CLI_SUPPORT        = NO
+SIP_SUPPORT            = NO
+IDL_PROPERTY_SUPPORT   = YES
+DISTRIBUTE_GROUP_DOC   = NO
+SUBGROUP_DOCS          = YES
+TYPEDEF_HIDES_STRUCT   = NO
+SYMBOL_CACHE_SIZE      = 0
+LOOKUP_CACHE_SIZE      = 0
+ASSERTIONS             = NO
+
+# Index related settings
+GENERATE_INDEX         = YES
+INDEX_FILE_NAME        = index
+
+# Search engine settings
+SEARCHENGINE           = YES
+
+# Disabled options
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = NO
+SEARCH_INCLUDES        = YES
+INCLUDE_PATH           = 
+INCLUDE_FILE_PATTERNS  = 
+PREDEFINED             = 
+EXPAND_AS_DEFINED      = 
+SKIP_FUNCTION_MACROS   = NO
+TEMPLATE_RELATIONS     = NO
+
+# Preprocessor settings
+PREDEFINED             = 
+EXPAND_AS_DEFINED      = 
+SKIP_FUNCTION_MACROS   = NO
+TEMPLATE_RELATIONS     = NO
+
+# External references
+TAGFILES               = 
+GENERATE_TAGFILE       = 
+ALLEXTERNALS           = NO
+EXTERNAL_GROUPS        = YES
+PERLMOD_PRETTY         = YES
+
+# Doxygen-awesome 
+DISABLE_INDEX = NO
+FULL_SIDEBAR = NO
+HTML_EXTRA_STYLESHEET = /usr/local/share/doxygen-awesome-css/doxygen-awesome.css
