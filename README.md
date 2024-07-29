@@ -46,3 +46,11 @@ make doc_doxygen
 
 ```
 
+### Generating .clangd
+
+To generate a .clangd file for correct parsing of headers:
+
+```sh
+chmod +x generate_clangd.sh
+./generate_clangd.sh
+```
