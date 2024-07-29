@@ -1,8 +1,6 @@
 # GB Emulator
 
-## Description
-
-A GB emulator in C, using Dear_ImGUI and GLFW. Built with CMake.
+A GB emulator in C, using Dear_ImGUI and GLFW. Built with Make.
 
 ## Requirements
 
@@ -13,11 +11,12 @@ A GB emulator in C, using Dear_ImGUI and GLFW. Built with CMake.
 
 ## Building
 
-1. **Clean previous build artifacts**:
+2. **Clean previous build artifacts**:
 
-```sh
-make clean
-```
+   ```sh
+   make clean
+   ```
+
 
 2. **Build the project with Make**:
 
