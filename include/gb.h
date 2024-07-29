@@ -259,11 +259,19 @@ void _cart_header_set_flags(GB *vm);
 void step(GB *vm);
 u8 read_u8(GB *vm, u16 addr);
 u16 read_u16(GB *vm, u16 addr);
+void write_u8(GB *vm, u16 addr, u8 value);
+void write_u16(GB *vm, u16 addr, u16 value);
 void _reg_set_flag(GB *vm, u8 z, u8 n, u8 h, u8 c);
 
 // ops.c forward declarations
 void nop(GB *vm);
 void jp_nn(GB *vm, u16 operand);
+void ln_b_n(GB *vm, u8 operand);
+void ln_c_n(GB *vm, u8 operand);
+void ln_d_n(GB *vm, u8 operand);
+void ln_e_n(GB *vm, u8 operand);
+void ln_h_n(GB *vm, u8 operand);
+void ln_l_n(GB *vm, u8 operand);
 void inc_a(GB *vm, u8 operand);
 void inc_b(GB *vm, u8 operand);
 void inc_c(GB *vm, u8 operand);
