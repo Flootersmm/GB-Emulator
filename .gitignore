@@ -1,2 +1,5 @@
 roms/
+imgui.ini
 .clangd
+build/*
+gui

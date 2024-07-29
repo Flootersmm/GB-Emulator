@@ -1,0 +1,16 @@
+<map id="gb_init" name="gb_init">
+<area shape="rect" id="Node000001" title="Gameboy initialisation." alt="" coords="5,107,65,133"/>
+<area shape="rect" id="Node000002" href="$gb_8c.html#aad95bf7de899d44f0ccdf720936b02e6" title="Separates the cart header into distinct fields." alt="" coords="142,5,270,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="45,104,72,73,111,42,126,34,129,39,114,46,76,77,49,108"/>
+<area shape="rect" id="Node000003" href="$gb_8c.html#ac70209d645b1b944bb31937abbac6200" title="Set various flags from cartridge header." alt="" coords="128,56,284,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="65,109,143,85,145,90,66,114"/>
+<area shape="rect" id="Node000004" href="$gb_8c.html#a17dc652b75f4c8242c12a53e5a482ba4" title="Checks cart logo against known Nintendo logo." alt="" coords="350,81,445,108"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="65,115,335,96,335,102,65,121"/>
+<area shape="rect" id="Node000005" href="$gb_8c.html#a6ba0b86d25906c33ac8c609a8d96cb39" title="Initialise the power on sequence." alt="" coords="154,157,259,184"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="66,126,145,150,143,155,65,131"/>
+<area shape="rect" id="Node000007" href="$gb_8c.html#a28d5ed690c510efa50fc2183ebdbe49f" title="Calculate cart header checksum." alt="" coords="113,208,300,235"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="49,132,76,163,114,194,125,200,123,204,111,198,72,167,45,136"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="285,77,336,84,335,89,285,82"/>
+<area shape="rect" id="Node000006" href="$gb_8c.html#a880a6eddcdd4dc541115a3d40c89c6f6" title=" " alt="" coords="348,157,447,184"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="259,168,332,168,332,173,259,173"/>
+</map>

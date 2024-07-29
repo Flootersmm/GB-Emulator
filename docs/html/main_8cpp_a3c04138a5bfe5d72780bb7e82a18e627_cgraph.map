@@ -1,0 +1,57 @@
+<map id="main" name="main">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,309,55,336"/>
+<area shape="rect" id="Node000002" href="$main_8cpp.html#a950362bbfabb6e34a60097f5c916694f" title=" " alt="" coords="103,81,217,108"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="34,308,61,247,100,169,135,119,140,122,105,172,65,249,39,310"/>
+<area shape="rect" id="Node000006" href="$gb_8c.html#a008e9959fa5fd87c39f03271134d0e0c" title="Clean up the GB vm." alt="" coords="117,183,202,209"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="36,307,61,265,79,241,101,219,106,215,110,219,104,223,83,244,65,268,40,310"/>
+<area shape="rect" id="Node000007" href="$gb_8c.html#ac213e383456ea5569bf9f03fbc4b47d6" title="Gameboy initialisation." alt="" coords="130,233,190,260"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="53,306,121,266,124,270,56,311"/>
+<area shape="rect" id="Node000014" href="$gui_8cpp.html#a6e9b5912f48a0cc57a6142285783615a" title=" " alt="" coords="120,309,200,336"/>
+<area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="55,320,104,320,104,325,55,325"/>
+<area shape="rect" id="Node000025" href="$gui_8cpp.html#a2965978f827f4e4db3ea299c859d2151" title=" " alt="" coords="104,360,216,387"/>
+<area shape="poly" id="edge26_Node000001_Node000025" title=" " alt="" coords="56,330,111,351,109,356,54,335"/>
+<area shape="rect" id="Node000026" href="$gui_8cpp.html#aaadac544d627adfb86b9950b96e0be27" title=" " alt="" coords="117,411,202,437"/>
+<area shape="poly" id="edge27_Node000001_Node000026" title=" " alt="" coords="44,335,69,365,104,397,111,401,108,405,101,401,66,369,40,338"/>
+<area shape="rect" id="Node000027" href="$gui_8cpp.html#a1e8e55366c1419c08c91382f06413e43" title=" " alt="" coords="115,461,204,488"/>
+<area shape="poly" id="edge28_Node000001_Node000027" title=" " alt="" coords="38,335,62,389,81,420,105,447,108,451,105,455,101,451,76,423,57,391,33,337"/>
+<area shape="rect" id="Node000003" href="$gb_8c.html#ae073831e45a5ab2b9048410ecdabc5c9" title=" " alt="" coords="332,31,379,57"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="214,78,316,51,318,56,215,83"/>
+<area shape="rect" id="Node000004" href="$gb_8c.html#a9517f6c560686d01ccdfbd225bd978e4" title=" " alt="" coords="551,5,625,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="379,39,535,22,536,27,380,44"/>
+<area shape="rect" id="Node000005" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title=" " alt="" coords="554,56,622,83"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="380,44,539,61,539,67,379,49"/>
+<area shape="rect" id="Node000008" href="$gb_8c.html#aad95bf7de899d44f0ccdf720936b02e6" title="Separates the cart header into distinct fields." alt="" coords="292,81,420,108"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="188,236,215,219,232,194,237,169,244,144,251,131,263,118,276,109,279,114,267,122,256,134,249,145,243,170,237,196,219,223,191,240"/>
+<area shape="rect" id="Node000009" href="$gb_8c.html#ac70209d645b1b944bb31937abbac6200" title="Set various flags from cartridge header." alt="" coords="278,132,434,159"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="189,233,215,219,239,197,249,186,264,175,289,162,292,167,266,180,252,190,243,201,219,224,191,238"/>
+<area shape="rect" id="Node000010" href="$gb_8c.html#a17dc652b75f4c8242c12a53e5a482ba4" title="Checks cart logo against known Nintendo logo." alt="" coords="541,132,635,159"/>
+<area shape="poly" id="edge12_Node000007_Node000010" title=" " alt="" coords="189,237,264,219,525,157,526,162,266,224,190,242"/>
+<area shape="rect" id="Node000011" href="$gb_8c.html#a6ba0b86d25906c33ac8c609a8d96cb39" title="Initialise the power on sequence." alt="" coords="303,233,408,260"/>
+<area shape="poly" id="edge10_Node000007_Node000011" title=" " alt="" coords="190,244,287,244,287,249,190,249"/>
+<area shape="rect" id="Node000013" href="$gb_8c.html#a28d5ed690c510efa50fc2183ebdbe49f" title="Calculate cart header checksum." alt="" coords="494,233,682,260"/>
+<area shape="poly" id="edge13_Node000007_Node000013" title=" " alt="" coords="190,253,265,269,356,276,446,269,508,261,508,266,447,275,356,281,265,275,189,258"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="434,143,525,143,525,148,434,148"/>
+<area shape="rect" id="Node000012" href="$gb_8c.html#a880a6eddcdd4dc541115a3d40c89c6f6" title=" " alt="" coords="538,183,638,209"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="408,233,523,207,524,213,409,238"/>
+<area shape="rect" id="Node000015" href="$gui_8cpp.html#afacd084c4ffdd1ae130003bc5c26663a" title=" " alt="" coords="265,335,446,361"/>
+<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="201,325,250,332,249,337,200,330"/>
+<area shape="rect" id="Node000023" href="$gui_8cpp.html#ae827c5e3bb6a31948b56323adf16be1f" title=" " alt="" coords="282,385,429,412"/>
+<area shape="poly" id="edge24_Node000014_Node000023" title=" " alt="" coords="194,334,218,346,266,371,285,378,283,383,264,376,216,350,191,339"/>
+<area shape="rect" id="Node000024" href="$gui_8cpp.html#a472c882db1df42079b977da1b7322751" title=" " alt="" coords="302,436,409,463"/>
+<area shape="poly" id="edge25_Node000014_Node000024" title=" " alt="" coords="201,334,219,346,235,366,243,386,250,404,267,422,289,434,286,439,263,426,246,407,238,388,230,369,215,350,198,339"/>
+<area shape="poly" id="edge18_Node000015_Node000013" title=" " alt="" coords="406,332,445,314,459,303,468,292,478,281,493,270,505,264,507,269,496,274,481,285,472,295,463,307,448,318,408,337"/>
+<area shape="rect" id="Node000016" href="$gb_8c.html#af81f07e0d83a5e97d9d5348bd9ea8b6e" title="Convert cartridge type from hex to string." alt="" coords="527,284,649,311"/>
+<area shape="poly" id="edge16_Node000015_Node000016" title=" " alt="" coords="420,331,511,311,512,317,421,337"/>
+<area shape="rect" id="Node000017" href="$gb_8c.html#aaa5b1ef7b13ea89f7c145e06c032213f" title="Calculate global cart checksum." alt="" coords="497,335,679,361"/>
+<area shape="poly" id="edge17_Node000015_Node000017" title=" " alt="" coords="446,345,481,345,481,351,446,351"/>
+<area shape="rect" id="Node000018" href="$gb_8c.html#a5ec9605d59d2706004e399ab6d86eb58" title="Convert desination code into string." alt="" coords="505,385,671,412"/>
+<area shape="poly" id="edge19_Node000015_Node000018" title=" " alt="" coords="421,359,509,379,508,384,420,365"/>
+<area shape="rect" id="Node000019" href="$gb_8c.html#aba39eb77df8f059e44ddfca3f3f73be7" title="Convert licensee name from hex to string." alt="" coords="521,436,655,463"/>
+<area shape="poly" id="edge20_Node000015_Node000019" title=" " alt="" coords="423,359,448,371,463,384,472,397,481,410,496,422,508,428,505,433,493,426,477,413,468,400,459,388,445,376,421,364"/>
+<area shape="rect" id="Node000020" href="$gb_8c.html#a095f0954e6ae4af48839ca0021ef4378" title="Convert RAM size into string." alt="" coords="527,487,649,513"/>
+<area shape="poly" id="edge21_Node000015_Node000020" title=" " alt="" coords="430,360,448,371,460,384,467,397,473,423,479,449,485,461,496,473,514,484,511,488,493,477,481,464,474,451,468,425,462,399,456,387,445,375,427,364"/>
+<area shape="rect" id="Node000021" href="$gb_8c.html#aa8b20ab954fd7240abc08a749c91d4c7" title="Convert ROM size into string." alt="" coords="527,537,649,564"/>
+<area shape="poly" id="edge22_Node000015_Node000021" title=" " alt="" coords="432,360,448,371,463,391,471,410,473,449,475,487,482,505,496,523,515,536,512,540,493,527,477,508,470,488,468,450,465,412,459,393,444,375,429,364"/>
+<area shape="rect" id="Node000022" href="$gui_8cpp.html#a106fb4cdcf06aec3f9fe60f2319ea957" title="Main window size." alt="" coords="522,588,654,615"/>
+<area shape="poly" id="edge23_Node000015_Node000022" title=" " alt="" coords="433,360,448,371,467,397,474,423,475,449,473,475,470,500,471,525,479,550,496,574,510,584,506,589,492,578,474,552,466,526,465,500,468,475,470,449,469,424,462,400,444,375,430,364"/>
+</map>

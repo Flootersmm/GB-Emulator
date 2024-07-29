@@ -1,0 +1,20 @@
+<map id="GB" name="GB">
+<area shape="rect" id="Node000001" title="Main GB struct." alt="" coords="266,187,307,213"/>
+<area shape="rect" id="Node000009" href="$structOPS.html" title="Opcode, with function pointer array." alt="" coords="262,309,311,336"/>
+<area shape="poly" id="edge9_Node000009_Node000001" title=" " alt="" coords="254,218,242,227,234,239,226,261,234,284,246,299,263,309,260,314,243,303,229,287,221,261,229,236,239,224,251,214"/>
+<area shape="rect" id="Node000002" href="$structRegisters.html" title="Registers a, b, c, d, e, f, h, l, af, bc, de, hl, sp, pc." alt="" coords="5,96,83,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,126,177,160,267,190,265,195,175,165,87,131"/>
+<area shape="rect" id="Node000003" href="$structMemory.html" title="Memory map, with u8 items and u32 size." alt="" coords="107,96,176,123"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="170,130,214,160,267,187,265,192,211,165,167,134"/>
+<area shape="rect" id="Node000004" href="$structFlags.html" title="Flags, bitwise." alt="" coords="200,96,253,123"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="246,134,280,185,276,188,242,137"/>
+<area shape="rect" id="Node000005" href="$structConsoleType.html" title=" " alt="" coords="178,5,275,32"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="229,48,229,95,224,95,224,48"/>
+<area shape="rect" id="Node000006" href="$structCartridge.html" title="ROM, with u8 items and u32 size." alt="" coords="278,96,352,123"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="309,139,293,187,288,185,303,137"/>
+<area shape="rect" id="Node000007" href="$structZPM.html" title="Zero page memory, with u8 items and u32 size." alt="" coords="375,96,425,123"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="375,135,336,165,305,188,302,184,333,161,371,130"/>
+<area shape="rect" id="Node000008" href="$structVRAM.html" title="VRAM, with u8 items and u32 size." alt="" coords="448,96,509,123"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="447,134,389,165,308,195,306,190,387,160,445,129"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="303,295,308,285,313,261,308,238,295,215,300,212,313,236,318,261,313,286,308,297"/>
+</map>

@@ -1,0 +1,25 @@
+<map id="main_loop" name="main_loop">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,233,86,260"/>
+<area shape="rect" id="Node000002" href="$gui_8cpp.html#afacd084c4ffdd1ae130003bc5c26663a" title=" " alt="" coords="134,183,315,209"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,233,133,219,159,211,160,217,134,224,87,238"/>
+<area shape="rect" id="Node000011" href="$gui_8cpp.html#ae827c5e3bb6a31948b56323adf16be1f" title=" " alt="" coords="151,233,298,260"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="86,244,135,244,135,249,86,249"/>
+<area shape="rect" id="Node000012" href="$gui_8cpp.html#a472c882db1df42079b977da1b7322751" title=" " alt="" coords="171,284,278,311"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="87,256,134,269,160,277,159,282,133,275,85,261"/>
+<area shape="rect" id="Node000003" href="$gb_8c.html#af81f07e0d83a5e97d9d5348bd9ea8b6e" title="Convert cartridge type from hex to string." alt="" coords="396,5,518,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="232,181,281,114,318,75,362,42,380,33,382,37,364,46,322,79,285,118,236,184"/>
+<area shape="rect" id="Node000004" href="$gb_8c.html#aaa5b1ef7b13ea89f7c145e06c032213f" title="Calculate global cart checksum." alt="" coords="366,56,548,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="239,180,291,137,325,113,362,92,377,86,379,91,364,97,328,118,294,141,242,184"/>
+<area shape="rect" id="Node000005" href="$gb_8c.html#a28d5ed690c510efa50fc2183ebdbe49f" title="Calculate cart header checksum." alt="" coords="363,107,550,133"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="260,180,362,143,386,136,388,141,364,148,262,185"/>
+<area shape="rect" id="Node000006" href="$gb_8c.html#a5ec9605d59d2706004e399ab6d86eb58" title="Convert desination code into string." alt="" coords="374,157,540,184"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="315,183,357,179,358,184,315,189"/>
+<area shape="rect" id="Node000007" href="$gb_8c.html#aba39eb77df8f059e44ddfca3f3f73be7" title="Convert licensee name from hex to string." alt="" coords="390,208,523,235"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="315,203,375,210,374,215,315,209"/>
+<area shape="rect" id="Node000008" href="$gb_8c.html#a095f0954e6ae4af48839ca0021ef4378" title="Convert RAM size into string." alt="" coords="396,259,517,285"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="282,207,316,219,364,244,383,251,382,256,362,249,314,224,281,212"/>
+<area shape="rect" id="Node000009" href="$gb_8c.html#aa8b20ab954fd7240abc08a749c91d4c7" title="Convert ROM size into string." alt="" coords="396,309,517,336"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="296,207,317,219,334,239,341,258,349,277,365,295,383,306,380,310,361,299,344,280,336,260,329,241,313,223,293,212"/>
+<area shape="rect" id="Node000010" href="$gui_8cpp.html#a106fb4cdcf06aec3f9fe60f2319ea957" title="Main window size." alt="" coords="391,360,522,387"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="300,208,317,219,330,235,338,252,342,284,346,316,352,331,365,346,378,356,375,360,361,350,348,334,340,318,336,285,332,253,326,238,313,223,297,212"/>
+</map>

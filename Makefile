@@ -1,4 +1,4 @@
-.PHONY: clean
+.PHONY: clean doxygen
 
 IDIR = include
 IDIR_DEAR_IMGUI = include/dear_imgui
@@ -6,7 +6,7 @@ CC = clang
 CXX = g++
 USERFLAGS +=
 override CFLAGS += -I$(IDIR) -I$(IDIR_DEAR_IMGUI) -g -Wall -Wpedantic $(USERFLAGS) -std=c11 -Wformat-extra-args
-override CXXFLAGS += -I$(IDIR) -I$(IDIR_DEAR_IMGUI)  -g -Wall -Wpedantic $(USERFLAGS) -std=c++11
+override CXXFLAGS += -I$(IDIR) -I$(IDIR_DEAR_IMGUI) -g -Wall -Wpedantic $(USERFLAGS) -std=c++11
 PEDANTIC_CFLAGS = -std=c11 -Werror -Wpedantic -Wall -Wextra -Wformat=2 -O -Wuninitialized -Winit-self -Wswitch-enum -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -Wconversion -Waggregate-return -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations -Wredundant-decls -Wnested-externs -Wno-long-long -Wglobal-constructors -Wshorten-64-to-32
 
 ODIR = obj
@@ -39,6 +39,9 @@ $(ODIR)/%.o: $(SRCDIR)/%.cpp
 
 gui: $(COBJS) $(CPPOBJS) $(ODIR)/imgui_wrapper.o $(ODIR)/main.o
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(LIBS) $(GUI_LIBS)
+
+doxygen:
+	doxygen
 
 clean:
 	-rm -f $(ODIR)/*.o *~ core.* $(INCDIR)/*~

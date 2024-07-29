@@ -6,43 +6,36 @@ A GB emulator in C, using Dear_ImGUI and GLFW. Built with CMake.
 
 ## Requirements
 
-- CMake 3.10 or higher
+- GNU Make
 - A C++11 compatible compiler
 - GLFW 3.3 or higher
 - Doxygen (optional, for generating documentation)
 
 ## Building
 
-1. **Create a build directory and navigate into it**:
+1. **Clean previous build artifacts**:
+
+```sh
+make clean
+```
+
+2. **Build the project with Make**:
 
    ```sh
-   mkdir build
-   cd build
+   make gui
    ```
 
-2. **Configure the project with CMake**:
-
+3. **Run the executable**:
    ```sh
-   cmake ..
-   ```
-
-3. **Build the project**:
-
-   ```sh
-   make
-   ```
-
-4. **Run the executable**:
-   ```sh
-   ./obj/gui path/to/rom
+   ./gui path/to/rom
    ```
 
 ### Generating Documentation
 
-If you have Doxygen installed, generate docs with:
+If you have Doxygen installed, generate ./docs with:
 
 ```sh
-make doc_doxygen
+make doxygen
 
 ```
 
