@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string>
 
+extern std::atomic<bool> step_requested;
+
 char stdout_buffer[4096]; ///< Buffer for stdout redirection
 FILE *stdout_memstream;   ///< Space for stdout redirection
 
@@ -335,6 +337,13 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::EndChild();
     ImGui::TreePop();
   }
+
+  if (ImGui::Button("Step")) {
+    {
+      step_requested = true;
+    }
+  }
+
   ImGui::SetCursorPosY((ImGui::GetWindowSize().y) - ImGui::GetFontSize() * 4);
   ImGui::SliderFloat("Font scale", &fontScale, 1.0f, 3.0f, "%.1f");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
