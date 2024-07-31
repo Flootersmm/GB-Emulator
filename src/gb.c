@@ -62,7 +62,6 @@ GB *gb_init(const char *rom_path) {
   vm->mem.wram1 = vm->mem.data + 0xD000;
   vm->mem.echo_ram = vm->mem.data + 0xE000;
   vm->mem.oam = vm->mem.data + 0xFE00;
-  vm->mem.io_registers = vm->mem.data + 0xFF00;
   vm->mem.hram = vm->mem.data + 0xFF80;
   vm->mem.interrupt_enable = vm->mem.data + 0xFFFF;
 
@@ -175,43 +174,43 @@ int _gb_power_on(GB *vm) {
   vm->r.sp = 0xFFFE;
 
   // DMG
-  vm->mem.io_registers[0x00] = 0xCF; // P1
-  vm->mem.io_registers[0x01] = 0x00; // SB
-  vm->mem.io_registers[0x02] = 0x7E; // SC
-  vm->mem.io_registers[0x04] = 0xAB; // DIV
-  vm->mem.io_registers[0x05] = 0x00; // TIMA
-  vm->mem.io_registers[0x06] = 0x00; // TMA
-  vm->mem.io_registers[0x07] = 0x00; // TAC
-  vm->mem.io_registers[0x10] = 0x80; // NR10
-  vm->mem.io_registers[0x11] = 0xBF; // NR11
-  vm->mem.io_registers[0x12] = 0xF3; // NR12
-  vm->mem.io_registers[0x14] = 0xBF; // NR14
-  vm->mem.io_registers[0x16] = 0x3F; // NR21
-  vm->mem.io_registers[0x17] = 0x00; // NR22
-  vm->mem.io_registers[0x19] = 0xBF; // NR24
-  vm->mem.io_registers[0x1A] = 0x7F; // NR30
-  vm->mem.io_registers[0x1B] = 0xFF; // NR31
-  vm->mem.io_registers[0x1C] = 0x9F; // NR32
-  vm->mem.io_registers[0x1E] = 0xBF; // NR33
-  vm->mem.io_registers[0x20] = 0xFF; // NR41
-  vm->mem.io_registers[0x21] = 0x00; // NR42
-  vm->mem.io_registers[0x22] = 0x00; // NR43
-  vm->mem.io_registers[0x23] = 0xBF; // NR30
-  vm->mem.io_registers[0x24] = 0x77; // NR50
-  vm->mem.io_registers[0x25] = 0xF3; // NR51
-  vm->mem.io_registers[0x26] = 0xF1; // NR52
-  vm->mem.io_registers[0x40] = 0x91; // LCDC
-  vm->mem.io_registers[0x42] = 0x00; // SCY
-  vm->mem.io_registers[0x43] = 0x00; // SCX
-  vm->mem.io_registers[0x45] = 0x00; // LYC
-  vm->mem.io_registers[0x47] = 0xFC; // BGP
-  vm->mem.io_registers[0x48] = 0xFF; // OBP0
-  vm->mem.io_registers[0x49] = 0xFF; // OBP1
-  vm->mem.io_registers[0x4A] = 0x00; // WY
-  vm->mem.io_registers[0x4B] = 0x00; // WX
-  *vm->mem.interrupt_enable = 0x00;  // IE
+  vm->mem.data[0xFF00] = 0xCF;      // P1
+  vm->mem.data[0xFF01] = 0x00;      // SB
+  vm->mem.data[0xFF02] = 0x7E;      // SC
+  vm->mem.data[0xFF04] = 0xAB;      // DIV
+  vm->mem.data[0xFF05] = 0x00;      // TIMA
+  vm->mem.data[0xFF06] = 0x00;      // TMA
+  vm->mem.data[0xFF07] = 0x00;      // TAC
+  vm->mem.data[0xFF10] = 0x80;      // NR10
+  vm->mem.data[0xFF11] = 0xBF;      // NR11
+  vm->mem.data[0xFF12] = 0xF3;      // NR12
+  vm->mem.data[0xFF14] = 0xBF;      // NR14
+  vm->mem.data[0xFF16] = 0x3F;      // NR21
+  vm->mem.data[0xFF17] = 0x00;      // NR22
+  vm->mem.data[0xFF19] = 0xBF;      // NR24
+  vm->mem.data[0xFF1A] = 0x7F;      // NR30
+  vm->mem.data[0xFF1B] = 0xFF;      // NR31
+  vm->mem.data[0xFF1C] = 0x9F;      // NR32
+  vm->mem.data[0xFF1E] = 0xBF;      // NR33
+  vm->mem.data[0xFF20] = 0xFF;      // NR41
+  vm->mem.data[0xFF21] = 0x00;      // NR42
+  vm->mem.data[0xFF22] = 0x00;      // NR43
+  vm->mem.data[0xFF23] = 0xBF;      // NR30
+  vm->mem.data[0xFF24] = 0x77;      // NR50
+  vm->mem.data[0xFF25] = 0xF3;      // NR51
+  vm->mem.data[0xFF26] = 0xF1;      // NR52
+  vm->mem.data[0xFF40] = 0x91;      // LCDC
+  vm->mem.data[0xFF42] = 0x00;      // SCY
+  vm->mem.data[0xFF43] = 0x00;      // SCX
+  vm->mem.data[0xFF45] = 0x00;      // LYC
+  vm->mem.data[0xFF47] = 0xFC;      // BGP
+  vm->mem.data[0xFF48] = 0xFF;      // OBP0
+  vm->mem.data[0xFF49] = 0xFF;      // OBP1
+  vm->mem.data[0xFF4A] = 0x00;      // WY
+  vm->mem.data[0xFF4B] = 0x00;      // WX
+  *vm->mem.interrupt_enable = 0x00; // IE
   write_u8(vm, 0xFF0F, 0x00);
-  vm->mem.io_registers[0x41] = 0x80; // STAT
+  vm->mem.data[0xFF41] = 0x80; // STAT
   //
   // read logo from the header, unpack it into VRAM, slowly scroll it down.
   // Once finished scrolling, play sound, read logo again, compare to copy,
@@ -598,6 +597,7 @@ void step(GB *vm) {
     }
     break;
   }
+
   if (opcode != 0xC3) {
     vm->r.pc += instr->length;
   }
@@ -635,12 +635,10 @@ void update_graphics(GB *vm, int cycles) {
 
     if (vm->current_scanline == 144) {
       request_interrupt(vm, 0);
-      write_u8(vm, 0xFF44, vm->current_scanline);
+      draw_scanline(vm);
     } else if (vm->current_scanline > 153) {
       vm->current_scanline = 0;
-      write_u8(vm, 0xFF44, vm->current_scanline);
     } else if (vm->current_scanline < 144) {
-      write_u8(vm, 0xFF44, vm->current_scanline);
       draw_scanline(vm);
     }
   }
@@ -706,10 +704,10 @@ bool is_lcd_enabled(GB *vm) { return (read_u8(vm, 0xFF40) & 0x80) != 0; }
 
 u8 read_u8(GB *vm, u16 addr) {
   if (addr == 0xFF44) {
-    // return vm->current_scanline;
+    return vm->current_scanline;
 
     // Gameboy doctor
-    return 0x90;
+    // return 0x90;
   } else if (addr == 0xFF00) {
     return get_joypad_state(vm);
   } else if (addr >= vm->mem.size) {
@@ -926,11 +924,10 @@ void service_interrupt(GB *vm, u8 interrupt) {
 }
 
 void draw_scanline(GB *vm) {
-  u8 control = read_u8(vm, 0xFF40);
-  if (control & 0x01) {
+  for (int y = 0; y < 144; y++) {
+    vm->current_scanline = y;
+    write_u8(vm, 0xFF44, y); // Set current scanline
     render_tiles(vm);
-  }
-  if (control & 0x02) {
     render_sprites(vm);
   }
 }
@@ -949,7 +946,7 @@ void render_tiles(GB *vm) {
   bool using_window = false;
 
   if (lcd_control & 0x20) {
-    if (window_y <= read_u8(vm, 0xFF44)) {
+    if (window_y <= vm->current_scanline) {
       using_window = true;
     }
   }
@@ -975,8 +972,8 @@ void render_tiles(GB *vm) {
     }
   }
 
-  u8 y_pos = using_window ? (read_u8(vm, 0xFF44) - window_y)
-                          : (scroll_y + read_u8(vm, 0xFF44));
+  u8 y_pos = using_window ? (vm->current_scanline - window_y)
+                          : (scroll_y + vm->current_scanline);
   u16 tile_row = (y_pos / 8) * 32;
 
   for (int pixel = 0; pixel < 160; pixel++) {
@@ -1021,9 +1018,9 @@ void render_tiles(GB *vm) {
       break;
     }
 
-    int final_y = read_u8(vm, 0xFF44);
-    if (final_y >= 0 && final_y < 144 && pixel >= 0 && pixel < 160) {
-      set_pixel(vm, pixel, final_y,
+    if (vm->current_scanline >= 0 && vm->current_scanline < 144 && pixel >= 0 &&
+        pixel < 160) {
+      set_pixel(vm, pixel, vm->current_scanline,
                 (red << 24) | (green << 16) | (blue << 8) | 0xFF);
     }
   }
@@ -1129,14 +1126,15 @@ void render_sprites(GB *vm) {
     bool y_flip = (attributes & 0x40) != 0;
     bool x_flip = (attributes & 0x20) != 0;
 
-    int scanline = read_u8(vm, 0xFF44);
     int y_size = use_8x16 ? 16 : 8;
 
-    if (scanline >= y_pos && scanline < (y_pos + y_size)) {
-      int line = scanline - y_pos;
+    if (vm->current_scanline >= y_pos &&
+        vm->current_scanline < (y_pos + y_size)) {
+      int line = vm->current_scanline - y_pos;
 
       if (y_flip) {
-        line = y_size - line - 1;
+        line -= y_size;
+        line *= -1;
       }
 
       line *= 2;
@@ -1145,15 +1143,15 @@ void render_sprites(GB *vm) {
       u8 data2 = read_u8(vm, data_address + 1);
 
       for (int tile_pixel = 7; tile_pixel >= 0; tile_pixel--) {
-        int color_bit = tile_pixel;
+        int colour_bit = tile_pixel;
         if (x_flip) {
-          color_bit = 7 - color_bit;
+          colour_bit = 7 - colour_bit;
         }
 
-        int color_num =
-            ((data2 >> color_bit) & 1) << 1 | ((data1 >> color_bit) & 1);
-        u16 color_address = (attributes & 0x10) ? 0xFF49 : 0xFF48;
-        COLOUR col = get_colour(vm, color_num, color_address);
+        int colour_num =
+            ((data2 >> colour_bit) & 1) << 1 | ((data1 >> colour_bit) & 1);
+        u16 colour_address = (attributes & 0x10) ? 0xFF49 : 0xFF48;
+        COLOUR col = get_colour(vm, colour_num, colour_address);
 
         if (col == WHITE)
           continue;
@@ -1183,8 +1181,9 @@ void render_sprites(GB *vm) {
         }
 
         int x_pix = x_pos + (x_flip ? tile_pixel : 7 - tile_pixel);
-        if (x_pix >= 0 && x_pix < 160 && scanline >= 0 && scanline < 144) {
-          set_pixel(vm, x_pix, scanline,
+        if (x_pix >= 0 && x_pix < 160 && vm->current_scanline >= 0 &&
+            vm->current_scanline < 144) {
+          set_pixel(vm, x_pix, vm->current_scanline,
                     (red << 24) | (green << 16) | (blue << 8) | 0xFF);
         }
       }

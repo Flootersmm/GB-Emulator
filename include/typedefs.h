@@ -6,32 +6,32 @@
 
 /// Cartridge type enum
 typedef enum {
-    ROM_ONLY = 0x00,
-    ROM_MBC1 = 0x01,
-    ROM_MBC1_RAM = 0x02,
-    ROM_MBC1_RAM_BATT = 0x03,
-    ROM_MBC2 = 0x05,
-    ROM_MBC2_BATT = 0x06,
-    ROM_RAM = 0x08,
-    ROM_RAM_BATT = 0x09,
-    ROM_MMM01 = 0x0B,
-    ROM_MMM01_SRAM = 0x0C,
-    ROM_MMM01_SRAM_BATT = 0x0D,
-    ROM_MBC3_TIMER_BATT = 0x0F,
-    ROM_MBC3_TIMER_RAM_BATT = 0x10,
-    ROM_MBC3 = 0x11,
-    ROM_MBC3_RAM = 0x12,
-    ROM_MBC3_RAM_BATT = 0x13,
-    ROM_MBC5 = 0x19,
-    ROM_MBC5_RAM = 0x1A,
-    ROM_MBC5_RAM_BATT = 0x1B,
-    ROM_MBC5_RUMBLE = 0x1C,
-    ROM_MBC5_RUMBLE_SRAM = 0x1D,
-    ROM_MBC5_RUMBLE_SRAM_BATT = 0x1E,
-    POCKET_CAMERA = 0x1F,
-    BANDAI_TAMA5 = 0xFD,
-    HUDSON_HUC3 = 0xFE,
-    HUDSON_HUC1 = 0xFF
+  ROM_ONLY = 0x00,
+  ROM_MBC1 = 0x01,
+  ROM_MBC1_RAM = 0x02,
+  ROM_MBC1_RAM_BATT = 0x03,
+  ROM_MBC2 = 0x05,
+  ROM_MBC2_BATT = 0x06,
+  ROM_RAM = 0x08,
+  ROM_RAM_BATT = 0x09,
+  ROM_MMM01 = 0x0B,
+  ROM_MMM01_SRAM = 0x0C,
+  ROM_MMM01_SRAM_BATT = 0x0D,
+  ROM_MBC3_TIMER_BATT = 0x0F,
+  ROM_MBC3_TIMER_RAM_BATT = 0x10,
+  ROM_MBC3 = 0x11,
+  ROM_MBC3_RAM = 0x12,
+  ROM_MBC3_RAM_BATT = 0x13,
+  ROM_MBC5 = 0x19,
+  ROM_MBC5_RAM = 0x1A,
+  ROM_MBC5_RAM_BATT = 0x1B,
+  ROM_MBC5_RUMBLE = 0x1C,
+  ROM_MBC5_RUMBLE_SRAM = 0x1D,
+  ROM_MBC5_RUMBLE_SRAM_BATT = 0x1E,
+  POCKET_CAMERA = 0x1F,
+  BANDAI_TAMA5 = 0xFD,
+  HUDSON_HUC3 = 0xFE,
+  HUDSON_HUC1 = 0xFF
 } CartridgeType;
 
 /// Licensee map
@@ -53,12 +53,11 @@ typedef int i32;
 typedef struct GB GB;
 
 typedef enum {
-    WHITE,
-    LIGHT_GRAY,
-    DARK_GRAY,
-    BLACK
+  WHITE = 0x9BBC0F,
+  LIGHT_GRAY = 0x8BAC0F,
+  DARK_GRAY = 0x306230,
+  BLACK = 0x0F380F
 } COLOUR;
-
 
 /// CGB flags
 typedef enum {
@@ -236,16 +235,16 @@ struct GB {
   ZPM zpm;
   VRAM vram;
   OPS op;
-  int timer_counter;          
-  int divider_counter;        
-  u8 tmc;                     
-  u8 divider_register;        
-  u8 tima;                    
+  int timer_counter;
+  int divider_counter;
+  u8 tmc;
+  u8 divider_register;
+  u8 tima;
   u8 tma;
   u32 cycles;
   u16 scanline_counter;
   u8 current_scanline;
-  u8 framebuffer[160 * 144 * 4]; 
+  COLOUR framebuffer[160 * 144];
   u8 joypad_state;
 };
 

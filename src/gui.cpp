@@ -293,6 +293,7 @@ void draw_window_crude_debug(GB *vm) {
                 (vm->r.f >> 6) & 1, (vm->r.f >> 5) & 1, (vm->r.f >> 4) & 1);
     u8 interrupt_flags = read_u8(vm, 0xFF0F);
     u8 interrupt_enable = read_u8(vm, 0xFFFF);
+    ImGui::Separator();
 
     ImGui::Text("Interrupts Requested: V-Blank:%d LCD:%d Timer:%d Joypad:%d",
                 (interrupt_flags >> 0) & 1,  // V-Blank
@@ -305,6 +306,7 @@ void draw_window_crude_debug(GB *vm) {
                 (interrupt_enable >> 1) & 1,  // LCD
                 (interrupt_enable >> 2) & 1,  // Timer
                 (interrupt_enable >> 4) & 1); // Joypad
+    ImGui::Separator();
 
     ImGui::Text("Timer Counter: %d", vm->timer_counter);
     ImGui::Text("Divider Counter: %d", vm->divider_counter);
@@ -314,6 +316,27 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::Text("TMA: $%02X", vm->tma);
     ImGui::Text("Cycles: %u", vm->cycles);
 
+    ImGui::Separator();
+    ImGui::Text("ScrollY (0xFF42): 0x%02X", vm->mem.data[0xFF42]);
+    ImGui::Text("ScrollX (0xFF43): 0x%02X", vm->mem.data[0xFF43]);
+    ImGui::Text("WindowY (0xFF4A): 0x%02X", vm->mem.data[0xFF4A]);
+    ImGui::Text("WindowX (0xFF4B): 0x%02X", vm->mem.data[0xFF4B]);
+
+    ImGui::Separator();
+    u8 lcd_control = vm->mem.data[0xFF40];
+    ImGui::Text("LCD Control Register: 0x%02X", lcd_control);
+
+    ImGui::Separator();
+
+    ImGui::Text("LCD Display Enable: %d", (lcd_control >> 7) & 0x01);
+    ImGui::Text("Window Tile Map Display Select: %d",
+                (lcd_control >> 6) & 0x01);
+    ImGui::Text("Window Display Enable: %d", (lcd_control >> 5) & 0x01);
+    ImGui::Text("BG & Window Tile Data Select: %d", (lcd_control >> 4) & 0x01);
+    ImGui::Text("BG Tile Map Display Select: %d", (lcd_control >> 3) & 0x01);
+    ImGui::Text("OBJ (Sprite) Size: %d", (lcd_control >> 2) & 0x01);
+    ImGui::Text("OBJ (Sprite) Display Enable: %d", (lcd_control >> 1) & 0x01);
+    ImGui::Text("BG Display: %d", lcd_control & 0x01);
     ImGui::TreePop();
   }
 
@@ -385,6 +408,7 @@ void draw_window_crude_debug(GB *vm) {
 
     ImGui::TreePop();
   }
+
   if (ImGui::Button("Step")) {
     {
       step_requested = true;
@@ -402,7 +426,6 @@ void draw_window_crude_debug(GB *vm) {
       vm->r.pc = static_cast<u16>(new_pc);
     }
   }
-  ImGui::SetCursorPosY((ImGui::GetWindowSize().y) - ImGui::GetFontSize() * 4);
   ImGui::SliderFloat("Font scale", &fontScale, 1.0f, 3.0f, "%.1f");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
               1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
