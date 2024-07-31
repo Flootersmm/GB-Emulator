@@ -1,733 +1,7 @@
 #include "gb.h"
-
-/// Uses a macro in gb.h to map strings to hex
-const char *cartridgeTypeStrings[] = {
-#define X(name, value, string) [value] = string,
-    CARTRIDGE_TYPE_LIST
-#undef X
-};
-
-const OPS ops[256] = {
-    {"NOP", 0, NO_OP, {.func_no_op = nop}},                    // 0x00
-    {"LD BC, 0x%04X", 2, U16_OP, {.func_u16_op = ld_bc_nn}},   // 0x01
-    {"LD (BC), A", 1, U8_OP, {.func_u8_op = ld_bc_a}},         // 0x02
-    {"INC BC", 0, NO_OP, {.func_no_op = inc_bc}},              // 0x03
-    {"INC B", 0, NO_OP, {.func_no_op = inc_b}},                // 0x04
-    {"DEC B", 0, NO_OP, {.func_no_op = dec_b}},                // 0x05
-    {"LD B, 0x%02X", 1, U8_OP, {.func_u8_op = ln_b_n}},        // 0x06
-    {"RLCA", 0, NO_OP, {.func_no_op = rlca}},                  // 0x07
-    {"LD (0x%04X), SP", 2, U16_OP, {.func_u16_op = ld_nn_sp}}, // 0x08
-    {"ADD HL, BC", 0, NO_OP, {.func_no_op = add_hl_bc}},       // 0x09
-    {"LD A, (BC)", 1, U8_OP, {.func_u8_op = ld_a_bc}},         // 0x0a
-    {"DEC BC", 0, NO_OP, {.func_no_op = dec_bc}},              // 0x0b
-    {"INC C", 0, NO_OP, {.func_no_op = inc_c}},                // 0x0c
-    {"DEC C", 0, NO_OP, {.func_no_op = dec_c}},                // 0x0d
-    {"LD C, 0x%02X", 1, U8_OP, {.func_u8_op = ln_c_n}},        // 0x0e
-    {"RRCA", 0, NO_OP, {.func_no_op = rrca}},                  // 0x0f
-    {"STOP", 0, NO_OP, {.func_no_op = stop}},                  // 0x10
-    {"LD DE, 0x%04X", 2, U16_OP, {.func_u16_op = ld_de_nn}},   // 0x11
-    {"LD (DE), A", 1, U8_OP, {.func_u8_op = ld_de_a}},         // 0x12
-    {"INC DE", 0, NO_OP, {.func_no_op = inc_de}},              // 0x13
-    {"INC D", 0, NO_OP, {.func_no_op = inc_d}},                // 0x14
-    {"DEC D", 0, NO_OP, {.func_no_op = dec_d}},                // 0x15
-    {"LD D, 0x%02X", 1, U8_OP, {.func_u8_op = ln_d_n}},        // 0x16
-    {"RLA", 0, NO_OP, {.func_no_op = rla}},                    // 0x17
-    {"JR 0x%02X", 1, U8_OP, {.func_u8_op = jr_n}},             // 0x18
-    {"ADD HL, DE", 0, NO_OP, {.func_no_op = add_hl_de}},       // 0x19
-    {"LD A, (DE)", 1, U8_OP, {.func_u8_op = ld_a_de}},         // 0x1a
-    {"DEC DE", 0, NO_OP, {.func_no_op = dec_de}},              // 0x1b
-    {"INC E", 0, NO_OP, {.func_no_op = inc_e}},                // 0x1c
-    {"DEC E", 0, NO_OP, {.func_no_op = dec_e}},                // 0x1d
-    {"LD E, 0x%02X", 1, U8_OP, {.func_u8_op = ln_e_n}},        // 0x1e
-    {"RRA", 0, NO_OP, {.func_no_op = rra}},                    // 0x1f
-    {"JR NZ, 0x%02X", 1, U8_OP, {.func_u8_op = jr_nz_n}},      // 0x20
-    {"LD HL, 0x%04X", 2, U16_OP, {.func_u16_op = ld_hl_nn}},   // 0x21
-    {"LDI (HL), A", 0, NO_OP, {.func_no_op = ld_hli_a}},       // 0x22
-    {"INC HL", 0, NO_OP, {.func_no_op = inc_hl_16}},           // 0x23
-    {"INC H", 0, NO_OP, {.func_no_op = inc_h}},                // 0x24
-    {"DEC H", 0, NO_OP, {.func_no_op = dec_h}},                // 0x25
-    {"LD H, 0x%02X", 1, U8_OP, {.func_u8_op = ln_h_n}},        // 0x26
-    {"DAA", 0, NO_OP, {.func_no_op = daa}},                    // 0x27
-    {"JR Z, 0x%02X", 1, U8_OP, {.func_u8_op = jr_z_n}},        // 0x28
-    {"ADD HL, HL", 0, NO_OP, {.func_no_op = add_hl_hl}},       // 0x29
-    {"LDI A, (HL)", 0, NO_OP, {.func_no_op = ld_a_hli}},       // 0x2a
-    {"DEC HL", 0, NO_OP, {.func_no_op = dec_hl_16}},           // 0x2b
-    {"INC L", 0, NO_OP, {.func_no_op = inc_l}},                // 0x2c
-    {"DEC L", 0, NO_OP, {.func_no_op = dec_l}},                // 0x2d
-    {"LD L, 0x%02X", 1, U8_OP, {.func_u8_op = ln_l_n}},        // 0x2e
-    {"CPL", 0, NO_OP, {.func_no_op = cpl}},                    // 0x2f
-    {"JR NC, 0x%02X", 1, U8_OP, {.func_u8_op = jr_nc_n}},      // 0x30
-    {"LD SP, 0x%04X", 2, U16_OP, {.func_u16_op = ld_sp_nn}},   // 0x31
-    {"LDD (HL), A", 0, NO_OP, {.func_no_op = ld_hld_a}},       // 0x32
-    {"INC SP", 0, NO_OP, {.func_no_op = inc_sp}},              // 0x33
-    {"INC (HL)", 0, NO_OP, {.func_no_op = inc_hl}},            // 0x34
-    {"DEC (HL)", 0, NO_OP, {.func_no_op = dec_hl}},            // 0x35
-    {"LD (HL), 0x%02X", 1, U8_OP, {.func_u8_op = ld_hl_n}},    // 0x36
-    {"SCF", 0, NO_OP, {.func_no_op = scf}},                    // 0x37
-    {"JR C, 0x%02X", 1, U8_OP, {.func_u8_op = jr_c_n}},        // 0x38
-    {"ADD HL, SP", 0, NO_OP, {.func_no_op = add_hl_sp}},       // 0x39
-    {"LDD A, (HL)", 0, NO_OP, {.func_no_op = ld_a_hld}},       // 0x3a
-    {"DEC SP", 0, NO_OP, {.func_no_op = dec_sp}},              // 0x3b
-    {"INC A", 0, NO_OP, {.func_no_op = inc_a}},                // 0x3c
-    {"DEC A", 0, NO_OP, {.func_no_op = dec_a}},                // 0x3d
-    {"LD A, 0x%02X", 1, U8_OP, {.func_u8_op = ld_a_n}},        // 0x3e
-    {"CCF", 0, NO_OP, {.func_no_op = ccf}},                    // 0x3f
-    {"LD B, B", 1, U8_OP, {.func_u8_op = ld_b_b}},             // 0x40
-    {"LD B, C", 1, U8_OP, {.func_u8_op = ld_b_c}},             // 0x41
-    {"LD B, D", 1, U8_OP, {.func_u8_op = ld_b_d}},             // 0x42
-    {"LD B, E", 1, U8_OP, {.func_u8_op = ld_b_e}},             // 0x43
-    {"LD B, H", 1, U8_OP, {.func_u8_op = ld_b_h}},             // 0x44
-    {"LD B, L", 1, U8_OP, {.func_u8_op = ld_b_l}},             // 0x45
-    {"LD B, (HL)", 1, U8_OP, {.func_u8_op = ld_b_hl}},         // 0x46
-    {"LD B, A", 1, U8_OP, {.func_u8_op = ld_b_a}},             // 0x47
-    {"LD C, B", 1, U8_OP, {.func_u8_op = ld_c_b}},             // 0x48
-    {"LD C, C", 1, U8_OP, {.func_u8_op = ld_c_c}},             // 0x49
-    {"LD C, D", 1, U8_OP, {.func_u8_op = ld_c_d}},             // 0x4a
-    {"LD C, E", 1, U8_OP, {.func_u8_op = ld_c_e}},             // 0x4b
-    {"LD C, H", 1, U8_OP, {.func_u8_op = ld_c_h}},             // 0x4c
-    {"LD C, L", 1, U8_OP, {.func_u8_op = ld_c_l}},             // 0x4d
-    {"LD C, (HL)", 1, U8_OP, {.func_u8_op = ld_c_hl}},         // 0x4e
-    {"LD C, A", 1, U8_OP, {.func_u8_op = ld_c_a}},             // 0x4f
-    {"LD D, B", 1, U8_OP, {.func_u8_op = ld_d_b}},             // 0x50
-    {"LD D, C", 1, U8_OP, {.func_u8_op = ld_d_c}},             // 0x51
-    {"LD D, D", 1, U8_OP, {.func_u8_op = ld_d_d}},             // 0x52
-    {"LD D, E", 1, U8_OP, {.func_u8_op = ld_d_e}},             // 0x53
-    {"LD D, H", 1, U8_OP, {.func_u8_op = ld_d_h}},             // 0x54
-    {"LD D, L", 1, U8_OP, {.func_u8_op = ld_d_l}},             // 0x55
-    {"LD D, (HL)", 1, U8_OP, {.func_u8_op = ld_d_hl}},         // 0x56
-    {"LD D, A", 1, U8_OP, {.func_u8_op = ld_d_a}},             // 0x57
-    {"LD E, B", 1, U8_OP, {.func_u8_op = ld_e_b}},             // 0x58
-    {"LD E, C", 1, U8_OP, {.func_u8_op = ld_e_c}},             // 0x59
-    {"LD E, D", 1, U8_OP, {.func_u8_op = ld_e_d}},             // 0x5a
-    {"LD E, E", 1, U8_OP, {.func_u8_op = ld_e_e}},             // 0x5b
-    {"LD E, H", 1, U8_OP, {.func_u8_op = ld_e_h}},             // 0x5c
-    {"LD E, L", 1, U8_OP, {.func_u8_op = ld_e_l}},             // 0x5d
-    {"LD E, (HL)", 1, U8_OP, {.func_u8_op = ld_e_hl}},         // 0x5e
-    {"LD E, A", 1, U8_OP, {.func_u8_op = ld_e_a}},             // 0x5f
-    {"LD H, B", 1, U8_OP, {.func_u8_op = ld_h_b}},             // 0x60
-    {"LD H, C", 1, U8_OP, {.func_u8_op = ld_h_c}},             // 0x61
-    {"LD H, D", 1, U8_OP, {.func_u8_op = ld_h_d}},             // 0x62
-    {"LD H, E", 1, U8_OP, {.func_u8_op = ld_h_e}},             // 0x63
-    {"LD H, H", 1, U8_OP, {.func_u8_op = ld_h_h}},             // 0x64
-    {"LD H, L", 1, U8_OP, {.func_u8_op = ld_h_l}},             // 0x65
-    {"LD H, (HL)", 1, U8_OP, {.func_u8_op = ld_h_hl}},         // 0x66
-    {"LD H, A", 1, U8_OP, {.func_u8_op = ld_h_a}},             // 0x67
-    {"LD L, B", 1, U8_OP, {.func_u8_op = ld_l_b}},             // 0x68
-    {"LD L, C", 1, U8_OP, {.func_u8_op = ld_l_c}},             // 0x69
-    {"LD L, D", 1, U8_OP, {.func_u8_op = ld_l_d}},             // 0x6a
-    {"LD L, E", 1, U8_OP, {.func_u8_op = ld_l_e}},             // 0x6b
-    {"LD L, H", 1, U8_OP, {.func_u8_op = ld_l_h}},             // 0x6c
-    {"LD L, L", 1, U8_OP, {.func_u8_op = ld_l_l}},             // 0x6d
-    {"LD L, (HL)", 1, U8_OP, {.func_u8_op = ld_l_hl}},         // 0x6e
-    {"LD L, A", 1, U8_OP, {.func_u8_op = ld_l_a}},             // 0x6f
-    {"LD (HL), B", 1, U8_OP, {.func_u8_op = ld_hl_b}},         // 0x70
-    {"LD (HL), C", 1, U8_OP, {.func_u8_op = ld_hl_c}},         // 0x71
-    {"LD (HL), D", 1, U8_OP, {.func_u8_op = ld_hl_d}},         // 0x72
-    {"LD (HL), E", 1, U8_OP, {.func_u8_op = ld_hl_e}},         // 0x73
-    {"LD (HL), H", 1, U8_OP, {.func_u8_op = ld_hl_h}},         // 0x74
-    {"LD (HL), L", 1, U8_OP, {.func_u8_op = ld_hl_l}},         // 0x75
-    {"HALT", 0, NO_OP, {.func_no_op = halt}},                  // 0x76
-    {"LD (HL), A", 1, U8_OP, {.func_u8_op = ld_hl_a}},         // 0x77
-    {"LD A, B", 1, U8_OP, {.func_u8_op = ld_a_b}},             // 0x78
-    {"LD A, C", 1, U8_OP, {.func_u8_op = ld_a_c}},             // 0x79
-    {"LD A, D", 1, U8_OP, {.func_u8_op = ld_a_d}},             // 0x7a
-    {"LD A, E", 1, U8_OP, {.func_u8_op = ld_a_e}},             // 0x7b
-    {"LD A, H", 1, U8_OP, {.func_u8_op = ld_a_h}},             // 0x7c
-    {"LD A, L", 1, U8_OP, {.func_u8_op = ld_a_l}},             // 0x7d
-    {"LD A, (HL)", 1, U8_OP, {.func_u8_op = ld_a_hl}},         // 0x7e
-    {"LD A, A", 1, U8_OP, {.func_u8_op = ld_a_a}},             // 0x7f
-    {"ADD A, B", 0, NO_OP, {.func_no_op = add_a_b}},           // 0x80
-    {"ADD A, C", 0, NO_OP, {.func_no_op = add_a_c}},           // 0x81
-    {"ADD A, D", 0, NO_OP, {.func_no_op = add_a_d}},           // 0x82
-    {"ADD A, E", 0, NO_OP, {.func_no_op = add_a_e}},           // 0x83
-    {"ADD A, H", 0, NO_OP, {.func_no_op = add_a_h}},           // 0x84
-    {"ADD A, L", 0, NO_OP, {.func_no_op = add_a_l}},           // 0x85
-    {"ADD A, (HL)", 0, NO_OP, {.func_no_op = add_a_hl}},       // 0x86
-    {"ADD A, A", 0, NO_OP, {.func_no_op = add_a_a}},           // 0x87
-    {"ADC A, B", 0, NO_OP, {.func_no_op = adc_a_b}},           // 0x88
-    {"ADC A, C", 0, NO_OP, {.func_no_op = adc_a_c}},           // 0x89
-    {"ADC A, D", 0, NO_OP, {.func_no_op = adc_a_d}},           // 0x8a
-    {"ADC A, E", 0, NO_OP, {.func_no_op = adc_a_e}},           // 0x8b
-    {"ADC A, H", 0, NO_OP, {.func_no_op = adc_a_h}},           // 0x8c
-    {"ADC A, L", 0, NO_OP, {.func_no_op = adc_a_l}},           // 0x8d
-    {"ADC A, (HL)", 0, NO_OP, {.func_no_op = adc_a_hl}},       // 0x8e
-    {"ADC A, A", 0, NO_OP, {.func_no_op = adc_a_a}},           // 0x8f
-    {"SUB B", 0, NO_OP, {.func_no_op = sub_b}},                // 0x90
-    {"SUB C", 0, NO_OP, {.func_no_op = sub_c}},                // 0x91
-    {"SUB D", 0, NO_OP, {.func_no_op = sub_d}},                // 0x92
-    {"SUB E", 0, NO_OP, {.func_no_op = sub_e}},                // 0x93
-    {"SUB H", 0, NO_OP, {.func_no_op = sub_h}},                // 0x94
-    {"SUB L", 0, NO_OP, {.func_no_op = sub_l}},                // 0x95
-    {"SUB (HL)", 0, NO_OP, {.func_no_op = sub_hl}},            // 0x96
-    {"SUB A", 0, NO_OP, {.func_no_op = sub_a}},                // 0x97
-    {"SBC A, B", 1, U8_OP, {.func_u8_op = sbc_a_b}},           // 0x98
-    {"SBC A, C", 1, U8_OP, {.func_u8_op = sbc_a_c}},           // 0x99
-    {"SBC A, D", 1, U8_OP, {.func_u8_op = sbc_a_d}},           // 0x9a
-    {"SBC A, E", 1, U8_OP, {.func_u8_op = sbc_a_e}},           // 0x9b
-    {"SBC A, H", 1, U8_OP, {.func_u8_op = sbc_a_h}},           // 0x9c
-    {"SBC A, L", 1, U8_OP, {.func_u8_op = sbc_a_l}},           // 0x9d
-    {"SBC A, (HL)", 1, U8_OP, {.func_u8_op = sbc_a_hl}},       // 0x9e
-    {"SBC A, A", 1, U8_OP, {.func_u8_op = sbc_a_a}},           // 0x9f
-    {"AND B", 0, NO_OP, {.func_no_op = and_b}},                // 0xa0
-    {"AND C", 0, NO_OP, {.func_no_op = and_c}},                // 0xa1
-    {"AND D", 0, NO_OP, {.func_no_op = and_d}},                // 0xa2
-    {"AND E", 0, NO_OP, {.func_no_op = and_e}},                // 0xa3
-    {"AND H", 0, NO_OP, {.func_no_op = and_h}},                // 0xa4
-    {"AND L", 0, NO_OP, {.func_no_op = and_l}},                // 0xa5
-    {"AND (HL)", 0, NO_OP, {.func_no_op = and_hl}},            // 0xa6
-    {"AND A", 0, NO_OP, {.func_no_op = and_a}},                // 0xa7
-    {"XOR B", 0, NO_OP, {.func_no_op = xor_b}},                // 0xa8
-    {"XOR C", 0, NO_OP, {.func_no_op = xor_c}},                // 0xa9
-    {"XOR D", 0, NO_OP, {.func_no_op = xor_d}},                // 0xaa
-    {"XOR E", 0, NO_OP, {.func_no_op = xor_e}},                // 0xab
-    {"XOR H", 0, NO_OP, {.func_no_op = xor_h}},                // 0xac
-    {"XOR L", 0, NO_OP, {.func_no_op = xor_l}},                // 0xad
-    {"XOR (HL)", 0, NO_OP, {.func_no_op = xor_hl}},            // 0xae
-    {"XOR A", 0, NO_OP, {.func_no_op = xor_a}},                // 0xaf
-    {"OR B", 0, NO_OP, {.func_no_op = or_b}},                  // 0xb0
-    {"OR C", 0, NO_OP, {.func_no_op = or_c}},                  // 0xb1
-    {"OR D", 0, NO_OP, {.func_no_op = or_d}},                  // 0xb2
-    {"OR E", 0, NO_OP, {.func_no_op = or_e}},                  // 0xb3
-    {"OR H", 0, NO_OP, {.func_no_op = or_h}},                  // 0xb4
-    {"OR L", 0, NO_OP, {.func_no_op = or_l}},                  // 0xb5
-    {"OR (HL)", 0, NO_OP, {.func_no_op = or_hl}},              // 0xb6
-    {"OR A", 0, NO_OP, {.func_no_op = or_a}},                  // 0xb7
-    {"CP B", 0, NO_OP, {.func_no_op = cp_b}},                  // 0xb8
-    {"CP C", 0, NO_OP, {.func_no_op = cp_c}},                  // 0xb9
-    {"CP D", 0, NO_OP, {.func_no_op = cp_d}},                  // 0xba
-    {"CP E", 0, NO_OP, {.func_no_op = cp_e}},                  // 0xbb
-    {"CP H", 0, NO_OP, {.func_no_op = cp_h}},                  // 0xbc
-    {"CP L", 0, NO_OP, {.func_no_op = cp_l}},                  // 0xbd
-    {"CP (HL)", 0, NO_OP, {.func_no_op = cp_hl}},              // 0xbe
-    {"CP A", 0, NO_OP, {.func_no_op = cp_a}},                  // 0xbf
-    {"RET NZ", 0, NO_OP, {.func_no_op = ret_nz}},              // 0xc0
-    {"POP BC", 0, NO_OP, {.func_no_op = pop_bc}},              // 0xc1
-    {"JP NZ, nn", 2, U16_OP, {.func_u16_op = jp_nz_nn}},       // 0xc2
-    {"JP nn", 2, U16_OP, {.func_u16_op = jp_nn}},              // 0xc3
-    {"CALL NZ, nn", 2, U16_OP, {.func_u16_op = call_nz_nn}},   // 0xc4
-    {"PUSH BC", 0, NO_OP, {.func_no_op = push_bc}},            // 0xc5
-    {"ADD A, n", 1, U8_OP, {.func_u8_op = add_a_n}},           // 0xc6
-    {"RST 0", 0, NO_OP, {.func_no_op = rst_00}},               // 0xc7
-    {"RET Z", 0, NO_OP, {.func_no_op = ret_z}},                // 0xc8
-    {"RET", 0, NO_OP, {.func_no_op = ret}},                    // 0xc9
-    {"JP Z, nn", 2, U16_OP, {.func_u16_op = jp_z_nn}},         // 0xca
-    {"CALL Z, nn", 2, U16_OP, {.func_u16_op = call_z_nn}},     // 0xcc
-    {"CALL nn", 2, U16_OP, {.func_u16_op = call_nn}},          // 0xcd
-    {"ADC A, n", 1, U8_OP, {.func_u8_op = adc_a_n}},           // 0xce
-    {"RST 8", 0, NO_OP, {.func_no_op = rst_08}},               // 0xcf
-    {"RET NC", 0, NO_OP, {.func_no_op = ret_nc}},              // 0xd0
-    {"POP DE", 0, NO_OP, {.func_no_op = pop_de}},              // 0xd1
-    {"JP NC, nn", 2, U16_OP, {.func_u16_op = jp_nc_nn}},       // 0xd2
-    {"UNKNOWN", 0, NO_OP, {.func_no_op = nop}},                // 0xd3
-    {"CALL NC, nn", 2, U16_OP, {.func_u16_op = call_nc_nn}},   // 0xd4
-    {"PUSH DE", 0, NO_OP, {.func_no_op = push_de}},            // 0xd5
-    {"SUB n", 1, U8_OP, {.func_u8_op = sub_n}},                // 0xd6
-    {"RST 10", 0, NO_OP, {.func_no_op = rst_10}},              // 0xd7
-    {"RET C", 0, NO_OP, {.func_no_op = ret_c}},                // 0xd8
-    {"RETI", 0, NO_OP, {.func_no_op = reti}},                  // 0xd9
-    {"JP C, nn", 2, U16_OP, {.func_u16_op = jp_c_nn}},         // 0xda
-    {"UNKNOWN", 0, NO_OP, {.func_no_op = nop}},                // 0xdb
-    {"CALL C, nn", 2, U16_OP, {.func_u16_op = call_c_nn}},     // 0xdc
-    {"SBC A, n", 1, U8_OP, {.func_u8_op = sbc_a_n}},           // 0xde
-    {"RST 18", 0, NO_OP, {.func_no_op = rst_18}},              // 0xdf
-    {"LD (nn), SP", 2, U16_OP, {.func_u16_op = ld_nn_sp}},     // 0xe8
-    {"LD HL, (nn)", 2, U16_OP, {.func_u16_op = ld_hl_nn}},     // 0xea
-    {"LD (nn), A", 2, U16_OP, {.func_u16_op = ld_nn_a}},       // 0xed
-    {"XOR n", 1, U8_OP, {.func_u8_op = xor_n}},                // 0xee
-    {"RST 28", 0, NO_OP, {.func_no_op = rst_28}},              // 0xef
-    {"LD SP, HL", 0, NO_OP, {.func_no_op = ld_sp_hl}},         // 0xf9
-    {"LD HL, SP+n", 1, U8_OP, {.func_u8_op = ld_hl_sp_n}},     // 0xfa
-    {"LD A, (nn)", 2, U16_OP, {.func_u16_op = ld_a_nn}},       // 0xfc
-    {"DI", 0, NO_OP, {.func_no_op = di}},                      // 0xfd
-    {"CP n", 1, U8_OP, {.func_u8_op = cp_n}},                  // 0xfe
-    {"RST 38", 0, NO_OP, {.func_no_op = rst_38}},              // 0xff
-};
-
-const OPS_extended ops_extended[256] = {
-    {"RLC B", 0, NO_OP, {.func_no_op = rlc_b}},           // 0x00
-    {"RLC C", 0, NO_OP, {.func_no_op = rlc_c}},           // 0x01
-    {"RLC D", 0, NO_OP, {.func_no_op = rlc_d}},           // 0x02
-    {"RLC E", 0, NO_OP, {.func_no_op = rlc_e}},           // 0x03
-    {"RLC H", 0, NO_OP, {.func_no_op = rlc_h}},           // 0x04
-    {"RLC L", 0, NO_OP, {.func_no_op = rlc_l}},           // 0x05
-    {"RLC (HL)", 0, NO_OP, {.func_no_op = rlc_hl}},       // 0x06
-    {"RLC A", 0, NO_OP, {.func_no_op = rlc_a}},           // 0x07
-    {"RRC B", 0, NO_OP, {.func_no_op = rrc_b}},           // 0x08
-    {"RRC C", 0, NO_OP, {.func_no_op = rrc_c}},           // 0x09
-    {"RRC D", 0, NO_OP, {.func_no_op = rrc_d}},           // 0x0a
-    {"RRC E", 0, NO_OP, {.func_no_op = rrc_e}},           // 0x0b
-    {"RRC H", 0, NO_OP, {.func_no_op = rrc_h}},           // 0x0c
-    {"RRC L", 0, NO_OP, {.func_no_op = rrc_l}},           // 0x0d
-    {"RRC (HL)", 0, NO_OP, {.func_no_op = rrc_hl}},       // 0x0e
-    {"RRC A", 0, NO_OP, {.func_no_op = rrc_a}},           // 0x0f
-    {"RL B", 0, NO_OP, {.func_no_op = rl_b}},             // 0x10
-    {"RL C", 0, NO_OP, {.func_no_op = rl_c}},             // 0x11
-    {"RL D", 0, NO_OP, {.func_no_op = rl_d}},             // 0x12
-    {"RL E", 0, NO_OP, {.func_no_op = rl_e}},             // 0x13
-    {"RL H", 0, NO_OP, {.func_no_op = rl_h}},             // 0x14
-    {"RL L", 0, NO_OP, {.func_no_op = rl_l}},             // 0x15
-    {"RL (HL)", 0, NO_OP, {.func_no_op = rl_hl}},         // 0x16
-    {"RL A", 0, NO_OP, {.func_no_op = rl_a}},             // 0x17
-    {"RR B", 0, NO_OP, {.func_no_op = rr_b}},             // 0x18
-    {"RR C", 0, NO_OP, {.func_no_op = rr_c}},             // 0x19
-    {"RR D", 0, NO_OP, {.func_no_op = rr_d}},             // 0x1a
-    {"RR E", 0, NO_OP, {.func_no_op = rr_e}},             // 0x1b
-    {"RR H", 0, NO_OP, {.func_no_op = rr_h}},             // 0x1c
-    {"RR L", 0, NO_OP, {.func_no_op = rr_l}},             // 0x1d
-    {"RR (HL)", 0, NO_OP, {.func_no_op = rr_hl}},         // 0x1e
-    {"RR A", 0, NO_OP, {.func_no_op = rr_a}},             // 0x1f
-    {"SLA B", 0, NO_OP, {.func_no_op = sla_b}},           // 0x20
-    {"SLA C", 0, NO_OP, {.func_no_op = sla_c}},           // 0x21
-    {"SLA D", 0, NO_OP, {.func_no_op = sla_d}},           // 0x22
-    {"SLA E", 0, NO_OP, {.func_no_op = sla_e}},           // 0x23
-    {"SLA H", 0, NO_OP, {.func_no_op = sla_h}},           // 0x24
-    {"SLA L", 0, NO_OP, {.func_no_op = sla_l}},           // 0x25
-    {"SLA (HL)", 0, NO_OP, {.func_no_op = sla_hl}},       // 0x26
-    {"SLA A", 0, NO_OP, {.func_no_op = sla_a}},           // 0x27
-    {"SRA B", 0, NO_OP, {.func_no_op = sra_b}},           // 0x28
-    {"SRA C", 0, NO_OP, {.func_no_op = sra_c}},           // 0x29
-    {"SRA D", 0, NO_OP, {.func_no_op = sra_d}},           // 0x2a
-    {"SRA E", 0, NO_OP, {.func_no_op = sra_e}},           // 0x2b
-    {"SRA H", 0, NO_OP, {.func_no_op = sra_h}},           // 0x2c
-    {"SRA L", 0, NO_OP, {.func_no_op = sra_l}},           // 0x2d
-    {"SRA (HL)", 0, NO_OP, {.func_no_op = sra_hl}},       // 0x2e
-    {"SRA A", 0, NO_OP, {.func_no_op = sra_a}},           // 0x2f
-    {"SWAP B", 0, NO_OP, {.func_no_op = swap_b}},         // 0x30
-    {"SWAP C", 0, NO_OP, {.func_no_op = swap_c}},         // 0x31
-    {"SWAP D", 0, NO_OP, {.func_no_op = swap_d}},         // 0x32
-    {"SWAP E", 0, NO_OP, {.func_no_op = swap_e}},         // 0x33
-    {"SWAP H", 0, NO_OP, {.func_no_op = swap_h}},         // 0x34
-    {"SWAP L", 0, NO_OP, {.func_no_op = swap_l}},         // 0x35
-    {"SWAP (HL)", 0, NO_OP, {.func_no_op = swap_hl}},     // 0x36
-    {"SWAP A", 0, NO_OP, {.func_no_op = swap_a}},         // 0x37
-    {"SRL B", 0, NO_OP, {.func_no_op = srl_b}},           // 0x38
-    {"SRL C", 0, NO_OP, {.func_no_op = srl_c}},           // 0x39
-    {"SRL D", 0, NO_OP, {.func_no_op = srl_d}},           // 0x3a
-    {"SRL E", 0, NO_OP, {.func_no_op = srl_e}},           // 0x3b
-    {"SRL H", 0, NO_OP, {.func_no_op = srl_h}},           // 0x3c
-    {"SRL L", 0, NO_OP, {.func_no_op = srl_l}},           // 0x3d
-    {"SRL (HL)", 0, NO_OP, {.func_no_op = srl_hl}},       // 0x3e
-    {"SRL A", 0, NO_OP, {.func_no_op = srl_a}},           // 0x3f
-    {"BIT 0, B", 0, NO_OP, {.func_no_op = bit_0_b}},      // 0x40
-    {"BIT 0, C", 0, NO_OP, {.func_no_op = bit_0_c}},      // 0x41
-    {"BIT 0, D", 0, NO_OP, {.func_no_op = bit_0_d}},      // 0x42
-    {"BIT 0, E", 0, NO_OP, {.func_no_op = bit_0_e}},      // 0x43
-    {"BIT 0, H", 0, NO_OP, {.func_no_op = bit_0_h}},      // 0x44
-    {"BIT 0, L", 0, NO_OP, {.func_no_op = bit_0_l}},      // 0x45
-    {"BIT 0, (HL)", 0, NO_OP, {.func_no_op = bit_0_hlp}}, // 0x46
-    {"BIT 0, A", 0, NO_OP, {.func_no_op = bit_0_a}},      // 0x47
-    {"BIT 1, B", 0, NO_OP, {.func_no_op = bit_1_b}},      // 0x48
-    {"BIT 1, C", 0, NO_OP, {.func_no_op = bit_1_c}},      // 0x49
-    {"BIT 1, D", 0, NO_OP, {.func_no_op = bit_1_d}},      // 0x4a
-    {"BIT 1, E", 0, NO_OP, {.func_no_op = bit_1_e}},      // 0x4b
-    {"BIT 1, H", 0, NO_OP, {.func_no_op = bit_1_h}},      // 0x4c
-    {"BIT 1, L", 0, NO_OP, {.func_no_op = bit_1_l}},      // 0x4d
-    {"BIT 1, (HL)", 0, NO_OP, {.func_no_op = bit_1_hlp}}, // 0x4e
-    {"BIT 1, A", 0, NO_OP, {.func_no_op = bit_1_a}},      // 0x4f
-    {"BIT 2, B", 0, NO_OP, {.func_no_op = bit_2_b}},      // 0x50
-    {"BIT 2, C", 0, NO_OP, {.func_no_op = bit_2_c}},      // 0x51
-    {"BIT 2, D", 0, NO_OP, {.func_no_op = bit_2_d}},      // 0x52
-    {"BIT 2, E", 0, NO_OP, {.func_no_op = bit_2_e}},      // 0x53
-    {"BIT 2, H", 0, NO_OP, {.func_no_op = bit_2_h}},      // 0x54
-    {"BIT 2, L", 0, NO_OP, {.func_no_op = bit_2_l}},      // 0x55
-    {"BIT 2, (HL)", 0, NO_OP, {.func_no_op = bit_2_hlp}}, // 0x56
-    {"BIT 2, A", 0, NO_OP, {.func_no_op = bit_2_a}},      // 0x57
-    {"BIT 3, B", 0, NO_OP, {.func_no_op = bit_3_b}},      // 0x58
-    {"BIT 3, C", 0, NO_OP, {.func_no_op = bit_3_c}},      // 0x59
-    {"BIT 3, D", 0, NO_OP, {.func_no_op = bit_3_d}},      // 0x5a
-    {"BIT 3, E", 0, NO_OP, {.func_no_op = bit_3_e}},      // 0x5b
-    {"BIT 3, H", 0, NO_OP, {.func_no_op = bit_3_h}},      // 0x5c
-    {"BIT 3, L", 0, NO_OP, {.func_no_op = bit_3_l}},      // 0x5d
-    {"BIT 3, (HL)", 0, NO_OP, {.func_no_op = bit_3_hlp}}, // 0x5e
-    {"BIT 3, A", 0, NO_OP, {.func_no_op = bit_3_a}},      // 0x5f
-    {"BIT 4, B", 0, NO_OP, {.func_no_op = bit_4_b}},      // 0x60
-    {"BIT 4, C", 0, NO_OP, {.func_no_op = bit_4_c}},      // 0x61
-    {"BIT 4, D", 0, NO_OP, {.func_no_op = bit_4_d}},      // 0x62
-    {"BIT 4, E", 0, NO_OP, {.func_no_op = bit_4_e}},      // 0x63
-    {"BIT 4, H", 0, NO_OP, {.func_no_op = bit_4_h}},      // 0x64
-    {"BIT 4, L", 0, NO_OP, {.func_no_op = bit_4_l}},      // 0x65
-    {"BIT 4, (HL)", 0, NO_OP, {.func_no_op = bit_4_hlp}}, // 0x66
-    {"BIT 4, A", 0, NO_OP, {.func_no_op = bit_4_a}},      // 0x67
-    {"BIT 5, B", 0, NO_OP, {.func_no_op = bit_5_b}},      // 0x68
-    {"BIT 5, C", 0, NO_OP, {.func_no_op = bit_5_c}},      // 0x69
-    {"BIT 5, D", 0, NO_OP, {.func_no_op = bit_5_d}},      // 0x6a
-    {"BIT 5, E", 0, NO_OP, {.func_no_op = bit_5_e}},      // 0x6b
-    {"BIT 6, H", 0, NO_OP, {.func_no_op = bit_5_h}},      // 0x6c
-    {"BIT 6, L", 0, NO_OP, {.func_no_op = bit_5_l}},      // 0x6d
-    {"BIT 5, (HL)", 0, NO_OP, {.func_no_op = bit_5_hlp}}, // 0x6e
-    {"BIT 5, A", 0, NO_OP, {.func_no_op = bit_5_a}},      // 0x6f
-    {"BIT 6, B", 0, NO_OP, {.func_no_op = bit_6_b}},      // 0x70
-    {"BIT 6, C", 0, NO_OP, {.func_no_op = bit_6_c}},      // 0x71
-    {"BIT 6, D", 0, NO_OP, {.func_no_op = bit_6_d}},      // 0x72
-    {"BIT 6, E", 0, NO_OP, {.func_no_op = bit_6_e}},      // 0x73
-    {"BIT 6, H", 0, NO_OP, {.func_no_op = bit_6_h}},      // 0x74
-    {"BIT 6, L", 0, NO_OP, {.func_no_op = bit_6_l}},      // 0x75
-    {"BIT 6, (HL)", 0, NO_OP, {.func_no_op = bit_6_hlp}}, // 0x76
-    {"BIT 6, A", 0, NO_OP, {.func_no_op = bit_6_a}},      // 0x77
-    {"BIT 7, B", 0, NO_OP, {.func_no_op = bit_7_b}},      // 0x78
-    {"BIT 7, C", 0, NO_OP, {.func_no_op = bit_7_c}},      // 0x79
-    {"BIT 7, D", 0, NO_OP, {.func_no_op = bit_7_d}},      // 0x7a
-    {"BIT 7, E", 0, NO_OP, {.func_no_op = bit_7_e}},      // 0x7b
-    {"BIT 7, H", 0, NO_OP, {.func_no_op = bit_7_h}},      // 0x7c
-    {"BIT 7, L", 0, NO_OP, {.func_no_op = bit_7_l}},      // 0x7d
-    {"BIT 7, (HL)", 0, NO_OP, {.func_no_op = bit_7_hlp}}, // 0x7e
-    {"BIT 7, A", 0, NO_OP, {.func_no_op = bit_7_a}},      // 0x7f
-    {"RES 0, B", 0, NO_OP, {.func_no_op = res_0_b}},      // 0x80
-    {"RES 0, C", 0, NO_OP, {.func_no_op = res_0_c}},      // 0x81
-    {"RES 0, D", 0, NO_OP, {.func_no_op = res_0_d}},      // 0x82
-    {"RES 0, E", 0, NO_OP, {.func_no_op = res_0_e}},      // 0x83
-    {"RES 0, H", 0, NO_OP, {.func_no_op = res_0_h}},      // 0x84
-    {"RES 0, L", 0, NO_OP, {.func_no_op = res_0_l}},      // 0x85
-    {"RES 0, (HL)", 0, NO_OP, {.func_no_op = res_0_hlp}}, // 0x86
-    {"RES 0, A", 0, NO_OP, {.func_no_op = res_0_a}},      // 0x87
-    {"RES 1, B", 0, NO_OP, {.func_no_op = res_1_b}},      // 0x88
-    {"RES 1, C", 0, NO_OP, {.func_no_op = res_1_c}},      // 0x89
-    {"RES 1, D", 0, NO_OP, {.func_no_op = res_1_d}},      // 0x8a
-    {"RES 1, E", 0, NO_OP, {.func_no_op = res_1_e}},      // 0x8b
-    {"RES 1, H", 0, NO_OP, {.func_no_op = res_1_h}},      // 0x8c
-    {"RES 1, L", 0, NO_OP, {.func_no_op = res_1_l}},      // 0x8d
-    {"RES 1, (HL)", 0, NO_OP, {.func_no_op = res_1_hlp}}, // 0x8e
-    {"RES 1, A", 0, NO_OP, {.func_no_op = res_1_a}},      // 0x8f
-    {"RES 2, B", 0, NO_OP, {.func_no_op = res_2_b}},      // 0x90
-    {"RES 2, C", 0, NO_OP, {.func_no_op = res_2_c}},      // 0x91
-    {"RES 2, D", 0, NO_OP, {.func_no_op = res_2_d}},      // 0x92
-    {"RES 2, E", 0, NO_OP, {.func_no_op = res_2_e}},      // 0x93
-    {"RES 2, H", 0, NO_OP, {.func_no_op = res_2_h}},      // 0x94
-    {"RES 2, L", 0, NO_OP, {.func_no_op = res_2_l}},      // 0x95
-    {"RES 2, (HL)", 0, NO_OP, {.func_no_op = res_2_hlp}}, // 0x96
-    {"RES 2, A", 0, NO_OP, {.func_no_op = res_2_a}},      // 0x97
-    {"RES 3, B", 0, NO_OP, {.func_no_op = res_3_b}},      // 0x98
-    {"RES 3, C", 0, NO_OP, {.func_no_op = res_3_c}},      // 0x99
-    {"RES 3, D", 0, NO_OP, {.func_no_op = res_3_d}},      // 0x9a
-    {"RES 3, E", 0, NO_OP, {.func_no_op = res_3_e}},      // 0x9b
-    {"RES 3, H", 0, NO_OP, {.func_no_op = res_3_h}},      // 0x9c
-    {"RES 3, L", 0, NO_OP, {.func_no_op = res_3_l}},      // 0x9d
-    {"RES 3, (HL)", 0, NO_OP, {.func_no_op = res_3_hlp}}, // 0x9e
-    {"RES 3, A", 0, NO_OP, {.func_no_op = res_3_a}},      // 0x9f
-    {"RES 4, B", 0, NO_OP, {.func_no_op = res_4_b}},      // 0xa0
-    {"RES 4, C", 0, NO_OP, {.func_no_op = res_4_c}},      // 0xa1
-    {"RES 4, D", 0, NO_OP, {.func_no_op = res_4_d}},      // 0xa2
-    {"RES 4, E", 0, NO_OP, {.func_no_op = res_4_e}},      // 0xa3
-    {"RES 4, H", 0, NO_OP, {.func_no_op = res_4_h}},      // 0xa4
-    {"RES 4, L", 0, NO_OP, {.func_no_op = res_4_l}},      // 0xa5
-    {"RES 4, (HL)", 0, NO_OP, {.func_no_op = res_4_hlp}}, // 0xa6
-    {"RES 4, A", 0, NO_OP, {.func_no_op = res_4_a}},      // 0xa7
-    {"RES 5, B", 0, NO_OP, {.func_no_op = res_5_b}},      // 0xa8
-    {"RES 5, C", 0, NO_OP, {.func_no_op = res_5_c}},      // 0xa9
-    {"RES 5, D", 0, NO_OP, {.func_no_op = res_5_d}},      // 0xaa
-    {"RES 5, E", 0, NO_OP, {.func_no_op = res_5_e}},      // 0xab
-    {"RES 5, H", 0, NO_OP, {.func_no_op = res_5_h}},      // 0xac
-    {"RES 5, L", 0, NO_OP, {.func_no_op = res_5_l}},      // 0xad
-    {"RES 5, (HL)", 0, NO_OP, {.func_no_op = res_5_hlp}}, // 0xae
-    {"RES 5, A", 0, NO_OP, {.func_no_op = res_5_a}},      // 0xaf
-    {"RES 6, B", 0, NO_OP, {.func_no_op = res_6_b}},      // 0xb0
-    {"RES 6, C", 0, NO_OP, {.func_no_op = res_6_c}},      // 0xb1
-    {"RES 6, D", 0, NO_OP, {.func_no_op = res_6_d}},      // 0xb2
-    {"RES 6, E", 0, NO_OP, {.func_no_op = res_6_e}},      // 0xb3
-    {"RES 6, H", 0, NO_OP, {.func_no_op = res_6_h}},      // 0xb4
-    {"RES 6, L", 0, NO_OP, {.func_no_op = res_6_l}},      // 0xb5
-    {"RES 6, (HL)", 0, NO_OP, {.func_no_op = res_6_hlp}}, // 0xb6
-    {"RES 6, A", 0, NO_OP, {.func_no_op = res_6_a}},      // 0xb7
-    {"RES 7, B", 0, NO_OP, {.func_no_op = res_7_b}},      // 0xb8
-    {"RES 7, C", 0, NO_OP, {.func_no_op = res_7_c}},      // 0xb9
-    {"RES 7, D", 0, NO_OP, {.func_no_op = res_7_d}},      // 0xba
-    {"RES 7, E", 0, NO_OP, {.func_no_op = res_7_e}},      // 0xbb
-    {"RES 7, H", 0, NO_OP, {.func_no_op = res_7_h}},      // 0xbc
-    {"RES 7, L", 0, NO_OP, {.func_no_op = res_7_l}},      // 0xbd
-    {"RES 7, (HL)", 0, NO_OP, {.func_no_op = res_7_hlp}}, // 0xbe
-    {"RES 7, A", 0, NO_OP, {.func_no_op = res_7_a}},      // 0xbf
-    {"SET 0, B", 0, NO_OP, {.func_no_op = set_0_b}},      // 0xc0
-    {"SET 0, C", 0, NO_OP, {.func_no_op = set_0_c}},      // 0xc1
-    {"SET 0, D", 0, NO_OP, {.func_no_op = set_0_d}},      // 0xc2
-    {"SET 0, E", 0, NO_OP, {.func_no_op = set_0_e}},      // 0xc3
-    {"SET 0, H", 0, NO_OP, {.func_no_op = set_0_h}},      // 0xc4
-    {"SET 0, L", 0, NO_OP, {.func_no_op = set_0_l}},      // 0xc5
-    {"SET 0, (HL)", 0, NO_OP, {.func_no_op = set_0_hlp}}, // 0xc6
-    {"SET 0, A", 0, NO_OP, {.func_no_op = set_0_a}},      // 0xc7
-    {"SET 1, B", 0, NO_OP, {.func_no_op = set_1_b}},      // 0xc8
-    {"SET 1, C", 0, NO_OP, {.func_no_op = set_1_c}},      // 0xc9
-    {"SET 1, D", 0, NO_OP, {.func_no_op = set_1_d}},      // 0xca
-    {"SET 1, E", 0, NO_OP, {.func_no_op = set_1_e}},      // 0xcb
-    {"SET 1, H", 0, NO_OP, {.func_no_op = set_1_h}},      // 0xcc
-    {"SET 1, L", 0, NO_OP, {.func_no_op = set_1_l}},      // 0xcd
-    {"SET 1, (HL)", 0, NO_OP, {.func_no_op = set_1_hlp}}, // 0xce
-    {"SET 1, A", 0, NO_OP, {.func_no_op = set_1_a}},      // 0xcf
-    {"SET 2, B", 0, NO_OP, {.func_no_op = set_2_b}},      // 0xd0
-    {"SET 2, C", 0, NO_OP, {.func_no_op = set_2_c}},      // 0xd1
-    {"SET 2, D", 0, NO_OP, {.func_no_op = set_2_d}},      // 0xd2
-    {"SET 2, E", 0, NO_OP, {.func_no_op = set_2_e}},      // 0xd3
-    {"SET 2, H", 0, NO_OP, {.func_no_op = set_2_h}},      // 0xd4
-    {"SET 2, L", 0, NO_OP, {.func_no_op = set_2_l}},      // 0xd5
-    {"SET 2, (HL)", 0, NO_OP, {.func_no_op = set_2_hlp}}, // 0xd6
-    {"SET 2, A", 0, NO_OP, {.func_no_op = set_2_a}},      // 0xd7
-    {"SET 3, B", 0, NO_OP, {.func_no_op = set_3_b}},      // 0xd8
-    {"SET 3, C", 0, NO_OP, {.func_no_op = set_3_c}},      // 0xd9
-    {"SET 3, D", 0, NO_OP, {.func_no_op = set_3_d}},      // 0xda
-    {"SET 3, E", 0, NO_OP, {.func_no_op = set_3_e}},      // 0xdb
-    {"SET 3, H", 0, NO_OP, {.func_no_op = set_3_h}},      // 0xdc
-    {"SET 3, L", 0, NO_OP, {.func_no_op = set_3_l}},      // 0xdd
-    {"SET 3, (HL)", 0, NO_OP, {.func_no_op = set_3_hlp}}, // 0xde
-    {"SET 3, A", 0, NO_OP, {.func_no_op = set_3_a}},      // 0xdf
-    {"SET 4, B", 0, NO_OP, {.func_no_op = set_4_b}},      // 0xe0
-    {"SET 4, C", 0, NO_OP, {.func_no_op = set_4_c}},      // 0xe1
-    {"SET 4, D", 0, NO_OP, {.func_no_op = set_4_d}},      // 0xe2
-    {"SET 4, E", 0, NO_OP, {.func_no_op = set_4_e}},      // 0xe3
-    {"SET 4, H", 0, NO_OP, {.func_no_op = set_4_h}},      // 0xe4
-    {"SET 4, L", 0, NO_OP, {.func_no_op = set_4_l}},      // 0xe5
-    {"SET 4, (HL)", 0, NO_OP, {.func_no_op = set_4_hlp}}, // 0xe6
-    {"SET 4, A", 0, NO_OP, {.func_no_op = set_4_a}},      // 0xe7
-    {"SET 5, B", 0, NO_OP, {.func_no_op = set_5_b}},      // 0xe8
-    {"SET 5, C", 0, NO_OP, {.func_no_op = set_5_c}},      // 0xe9
-    {"SET 5, D", 0, NO_OP, {.func_no_op = set_5_d}},      // 0xea
-    {"SET 5, E", 0, NO_OP, {.func_no_op = set_5_e}},      // 0xeb
-    {"SET 5, H", 0, NO_OP, {.func_no_op = set_5_h}},      // 0xec
-    {"SET 5, L", 0, NO_OP, {.func_no_op = set_5_l}},      // 0xed
-    {"SET 5, (HL)", 0, NO_OP, {.func_no_op = set_5_hlp}}, // 0xee
-    {"SET 5, A", 0, NO_OP, {.func_no_op = set_5_a}},      // 0xef
-    {"SET 6, B", 0, NO_OP, {.func_no_op = set_6_b}},      // 0xf0
-    {"SET 6, C", 0, NO_OP, {.func_no_op = set_6_c}},      // 0xf1
-    {"SET 6, D", 0, NO_OP, {.func_no_op = set_6_d}},      // 0xf2
-    {"SET 6, E", 0, NO_OP, {.func_no_op = set_6_e}},      // 0xf3
-    {"SET 6, H", 0, NO_OP, {.func_no_op = set_6_h}},      // 0xf4
-    {"SET 6, L", 0, NO_OP, {.func_no_op = set_6_l}},      // 0xf5
-    {"SET 6, (HL)", 0, NO_OP, {.func_no_op = set_6_hlp}}, // 0xf6
-    {"SET 6, A", 0, NO_OP, {.func_no_op = set_6_a}},      // 0xf7
-    {"SET 7, B", 0, NO_OP, {.func_no_op = set_7_b}},      // 0xf8
-    {"SET 7, C", 0, NO_OP, {.func_no_op = set_7_c}},      // 0xf9
-    {"SET 7, D", 0, NO_OP, {.func_no_op = set_7_d}},      // 0xfa
-    {"SET 7, E", 0, NO_OP, {.func_no_op = set_7_e}},      // 0xfb
-    {"SET 7, H", 0, NO_OP, {.func_no_op = set_7_h}},      // 0xfc
-    {"SET 7, L", 0, NO_OP, {.func_no_op = set_7_l}},      // 0xfd
-    {"SET 7, (HL)", 0, NO_OP, {.func_no_op = set_7_hlp}}, // 0xfe
-    {"SET 7, A", 0, NO_OP, {.func_no_op = set_7_a}},      // 0xff
-};
-
-/// New licensee map populated
-Licensee new_licensees[] = {
-    {"00", "None"},
-    {"01", "Nintendo Research & Development 1"},
-    {"08", "Capcom"},
-    {"13", "EA (Electronic Arts)"},
-    {"18", "Hudson Soft"},
-    {"19", "B-AI"},
-    {"20", "KSS"},
-    {"22", "Planning Office WADA"},
-    {"24", "PCM Complete"},
-    {"25", "San-X"},
-    {"28", "Kemco"},
-    {"29", "SETA Corporation"},
-    {"30", "Viacom"},
-    {"31", "Nintendo"},
-    {"32", "Bandai"},
-    {"33", "Ocean Software/Acclaim Entertainment"},
-    {"34", "Konami"},
-    {"35", "HectorSoft"},
-    {"37", "Taito"},
-    {"38", "Hudson Soft"},
-    {"39", "Banpresto"},
-    {"41", "Ubi Soft"},
-    {"42", "Atlus"},
-    {"44", "Malibu Interactive"},
-    {"46", "Angel"},
-    {"47", "Bullet-Proof Software"},
-    {"49", "Irem"},
-    {"50", "Absolute"},
-    {"51", "Acclaim Entertainment"},
-    {"52", "Activision"},
-    {"53", "Sammy USA Corporation"},
-    {"54", "Konami"},
-    {"55", "Hi Tech Expressions"},
-    {"56", "LJN"},
-    {"57", "Matchbox"},
-    {"58", "Mattel"},
-    {"59", "Milton Bradley Company"},
-    {"60", "Titus Interactive"},
-    {"61", "Virgin Games Ltd."},
-    {"64", "Lucasfilm Games"},
-    {"67", "Ocean Software"},
-    {"69", "EA (Electronic Arts)"},
-    {"70", "Infogrames"},
-    {"71", "Interplay Entertainment"},
-    {"72", "Broderbund"},
-    {"73", "Sculptured Software"},
-    {"75", "The Sales Curve Limited"},
-    {"78", "THQ"},
-    {"79", "Accolade"},
-    {"80", "Misawa Entertainment"},
-    {"83", "lozc"},
-    {"86", "Tokuma Shoten"},
-    {"87", "Tsukuda Original"},
-    {"91", "Chunsoft Co."},
-    {"92", "Video System"},
-    {"93", "Ocean Software/Acclaim Entertainment"},
-    {"95", "Varie"},
-    {"96", "Yonezawa/s'pal"},
-    {"97", "Kaneko"},
-    {"99", "Pack-In-Video"},
-    {"9H", "Bottom Up"},
-    {"A4", "Konami (Yu-Gi-Oh!)"},
-    {"BL", "MTO"},
-    {"DK", "Kodansha"},
-};
-
-/// Old licensee map populated
-Licensee old_licensees[] = {
-    {"00", "None"},
-    {"01", "Nintendo"},
-    {"08", "Capcom"},
-    {"09", "HOT・B"},
-    {"0A", "Jaleco"},
-    {"0B", "Coconuts Japan"},
-    {"0C", "Elite Systems"},
-    {"13", "EA (Electronic Arts)"},
-    {"18", "Hudson Soft"},
-    {"19", "ITC Entertainment"},
-    {"1A", "Yanoman"},
-    {"1D", "Japan Clary"},
-    {"1F", "Virgin Games Ltd."},
-    {"24", "PCM Complete"},
-    {"25", "San-X"},
-    {"28", "Kemco"},
-    {"29", "SETA Corporation"},
-    {"30", "Infogrames"},
-    {"31", "Nintendo"},
-    {"32", "Bandai"},
-    {"33", "Indicates that the New licensee code should be used instead."},
-    {"34", "Konami"},
-    {"35", "HectorSoft"},
-    {"38", "Capcom"},
-    {"39", "Banpresto"},
-    {"3C", ".Entertainment i"},
-    {"3E", "Gremlin"},
-    {"41", "Ubi Soft"},
-    {"42", "Atlus"},
-    {"44", "Malibu Interactive"},
-    {"46", "Angel"},
-    {"47", "Spectrum Holoby"},
-    {"49", "Irem"},
-    {"4A", "Virgin Games Ltd."},
-    {"4D", "Malibu Interactive"},
-    {"4F", "U.S. Gold"},
-    {"50", "Absolute"},
-    {"51", "Acclaim Entertainment"},
-    {"52", "Activision"},
-    {"53", "Sammy USA Corporation"},
-    {"54", "GameTek"},
-    {"55", "Park Place"},
-    {"56", "LJN"},
-    {"57", "Matchbox"},
-    {"59", "Milton Bradley Company"},
-    {"5A", "Mindscape"},
-    {"5B", "Romstar"},
-    {"5C", "Naxat Soft"},
-    {"5D", "Tradewest"},
-    {"60", "Titus Interactive"},
-    {"61", "Virgin Games Ltd."},
-    {"67", "Ocean Software"},
-    {"69", "EA (Electronic Arts)"},
-    {"6E", "Elite Systems"},
-    {"6F", "Electro Brain"},
-    {"70", "Infogrames"},
-    {"71", "Interplay Entertainment"},
-    {"72", "Broderbund"},
-    {"73", "Sculptured Software"},
-    {"75", "The Sales Curve Limited"},
-    {"78", "THQ"},
-    {"79", "Accolade"},
-    {"7A", "Triffix Entertainment"},
-    {"7C", "Microprose"},
-    {"7F", "Kemco"},
-    {"80", "Misawa Entertainment"},
-    {"83", "Lozc"},
-    {"86", "Tokuma Shoten"},
-    {"8B", "Bullet-Proof Software"},
-    {"8C", "Vic Tokai"},
-    {"8E", "Ape"},
-    {"8F", "I'Max"},
-    {"91", "Chunsoft Co."},
-    {"92", "Video System"},
-    {"93", "Tsuburaya Productions"},
-    {"95", "Varie"},
-    {"96", "Yonezawa/S'Pal"},
-    {"97", "Kemco"},
-    {"99", "Arc"},
-    {"9A", "Nihon Bussan"},
-    {"9B", "Tecmo"},
-    {"9C", "Imagineer"},
-    {"9D", "Banpresto"},
-    {"9F", "Nova"},
-    {"A1", "Hori Electric"},
-    {"A2", "Bandai"},
-    {"A4", "Konami"},
-    {"A6", "Kawada"},
-    {"A7", "Takara"},
-    {"A9", "Technos Japan"},
-    {"AA", "Broderbund"},
-    {"AC", "Toei Animation"},
-    {"AD", "Toho"},
-    {"AF", "Namco"},
-    {"B0", "Acclaim Entertainment"},
-    {"B1", "ASCII Corporation or Nexsoft"},
-    {"B2", "Bandai"},
-    {"B4", "Square Enix"},
-    {"B6", "HAL Laboratory"},
-    {"B7", "SNK"},
-    {"B9", "Pony Canyon"},
-    {"BA", "Culture Brain"},
-    {"BB", "Sunsoft"},
-    {"BD", "Sony Imagesoft"},
-    {"BF", "Sammy Corporation"},
-    {"C0", "Taito"},
-    {"C2", "Kemco"},
-    {"C3", "Square"},
-    {"C4", "Tokuma Shoten"},
-    {"C5", "Data East"},
-    {"C6", "Tonkinhouse"},
-    {"C8", "Koei"},
-    {"C9", "UFL"},
-    {"CA", "Ultra"},
-    {"CB", "Vap"},
-    {"CC", "Use Corporation"},
-    {"CD", "Meldac"},
-    {"CE", "Pony Canyon"},
-    {"CF", "Angel"},
-    {"D0", "Taito"},
-    {"D1", "Sofel"},
-    {"D2", "Quest"},
-    {"D3", "Sigma Enterprises"},
-    {"D4", "ASK Kodansha Co."},
-    {"D6", "Naxat Soft"},
-    {"D7", "Copya System"},
-    {"D9", "Banpresto"},
-    {"DA", "Tomy"},
-    {"DB", "LJN"},
-    {"DD", "NCS"},
-    {"DE", "Human"},
-    {"DF", "Altron"},
-    {"E0", "Jaleco"},
-    {"E1", "Towa Chiki"},
-    {"E2", "Yutaka"},
-    {"E3", "Varie"},
-    {"E5", "Epoch"},
-    {"E7", "Athena"},
-    {"E8", "Asmik Ace Entertainment"},
-    {"E9", "Natsume"},
-    {"EA", "King Records"},
-    {"EB", "Atlus"},
-    {"EC", "Epic/Sony Records"},
-    {"EE", "IGS"},
-    {"F0", "A Wave"},
-    {"F3", "Extreme Entertainment"},
-    {"FF", "LJN"},
-};
-
-/// New licensee table size
-const int new_licensee_table_size =
-    sizeof(new_licensees) / sizeof(new_licensees[0]);
-
-/// Old licensee table size
-const int old_licensee_table_size =
-    sizeof(old_licensees) / sizeof(old_licensees[0]);
+#include "ops.h"
+#include "tables.h"
+#include "typedefs.h"
 
 /// Gameboy initialisation
 ///
@@ -752,8 +26,8 @@ GB *gb_init(const char *rom_path) {
             .sp = 0},
       .mem =
           {
-              .data = malloc(0xFFFF), // TODO: actual size
-              .size = 0xFFFF,
+              .data = malloc(0x10000), // TODO: actual size
+              .size = 0x10000,
           },
       .flag = {0},
       .cart =
@@ -766,6 +40,12 @@ GB *gb_init(const char *rom_path) {
               .item = NULL,
               .size = 255,
           },
+      .timer_counter = 0x400,
+      .divider_counter = 0,
+      .tmc = 0,
+      .divider_register = 0,
+      .tima = 0,
+      .tma = 0,
   };
 
   if (!vm->mem.data) {
@@ -786,7 +66,7 @@ GB *gb_init(const char *rom_path) {
   vm->mem.hram = vm->mem.data + 0xFF80;
   vm->mem.interrupt_enable = vm->mem.data + 0xFFFF;
 
-  memset(vm->mem.data, 0xFF, 0xFFFF);
+  memset(vm->mem.data, 0xFF, 0x10000);
 
   FILE *fp = fopen(rom_path, "rb");
   if (fp == NULL) {
@@ -808,6 +88,12 @@ GB *gb_init(const char *rom_path) {
   }
 
   fread(vm->cart.data, vm->cart.size, sizeof(u8), fp);
+
+  // Gameboy doctor
+  FILE *logfile = fopen("cpu_log.txt", "w");
+  if (logfile) {
+    fclose(logfile);
+  }
 
   fclose(fp);
 
@@ -844,6 +130,14 @@ int gb_destroy(GB *vm) { return 0; }
 ///
 /// @return 0 for success, -1 for failure
 int _gb_power_on(GB *vm) {
+
+  memcpy(vm->mem.data, vm->cart.data, vm->cart.size);
+
+  vm->flag.halt = false;
+  vm->flag.interrupt_master_enable = false;
+  vm->flag.interrupt_disable_pending = false;
+  vm->flag.interrupt_enable_pending = false;
+
   // TODO: fix this
   vm->flag.type.code = 0x00;
   vm->flag.type.type = "GB";
@@ -866,6 +160,7 @@ int _gb_power_on(GB *vm) {
 
   // DMG
   vm->r.h = 0x01;
+  vm->r.l = 0x4D;
   vm->r.a = 0x01;
   vm->r.b = 0x00;
   vm->r.c = 0x13;
@@ -876,11 +171,7 @@ int _gb_power_on(GB *vm) {
   } else {
     _reg_set_flag(vm, 1, 0, 1, 1);
   }
-  vm->r.af = 0x0001; // Dependent on console type!!
-  vm->r.bc = 0x0013;
-  vm->r.de = 0x00D8;
-  vm->r.hl = 0x014D;
-  vm->r.pc = 0x100;
+  vm->r.pc = 0x0100;
   vm->r.sp = 0xFFFE;
 
   // DMG
@@ -919,12 +210,12 @@ int _gb_power_on(GB *vm) {
   vm->mem.io_registers[0x4A] = 0x00; // WY
   vm->mem.io_registers[0x4B] = 0x00; // WX
   *vm->mem.interrupt_enable = 0x00;  // IE
-
+  write_u8(vm, 0xFF0F, 0x00);
+  vm->mem.io_registers[0x41] = 0x80; // STAT
   //
   // read logo from the header, unpack it into VRAM, slowly scroll it down.
   // Once finished scrolling, play sound, read logo again, compare to copy,
   // compute header checksum.
-
   return 0;
 }
 
@@ -1248,17 +539,45 @@ void _cart_header_set_flags(GB *vm) {
   vm->cart.sgb_flag == 0x03 ? (vm->flag.sgb = true) : (vm->flag.sgb = false);
 
   vm->flag.halt = false;
+  vm->flag.stop = false;
 }
 
 void step(GB *vm) {
+
+  //  FILE *logfile = fopen("cpu_log.txt", "a");
+  //  if (logfile) {
+  //    fprintf(logfile,
+  //            "A:%02X F:%02X B:%02X C:%02X D:%02X E:%02X H:%02X L:%02X SP:%04X
+  //            " "PC:%04X PCMEM:%02X,%02X,%02X,%02X\n", vm->r.a, vm->r.f,
+  //            vm->r.b, vm->r.c, vm->r.d, vm->r.e, vm->r.h, vm->r.l, vm->r.sp,
+  //            vm->r.pc, read_u8(vm, vm->r.pc), read_u8(vm, vm->r.pc + 1),
+  //            read_u8(vm, vm->r.pc + 2), read_u8(vm, vm->r.pc + 3));
+  //    fclose(logfile);
+  //  }
+
   if (vm->flag.halt) {
     return;
   }
 
-  u8 opcode = vm->cart.data[vm->r.pc];
-  const OPS *instr = &ops[opcode];
+  // printf("ROM:%02X   ", 0);
+  // for (int i = 1; i < 0x176; i++) {
+  //   if (vm->r.pc == i - 1) {
+  //     printf("\033[31m%02X \033[0m", vm->cart.data[i - 1]);
+  //   } else {
+  //     printf("%02X ", vm->cart.data[i - 1]);
+  //   }
+  //   if (i % 16 == 0) {
+  //     printf("\n");
+  //     printf("ROM:%02X   ", i);
+  //   }
+  // }
+  // printf("\n\n\n");
 
-  printf("OP: %s\n", instr->debug_str);
+  u8 opcode = vm->cart.data[vm->r.pc++];
+  const OPS *instr = &ops[opcode];
+  int cycles = op_ticks[opcode];
+
+  // printf("OP: %s, %02X\n", instr->debug_str, opcode);
 
   switch (instr->type) {
   case NO_OP:
@@ -1268,19 +587,23 @@ void step(GB *vm) {
     break;
   case U8_OP:
     if (instr->func.func_u8_op) {
-      u8 operand = read_u8(vm, vm->r.pc + 1);
+      u8 operand = read_u8(vm, vm->r.pc);
       instr->func.func_u8_op(vm, operand);
     }
     break;
   case U16_OP:
     if (instr->func.func_u16_op) {
-      u16 operand = read_u16(vm, vm->r.pc + 1);
+      u16 operand = read_u16(vm, vm->r.pc);
       instr->func.func_u16_op(vm, operand);
     }
     break;
   }
 
-  vm->r.pc += instr->length + 1;
+  vm->r.pc += instr->length;
+  vm->cycles += cycles;
+
+  update_timers(vm, cycles);
+  update_graphics(vm, cycles);
 
   // DI and EI have a delay.
   if (vm->flag.interrupt_disable_pending) {
@@ -1291,21 +614,643 @@ void step(GB *vm) {
     vm->flag.interrupt_master_enable = true;
     vm->flag.interrupt_enable_pending = false;
   }
+
+  do_interrupts(vm);
 }
 
-u8 read_u8(GB *vm, u16 addr) { return vm->mem.data[addr]; }
+void update_graphics(GB *vm, int cycles) {
+  set_lcd_status(vm);
+
+  if (!is_lcd_enabled(vm)) {
+    return;
+  }
+
+  vm->scanline_counter -= cycles;
+
+  if (vm->scanline_counter <= 0) {
+    vm->scanline_counter = 456;
+    vm->current_scanline++;
+
+    if (vm->current_scanline == 144) {
+      request_interrupt(vm, 0);
+      write_u8(vm, 0xFF44, vm->current_scanline);
+    } else if (vm->current_scanline > 153) {
+      vm->current_scanline = 0;
+      write_u8(vm, 0xFF44, vm->current_scanline);
+    } else if (vm->current_scanline < 144) {
+      write_u8(vm, 0xFF44, vm->current_scanline);
+      draw_scanline(vm);
+    }
+  }
+}
+
+void set_lcd_status(GB *vm) {
+  u8 status = read_u8(vm, 0xFF41);
+  if (!is_lcd_enabled(vm)) {
+    vm->scanline_counter = 456;
+    vm->current_scanline = 0;
+    status &= 252;
+    status |= 1;
+    write_u8(vm, 0xFF41, status);
+    return;
+  }
+
+  u8 current_line = read_u8(vm, 0xFF44);
+  u8 current_mode = status & 0x3;
+  u8 mode = 0;
+  bool req_int = false;
+
+  if (current_line >= 144) {
+    mode = 1;
+    status |= 1;
+    status &= ~2;
+    req_int = status & (1 << 4);
+  } else {
+    int mode2_bounds = 456 - 80;
+    int mode3_bounds = mode2_bounds - 172;
+
+    if (vm->scanline_counter >= mode2_bounds) {
+      mode = 2;
+      status |= 2;
+      status &= ~1;
+      req_int = status & (1 << 5);
+    } else if (vm->scanline_counter >= mode3_bounds) {
+      mode = 3;
+      status |= 3;
+    } else {
+      mode = 0;
+      status &= ~3;
+      req_int = status & (1 << 3);
+    }
+  }
+
+  if (req_int && (mode != current_mode)) {
+    request_interrupt(vm, 1);
+  }
+
+  if (current_line == read_u8(vm, 0xFF45)) {
+    status |= 4;
+    if (status & (1 << 6)) {
+      request_interrupt(vm, 1);
+    }
+  } else {
+    status &= ~4;
+  }
+
+  write_u8(vm, 0xFF41, status);
+}
+
+bool is_lcd_enabled(GB *vm) { return (read_u8(vm, 0xFF40) & 0x80) != 0; }
+
+u8 read_u8(GB *vm, u16 addr) {
+  if (addr == 0xFF44) {
+    // return vm->current_scanline;
+
+    // Gameboy doctor
+    return 0x90;
+  } else if (addr == 0xFF00) {
+    return get_joypad_state(vm);
+  } else if (addr >= vm->mem.size) {
+    return 0xFF;
+  } else {
+    return vm->mem.data[addr];
+  }
+}
 
 u16 read_u16(GB *vm, u16 addr) {
-  return ((u16)vm->mem.data[addr + 1] << 8) | vm->mem.data[addr];
+  if (addr + 1 >= vm->mem.size) {
+    return 0xFFFF;
+  } else {
+    return (vm->mem.data[addr + 1] << 8) | vm->mem.data[addr];
+  }
 }
 
-void write_u8(GB *vm, u16 addr, u8 value) { vm->mem.data[addr] = value; }
+/// Write an 8-bit value to memory
+///
+/// Handles restricted memory regions and mirroring for echo RAM
+///
+/// @param vm GB vm
+/// @param addr Memory address
+/// @param value Value to write
+void write_u8(GB *vm, u16 addr, u8 value) {
+  if (addr == 0xFF44) {
+    // LY register - writing any value resets it to 0
+    vm->current_scanline = 0;
+  } else if (addr == 0xFF46) {
+    // DMA transfer
+    do_dma_transfer(vm, value);
+  } else if (addr == 0xFF00) {
+    // Joypad register
+    vm->mem.data[addr] = value;
+  } else if (addr >= 0xFF00 && addr <= 0xFF7F) {
+    // I/O registers
+    vm->mem.io_registers[addr - 0xFF00] = value;
+  } else if (addr < 0x8000) {
+    // ROM
+    return;
+  } else if (addr >= 0xE000 && addr < 0xFE00) {
+    // Echo RAM
+    vm->mem.data[addr] = value;
+    vm->mem.data[addr - 0x2000] = value;
+  } else if (addr >= 0xFEA0 && addr < 0xFEFF) {
+    // Unusable memory
+    return;
+  } else if (addr >= 0xFF80 && addr <= 0xFFFE) {
+    // High RAM
+    vm->mem.data[addr] = value;
+  } else {
+    // General memory
+    vm->mem.data[addr] = value;
+  }
+}
 
+/// Write a 16-bit value to memory
+///
+/// Handles restricted memory regions and mirroring for echo RAM
+///
+/// @param vm GB vm
+/// @param addr Memory address
+/// @param value Value to write
 void write_u16(GB *vm, u16 addr, u16 value) {
-  vm->mem.data[addr] = value & 0xFF;
-  vm->mem.data[addr + 1] = (value >> 8) & 0xFF;
+  u8 low = value & 0xFF;
+  u8 high = (value >> 8) & 0xFF;
+
+  if (addr < 0x8000) {
+    return;
+  } else if (addr >= 0xE000 && addr < 0xFE00) {
+    vm->mem.data[addr] = low;
+    vm->mem.data[addr - 0x2000] = low;
+  } else if (addr >= 0xFEA0 && addr < 0xFEFF) {
+    return;
+  } else if (addr >= 0xFF80 && addr <= 0xFFFE) {
+    vm->mem.data[addr] = low;
+  } else {
+    vm->mem.data[addr] = low;
+  }
+
+  if (addr + 1 < 0x8000) {
+    return;
+  } else if (addr + 1 >= 0xE000 && addr + 1 < 0xFE00) {
+    vm->mem.data[addr + 1] = high;
+    vm->mem.data[addr + 1 - 0x2000] = high;
+  } else if (addr + 1 >= 0xFEA0 && addr + 1 < 0xFEFF) {
+    return;
+  } else if (addr + 1 >= 0xFF80 && addr + 1 <= 0xFFFE) {
+    vm->mem.data[addr + 1] = high;
+  } else {
+    vm->mem.data[addr + 1] = high;
+  }
 }
 
+void do_dma_transfer(GB *vm, u8 data) {
+  u16 address = data << 8;
+  for (int i = 0; i < 0xA0; i++) {
+    write_u8(vm, 0xFE00 + i, read_u8(vm, address + i));
+  }
+}
+
+/// Update timers based on the number of cycles passed
+///
+/// @param vm GB vm
+/// @param cycles Number of cycles to update timers with
+void update_timers(GB *vm, u16 cycles) {
+  do_divider_register(vm, cycles);
+
+  if (is_clock_enabled(vm)) {
+    vm->timer_counter -= cycles;
+
+    if (vm->timer_counter <= 0) {
+      set_clock_freq(vm);
+
+      if (read_u8(vm, vm->tima) == 255) {
+        write_u8(vm, vm->tima, read_u8(vm, vm->tma));
+        request_interrupt(vm, 2);
+      } else {
+        write_u8(vm, vm->tima, read_u8(vm, vm->tima) + 1);
+      }
+    }
+  }
+}
+
+/// Handle the divider register
+///
+/// @param vm GB vm
+/// @param cycles Number of cycles to update divider with
+void do_divider_register(GB *vm, u16 cycles) {
+  vm->divider_register += cycles;
+  if (vm->divider_counter >= 255) {
+    vm->divider_counter = 0;
+    vm->mem.data[0xFF04]++;
+  }
+}
+
+/// Check if the clock is enabled
+///
+/// @param vm GB vm
+/// @return True if the clock is enabled, false otherwise
+bool is_clock_enabled(GB *vm) { return (read_u8(vm, vm->tmc) & 0x04) != 0; }
+
+/// Get the clock frequency
+///
+/// @param vm GB vm
+/// @return Clock frequency as an 8-bit value
+u8 get_clock_freq(GB *vm) { return read_u8(vm, vm->tmc) & 0x03; }
+
+/// Set the clock frequency
+///
+/// @param vm GB vm
+void set_clock_freq(GB *vm) {
+  switch (get_clock_freq(vm)) {
+  case 0:
+    vm->timer_counter = 1024;
+    break;
+  case 1:
+    vm->timer_counter = 16;
+    break;
+  case 2:
+    vm->timer_counter = 64;
+    break;
+  case 3:
+    vm->timer_counter = 256;
+    break;
+  }
+}
+
+/// Request an interrupt
+///
+/// @param vm GB vm
+/// @param interrupt_flag Interrupt flag to set
+void request_interrupt(GB *vm, u8 interrupt_flag) {
+  u8 req = read_u8(vm, 0xFF0F);
+  req |= (1 << interrupt_flag);
+  write_u8(vm, 0xFF0F, req);
+}
+
+void do_interrupts(GB *vm) {
+  if (vm->flag.interrupt_master_enable) {
+    u8 req = read_u8(vm, 0xFF0F);     // Interrupt Request
+    u8 enabled = read_u8(vm, 0xFFFF); // Interrupt Enable
+    u8 fire = req & enabled;
+
+    if (fire > 0) {
+      for (int i = 0; i < 5; i++) {
+        if (test_bit(fire, i)) {
+          service_interrupt(vm, i);
+          break;
+        }
+      }
+    }
+  }
+}
+
+void service_interrupt(GB *vm, u8 interrupt) {
+  vm->flag.interrupt_master_enable = false;
+
+  u8 req = read_u8(vm, 0xFF0F);
+  req &= ~(1 << interrupt);
+  write_u8(vm, 0xFF0F, req);
+
+  vm->r.sp -= 2;
+  write_u16(vm, vm->r.sp, vm->r.pc);
+
+  switch (interrupt) {
+  case 0:
+    vm->r.pc = 0x0040;
+    break; // V-Blank
+  case 1:
+    vm->r.pc = 0x0048;
+    break; // LCD
+  case 2:
+    vm->r.pc = 0x0050;
+    break; // Timer
+  case 3:
+    vm->r.pc = 0x0058;
+    break; // Serial
+  case 4:
+    vm->r.pc = 0x0060;
+    break; // Joypad
+  }
+
+  vm->cycles += 20;
+}
+
+void draw_scanline(GB *vm) {
+  u8 control = read_u8(vm, 0xFF40);
+  if (control & 0x01) {
+    render_tiles(vm);
+  }
+  if (control & 0x02) {
+    render_sprites(vm);
+  }
+}
+
+void render_tiles(GB *vm) {
+  u16 tile_data = 0;
+  u16 background_memory = 0;
+  bool unsig = true;
+
+  u8 scroll_y = read_u8(vm, 0xFF42);
+  u8 scroll_x = read_u8(vm, 0xFF43);
+  u8 window_y = read_u8(vm, 0xFF4A);
+  u8 window_x = read_u8(vm, 0xFF4B) - 7;
+  u8 lcd_control = read_u8(vm, 0xFF40);
+
+  bool using_window = false;
+
+  if (lcd_control & 0x20) {
+    if (window_y <= read_u8(vm, 0xFF44)) {
+      using_window = true;
+    }
+  }
+
+  if (lcd_control & 0x10) {
+    tile_data = 0x8000;
+  } else {
+    tile_data = 0x8800;
+    unsig = false;
+  }
+
+  if (!using_window) {
+    if (lcd_control & 0x08) {
+      background_memory = 0x9C00;
+    } else {
+      background_memory = 0x9800;
+    }
+  } else {
+    if (lcd_control & 0x40) {
+      background_memory = 0x9C00;
+    } else {
+      background_memory = 0x9800;
+    }
+  }
+
+  u8 y_pos = using_window ? (read_u8(vm, 0xFF44) - window_y)
+                          : (scroll_y + read_u8(vm, 0xFF44));
+  u16 tile_row = (y_pos / 8) * 32;
+
+  for (int pixel = 0; pixel < 160; pixel++) {
+    u8 x_pos = using_window && pixel >= window_x ? (pixel - window_x)
+                                                 : (pixel + scroll_x);
+    u16 tile_col = x_pos / 8;
+    i8 tile_num =
+        unsig ? (u8)read_u8(vm, background_memory + tile_row + tile_col)
+              : (i8)read_u8(vm, background_memory + tile_row + tile_col);
+    u16 tile_location = tile_data + (tile_num * 16);
+    u8 line = y_pos % 8;
+    line *= 2;
+    u8 data1 = read_u8(vm, tile_location + line);
+    u8 data2 = read_u8(vm, tile_location + line + 1);
+
+    int colour_bit = ((x_pos % 8) - 7) * -1;
+    int colour_num =
+        ((data2 >> colour_bit) & 1) << 1 | ((data1 >> colour_bit) & 1);
+    COLOUR col = get_colour(vm, colour_num, 0xFF47);
+
+    int red = 0, green = 0, blue = 0;
+    switch (col) {
+    case WHITE:
+      red = 255;
+      green = 255;
+      blue = 255;
+      break;
+    case LIGHT_GRAY:
+      red = 0xCC;
+      green = 0xCC;
+      blue = 0xCC;
+      break;
+    case DARK_GRAY:
+      red = 0x77;
+      green = 0x77;
+      blue = 0x77;
+      break;
+    case BLACK:
+      red = 0;
+      green = 0;
+      blue = 0;
+      break;
+    }
+
+    int final_y = read_u8(vm, 0xFF44);
+    if (final_y >= 0 && final_y < 144 && pixel >= 0 && pixel < 160) {
+      set_pixel(vm, pixel, final_y,
+                (red << 24) | (green << 16) | (blue << 8) | 0xFF);
+    }
+  }
+}
+
+void render_background(GB *vm) {
+  u8 scroll_y = read_u8(vm, 0xFF42);
+  u8 scroll_x = read_u8(vm, 0xFF43);
+  u8 control = read_u8(vm, 0xFF40);
+  u16 bg_tile_map = (control & 0x08) ? 0x9C00 : 0x9800;
+  u16 bg_tile_data = (control & 0x10) ? 0x8000 : 0x8800;
+  bool use_signed = !(control & 0x10);
+
+  u8 y_pos = scroll_y + read_u8(vm, 0xFF44);
+  u16 tile_row = ((y_pos / 8) * 32);
+
+  for (int pixel = 0; pixel < 160; pixel++) {
+    u8 x_pos = pixel + scroll_x;
+    u16 tile_col = x_pos / 8;
+    u16 tile_num_addr = bg_tile_map + tile_row + tile_col;
+
+    i8 tile_num = use_signed ? (i8)read_u8(vm, tile_num_addr)
+                             : (u8)read_u8(vm, tile_num_addr);
+    u16 tile_loc = bg_tile_data + (tile_num * 16);
+    u8 line = y_pos % 8;
+    line *= 2;
+    u8 data1 = read_u8(vm, tile_loc + line);
+    u8 data2 = read_u8(vm, tile_loc + line + 1);
+
+    int color_bit = ((x_pos % 8) - 7) * -1;
+    int color_num =
+        ((data2 >> color_bit) & 1) << 1 | ((data1 >> color_bit) & 1);
+  }
+}
+
+COLOUR get_colour(GB *vm, u8 colour_num, u16 address) {
+  COLOUR res = WHITE;
+  u8 palette = read_u8(vm, address);
+  int hi = 0;
+  int lo = 0;
+
+  switch (colour_num) {
+  case 0:
+    hi = 1;
+    lo = 0;
+    break;
+  case 1:
+    hi = 3;
+    lo = 2;
+    break;
+  case 2:
+    hi = 5;
+    lo = 4;
+    break;
+  case 3:
+    hi = 7;
+    lo = 6;
+    break;
+  }
+
+  int colour = 0;
+  colour = ((palette >> hi) & 1) << 1;
+  colour |= (palette >> lo) & 1;
+
+  switch (colour) {
+  case 0:
+    res = WHITE;
+    break;
+  case 1:
+    res = LIGHT_GRAY;
+    break;
+  case 2:
+    res = DARK_GRAY;
+    break;
+  case 3:
+    res = BLACK;
+    break;
+  }
+
+  return res;
+}
+
+void set_pixel(GB *vm, int x, int y, u32 color) {
+  if (x >= 0 && x < 160 && y >= 0 && y < 144) {
+    int index = (y * 160 + x) * 4;
+    vm->framebuffer[index + 0] = (color >> 24) & 0xFF; // Red
+    vm->framebuffer[index + 1] = (color >> 16) & 0xFF; // Green
+    vm->framebuffer[index + 2] = (color >> 8) & 0xFF;  // Blue
+    vm->framebuffer[index + 3] = color & 0xFF;         // Alpha
+  }
+}
+
+void render_sprites(GB *vm) {
+  bool use_8x16 = (read_u8(vm, 0xFF40) & 0x04) != 0;
+
+  for (int sprite = 0; sprite < 40; sprite++) {
+    int index = sprite * 4;
+    u8 y_pos = read_u8(vm, 0xFE00 + index) - 16;
+    u8 x_pos = read_u8(vm, 0xFE00 + index + 1) - 8;
+    u8 tile_location = read_u8(vm, 0xFE00 + index + 2);
+    u8 attributes = read_u8(vm, 0xFE00 + index + 3);
+
+    bool y_flip = (attributes & 0x40) != 0;
+    bool x_flip = (attributes & 0x20) != 0;
+
+    int scanline = read_u8(vm, 0xFF44);
+    int y_size = use_8x16 ? 16 : 8;
+
+    if (scanline >= y_pos && scanline < (y_pos + y_size)) {
+      int line = scanline - y_pos;
+
+      if (y_flip) {
+        line = y_size - line - 1;
+      }
+
+      line *= 2;
+      u16 data_address = 0x8000 + (tile_location * 16) + line;
+      u8 data1 = read_u8(vm, data_address);
+      u8 data2 = read_u8(vm, data_address + 1);
+
+      for (int tile_pixel = 7; tile_pixel >= 0; tile_pixel--) {
+        int color_bit = tile_pixel;
+        if (x_flip) {
+          color_bit = 7 - color_bit;
+        }
+
+        int color_num =
+            ((data2 >> color_bit) & 1) << 1 | ((data1 >> color_bit) & 1);
+        u16 color_address = (attributes & 0x10) ? 0xFF49 : 0xFF48;
+        COLOUR col = get_colour(vm, color_num, color_address);
+
+        if (col == WHITE)
+          continue;
+
+        int red = 0, green = 0, blue = 0;
+        switch (col) {
+        case WHITE:
+          red = 255;
+          green = 255;
+          blue = 255;
+          break;
+        case LIGHT_GRAY:
+          red = 0xCC;
+          green = 0xCC;
+          blue = 0xCC;
+          break;
+        case DARK_GRAY:
+          red = 0x77;
+          green = 0x77;
+          blue = 0x77;
+          break;
+        case BLACK:
+          red = 0;
+          green = 0;
+          blue = 0;
+          break;
+        }
+
+        int x_pix = x_pos + (x_flip ? tile_pixel : 7 - tile_pixel);
+        if (x_pix >= 0 && x_pix < 160 && scanline >= 0 && scanline < 144) {
+          set_pixel(vm, x_pix, scanline,
+                    (red << 24) | (green << 16) | (blue << 8) | 0xFF);
+        }
+      }
+    }
+  }
+}
+
+int bit_get_val(u8 byte, int bit) { return (byte >> bit) & 1; }
+
+bool test_bit(u8 byte, int bit) { return (byte & (1 << bit)) != 0; }
+
+u8 get_joypad_state(GB *vm) {
+  u8 res = vm->mem.data[0xFF00];
+  res ^= 0xFF;
+
+  if (!(res & 0x10)) {
+    u8 top_joypad = vm->joypad_state >> 4;
+    top_joypad |= 0xF0;
+    res &= top_joypad;
+  } else if (!(res & 0x20)) {
+    u8 bottom_joypad = vm->joypad_state & 0x0F;
+    bottom_joypad |= 0xF0;
+    res &= bottom_joypad;
+  }
+
+  return res;
+}
+
+void key_pressed(GB *vm, int key) {
+  bool previously_unset = !(vm->joypad_state & (1 << key));
+
+  vm->joypad_state &= ~(1 << key);
+
+  bool button = (key > 3);
+  u8 key_req = vm->mem.data[0xFF00];
+  bool request_interrupt_bool = false;
+
+  if (button && !(key_req & 0x20)) {
+    request_interrupt_bool = true;
+  } else if (!button && !(key_req & 0x10)) {
+    request_interrupt_bool = true;
+  }
+
+  if (request_interrupt_bool && !previously_unset) {
+    request_interrupt(vm, 4);
+  }
+}
+
+void key_released(GB *vm, int key) { vm->joypad_state |= (1 << key); }
+
+/// Set the flags in the registers
+///
+/// @param vm GB vm
+/// @param z Zero flag
+/// @param n Subtract flag
+/// @param h Half carry flag
+/// @param c Carry flag
 void _reg_set_flag(GB *vm, u8 z, u8 n, u8 h, u8 c) {
   // 0 remains 0, other values become 1
   z = !!z;

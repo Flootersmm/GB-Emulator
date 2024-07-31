@@ -2,12 +2,16 @@
 #include "gb.h"
 #include "shared.h"
 #include <GLFW/glfw3.h>
+#include <chrono>
 #include <stdio.h>
 #include <stdlib.h>
 
 std::atomic<bool> running(true);
 std::mutex emu_mutex;
 std::atomic<bool> step_requested(true);
+const double GAMEBOY_CLOCK_SPEED = 4194304.0;
+const double FRAME_RATE = 59.73;
+const double CYCLES_PER_FRAME = GAMEBOY_CLOCK_SPEED / FRAME_RATE;
 
 void emulator_thread(GB *vm) {
   while (running) {
@@ -19,12 +23,14 @@ void emulator_thread(GB *vm) {
       }
       if (step_requested) {
         step(vm);
-        step_requested = false;
+        step_requested = true;
       }
     }
-    std::this_thread::sleep_for(std::chrono::milliseconds(16));
+    std::this_thread::sleep_for(std::chrono::microseconds(
+        static_cast<int>((vm->timer_counter / GAMEBOY_CLOCK_SPEED) * 1000000)));
   }
 }
+
 int main(int argc, char **argv) {
   if (argc < 2) {
     fprintf(stderr, "Usage: %s <rom_path>\n", argv[0]);

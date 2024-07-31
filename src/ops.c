@@ -4,91 +4,91 @@
 
 void cb_n(GB *vm, uint8_t op) {
   ops_extended[op].func.func_no_op(vm);
-  // Remember to also add ticks
+  vm->cycles += op_extended_ticks[op];
 }
 
 // 3.3.1 8-Bit Loads
 // 1. LD nn,n
-void ln_b_n(GB *vm, u8 operand) { vm->r.b = operand; }
-void ln_c_n(GB *vm, u8 operand) { vm->r.c = operand; }
-void ln_d_n(GB *vm, u8 operand) { vm->r.d = operand; }
-void ln_e_n(GB *vm, u8 operand) { vm->r.e = operand; }
-void ln_h_n(GB *vm, u8 operand) { vm->r.h = operand; }
-void ln_l_n(GB *vm, u8 operand) { vm->r.l = operand; }
-void ld_a_a(GB *vm, u8 operand) { vm->r.a = vm->r.a; }
+void ld_b_n(GB *vm, u8 operand) { vm->r.b = operand; }
+void ld_c_n(GB *vm, u8 operand) { vm->r.c = operand; }
+void ld_d_n(GB *vm, u8 operand) { vm->r.d = operand; }
+void ld_e_n(GB *vm, u8 operand) { vm->r.e = operand; }
+void ld_h_n(GB *vm, u8 operand) { vm->r.h = operand; }
+void ld_l_n(GB *vm, u8 operand) { vm->r.l = operand; }
+void ld_a_a(GB *vm) { vm->r.a = vm->r.a; }
 
 // 2. LD r1,r2
-void ld_a_b(GB *vm, u8 operand) { vm->r.a = vm->r.b; }
-void ld_a_c(GB *vm, u8 operand) { vm->r.a = vm->r.c; }
-void ld_a_d(GB *vm, u8 operand) { vm->r.a = vm->r.d; }
-void ld_a_e(GB *vm, u8 operand) { vm->r.a = vm->r.e; }
-void ld_a_h(GB *vm, u8 operand) { vm->r.a = vm->r.h; }
-void ld_a_l(GB *vm, u8 operand) { vm->r.a = vm->r.l; }
+void ld_a_b(GB *vm) { vm->r.a = vm->r.b; }
+void ld_a_c(GB *vm) { vm->r.a = vm->r.c; }
+void ld_a_d(GB *vm) { vm->r.a = vm->r.d; }
+void ld_a_e(GB *vm) { vm->r.a = vm->r.e; }
+void ld_a_h(GB *vm) { vm->r.a = vm->r.h; }
+void ld_a_l(GB *vm) { vm->r.a = vm->r.l; }
 void ld_a_bc(GB *vm, u8 operand) { vm->r.a = read_u8(vm, vm->r.bc); }
 void ld_a_de(GB *vm, u8 operand) { vm->r.a = read_u8(vm, vm->r.de); }
 void ld_a_hl(GB *vm, u8 operand) { vm->r.a = read_u8(vm, vm->r.hl); }
 void ld_a_nn(GB *vm, u16 operand) { vm->r.a = read_u8(vm, operand); }
 void ld_a_n(GB *vm, u8 operand) { vm->r.a = operand; }
-void ld_b_b(GB *vm, u8 operand) { vm->r.b = vm->r.b; }
-void ld_b_c(GB *vm, u8 operand) { vm->r.b = vm->r.c; }
-void ld_b_d(GB *vm, u8 operand) { vm->r.b = vm->r.d; }
-void ld_b_e(GB *vm, u8 operand) { vm->r.b = vm->r.e; }
-void ld_b_h(GB *vm, u8 operand) { vm->r.b = vm->r.h; }
-void ld_b_l(GB *vm, u8 operand) { vm->r.b = vm->r.l; }
+void ld_b_b(GB *vm) { vm->r.b = vm->r.b; }
+void ld_b_c(GB *vm) { vm->r.b = vm->r.c; }
+void ld_b_d(GB *vm) { vm->r.b = vm->r.d; }
+void ld_b_e(GB *vm) { vm->r.b = vm->r.e; }
+void ld_b_h(GB *vm) { vm->r.b = vm->r.h; }
+void ld_b_l(GB *vm) { vm->r.b = vm->r.l; }
 void ld_b_hl(GB *vm, u8 operand) { vm->r.b = read_u8(vm, vm->r.hl); }
-void ld_b_a(GB *vm, u8 operand) { vm->r.b = vm->r.a; }
-void ld_c_b(GB *vm, u8 operand) { vm->r.c = vm->r.b; }
-void ld_c_c(GB *vm, u8 operand) { vm->r.c = vm->r.c; }
-void ld_c_d(GB *vm, u8 operand) { vm->r.c = vm->r.d; }
-void ld_c_e(GB *vm, u8 operand) { vm->r.c = vm->r.e; }
-void ld_c_h(GB *vm, u8 operand) { vm->r.c = vm->r.h; }
-void ld_c_l(GB *vm, u8 operand) { vm->r.c = vm->r.l; }
+void ld_b_a(GB *vm) { vm->r.b = vm->r.a; }
+void ld_c_b(GB *vm) { vm->r.c = vm->r.b; }
+void ld_c_c(GB *vm) { vm->r.c = vm->r.c; }
+void ld_c_d(GB *vm) { vm->r.c = vm->r.d; }
+void ld_c_e(GB *vm) { vm->r.c = vm->r.e; }
+void ld_c_h(GB *vm) { vm->r.c = vm->r.h; }
+void ld_c_l(GB *vm) { vm->r.c = vm->r.l; }
 void ld_c_hl(GB *vm, u8 operand) { vm->r.c = read_u8(vm, vm->r.hl); }
-void ld_c_a(GB *vm, u8 operand) { vm->r.c = vm->r.a; }
-void ld_d_b(GB *vm, u8 operand) { vm->r.d = vm->r.b; }
-void ld_d_c(GB *vm, u8 operand) { vm->r.d = vm->r.c; }
-void ld_d_d(GB *vm, u8 operand) { vm->r.d = vm->r.d; }
-void ld_d_e(GB *vm, u8 operand) { vm->r.d = vm->r.e; }
-void ld_d_h(GB *vm, u8 operand) { vm->r.d = vm->r.h; }
-void ld_d_l(GB *vm, u8 operand) { vm->r.d = vm->r.l; }
+void ld_c_a(GB *vm) { vm->r.c = vm->r.a; }
+void ld_d_b(GB *vm) { vm->r.d = vm->r.b; }
+void ld_d_c(GB *vm) { vm->r.d = vm->r.c; }
+void ld_d_d(GB *vm) { vm->r.d = vm->r.d; }
+void ld_d_e(GB *vm) { vm->r.d = vm->r.e; }
+void ld_d_h(GB *vm) { vm->r.d = vm->r.h; }
+void ld_d_l(GB *vm) { vm->r.d = vm->r.l; }
 void ld_d_hl(GB *vm, u8 operand) { vm->r.d = read_u8(vm, vm->r.hl); }
-void ld_d_a(GB *vm, u8 operand) { vm->r.d = vm->r.a; }
-void ld_e_b(GB *vm, u8 operand) { vm->r.e = vm->r.b; }
-void ld_e_c(GB *vm, u8 operand) { vm->r.e = vm->r.c; }
-void ld_e_d(GB *vm, u8 operand) { vm->r.e = vm->r.d; }
-void ld_e_e(GB *vm, u8 operand) { vm->r.e = vm->r.e; }
-void ld_e_h(GB *vm, u8 operand) { vm->r.e = vm->r.h; }
-void ld_e_l(GB *vm, u8 operand) { vm->r.e = vm->r.l; }
+void ld_d_a(GB *vm) { vm->r.d = vm->r.a; }
+void ld_e_b(GB *vm) { vm->r.e = vm->r.b; }
+void ld_e_c(GB *vm) { vm->r.e = vm->r.c; }
+void ld_e_d(GB *vm) { vm->r.e = vm->r.d; }
+void ld_e_e(GB *vm) { vm->r.e = vm->r.e; }
+void ld_e_h(GB *vm) { vm->r.e = vm->r.h; }
+void ld_e_l(GB *vm) { vm->r.e = vm->r.l; }
 void ld_e_hl(GB *vm, u8 operand) { vm->r.e = read_u8(vm, vm->r.hl); }
-void ld_e_a(GB *vm, u8 operand) { vm->r.e = vm->r.a; }
-void ld_h_b(GB *vm, u8 operand) { vm->r.h = vm->r.b; }
-void ld_h_c(GB *vm, u8 operand) { vm->r.h = vm->r.c; }
-void ld_h_d(GB *vm, u8 operand) { vm->r.h = vm->r.d; }
-void ld_h_e(GB *vm, u8 operand) { vm->r.h = vm->r.e; }
-void ld_h_h(GB *vm, u8 operand) { vm->r.h = vm->r.h; }
-void ld_h_l(GB *vm, u8 operand) { vm->r.h = vm->r.l; }
+void ld_e_a(GB *vm) { vm->r.e = vm->r.a; }
+void ld_h_b(GB *vm) { vm->r.h = vm->r.b; }
+void ld_h_c(GB *vm) { vm->r.h = vm->r.c; }
+void ld_h_d(GB *vm) { vm->r.h = vm->r.d; }
+void ld_h_e(GB *vm) { vm->r.h = vm->r.e; }
+void ld_h_h(GB *vm) { vm->r.h = vm->r.h; }
+void ld_h_l(GB *vm) { vm->r.h = vm->r.l; }
 void ld_h_hl(GB *vm, u8 operand) { vm->r.h = read_u8(vm, vm->r.hl); }
-void ld_h_a(GB *vm, u8 operand) { vm->r.h = vm->r.a; }
-void ld_l_b(GB *vm, u8 operand) { vm->r.l = vm->r.b; }
-void ld_l_c(GB *vm, u8 operand) { vm->r.l = vm->r.c; }
-void ld_l_d(GB *vm, u8 operand) { vm->r.l = vm->r.d; }
-void ld_l_e(GB *vm, u8 operand) { vm->r.l = vm->r.e; }
-void ld_l_h(GB *vm, u8 operand) { vm->r.l = vm->r.h; }
-void ld_l_l(GB *vm, u8 operand) { vm->r.l = vm->r.l; }
-void ld_l_hl(GB *vm, u8 operand) { vm->r.l = read_u8(vm, vm->r.hl); }
-void ld_l_a(GB *vm, u8 operand) { vm->r.l = vm->r.a; }
-void ld_hl_b(GB *vm, u8 operand) { write_u8(vm, vm->r.hl, vm->r.b); }
-void ld_hl_c(GB *vm, u8 operand) { write_u8(vm, vm->r.hl, vm->r.c); }
-void ld_hl_d(GB *vm, u8 operand) { write_u8(vm, vm->r.hl, vm->r.d); }
-void ld_hl_e(GB *vm, u8 operand) { write_u8(vm, vm->r.hl, vm->r.e); }
-void ld_hl_h(GB *vm, u8 operand) { write_u8(vm, vm->r.hl, vm->r.h); }
-void ld_hl_l(GB *vm, u8 operand) { write_u8(vm, vm->r.hl, vm->r.l); }
-void ld_hl_a(GB *vm, u8 operand) { write_u8(vm, vm->r.hl, vm->r.a); }
+void ld_h_a(GB *vm) { vm->r.h = vm->r.a; }
+void ld_l_b(GB *vm) { vm->r.l = vm->r.b; }
+void ld_l_c(GB *vm) { vm->r.l = vm->r.c; }
+void ld_l_d(GB *vm) { vm->r.l = vm->r.d; }
+void ld_l_e(GB *vm) { vm->r.l = vm->r.e; }
+void ld_l_h(GB *vm) { vm->r.l = vm->r.h; }
+void ld_l_l(GB *vm) { vm->r.l = vm->r.l; }
+void ld_l_hl(GB *vm) { vm->r.l = read_u8(vm, vm->r.hl); }
+void ld_l_a(GB *vm) { vm->r.l = vm->r.a; }
+void ld_hl_b(GB *vm) { write_u8(vm, vm->r.hl, vm->r.b); }
+void ld_hl_c(GB *vm) { write_u8(vm, vm->r.hl, vm->r.c); }
+void ld_hl_d(GB *vm) { write_u8(vm, vm->r.hl, vm->r.d); }
+void ld_hl_e(GB *vm) { write_u8(vm, vm->r.hl, vm->r.e); }
+void ld_hl_h(GB *vm) { write_u8(vm, vm->r.hl, vm->r.h); }
+void ld_hl_l(GB *vm) { write_u8(vm, vm->r.hl, vm->r.l); }
+void ld_hl_a(GB *vm) { write_u8(vm, vm->r.hl, vm->r.a); }
 void ld_hl_n(GB *vm, u8 operand) { write_u8(vm, vm->r.hl, operand); }
 
 // 4. LD n, A
-void ld_bc_a(GB *vm, u8 operand) { write_u8(vm, vm->r.bc, vm->r.a); }
-void ld_de_a(GB *vm, u8 operand) { write_u8(vm, vm->r.de, vm->r.a); }
+void ld_bc_a(GB *vm) { write_u8(vm, vm->r.bc, vm->r.a); }
+void ld_de_a(GB *vm) { write_u8(vm, vm->r.de, vm->r.a); }
 void ld_nn_a(GB *vm, u16 operand) { write_u8(vm, operand, vm->r.a); }
 
 // 5. LD A,(C)
@@ -860,8 +860,8 @@ void add_hl_sp(GB *vm) {
 }
 
 // 2. ADD SP,n
-void add_sp_n(GB *vm, i8 operand) {
-  u32 result = vm->r.sp + operand;
+void add_sp_n(GB *vm, u8 operand) {
+  u32 result = vm->r.sp + (i8)operand;
   _reg_set_flag(vm, 0, 0, ((vm->r.sp & 0x0F) + (operand & 0x0F)) > 0x0F,
                 ((vm->r.sp & 0xFF) + (operand & 0xFF)) > 0xFF);
   vm->r.sp = result;
@@ -931,23 +931,38 @@ void swap_hl(GB *vm) {
 
 // 2. DAA
 void daa(GB *vm) {
-  u8 correction = 0;
-  u8 carry = 0;
+  unsigned short s = vm->r.a;
 
-  if ((vm->r.a & 0x0F) > 0x09 || (vm->r.f & 0x20)) {
-    correction |= 0x06;
-  }
-  if ((vm->r.a > 0x99) || (vm->r.f & 0x10)) {
-    correction |= 0x60;
-    carry = 1;
-  }
   if (vm->r.f & 0x40) {
-    vm->r.a -= correction;
+    if (vm->r.f & 0x20) {
+      s = (s - 0x06) & 0xFF;
+    }
+    if (vm->r.f & 0x10) {
+      s -= 0x60;
+    }
   } else {
-    vm->r.a += correction;
+    if ((vm->r.f & 0x20) || (s & 0xF) > 9) {
+      s += 0x06;
+    }
+    if ((vm->r.f & 0x10) || s > 0x9F) {
+      s += 0x60;
+    }
   }
 
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, carry);
+  vm->r.a = s;
+  vm->r.f &= ~0x20;
+
+  if (vm->r.a) {
+    vm->r.f &= ~0x80;
+  } else {
+    vm->r.f |= 0x80;
+  }
+
+  if (s >= 0x100) {
+    vm->r.f |= 0x10;
+  } else {
+    vm->r.f &= ~0x10;
+  }
 }
 
 // 3. CPL
@@ -1911,30 +1926,30 @@ void res_7_hlp(GB *vm) {
 
 // 3.3.8 Jumps
 // 1. JP nn
-void jp_nn(GB *vm, u16 address) { vm->r.pc = address; }
+void jp_nn(GB *vm, u16 address) { vm->r.pc = address - 2; }
 
 // 2. JP cc,nn
 void jp_nz_nn(GB *vm, u16 address) {
   if (!(vm->r.f & 0x80)) {
-    vm->r.pc = address;
+    vm->r.pc = address - 2;
   }
 }
 
 void jp_z_nn(GB *vm, u16 address) {
   if (vm->r.f & 0x80) {
-    vm->r.pc = address;
+    vm->r.pc = address - 2;
   }
 }
 
 void jp_nc_nn(GB *vm, u16 address) {
   if (!(vm->r.f & 0x10)) {
-    vm->r.pc = address;
+    vm->r.pc = address - 2;
   }
 }
 
 void jp_c_nn(GB *vm, u16 address) {
   if (vm->r.f & 0x10) {
-    vm->r.pc = address;
+    vm->r.pc = address - 2;
   }
 }
 
@@ -1942,7 +1957,7 @@ void jp_c_nn(GB *vm, u16 address) {
 void jp_hl(GB *vm) { vm->r.pc = vm->r.hl; }
 
 // 4. JR n
-void jr_n(GB *vm, u8 operand) { vm->r.pc += operand; }
+void jr_n(GB *vm, u8 operand) { vm->r.pc += (i8)operand; }
 
 // 5. JR cc,n
 void jr_nz_n(GB *vm, u8 offset) {
