@@ -1699,11 +1699,7 @@ void set_5_h(GB *vm) { vm->r.h |= (1 << 5); }
 void set_6_h(GB *vm) { vm->r.h |= (1 << 6); }
 void set_7_h(GB *vm) { vm->r.h |= (1 << 7); }
 void set_0_l(GB *vm) { vm->r.l |= (1 << 0); }
-void set_1_l(GB *vm) {
-  printf("Before set_1_l: L=%02X\n", vm->r.l);
-  vm->r.l |= (1 << 1);
-  printf("After set_1_l: L=%02X\n", vm->r.l);
-}
+void set_1_l(GB *vm) { vm->r.l |= (1 << 1); }
 void set_2_l(GB *vm) { vm->r.l |= (1 << 2); }
 void set_3_l(GB *vm) { vm->r.l |= (1 << 3); }
 void set_4_l(GB *vm) { vm->r.l |= (1 << 4); }
