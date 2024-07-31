@@ -17,14 +17,13 @@ A GB emulator in C, using Dear_ImGUI and GLFW. Built with Make.
    make clean
    ```
 
-
-2. **Build the project with Make**:
+3. **Build the project with Make**:
 
    ```sh
    make gui
    ```
 
-3. **Run the executable**:
+4. **Run the executable**:
    ```sh
    ./gui path/to/rom
    ```
@@ -46,3 +45,7 @@ To generate a .clangd file for correct parsing of headers:
 chmod +x generate_clangd.sh
 ./generate_clangd.sh
 ```
+
+### Current progress:
+
+Failing cpu_instrs 1, 2, 8.

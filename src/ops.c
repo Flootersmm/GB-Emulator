@@ -992,7 +992,7 @@ void ei(GB *vm) { vm->flag.interrupt_enable_pending = true; }
 void rlca(GB *vm) {
   u8 carry = (vm->r.a & 0x80) >> 7;
   vm->r.a = (vm->r.a << 1) | carry;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, carry);
+  _reg_set_flag(vm, 0, 0, 0, carry);
 }
 
 // 2. RLA
@@ -1000,14 +1000,14 @@ void rla(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 new_carry = (vm->r.a & 0x80) >> 7;
   vm->r.a = (vm->r.a << 1) | carry;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, new_carry);
+  _reg_set_flag(vm, 0, 0, 0, new_carry);
 }
 
 // 3. RRCA
 void rrca(GB *vm) {
   u8 carry = vm->r.a & 0x01;
   vm->r.a = (vm->r.a >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, carry);
+  _reg_set_flag(vm, 0, 0, 0, carry);
 }
 
 // 4. RRA
