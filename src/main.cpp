@@ -13,16 +13,29 @@ const double FRAME_RATE = 59.73;
 const double CYCLES_PER_FRAME = GAMEBOY_CLOCK_SPEED / FRAME_RATE;
 
 void emulator_thread(GB *vm) {
+  bool breakpoint_hit = false;
+
   while (running) {
     {
       std::lock_guard<std::mutex> lock(emu_mutex);
+
       if (vm->flag.halt) {
         running = false;
         break;
       }
-      if (step_requested) {
+
+      if (breakpoint_hit) {
+        if (step_requested) {
+          step(vm);
+          step_requested = false;
+        }
+      } else {
         step(vm);
-        step_requested = true;
+
+        if (vm->r.pc == 0xFFFFFF) {
+          breakpoint_hit = true;
+          step_requested = false;
+        }
       }
     }
     std::this_thread::sleep_for(std::chrono::microseconds(

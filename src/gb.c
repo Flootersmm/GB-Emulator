@@ -26,8 +26,8 @@ GB *gb_init(const char *rom_path) {
             .sp = 0},
       .mem =
           {
-              .data = malloc(0xFFFF), // TODO: actual size
-              .size = 0xFFFF,
+              .data = malloc(0x10000), // TODO: actual size
+              .size = 0x10000,
           },
       .flag = {0},
       .cart =
@@ -66,7 +66,7 @@ GB *gb_init(const char *rom_path) {
   vm->mem.hram = vm->mem.data + 0xFF80;
   vm->mem.interrupt_enable = vm->mem.data + 0xFFFF;
 
-  memset(vm->mem.data, 0xFF, 0xFFFF);
+  memset(vm->mem.data, 0xFF, 0x10000);
 
   FILE *fp = fopen(rom_path, "rb");
   if (fp == NULL) {
@@ -543,7 +543,6 @@ void _cart_header_set_flags(GB *vm) {
 }
 
 void step(GB *vm) {
-
   FILE *logfile = fopen("cpu_log.txt", "a");
   if (logfile) {
     fprintf(logfile,
@@ -574,11 +573,11 @@ void step(GB *vm) {
   // }
   // printf("\n\n\n");
 
-  u8 opcode = vm->cart.data[vm->r.pc++];
+  u8 opcode = vm->mem.data[vm->r.pc++];
   const OPS *instr = &ops[opcode];
   int cycles = op_ticks[opcode];
 
-  // printf("OP: %s, %02X\n", instr->debug_str, opcode);
+  // printf("op: %02X, pushed: %02X\n", opcode, vm->mem.data[0xdffd - 4]);
 
   switch (instr->type) {
   case NO_OP:
@@ -599,8 +598,10 @@ void step(GB *vm) {
     }
     break;
   }
+  if (opcode != 0xC3) {
+    vm->r.pc += instr->length;
+  }
 
-  vm->r.pc += instr->length;
   vm->cycles += cycles;
 
   update_timers(vm, cycles);
@@ -705,10 +706,10 @@ bool is_lcd_enabled(GB *vm) { return (read_u8(vm, 0xFF40) & 0x80) != 0; }
 
 u8 read_u8(GB *vm, u16 addr) {
   if (addr == 0xFF44) {
-    return vm->current_scanline;
+    // return vm->current_scanline;
 
     // Gameboy doctor
-    // return 0x90;
+    return 0x90;
   } else if (addr == 0xFF00) {
     return get_joypad_state(vm);
   } else if (addr >= vm->mem.size) {

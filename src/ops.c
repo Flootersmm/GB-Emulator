@@ -24,9 +24,9 @@ void ld_a_d(GB *vm) { vm->r.a = vm->r.d; }
 void ld_a_e(GB *vm) { vm->r.a = vm->r.e; }
 void ld_a_h(GB *vm) { vm->r.a = vm->r.h; }
 void ld_a_l(GB *vm) { vm->r.a = vm->r.l; }
-void ld_a_bc(GB *vm, u8 operand) { vm->r.a = read_u8(vm, vm->r.bc); }
-void ld_a_de(GB *vm, u8 operand) { vm->r.a = read_u8(vm, vm->r.de); }
-void ld_a_hl(GB *vm, u8 operand) { vm->r.a = read_u8(vm, vm->r.hl); }
+void ld_a_bc(GB *vm) { vm->r.a = read_u8(vm, vm->r.bc); }
+void ld_a_de(GB *vm) { vm->r.a = read_u8(vm, vm->r.de); }
+void ld_a_hl(GB *vm) { vm->r.a = read_u8(vm, vm->r.hl); }
 void ld_a_nn(GB *vm, u16 operand) { vm->r.a = read_u8(vm, operand); }
 void ld_a_n(GB *vm, u8 operand) { vm->r.a = operand; }
 void ld_b_b(GB *vm) { vm->r.b = vm->r.b; }
@@ -35,7 +35,7 @@ void ld_b_d(GB *vm) { vm->r.b = vm->r.d; }
 void ld_b_e(GB *vm) { vm->r.b = vm->r.e; }
 void ld_b_h(GB *vm) { vm->r.b = vm->r.h; }
 void ld_b_l(GB *vm) { vm->r.b = vm->r.l; }
-void ld_b_hl(GB *vm, u8 operand) { vm->r.b = read_u8(vm, vm->r.hl); }
+void ld_b_hl(GB *vm) { vm->r.b = read_u8(vm, vm->r.hl); }
 void ld_b_a(GB *vm) { vm->r.b = vm->r.a; }
 void ld_c_b(GB *vm) { vm->r.c = vm->r.b; }
 void ld_c_c(GB *vm) { vm->r.c = vm->r.c; }
@@ -43,7 +43,7 @@ void ld_c_d(GB *vm) { vm->r.c = vm->r.d; }
 void ld_c_e(GB *vm) { vm->r.c = vm->r.e; }
 void ld_c_h(GB *vm) { vm->r.c = vm->r.h; }
 void ld_c_l(GB *vm) { vm->r.c = vm->r.l; }
-void ld_c_hl(GB *vm, u8 operand) { vm->r.c = read_u8(vm, vm->r.hl); }
+void ld_c_hl(GB *vm) { vm->r.c = read_u8(vm, vm->r.hl); }
 void ld_c_a(GB *vm) { vm->r.c = vm->r.a; }
 void ld_d_b(GB *vm) { vm->r.d = vm->r.b; }
 void ld_d_c(GB *vm) { vm->r.d = vm->r.c; }
@@ -51,7 +51,7 @@ void ld_d_d(GB *vm) { vm->r.d = vm->r.d; }
 void ld_d_e(GB *vm) { vm->r.d = vm->r.e; }
 void ld_d_h(GB *vm) { vm->r.d = vm->r.h; }
 void ld_d_l(GB *vm) { vm->r.d = vm->r.l; }
-void ld_d_hl(GB *vm, u8 operand) { vm->r.d = read_u8(vm, vm->r.hl); }
+void ld_d_hl(GB *vm) { vm->r.d = read_u8(vm, vm->r.hl); }
 void ld_d_a(GB *vm) { vm->r.d = vm->r.a; }
 void ld_e_b(GB *vm) { vm->r.e = vm->r.b; }
 void ld_e_c(GB *vm) { vm->r.e = vm->r.c; }
@@ -59,7 +59,7 @@ void ld_e_d(GB *vm) { vm->r.e = vm->r.d; }
 void ld_e_e(GB *vm) { vm->r.e = vm->r.e; }
 void ld_e_h(GB *vm) { vm->r.e = vm->r.h; }
 void ld_e_l(GB *vm) { vm->r.e = vm->r.l; }
-void ld_e_hl(GB *vm, u8 operand) { vm->r.e = read_u8(vm, vm->r.hl); }
+void ld_e_hl(GB *vm) { vm->r.e = read_u8(vm, vm->r.hl); }
 void ld_e_a(GB *vm) { vm->r.e = vm->r.a; }
 void ld_h_b(GB *vm) { vm->r.h = vm->r.b; }
 void ld_h_c(GB *vm) { vm->r.h = vm->r.c; }
@@ -67,7 +67,7 @@ void ld_h_d(GB *vm) { vm->r.h = vm->r.d; }
 void ld_h_e(GB *vm) { vm->r.h = vm->r.e; }
 void ld_h_h(GB *vm) { vm->r.h = vm->r.h; }
 void ld_h_l(GB *vm) { vm->r.h = vm->r.l; }
-void ld_h_hl(GB *vm, u8 operand) { vm->r.h = read_u8(vm, vm->r.hl); }
+void ld_h_hl(GB *vm) { vm->r.h = read_u8(vm, vm->r.hl); }
 void ld_h_a(GB *vm) { vm->r.h = vm->r.a; }
 void ld_l_b(GB *vm) { vm->r.l = vm->r.b; }
 void ld_l_c(GB *vm) { vm->r.l = vm->r.c; }
@@ -92,14 +92,10 @@ void ld_de_a(GB *vm) { write_u8(vm, vm->r.de, vm->r.a); }
 void ld_nn_a(GB *vm, u16 operand) { write_u8(vm, operand, vm->r.a); }
 
 // 5. LD A,(C)
-void ld_a_0xffc(GB *vm, u8 low_addr) {
-  vm->r.a = read_u8(vm, 0xFF00 + vm->r.c);
-}
+void ld_a_0xffc(GB *vm) { vm->r.a = read_u8(vm, 0xFF00 + vm->r.c); }
 
 // 6. LD (C),A
-void ld_0xffc_a(GB *vm, u8 low_addr) {
-  write_u8(vm, 0xFF00 + vm->r.c, vm->r.a);
-}
+void ld_0xffc_a(GB *vm) { write_u8(vm, 0xFF00 + vm->r.c, vm->r.a); }
 
 // 7. LD A,(HLD)
 void ld_a_hld(GB *vm) {
@@ -246,7 +242,8 @@ void pop_de(GB *vm) {
 }
 
 void pop_hl(GB *vm) {
-  vm->r.hl = read_u16(vm, vm->r.sp);
+  u16 value = read_u16(vm, vm->r.sp);
+  vm->r.hl = value;
   vm->r.sp += 2;
 }
 
@@ -464,7 +461,7 @@ void sub_n(GB *vm, u8 operand) {
 }
 
 // 4. SBC A,n
-void sbc_a_a(GB *vm, u8 operand) {
+void sbc_a_a(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.a - carry;
   _reg_set_flag(vm, result == 0, 1,
@@ -473,7 +470,7 @@ void sbc_a_a(GB *vm, u8 operand) {
   vm->r.a = result;
 }
 
-void sbc_a_b(GB *vm, u8 operand) {
+void sbc_a_b(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.b - carry;
   _reg_set_flag(vm, result == 0, 1,
@@ -482,7 +479,7 @@ void sbc_a_b(GB *vm, u8 operand) {
   vm->r.a = result;
 }
 
-void sbc_a_c(GB *vm, u8 operand) {
+void sbc_a_c(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.c - carry;
   _reg_set_flag(vm, result == 0, 1,
@@ -491,7 +488,7 @@ void sbc_a_c(GB *vm, u8 operand) {
   vm->r.a = result;
 }
 
-void sbc_a_d(GB *vm, u8 operand) {
+void sbc_a_d(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.d - carry;
   _reg_set_flag(vm, result == 0, 1,
@@ -500,7 +497,7 @@ void sbc_a_d(GB *vm, u8 operand) {
   vm->r.a = result;
 }
 
-void sbc_a_e(GB *vm, u8 operand) {
+void sbc_a_e(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.e - carry;
   _reg_set_flag(vm, result == 0, 1,
@@ -509,7 +506,7 @@ void sbc_a_e(GB *vm, u8 operand) {
   vm->r.a = result;
 }
 
-void sbc_a_h(GB *vm, u8 operand) {
+void sbc_a_h(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.h - carry;
   _reg_set_flag(vm, result == 0, 1,
@@ -518,7 +515,7 @@ void sbc_a_h(GB *vm, u8 operand) {
   vm->r.a = result;
 }
 
-void sbc_a_l(GB *vm, u8 operand) {
+void sbc_a_l(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.l - carry;
   _reg_set_flag(vm, result == 0, 1,
@@ -527,7 +524,7 @@ void sbc_a_l(GB *vm, u8 operand) {
   vm->r.a = result;
 }
 
-void sbc_a_hl(GB *vm, u8 operand) {
+void sbc_a_hl(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 value = read_u8(vm, vm->r.hl);
   u8 result = vm->r.a - value - carry;
@@ -775,12 +772,7 @@ void inc_l(GB *vm) {
   _reg_set_flag(vm, vm->r.l == 0, 0, (vm->r.l & 0x0F) == 0, vm->r.f & 0x10);
 }
 
-void inc_hl(GB *vm) {
-  u8 value = read_u8(vm, vm->r.hl);
-  value++;
-  write_u8(vm, vm->r.hl, value);
-  _reg_set_flag(vm, value == 0, 0, (value & 0x0F) == 0, vm->r.f & 0x10);
-}
+void inc_hl(GB *vm) { vm->r.hl++; }
 
 // 10. DEC n
 void dec_a(GB *vm) {
@@ -1707,7 +1699,11 @@ void set_5_h(GB *vm) { vm->r.h |= (1 << 5); }
 void set_6_h(GB *vm) { vm->r.h |= (1 << 6); }
 void set_7_h(GB *vm) { vm->r.h |= (1 << 7); }
 void set_0_l(GB *vm) { vm->r.l |= (1 << 0); }
-void set_1_l(GB *vm) { vm->r.l |= (1 << 1); }
+void set_1_l(GB *vm) {
+  printf("Before set_1_l: L=%02X\n", vm->r.l);
+  vm->r.l |= (1 << 1);
+  printf("After set_1_l: L=%02X\n", vm->r.l);
+}
 void set_2_l(GB *vm) { vm->r.l |= (1 << 2); }
 void set_3_l(GB *vm) { vm->r.l |= (1 << 3); }
 void set_4_l(GB *vm) { vm->r.l |= (1 << 4); }
@@ -1926,7 +1922,7 @@ void res_7_hlp(GB *vm) {
 
 // 3.3.8 Jumps
 // 1. JP nn
-void jp_nn(GB *vm, u16 address) { vm->r.pc = address - 2; }
+void jp_nn(GB *vm, u16 address) { vm->r.pc = address; }
 
 // 2. JP cc,nn
 void jp_nz_nn(GB *vm, u16 address) {
@@ -1974,13 +1970,13 @@ void jr_z_n(GB *vm, u8 offset) {
 
 void jr_nc_n(GB *vm, u8 offset) {
   if (!(vm->r.f & 0x10)) {
-    vm->r.pc += offset;
+    vm->r.pc += (i8)offset;
   }
 }
 
 void jr_c_n(GB *vm, u8 offset) {
   if (vm->r.f & 0x10) {
-    vm->r.pc += offset;
+    vm->r.pc += (i8)offset;
   }
 }
 
@@ -1988,40 +1984,32 @@ void jr_c_n(GB *vm, u8 offset) {
 // 1. CALL nn
 void call_nn(GB *vm, u16 address) {
   vm->r.sp -= 2;
-  write_u16(vm, vm->r.sp, vm->r.pc + 3);
-  vm->r.pc = address;
+  write_u16(vm, vm->r.sp, vm->r.pc + 2);
+  vm->r.pc = address - 2;
 }
 
 // 2. CALL cc,nn
 void call_nz_nn(GB *vm, u16 address) {
   if (!(vm->r.f & 0x80)) {
     call_nn(vm, address);
-  } else {
-    vm->r.pc += 3;
   }
 }
 
 void call_z_nn(GB *vm, u16 address) {
   if (vm->r.f & 0x80) {
     call_nn(vm, address);
-  } else {
-    vm->r.pc += 3;
   }
 }
 
 void call_nc_nn(GB *vm, u16 address) {
   if (!(vm->r.f & 0x10)) {
     call_nn(vm, address);
-  } else {
-    vm->r.pc += 3;
   }
 }
 
 void call_c_nn(GB *vm, u16 address) {
   if (vm->r.f & 0x10) {
     call_nn(vm, address);
-  } else {
-    vm->r.pc += 3;
   }
 }
 

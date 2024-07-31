@@ -373,6 +373,18 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::TreePop();
   }
 
+  if (ImGui::TreeNode("Current Instruction")) {
+    const OPS *instr = &ops[vm->cart.data[vm->r.pc]];
+    ImGui::Text("Opcode: %s", instr->debug_str);
+    ImGui::Text("Length: %u", instr->length);
+
+    ImGui::Text("Operands:");
+    for (int i = 0; i < instr->length; i++) {
+      ImGui::Text("0x%02X", vm->cart.data[vm->r.pc + i]);
+    }
+
+    ImGui::TreePop();
+  }
   if (ImGui::Button("Step")) {
     {
       step_requested = true;
@@ -397,6 +409,34 @@ void draw_window_crude_debug(GB *vm) {
 
   ImGui::SliderFloat("GB Scale", &scale, 1.0f, 6.0f, "%1.0f");
   ImGui::GetIO().FontGlobalScale = fontScale;
+
+  ImGui::End();
+}
+
+void draw_rom_viewer_window(GB *vm) {
+  ImGui::Begin("ROM Viewer");
+
+  // Calculate the number of rows
+  int rows = vm->mem.size / 16;
+  for (int row = 0; row < rows; row++) {
+    // Print the address
+    ImGui::Text("ROM:%04X ", row * 16);
+    ImGui::SameLine();
+
+    // Print the data
+    for (int col = 0; col < 16; col++) {
+      int index = row * 16 + col;
+      if (vm->r.pc == index) {
+        ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "%02X ",
+                           vm->mem.data[index]);
+      } else {
+        ImGui::Text("%02X ", vm->mem.data[index]);
+      }
+      if (col < 15) {
+        ImGui::SameLine();
+      }
+    }
+  }
 
   ImGui::End();
 }
@@ -464,6 +504,7 @@ void main_loop(GLFWwindow *window, GB *vm) {
       draw_window_crude_debug(vm);
     }
     draw_window_texture();
+    draw_rom_viewer_window(vm);
     draw_disassembly_window(vm);
 
     glClear(GL_COLOR_BUFFER_BIT);
