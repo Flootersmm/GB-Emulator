@@ -66,7 +66,7 @@ GB *gb_init(const char *rom_path) {
   vm->mem.hram = vm->mem.data + 0xFF80;
   vm->mem.interrupt_enable = vm->mem.data + 0xFFFF;
 
-  memset(vm->mem.data, 0xFF, 0x10000);
+  memset(vm->mem.data, 0x00, 0x10000);
 
   FILE *fp = fopen(rom_path, "rb");
   if (fp == NULL) {
