@@ -1,5 +1,6 @@
 roms/
 imgui.ini
 .clangd
+cpu_log.txt
 build/*
 gui
