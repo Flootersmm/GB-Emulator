@@ -1,0 +1,12 @@
+<map id="ld_hl_l" name="ld_hl_l">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,64,32"/>
+<area shape="rect" id="Node000002" href="$gb_8c.html#a2e82c7fb7e1d3142fe17cc501afcee9c" title="Write an 8&#45;bit value to memory." alt="" coords="112,5,182,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="64,16,96,16,96,21,64,21"/>
+<area shape="rect" id="Node000003" href="$gb_8c.html#a91425cca91f2fd169e533b9645ae3c12" title=" " alt="" coords="230,5,348,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="182,24,214,25,214,30,182,29"/>
+<area shape="poly" id="edge5_Node000003_Node000002" title=" " alt="" coords="230,12,197,13,197,7,230,7"/>
+<area shape="rect" id="Node000004" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title=" " alt="" coords="396,5,464,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="349,16,381,16,381,21,349,21"/>
+<area shape="rect" id="Node000005" href="$gb_8c.html#aa98c3d7dea79dc6c2f2b6de0e9fafbe2" title=" " alt="" coords="512,5,632,32"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="464,16,496,16,496,21,464,21"/>
+</map>

@@ -289,25 +289,22 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::Text("HL: $%04X", vm->r.hl);
     ImGui::Text("PC: $%04X", vm->r.pc);
     ImGui::Text("SP: $%04X", vm->r.sp);
-    ImGui::Text("Flags: Z:%d N:%d H:%d C:%d", 
-            (vm->r.f >> 7) & 1, 
-            (vm->r.f >> 6) & 1, 
-            (vm->r.f >> 5) & 1, 
-            (vm->r.f >> 4) & 1);
-u8 interrupt_flags = vm->mem.data[0xFF0F];
-u8 interrupt_enable = vm->mem.data[0xFFFF];
+    ImGui::Text("Flags: Z:%d N:%d H:%d C:%d", (vm->r.f >> 7) & 1,
+                (vm->r.f >> 6) & 1, (vm->r.f >> 5) & 1, (vm->r.f >> 4) & 1);
+    u8 interrupt_flags = read_u8(vm, 0xFF0F);
+    u8 interrupt_enable = read_u8(vm, 0xFFFF);
 
-ImGui::Text("Interrupts Requested: V-Blank:%d LCD:%d Timer:%d Joypad:%d", 
-            (interrupt_flags >> 0) & 1, // V-Blank
-            (interrupt_flags >> 1) & 1, // LCD
-            (interrupt_flags >> 2) & 1, // Timer
-            (interrupt_flags >> 4) & 1); // Joypad
+    ImGui::Text("Interrupts Requested: V-Blank:%d LCD:%d Timer:%d Joypad:%d",
+                (interrupt_flags >> 0) & 1,  // V-Blank
+                (interrupt_flags >> 1) & 1,  // LCD
+                (interrupt_flags >> 2) & 1,  // Timer
+                (interrupt_flags >> 4) & 1); // Joypad
 
-ImGui::Text("Interrupts Enabled: V-Blank:%d LCD:%d Timer:%d Joypad:%d", 
-            (interrupt_enable >> 0) & 1, // V-Blank
-            (interrupt_enable >> 1) & 1, // LCD
-            (interrupt_enable >> 2) & 1, // Timer
-            (interrupt_enable >> 4) & 1); // Joypad
+    ImGui::Text("Interrupts Enabled: V-Blank:%d LCD:%d Timer:%d Joypad:%d",
+                (interrupt_enable >> 0) & 1,  // V-Blank
+                (interrupt_enable >> 1) & 1,  // LCD
+                (interrupt_enable >> 2) & 1,  // Timer
+                (interrupt_enable >> 4) & 1); // Joypad
 
     ImGui::Text("Timer Counter: %d", vm->timer_counter);
     ImGui::Text("Divider Counter: %d", vm->divider_counter);
@@ -359,25 +356,22 @@ ImGui::Text("Interrupts Enabled: V-Blank:%d LCD:%d Timer:%d Joypad:%d",
     ImGui::TreePop();
   }
 
-if (ImGui::TreeNode("Framebuffer Contents")) {
+  if (ImGui::TreeNode("Framebuffer Contents")) {
     ImGui::BeginChild("FramebufferView", ImVec2(0, 400), true);
 
     for (int y = 0; y < 144; y++) {
-        for (int x = 0; x < 160; x++) {
-            int offset = (y * 160 + x) * 4;
-            ImGui::Text("Pixel [%d, %d]: R=%d, G=%d, B=%d, A=%d", x, y,
-                        vm->framebuffer[offset],
-                        vm->framebuffer[offset + 1],
-                        vm->framebuffer[offset + 2],
-                        vm->framebuffer[offset + 3]);
-        }
-        ImGui::Separator();
+      for (int x = 0; x < 160; x++) {
+        int offset = (y * 160 + x) * 4;
+        ImGui::Text("Pixel [%d, %d]: R=%d, G=%d, B=%d, A=%d", x, y,
+                    vm->framebuffer[offset], vm->framebuffer[offset + 1],
+                    vm->framebuffer[offset + 2], vm->framebuffer[offset + 3]);
+      }
+      ImGui::Separator();
     }
 
     ImGui::EndChild();
     ImGui::TreePop();
-}
-
+  }
 
   if (ImGui::Button("Step")) {
     {
@@ -408,39 +402,42 @@ if (ImGui::TreeNode("Framebuffer Contents")) {
 }
 
 void draw_disassembly_window(GB *vm) {
-ImGui::Begin("Disassembly Window", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoResize);
+  ImGui::Begin(
+      "Disassembly Window", NULL,
+      ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoScrollbar |
+          ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoResize);
 
-    // Display around the current PC
-    u16 start_address = vm->r.pc > 0x10 ? vm->r.pc - 0x10 : 0;
-    u16 end_address = start_address + 0x20;
+  // Display around the current PC
+  u16 start_address = vm->r.pc > 0x10 ? vm->r.pc - 0x10 : 0;
+  u16 end_address = start_address + 0x20;
 
-    for (u16 address = start_address; address < end_address; ) {
-        u8 opcode = vm->mem.data[address];
-        const char *op_str = ops[opcode].debug_str;
-        int operand_length = ops[opcode].length;
-        
-        // Print address
-        ImGui::Text("%04X: ", address);
+  for (u16 address = start_address; address < end_address;) {
+    u8 opcode = vm->mem.data[address];
+    const char *op_str = ops[opcode].debug_str;
+    int operand_length = ops[opcode].length;
 
-        // Highlight the current PC
-        if (address == vm->r.pc) {
-            ImGui::SameLine();
-            ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "%s ", op_str);
-        } else {
-            ImGui::SameLine();
-            ImGui::Text("%s ", op_str);
-        }
+    // Print address
+    ImGui::Text("%04X: ", address);
 
-        // Print operands
-        for (int i = 1; i <= operand_length; i++) {
-            ImGui::SameLine();
-            ImGui::Text("%02X ", vm->mem.data[address + i]);
-        }
-
-        address += 1 + operand_length;
+    // Highlight the current PC
+    if (address == vm->r.pc) {
+      ImGui::SameLine();
+      ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "%s ", op_str);
+    } else {
+      ImGui::SameLine();
+      ImGui::Text("%s ", op_str);
     }
 
-    ImGui::End();
+    // Print operands
+    for (int i = 1; i <= operand_length; i++) {
+      ImGui::SameLine();
+      ImGui::Text("%02X ", vm->mem.data[address + i]);
+    }
+
+    address += 1 + operand_length;
+  }
+
+  ImGui::End();
 }
 
 void main_loop(GLFWwindow *window, GB *vm) {
@@ -454,12 +451,6 @@ void main_loop(GLFWwindow *window, GB *vm) {
 
   while (!glfwWindowShouldClose(window) && running) {
     glfwPollEvents();
-
-    // Potentially problematic
-  u8 interrupt_enable = read_u8(vm, 0xFFFF);
-    if ((interrupt_enable & 0x01) == 0) {
-      continue; 
-    }
 
     SDL_Event event;
     while (SDL_PollEvent(&event)) {

@@ -1,7 +1,6 @@
 #ifndef GB_H
 #define GB_H
 
-#include "gb.h"
 #include "tables.h"
 #include "typedefs.h"
 #include <GLFW/glfw3.h>
@@ -69,7 +68,6 @@ bool test_bit(u8 byte, int bit);
 u8 get_joypad_state(GB *vm);
 void key_pressed(GB *vm, int key);
 void key_released(GB *vm, int key);
-
 
 // gui.c forward declarations
 GLFWwindow *window_init(void);

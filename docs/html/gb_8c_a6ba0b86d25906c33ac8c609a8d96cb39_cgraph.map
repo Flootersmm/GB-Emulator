@@ -1,5 +1,14 @@
 <map id="_gb_power_on" name="_gb_power_on">
-<area shape="rect" id="Node000001" title="Initialise the power on sequence." alt="" coords="5,5,111,32"/>
-<area shape="rect" id="Node000002" href="$gb_8c.html#a880a6eddcdd4dc541115a3d40c89c6f6" title=" " alt="" coords="159,5,258,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,16,143,16,143,21,111,21"/>
+<area shape="rect" id="Node000001" title="Initialise the power on sequence." alt="" coords="5,31,111,57"/>
+<area shape="rect" id="Node000002" href="$gb_8c.html#a880a6eddcdd4dc541115a3d40c89c6f6" title="Set the flags in the registers." alt="" coords="159,5,258,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,33,143,27,144,32,111,38"/>
+<area shape="rect" id="Node000003" href="$gb_8c.html#a2e82c7fb7e1d3142fe17cc501afcee9c" title="Write an 8&#45;bit value to memory." alt="" coords="173,56,244,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="111,50,158,58,157,64,111,55"/>
+<area shape="rect" id="Node000004" href="$gb_8c.html#a91425cca91f2fd169e533b9645ae3c12" title=" " alt="" coords="306,56,424,83"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="244,74,290,76,290,81,244,80"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="305,63,259,64,259,58,305,58"/>
+<area shape="rect" id="Node000005" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title=" " alt="" coords="472,56,540,83"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="425,67,457,67,457,72,425,72"/>
+<area shape="rect" id="Node000006" href="$gb_8c.html#aa98c3d7dea79dc6c2f2b6de0e9fafbe2" title=" " alt="" coords="588,56,708,83"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="540,67,572,67,572,72,540,72"/>
 </map>

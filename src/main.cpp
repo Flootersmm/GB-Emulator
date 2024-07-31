@@ -2,7 +2,6 @@
 #include "gb.h"
 #include "shared.h"
 #include <GLFW/glfw3.h>
-#include <chrono>
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['nop_0',['nop',['../ops_8c.html#aec2e30d9d9b14c62eeaefa381fb2fc6a',1,'nop(GB *vm):&#160;ops.c'],['../gb_8h.html#aec2e30d9d9b14c62eeaefa381fb2fc6a',1,'nop(GB *vm):&#160;ops.c']]]
+  ['key_5fpressed_0',['key_pressed',['../gb_8c.html#a9a04ecf44dd21c83f06c9f36fb1aadec',1,'key_pressed(GB *vm, int key):&#160;gb.c'],['../gb_8h.html#a9a04ecf44dd21c83f06c9f36fb1aadec',1,'key_pressed(GB *vm, int key):&#160;gb.c']]],
+  ['key_5freleased_1',['key_released',['../gb_8c.html#aae31350251f2ccd62a207f15000f7415',1,'key_released(GB *vm, int key):&#160;gb.c'],['../gb_8h.html#aae31350251f2ccd62a207f15000f7415',1,'key_released(GB *vm, int key):&#160;gb.c']]]
 ];

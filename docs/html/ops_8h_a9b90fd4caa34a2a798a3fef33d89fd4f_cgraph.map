@@ -1,0 +1,9 @@
+<map id="xor_hl" name="xor_hl">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,62,57"/>
+<area shape="rect" id="Node000002" href="$gb_8c.html#a880a6eddcdd4dc541115a3d40c89c6f6" title="Set the flags in the registers." alt="" coords="110,5,209,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="62,36,94,29,95,34,63,41"/>
+<area shape="rect" id="Node000003" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title=" " alt="" coords="126,56,193,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="63,47,111,57,110,62,62,52"/>
+<area shape="rect" id="Node000004" href="$gb_8c.html#aa98c3d7dea79dc6c2f2b6de0e9fafbe2" title=" " alt="" coords="257,56,377,83"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="194,67,241,67,241,72,194,72"/>
+</map>

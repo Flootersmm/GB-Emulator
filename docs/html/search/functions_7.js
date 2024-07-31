@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['jp_5fnn_0',['jp_nn',['../ops_8c.html#a127e1234f9e799370d854c0135afefa5',1,'jp_nn(GB *vm, u16 operand):&#160;ops.c'],['../gb_8h.html#a127e1234f9e799370d854c0135afefa5',1,'jp_nn(GB *vm, u16 operand):&#160;ops.c']]]
+  ['halt_0',['halt',['../ops_8c.html#abc9f674d359b29398bb206db3e18bbcd',1,'halt(GB *vm):&#160;ops.c'],['../ops_8h.html#abc9f674d359b29398bb206db3e18bbcd',1,'halt(GB *vm):&#160;ops.c']]],
+  ['handle_5fkey_5fevent_1',['handle_key_event',['../gui_8cpp.html#a7a5c9d271114a85ed901b9823f006c34',1,'gui.cpp']]]
 ];

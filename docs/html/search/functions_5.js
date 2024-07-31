@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['gb_5fdestroy_0',['gb_destroy',['../gb_8c.html#a008e9959fa5fd87c39f03271134d0e0c',1,'gb_destroy(GB *vm):&#160;gb.c'],['../gb_8h.html#a008e9959fa5fd87c39f03271134d0e0c',1,'gb_destroy(GB *vm):&#160;gb.c']]],
-  ['gb_5finit_1',['gb_init',['../gb_8c.html#ac213e383456ea5569bf9f03fbc4b47d6',1,'gb_init(const char *rom_path):&#160;gb.c'],['../gb_8h.html#ac213e383456ea5569bf9f03fbc4b47d6',1,'gb_init(const char *rom_path):&#160;gb.c']]]
+  ['ei_0',['ei',['../ops_8c.html#aad10755d9a6843b108d5bf577dcfb006',1,'ei(GB *vm):&#160;ops.c'],['../ops_8h.html#aad10755d9a6843b108d5bf577dcfb006',1,'ei(GB *vm):&#160;ops.c']]],
+  ['emulator_5fthread_1',['emulator_thread',['../main_8cpp.html#a950362bbfabb6e34a60097f5c916694f',1,'main.cpp']]]
 ];

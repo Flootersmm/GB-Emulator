@@ -1,25 +1,5 @@
 var searchData=
 [
-  ['rom_5fmbc1_0',['ROM_MBC1',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8a985101965fd4e9728d8d81334023cb90',1,'gb.h']]],
-  ['rom_5fmbc1_5fram_1',['ROM_MBC1_RAM',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8a68fb1eb2c5a5bc72122a6c6e941a7869',1,'gb.h']]],
-  ['rom_5fmbc1_5fram_5fbatt_2',['ROM_MBC1_RAM_BATT',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8accaf87eb425d458f428506d18006d407',1,'gb.h']]],
-  ['rom_5fmbc2_3',['ROM_MBC2',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8aa9919ff6dece5a4e1aad0c90751b09ce',1,'gb.h']]],
-  ['rom_5fmbc2_5fbatt_4',['ROM_MBC2_BATT',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8a4d431056f067e6b6441b2c8feef72c1d',1,'gb.h']]],
-  ['rom_5fmbc3_5',['ROM_MBC3',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8adbd174d8f8e6d94a961689de65fd6a3c',1,'gb.h']]],
-  ['rom_5fmbc3_5fram_6',['ROM_MBC3_RAM',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8a030ac8f3e8852a225b51701b35b2ac3c',1,'gb.h']]],
-  ['rom_5fmbc3_5fram_5fbatt_7',['ROM_MBC3_RAM_BATT',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8a281297044925bd356d3f15a442cb0b6d',1,'gb.h']]],
-  ['rom_5fmbc3_5ftimer_5fbatt_8',['ROM_MBC3_TIMER_BATT',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8a6d0e66c51eabab40ca20f4546791b227',1,'gb.h']]],
-  ['rom_5fmbc3_5ftimer_5fram_5fbatt_9',['ROM_MBC3_TIMER_RAM_BATT',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8ad824097a8d759007f97e399b2f22b4c7',1,'gb.h']]],
-  ['rom_5fmbc5_10',['ROM_MBC5',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8a338a72118dcd10bb2a15cc394e595dfd',1,'gb.h']]],
-  ['rom_5fmbc5_5fram_11',['ROM_MBC5_RAM',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8a9e6106adf58c4d58a77309092da54c19',1,'gb.h']]],
-  ['rom_5fmbc5_5fram_5fbatt_12',['ROM_MBC5_RAM_BATT',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8af40949c43e913c029825b906d01209af',1,'gb.h']]],
-  ['rom_5fmbc5_5frumble_13',['ROM_MBC5_RUMBLE',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8a0ebdcdc4883d6ee6b0e5e37965ef4321',1,'gb.h']]],
-  ['rom_5fmbc5_5frumble_5fsram_14',['ROM_MBC5_RUMBLE_SRAM',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8acad5ec5f3934505180122deee80b3ac5',1,'gb.h']]],
-  ['rom_5fmbc5_5frumble_5fsram_5fbatt_15',['ROM_MBC5_RUMBLE_SRAM_BATT',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8af10c2606740fa37d93ec2a337ccd232e',1,'gb.h']]],
-  ['rom_5fmmm01_16',['ROM_MMM01',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8a2fb687057bb771d0140b96ed19991b70',1,'gb.h']]],
-  ['rom_5fmmm01_5fsram_17',['ROM_MMM01_SRAM',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8a31e14e24b382d7b4a2af09ef26ef8bc7',1,'gb.h']]],
-  ['rom_5fmmm01_5fsram_5fbatt_18',['ROM_MMM01_SRAM_BATT',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8aed5f234de57943bd8c32b14d174f634a',1,'gb.h']]],
-  ['rom_5fonly_19',['ROM_ONLY',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8a6ea7366efc6b1baa0a366a734081bb48',1,'gb.h']]],
-  ['rom_5fram_20',['ROM_RAM',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8ad122d35828ee2169ff3c69bbe5321bf3',1,'gb.h']]],
-  ['rom_5fram_5fbatt_21',['ROM_RAM_BATT',['../gb_8h.html#a9336b0d28387f3c806f0031000188cd8a15fc25fbd7b0a55ae408cd29858a2f8e',1,'gb.h']]]
+  ['no_5fop_0',['NO_OP',['../typedefs_8h.html#aa1aa1c6a8f3bbed5b167bc2d4511b969ae76c941d2316666913c673a032deb9ba',1,'typedefs.h']]],
+  ['non_5fcgb_1',['NON_CGB',['../typedefs_8h.html#a7e43d25b7589af8a282e3c9ce09426b1a16078ab7a2b65eae5cde51e5bd100e7c',1,'typedefs.h']]]
 ];

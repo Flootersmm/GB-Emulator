@@ -120,6 +120,8 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 <li>cgb&#160;:&#160;<a class="el" href="structFlags.html#a213fe9803526665eb53a5ec65cbe9e14">Flags</a></li>
 <li>cgb_flag&#160;:&#160;<a class="el" href="structCartridge.html#adce6e9491ce8a4ee695454c85abfb416">Cartridge</a></li>
 <li>code&#160;:&#160;<a class="el" href="structConsoleType.html#a5be903ae4d7a63aedfb5c5b5c82ffa9e">ConsoleType</a>, <a class="el" href="structLicensee.html#a01cf447df45877488db223763ddb585e">Licensee</a></li>
+<li>current_scanline&#160;:&#160;<a class="el" href="structGB.html#a1531183ff61db80d4541e6393fdcdedf">GB</a></li>
+<li>cycles&#160;:&#160;<a class="el" href="structGB.html#a34dc4ce383524aad0c082b7b7589fe6e">GB</a></li>
 </ul>
 
 
@@ -127,8 +129,10 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 <li>d&#160;:&#160;<a class="el" href="structRegisters.html#a5090046932a94a517ed4c2dd4f19b9b0">Registers</a></li>
 <li>data&#160;:&#160;<a class="el" href="structCartridge.html#ae969fe94ba124c4463cc560909a3ad2f">Cartridge</a>, <a class="el" href="structMemory.html#a329e110e08ed5d23510b0f226d95fb3d">Memory</a></li>
 <li>de&#160;:&#160;<a class="el" href="structRegisters.html#a90da4ee697b1609649d0dc0a7099bf56">Registers</a></li>
-<li>debug_str&#160;:&#160;<a class="el" href="structOPS.html#a7e3e46dc134c36ffdf6d41e3b1501458">OPS</a></li>
+<li>debug_str&#160;:&#160;<a class="el" href="structOPS.html#a7e3e46dc134c36ffdf6d41e3b1501458">OPS</a>, <a class="el" href="structOPS__extended.html#ab50e96ea65b21a65ce2360f48e430d92">OPS_extended</a></li>
 <li>destination_code&#160;:&#160;<a class="el" href="structCartridge.html#a911b50b399b53f24c3c2618923b96ba0">Cartridge</a></li>
+<li>divider_counter&#160;:&#160;<a class="el" href="structGB.html#adbbbc1761f7c601c8eb1812a8ac85504">GB</a></li>
+<li>divider_register&#160;:&#160;<a class="el" href="structGB.html#a074e4e963e4e5a4a7873adecf292af90">GB</a></li>
 <li>dummy&#160;:&#160;<a class="el" href="structGB.html#aaacb452d1a59767f8a6f0671cf9d8a95">GB</a></li>
 </ul>
 
@@ -144,10 +148,11 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 <h3><a id="index_f" name="index_f"></a>- f -</h3><ul>
 <li>f&#160;:&#160;<a class="el" href="structRegisters.html#aa7729dccaf79fb457998e7b4fb445240">Registers</a></li>
 <li>flag&#160;:&#160;<a class="el" href="structGB.html#a6ae38d2d436a4240574ee14db5780f89">GB</a></li>
-<li>func&#160;:&#160;<a class="el" href="structOPS.html#a7cfbcbd993d358fc5d33717f1d63ee95">OPS</a></li>
-<li>func_no_op&#160;:&#160;<a class="el" href="structOPS.html#a222877f0a6b3f14a2b1e7b7a925a3783">OPS</a></li>
-<li>func_u16_op&#160;:&#160;<a class="el" href="structOPS.html#a0c65d76c7a762692d4303d066f631bd6">OPS</a></li>
-<li>func_u8_op&#160;:&#160;<a class="el" href="structOPS.html#a78c4af4eb1fa3f547050296dfd59acc4">OPS</a></li>
+<li>framebuffer&#160;:&#160;<a class="el" href="structGB.html#a5b5143c5434d2d25f891042b1b5caf48">GB</a></li>
+<li>func&#160;:&#160;<a class="el" href="structOPS.html#a7cfbcbd993d358fc5d33717f1d63ee95">OPS</a>, <a class="el" href="structOPS__extended.html#ad78fb4af2fd24f0b922e24dc6d5389b9">OPS_extended</a></li>
+<li>func_no_op&#160;:&#160;<a class="el" href="structOPS.html#a222877f0a6b3f14a2b1e7b7a925a3783">OPS</a>, <a class="el" href="structOPS__extended.html#aa784e7df1d8df1aa0a78ffd617d6ef62">OPS_extended</a></li>
+<li>func_u16_op&#160;:&#160;<a class="el" href="structOPS.html#a0c65d76c7a762692d4303d066f631bd6">OPS</a>, <a class="el" href="structOPS__extended.html#adae996d663833bd36b5ae096f77fe3a6">OPS_extended</a></li>
+<li>func_u8_op&#160;:&#160;<a class="el" href="structOPS.html#a78c4af4eb1fa3f547050296dfd59acc4">OPS</a>, <a class="el" href="structOPS__extended.html#ae2482dcb63528888a9609dd8b0d2fd41">OPS_extended</a></li>
 </ul>
 
 
@@ -166,15 +171,23 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 
 
 <h3><a id="index_i" name="index_i"></a>- i -</h3><ul>
+<li>interrupt_disable_pending&#160;:&#160;<a class="el" href="structFlags.html#ab6870533bbd043d7f7254cfcd4c3e25c">Flags</a></li>
 <li>interrupt_enable&#160;:&#160;<a class="el" href="structMemory.html#a9ac7e12a6d7db16252d37553d6b756b0">Memory</a></li>
+<li>interrupt_enable_pending&#160;:&#160;<a class="el" href="structFlags.html#ae9f21a981882e88fe8d82fcfb16e3214">Flags</a></li>
+<li>interrupt_master_enable&#160;:&#160;<a class="el" href="structFlags.html#a6a8e38b845843e3d541460300ad3ab28">Flags</a></li>
 <li>io_registers&#160;:&#160;<a class="el" href="structMemory.html#af5f86d27b920ec79c7d07b5a84f07fb4">Memory</a></li>
 <li>item&#160;:&#160;<a class="el" href="structVRAM.html#a4daa4539746276defd69a1a1912d73f8">VRAM</a>, <a class="el" href="structZPM.html#aef8ea109dd3b16563d8740556e751aba">ZPM</a></li>
 </ul>
 
 
+<h3><a id="index_j" name="index_j"></a>- j -</h3><ul>
+<li>joypad_state&#160;:&#160;<a class="el" href="structGB.html#a40cd9d54dea0e06b3cb4788dad22ef65">GB</a></li>
+</ul>
+
+
 <h3><a id="index_l" name="index_l"></a>- l -</h3><ul>
 <li>l&#160;:&#160;<a class="el" href="structRegisters.html#a064604fce69bcc55b4dca11084561949">Registers</a></li>
-<li>length&#160;:&#160;<a class="el" href="structOPS.html#a6a284d8392426e712e409c0773688b10">OPS</a></li>
+<li>length&#160;:&#160;<a class="el" href="structOPS.html#a6a284d8392426e712e409c0773688b10">OPS</a>, <a class="el" href="structOPS__extended.html#a0a440b9eafd7808f20a3cbcdcbfbdea9">OPS_extended</a></li>
 <li>logo&#160;:&#160;<a class="el" href="structCartridge.html#affc122c00a4897870d11280d6516a1eb">Cartridge</a></li>
 <li>logo_match&#160;:&#160;<a class="el" href="structFlags.html#a6739a72c0c80432a94119a5cba29d301">Flags</a></li>
 </ul>
@@ -217,16 +230,22 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 
 
 <h3><a id="index_s" name="index_s"></a>- s -</h3><ul>
+<li>scanline_counter&#160;:&#160;<a class="el" href="structGB.html#aa69ad153c081ccb9e278351d8b4b16d9">GB</a></li>
 <li>sgb&#160;:&#160;<a class="el" href="structFlags.html#af224d2bb1398c15bf8348088da9e0ebd">Flags</a></li>
 <li>sgb_flag&#160;:&#160;<a class="el" href="structCartridge.html#a4e4091aa7eeeb2e55bf40b0772c6c128">Cartridge</a></li>
 <li>size&#160;:&#160;<a class="el" href="structCartridge.html#a87b451d6adbec6388074f2cb5d9c0c2b">Cartridge</a>, <a class="el" href="structMemory.html#a632c718a36a3ef0b3c9d2d0d9f4d07c5">Memory</a>, <a class="el" href="structVRAM.html#a10e2c08a546d66b5074986d80fe31235">VRAM</a>, <a class="el" href="structZPM.html#ab46aee5e97ed378b2de150caaefca13b">ZPM</a></li>
 <li>sp&#160;:&#160;<a class="el" href="structRegisters.html#a0cc53a17a5ba59850834d5b8e196ddf8">Registers</a></li>
+<li>stop&#160;:&#160;<a class="el" href="structFlags.html#ad634f40cc694c21c159899bb39ccc298">Flags</a></li>
 </ul>
 
 
 <h3><a id="index_t" name="index_t"></a>- t -</h3><ul>
+<li>tima&#160;:&#160;<a class="el" href="structGB.html#aad2704aa81f85d9eb5b3f307d128f8d6">GB</a></li>
+<li>timer_counter&#160;:&#160;<a class="el" href="structGB.html#aa430d0716dae84b69c7a7a0e22c45a10">GB</a></li>
 <li>title&#160;:&#160;<a class="el" href="structCartridge.html#a15b43d4e68acd3b438febb570eb7ffe8">Cartridge</a></li>
-<li>type&#160;:&#160;<a class="el" href="structConsoleType.html#ac606dab0102b8064abb9b700b2ff6994">ConsoleType</a>, <a class="el" href="structFlags.html#aa380459b2f17968884a48d97b782ff81">Flags</a>, <a class="el" href="structOPS.html#ab921f19c58413e2134aba61fdf298868">OPS</a></li>
+<li>tma&#160;:&#160;<a class="el" href="structGB.html#ad939ff183aa691ce5ffc3f103f37865f">GB</a></li>
+<li>tmc&#160;:&#160;<a class="el" href="structGB.html#a500106b655fda004371204596361456f">GB</a></li>
+<li>type&#160;:&#160;<a class="el" href="structConsoleType.html#ac606dab0102b8064abb9b700b2ff6994">ConsoleType</a>, <a class="el" href="structFlags.html#aa380459b2f17968884a48d97b782ff81">Flags</a>, <a class="el" href="structOPS.html#ab921f19c58413e2134aba61fdf298868">OPS</a>, <a class="el" href="structOPS__extended.html#ad031d70a11af4fe25d1829111e6c06d0">OPS_extended</a></li>
 </ul>
 
 
@@ -250,7 +269,7 @@ $(function(){initNavTree('functions.html',''); initResizable(true); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Jul 30 2024 00:28:35 for GB Emulator by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generated on Wed Jul 31 2024 05:55:25 for GB Emulator by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

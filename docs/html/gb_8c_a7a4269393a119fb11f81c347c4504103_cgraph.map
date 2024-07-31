@@ -1,0 +1,27 @@
+<map id="update_timers" name="update_timers">
+<area shape="rect" id="Node000001" title="Update timers based on the number of cycles passed." alt="" coords="5,132,109,159"/>
+<area shape="rect" id="Node000002" href="$gb_8c.html#a58de62df7c6c0becdb0e53ff14a7bb17" title="Handle the divider register." alt="" coords="157,5,287,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="68,130,105,91,155,49,173,37,176,42,158,53,109,95,72,134"/>
+<area shape="rect" id="Node000003" href="$gb_8c.html#a650b2f365839fcb08101914086af2185" title="Check if the clock is enabled." alt="" coords="489,56,611,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="82,129,116,113,156,99,240,82,325,72,473,65,474,71,326,77,241,87,157,104,118,118,84,134"/>
+<area shape="rect" id="Node000004" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title=" " alt="" coords="659,157,726,184"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="109,139,328,134,469,137,611,149,644,155,643,161,610,155,469,143,328,139,109,145"/>
+<area shape="rect" id="Node000006" href="$gb_8c.html#ae9bca81c7651390ccc9248d600b1f444" title="Request an interrupt." alt="" coords="163,157,281,184"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="110,151,148,157,147,162,109,156"/>
+<area shape="rect" id="Node000007" href="$gb_8c.html#a2e82c7fb7e1d3142fe17cc501afcee9c" title="Write an 8&#45;bit value to memory." alt="" coords="353,208,423,235"/>
+<area shape="poly" id="edge15_Node000001_Node000007" title=" " alt="" coords="81,157,116,176,157,193,204,205,252,212,338,218,337,224,252,217,203,210,156,199,114,181,78,162"/>
+<area shape="rect" id="Node000009" href="$gb_8c.html#a4d937422b593a33f405c5507a48be9c5" title="Set the clock frequency." alt="" coords="169,259,275,285"/>
+<area shape="poly" id="edge12_Node000001_Node000009" title=" " alt="" coords="72,157,109,196,158,238,176,249,173,253,155,242,105,200,68,161"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="581,81,612,99,668,144,664,149,609,104,578,85"/>
+<area shape="rect" id="Node000005" href="$gb_8c.html#aa98c3d7dea79dc6c2f2b6de0e9fafbe2" title=" " alt="" coords="774,157,894,184"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="727,168,758,168,758,173,727,173"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="281,168,643,168,643,173,281,173"/>
+<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="269,182,339,204,337,209,268,187"/>
+<area shape="rect" id="Node000008" href="$gb_8c.html#a91425cca91f2fd169e533b9645ae3c12" title=" " alt="" coords="491,208,609,235"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="424,226,476,228,476,233,424,232"/>
+<area shape="poly" id="edge10_Node000008_Node000004" title=" " alt="" coords="589,205,643,185,645,190,591,210"/>
+<area shape="poly" id="edge11_Node000008_Node000007" title=" " alt="" coords="491,215,439,216,439,210,491,210"/>
+<area shape="rect" id="Node000010" href="$gb_8c.html#a362801a37de91117ec09102ecf203dd6" title="Get the clock frequency." alt="" coords="335,259,441,285"/>
+<area shape="poly" id="edge13_Node000009_Node000010" title=" " alt="" coords="275,269,320,269,320,275,275,275"/>
+<area shape="poly" id="edge14_Node000010_Node000004" title=" " alt="" coords="441,272,523,268,567,259,609,244,643,221,670,194,674,198,647,225,612,249,569,264,524,273,442,278"/>
+</map>

@@ -7,6 +7,7 @@ var annotated_dup =
     [ "Licensee", "structLicensee.html", "structLicensee" ],
     [ "Memory", "structMemory.html", "structMemory" ],
     [ "OPS", "structOPS.html", "structOPS" ],
+    [ "OPS_extended", "structOPS__extended.html", "structOPS__extended" ],
     [ "Registers", "structRegisters.html", "structRegisters" ],
     [ "RomSizeEntry", "structRomSizeEntry.html", "structRomSizeEntry" ],
     [ "VRAM", "structVRAM.html", "structVRAM" ],

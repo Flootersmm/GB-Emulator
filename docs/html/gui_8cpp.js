@@ -1,11 +1,13 @@
 var gui_8cpp =
 [
+    [ "draw_disassembly_window", "gui_8cpp.html#a395b0220ed1e9e0a2bd74f2d5ef12e4e", null ],
     [ "draw_window_crude_debug", "gui_8cpp.html#afacd084c4ffdd1ae130003bc5c26663a", null ],
     [ "draw_window_texture", "gui_8cpp.html#ae827c5e3bb6a31948b56323adf16be1f", null ],
+    [ "handle_key_event", "gui_8cpp.html#a7a5c9d271114a85ed901b9823f006c34", null ],
     [ "main_loop", "gui_8cpp.html#a6e9b5912f48a0cc57a6142285783615a", null ],
     [ "texture_destroy", "gui_8cpp.html#a2965978f827f4e4db3ea299c859d2151", null ],
     [ "texture_init", "gui_8cpp.html#aaadac544d627adfb86b9950b96e0be27", null ],
-    [ "update_texture", "gui_8cpp.html#a472c882db1df42079b977da1b7322751", null ],
+    [ "update_texture", "gui_8cpp.html#ab05b142f6b75fc29f6872cd10661757b", null ],
     [ "window_file_size", "gui_8cpp.html#a1ad0b086559e324bcf03c1c07b61125a", null ],
     [ "window_init", "gui_8cpp.html#a1e8e55366c1419c08c91382f06413e43", null ],
     [ "window_main_size", "gui_8cpp.html#a106fb4cdcf06aec3f9fe60f2319ea957", null ],
@@ -28,6 +30,7 @@ var gui_8cpp =
     [ "scale", "gui_8cpp.html#a1d28dec57cce925ad92342891bd71e7c", null ],
     [ "stdout_buffer", "gui_8cpp.html#a4ab73aa282220771faaf6753da548c97", null ],
     [ "stdout_memstream", "gui_8cpp.html#a17dc77eb604b5027b1aa22579d4e5d4e", null ],
+    [ "step_requested", "gui_8cpp.html#aabf162ee473c863d308ed83d1c01355d", null ],
     [ "texture", "gui_8cpp.html#a0704dfe56dec926cb35f7bdc0834ecd0", null ],
     [ "toggle_backtrace", "gui_8cpp.html#a46eebb3755a57fc1ecd282927adfcd29", null ],
     [ "toggle_file", "gui_8cpp.html#aa8b62aef353748d36e66a6d1639c5801", null ],

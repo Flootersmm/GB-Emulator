@@ -26,8 +26,8 @@ GB *gb_init(const char *rom_path) {
             .sp = 0},
       .mem =
           {
-              .data = malloc(0x10000), // TODO: actual size
-              .size = 0x10000,
+              .data = malloc(0xFFFF), // TODO: actual size
+              .size = 0xFFFF,
           },
       .flag = {0},
       .cart =
@@ -66,7 +66,7 @@ GB *gb_init(const char *rom_path) {
   vm->mem.hram = vm->mem.data + 0xFF80;
   vm->mem.interrupt_enable = vm->mem.data + 0xFFFF;
 
-  memset(vm->mem.data, 0xFF, 0x10000);
+  memset(vm->mem.data, 0xFF, 0xFFFF);
 
   FILE *fp = fopen(rom_path, "rb");
   if (fp == NULL) {
@@ -544,16 +544,17 @@ void _cart_header_set_flags(GB *vm) {
 
 void step(GB *vm) {
 
-  //  FILE *logfile = fopen("cpu_log.txt", "a");
-  //  if (logfile) {
-  //    fprintf(logfile,
-  //            "A:%02X F:%02X B:%02X C:%02X D:%02X E:%02X H:%02X L:%02X SP:%04X
-  //            " "PC:%04X PCMEM:%02X,%02X,%02X,%02X\n", vm->r.a, vm->r.f,
-  //            vm->r.b, vm->r.c, vm->r.d, vm->r.e, vm->r.h, vm->r.l, vm->r.sp,
-  //            vm->r.pc, read_u8(vm, vm->r.pc), read_u8(vm, vm->r.pc + 1),
-  //            read_u8(vm, vm->r.pc + 2), read_u8(vm, vm->r.pc + 3));
-  //    fclose(logfile);
-  //  }
+  FILE *logfile = fopen("cpu_log.txt", "a");
+  if (logfile) {
+    fprintf(logfile,
+            "A:%02X F:%02X B:%02X C:%02X D:%02X E:%02X H:%02X L:%02X SP:%04X "
+            "PC:%04X PCMEM:%02X,%02X,%02X,%02X\n",
+            vm->r.a, vm->r.f, vm->r.b, vm->r.c, vm->r.d, vm->r.e, vm->r.h,
+            vm->r.l, vm->r.sp, vm->r.pc, read_u8(vm, vm->r.pc),
+            read_u8(vm, vm->r.pc + 1), read_u8(vm, vm->r.pc + 2),
+            read_u8(vm, vm->r.pc + 3));
+    fclose(logfile);
+  }
 
   if (vm->flag.halt) {
     return;
@@ -685,13 +686,13 @@ void set_lcd_status(GB *vm) {
   }
 
   if (req_int && (mode != current_mode)) {
-    request_interrupt(vm, 1);
+    request_interrupt(vm, 1); // Request LCD interrupt
   }
 
   if (current_line == read_u8(vm, 0xFF45)) {
     status |= 4;
     if (status & (1 << 6)) {
-      request_interrupt(vm, 1);
+      request_interrupt(vm, 1); // Request LCD interrupt
     }
   } else {
     status &= ~4;
@@ -704,10 +705,10 @@ bool is_lcd_enabled(GB *vm) { return (read_u8(vm, 0xFF40) & 0x80) != 0; }
 
 u8 read_u8(GB *vm, u16 addr) {
   if (addr == 0xFF44) {
-    // return vm->current_scanline;
+    return vm->current_scanline;
 
     // Gameboy doctor
-    return 0x90;
+    // return 0x90;
   } else if (addr == 0xFF00) {
     return get_joypad_state(vm);
   } else if (addr >= vm->mem.size) {
@@ -734,32 +735,21 @@ u16 read_u16(GB *vm, u16 addr) {
 /// @param value Value to write
 void write_u8(GB *vm, u16 addr, u8 value) {
   if (addr == 0xFF44) {
-    // LY register - writing any value resets it to 0
     vm->current_scanline = 0;
   } else if (addr == 0xFF46) {
-    // DMA transfer
     do_dma_transfer(vm, value);
   } else if (addr == 0xFF00) {
-    // Joypad register
     vm->mem.data[addr] = value;
-  } else if (addr >= 0xFF00 && addr <= 0xFF7F) {
-    // I/O registers
-    vm->mem.io_registers[addr - 0xFF00] = value;
   } else if (addr < 0x8000) {
-    // ROM
     return;
   } else if (addr >= 0xE000 && addr < 0xFE00) {
-    // Echo RAM
     vm->mem.data[addr] = value;
     vm->mem.data[addr - 0x2000] = value;
   } else if (addr >= 0xFEA0 && addr < 0xFEFF) {
-    // Unusable memory
     return;
   } else if (addr >= 0xFF80 && addr <= 0xFFFE) {
-    // High RAM
     vm->mem.data[addr] = value;
   } else {
-    // General memory
     vm->mem.data[addr] = value;
   }
 }
@@ -888,8 +878,8 @@ void request_interrupt(GB *vm, u8 interrupt_flag) {
 
 void do_interrupts(GB *vm) {
   if (vm->flag.interrupt_master_enable) {
-    u8 req = read_u8(vm, 0xFF0F);     // Interrupt Request
-    u8 enabled = read_u8(vm, 0xFFFF); // Interrupt Enable
+    u8 req = read_u8(vm, 0xFF0F);     // Interrupt Request Register
+    u8 enabled = read_u8(vm, 0xFFFF); // Interrupt Enable Register
     u8 fire = req & enabled;
 
     if (fire > 0) {
@@ -1207,12 +1197,12 @@ bool test_bit(u8 byte, int bit) { return (byte & (1 << bit)) != 0; }
 
 u8 get_joypad_state(GB *vm) {
   u8 res = vm->mem.data[0xFF00];
-  res ^= 0xFF;
+  res ^= 0xFF; // Flip all bits
 
   if (!(res & 0x10)) {
     u8 top_joypad = vm->joypad_state >> 4;
-    top_joypad |= 0xF0;
-    res &= top_joypad;
+    top_joypad |= 0xF0; // Turn the top 4 bits on
+    res &= top_joypad;  // Show what buttons are pressed
   } else if (!(res & 0x20)) {
     u8 bottom_joypad = vm->joypad_state & 0x0F;
     bottom_joypad |= 0xF0;
@@ -1225,7 +1215,7 @@ u8 get_joypad_state(GB *vm) {
 void key_pressed(GB *vm, int key) {
   bool previously_unset = !(vm->joypad_state & (1 << key));
 
-  vm->joypad_state &= ~(1 << key);
+  vm->joypad_state &= ~(1 << key); // Set bit to 0 (pressed)
 
   bool button = (key > 3);
   u8 key_req = vm->mem.data[0xFF00];
@@ -1242,7 +1232,9 @@ void key_pressed(GB *vm, int key) {
   }
 }
 
-void key_released(GB *vm, int key) { vm->joypad_state |= (1 << key); }
+void key_released(GB *vm, int key) {
+  vm->joypad_state |= (1 << key); // Set bit to 1 (released)
+}
 
 /// Set the flags in the registers
 ///

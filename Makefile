@@ -44,7 +44,7 @@ doxygen:
 	doxygen
 
 clean:
-	-rm -f $(ODIR)/*.o *~ core.* $(INCDIR)/*~
+	-rm -f $(ODIR)/*.o 
 	-rm -f $(ODIR)/*.d
 	-rm -f gui
 	-rm -rf obj/ *.dSYM

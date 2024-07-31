@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['new_5flicensee_5fcode_0',['new_licensee_code',['../structCartridge.html#a3461eb588e214319028f965373879635',1,'Cartridge']]],
-  ['new_5flicensee_5ftable_5fsize_1',['new_licensee_table_size',['../gb_8c.html#a975f80e9fd512280f2ed55f67cf1b669',1,'gb.c']]],
-  ['new_5flicensees_2',['new_licensees',['../gb_8c.html#a3a261c73b83ff640714b8ecc60e70c7c',1,'gb.c']]]
+  ['manufacturer_5fcode_0',['manufacturer_code',['../structCartridge.html#a4c43e65838c24644389d63cd9c2427ce',1,'Cartridge']]],
+  ['mask_5from_5fver_5fnumber_1',['mask_rom_ver_number',['../structCartridge.html#a0cdd43dc09c513710fc0bc0f6253a5db',1,'Cartridge']]],
+  ['mem_2',['mem',['../structGB.html#a398e316027b378475f147d27466b9914',1,'GB']]]
 ];
