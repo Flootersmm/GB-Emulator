@@ -47,5 +47,6 @@ clean:
 	-rm -f $(ODIR)/*.o 
 	-rm -f $(ODIR)/*.d
 	-rm -f gui
+	-rm -f cpu_log.txt
 	-rm -rf obj/ *.dSYM
 	-rm -f valgrind-*.txt
