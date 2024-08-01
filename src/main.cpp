@@ -27,7 +27,7 @@ void emulator_thread(GB *vm) {
       if (breakpoint_hit) {
         if (step_requested) {
           step(vm);
-          step_requested = false;
+          step_requested = true;
         }
       } else {
         step(vm);
@@ -39,7 +39,7 @@ void emulator_thread(GB *vm) {
       }
     }
     std::this_thread::sleep_for(std::chrono::microseconds(static_cast<int>(
-        (vm->timer_counter / GAMEBOY_CLOCK_SPEED) * 10000))); // 1000000
+        (vm->timer_counter / GAMEBOY_CLOCK_SPEED) * 1000))); // 1000000
   }
 }
 

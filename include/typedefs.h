@@ -244,7 +244,9 @@ struct GB {
   u32 cycles;
   u16 scanline_counter;
   u8 current_scanline;
-  COLOUR framebuffer[160 * 144];
+  u8 framebuffer[144][160][3];
+  u8 tiles[384][8][8];
+  COLOUR background_palette[4];
   u8 joypad_state;
 };
 

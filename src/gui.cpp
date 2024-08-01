@@ -74,9 +74,19 @@ static bool isBlack = true; // Toggle state for alternating colors
 static float scale = 2.0f;
 
 void update_texture(GB *vm) {
+  u8 texture_data[144 * 160 * 3];
+  for (int y = 0; y < 144; y++) {
+    for (int x = 0; x < 160; x++) {
+      int offset = (y * 160 + x) * 3;
+      texture_data[offset] = vm->framebuffer[y][x][0];
+      texture_data[offset + 1] = vm->framebuffer[y][x][1];
+      texture_data[offset + 2] = vm->framebuffer[y][x][2];
+    }
+  }
+
   glBindTexture(GL_TEXTURE_2D, texture);
-  glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA,
-                  GL_UNSIGNED_BYTE, vm->framebuffer);
+  glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 160, 144, GL_RGB, GL_UNSIGNED_BYTE,
+                  texture_data);
 }
 
 void handle_key_event(GB *vm, SDL_Event *event) {
@@ -312,9 +322,9 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::Text("Divider Counter: %d", vm->divider_counter);
     ImGui::Text("TMC: $%02X", vm->tmc);
     ImGui::Text("Divider Register: $%02X", vm->divider_register);
-    ImGui::Text("TIMA: $%02X", vm->tima);
-    ImGui::Text("TMA: $%02X", vm->tma);
-    ImGui::Text("Cycles: %u", vm->cycles);
+    ImGui::Text("TIMA: $%02X", vm->mem.data[0xFF05]);
+    ImGui::Text("TMA: $%02X", vm->mem.data[0xFF06]);
+    ImGui::Text("Cycles: %u", vm->mem.data[0xFF07]);
 
     ImGui::Separator();
     ImGui::Text("ScrollY (0xFF42): 0x%02X", vm->mem.data[0xFF42]);
@@ -381,17 +391,15 @@ void draw_window_crude_debug(GB *vm) {
 
   if (ImGui::TreeNode("Framebuffer Contents")) {
     ImGui::BeginChild("FramebufferView", ImVec2(0, 400), true);
-
     for (int y = 0; y < 144; y++) {
       for (int x = 0; x < 160; x++) {
-        int offset = (y * 160 + x) * 4;
-        ImGui::Text("Pixel [%d, %d]: R=%d, G=%d, B=%d, A=%d", x, y,
-                    vm->framebuffer[offset], vm->framebuffer[offset + 1],
-                    vm->framebuffer[offset + 2], vm->framebuffer[offset + 3]);
+        int red = vm->framebuffer[y][x][0];
+        int green = vm->framebuffer[y][x][1];
+        int blue = vm->framebuffer[y][x][2];
+        ImGui::Text("Pixel [%d, %d]: R=%d, G=%d, B=%d", x, y, red, green, blue);
       }
       ImGui::Separator();
     }
-
     ImGui::EndChild();
     ImGui::TreePop();
   }

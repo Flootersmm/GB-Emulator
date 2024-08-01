@@ -228,6 +228,7 @@ void push_hl(GB *vm) {
 // 7. POP nn
 void pop_af(GB *vm) {
   vm->r.af = read_u16(vm, vm->r.sp);
+  vm->r.f &= 0xF0; // Ensure the lower nibble of the F register is always 0
   vm->r.sp += 2;
 }
 
@@ -926,38 +927,35 @@ void swap_hl(GB *vm) {
 
 // 2. DAA
 void daa(GB *vm) {
+  // https://forums.nesdev.org/viewtopic.php?t=15944
+  // My saviour
+  vm->cycles += 4;
   unsigned short s = vm->r.a;
+  int n_flag = vm->r.f & 0x40;
+  int h_flag = vm->r.f & 0x20;
+  int c_flag = vm->r.f & 0x10;
 
-  if (vm->r.f & 0x40) {
-    if (vm->r.f & 0x20) {
-      s = (s - 0x06) & 0xFF;
+  if (!n_flag) {
+    if (c_flag || s > 0x99) {
+      s += 0x60;
+      c_flag = 0x10;
     }
-    if (vm->r.f & 0x10) {
-      s -= 0x60;
-    }
-  } else {
-    if ((vm->r.f & 0x20) || (s & 0xF) > 9) {
+    if (h_flag || (s & 0x0F) > 0x09) {
       s += 0x06;
     }
-    if ((vm->r.f & 0x10) || s > 0x9F) {
-      s += 0x60;
+  } else {
+    if (c_flag) {
+      s -= 0x60;
+    }
+    if (h_flag) {
+      s -= 0x06;
     }
   }
 
-  vm->r.a = s;
-  vm->r.f &= ~0x20;
+  vm->r.a = s & 0xFF;
 
-  if (vm->r.a) {
-    vm->r.f &= ~0x80;
-  } else {
-    vm->r.f |= 0x80;
-  }
-
-  if (s >= 0x100) {
-    vm->r.f |= 0x10;
-  } else {
-    vm->r.f &= ~0x10;
-  }
+  int z_flag = (vm->r.a == 0) ? 0x80 : 0;
+  _reg_set_flag(vm, z_flag, n_flag, 0, c_flag);
 }
 
 // 3. CPL
