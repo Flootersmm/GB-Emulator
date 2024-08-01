@@ -325,6 +325,7 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::Text("TIMA: $%02X", vm->mem.data[0xFF05]);
     ImGui::Text("TMA: $%02X", vm->mem.data[0xFF06]);
     ImGui::Text("Cycles: %u", vm->mem.data[0xFF07]);
+    ImGui::Text("Retrace_LY: %02X", vm->retrace_ly);
 
     ImGui::Separator();
     ImGui::Text("ScrollY (0xFF42): 0x%02X", vm->mem.data[0xFF42]);

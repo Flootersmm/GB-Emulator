@@ -247,7 +247,9 @@ struct GB {
   u8 framebuffer[144][160][3];
   u8 tiles[384][8][8];
   COLOUR background_palette[4];
+  u16 retrace_ly;
   u8 joypad_state;
+  u8 blankcount;
 };
 
 #endif
