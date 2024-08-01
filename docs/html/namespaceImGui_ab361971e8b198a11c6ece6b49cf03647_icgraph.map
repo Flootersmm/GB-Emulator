@@ -1,6 +1,0 @@
-<map id="ImGui::GetBackgroundDrawList" name="ImGui::GetBackgroundDrawList">
-<area shape="rect" id="Node000001" title=" " alt="" coords="160,29,366,56"/>
-<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="298,16,286,10,263,8,241,10,230,15,227,20,233,27,228,30,222,21,226,11,240,5,263,3,287,5,300,12"/>
-<area shape="rect" id="Node000002" href="$namespaceImGui.html#ab51a164f547317c16c441f1599e3946d" title=" " alt="" coords="5,29,112,56"/>
-<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="144,45,112,45,112,40,144,40"/>
-</map>

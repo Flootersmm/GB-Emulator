@@ -1,5 +1,0 @@
-<map id="_cart_header_set_flags" name="_cart_header_set_flags">
-<area shape="rect" id="Node000001" title="Set various flags from cartridge header." alt="" coords="5,5,162,32"/>
-<area shape="rect" id="Node000002" href="$gb_8c.html#a17dc652b75f4c8242c12a53e5a482ba4" title="Checks cart logo against known Nintendo logo." alt="" coords="210,5,304,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,16,194,16,194,21,162,21"/>
-</map>

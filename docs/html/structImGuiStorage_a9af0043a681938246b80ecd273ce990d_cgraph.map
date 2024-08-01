@@ -1,7 +1,0 @@
-<map id="ImGuiStorage::GetInt" name="ImGuiStorage::GetInt">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,151,57"/>
-<area shape="rect" id="Node000002" href="$structImVector.html#a278ca772697b2b2139d3b8add336a249" title=" " alt="" coords="201,5,304,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="150,31,185,26,186,31,151,36"/>
-<area shape="rect" id="Node000003" href="$imgui_8cpp.html#a409bfd6de574854cd644636ea13b6a8a" title=" " alt="" coords="199,56,307,83"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="151,52,184,57,183,62,150,57"/>
-</map>

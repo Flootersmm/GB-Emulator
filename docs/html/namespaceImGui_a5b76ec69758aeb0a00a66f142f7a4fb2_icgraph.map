@@ -1,8 +1,0 @@
-<map id="ImGui::SmallButton" name="ImGui::SmallButton">
-<area shape="rect" id="Node000001" title=" " alt="" coords="492,31,627,57"/>
-<area shape="rect" id="Node000002" href="$namespaceImGui.html#af1b39e70cac2e1b9e62dd3c9d154cbd6" title=" " alt="" coords="241,5,444,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="476,37,444,33,445,28,477,32"/>
-<area shape="rect" id="Node000003" href="$namespaceImGui.html#afe7a28c6eb52fff3cc27d5a698fea4ff" title=" " alt="" coords="5,31,193,57"/>
-<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="476,47,193,47,193,41,476,41"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="226,34,194,37,193,32,225,28"/>
-</map>

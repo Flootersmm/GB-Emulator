@@ -1,7 +1,0 @@
-<map id="ImGui::UpdateDebugToolFlashStyleColor" name="ImGui::UpdateDebugToolFlashStyleColor">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,23,206,65"/>
-<area shape="rect" id="Node000002" href="$namespaceImGui.html#a074427678b3e56378b7dcdefa4c8b5c7" title=" " alt="" coords="254,5,463,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="206,31,238,28,238,33,206,37"/>
-<area shape="rect" id="Node000003" href="$imgui_8cpp.html#ae955608331fe911c46d0989816d8a0d8" title=" " alt="" coords="269,56,448,83"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="206,51,253,56,252,61,206,57"/>
-</map>

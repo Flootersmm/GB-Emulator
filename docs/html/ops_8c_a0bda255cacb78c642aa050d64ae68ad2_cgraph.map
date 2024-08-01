@@ -1,9 +1,0 @@
-<map id="bit_7_hlp" name="bit_7_hlp">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,79,57"/>
-<area shape="rect" id="Node000002" href="$gb_8c.html#a880a6eddcdd4dc541115a3d40c89c6f6" title="Set the flags in the registers." alt="" coords="127,5,226,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="79,34,111,28,112,34,80,40"/>
-<area shape="rect" id="Node000003" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title="Read a byte." alt="" coords="143,56,210,83"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="80,48,128,58,127,63,79,54"/>
-<area shape="rect" id="Node000004" href="$gb_8c.html#aa98c3d7dea79dc6c2f2b6de0e9fafbe2" title=" " alt="" coords="274,56,394,83"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="211,67,258,67,258,72,211,72"/>
-</map>

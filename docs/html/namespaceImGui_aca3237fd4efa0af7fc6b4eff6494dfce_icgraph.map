@@ -1,7 +1,0 @@
-<map id="ImGui::SetMouseCursor" name="ImGui::SetMouseCursor">
-<area shape="rect" id="Node000001" title=" " alt="" coords="424,13,586,40"/>
-<area shape="rect" id="Node000002" href="$namespaceImGui.html#aafb35fd3d7d0a7baac8f0590487a2594" title=" " alt="" coords="182,5,376,48"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="408,29,377,29,377,24,408,24"/>
-<area shape="rect" id="Node000003" href="$namespaceImGui.html#ab3f1fc018f903b7ad79fd10663375774" title=" " alt="" coords="5,13,134,40"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="166,29,134,29,134,24,166,24"/>
-</map>

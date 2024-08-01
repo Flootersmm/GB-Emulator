@@ -1,9 +1,0 @@
-<map id="ImFontGlyphRangesBuilder::Clear" name="ImFontGlyphRangesBuilder::Clear">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,23,187,65"/>
-<area shape="rect" id="Node000002" href="$structImVector.html#ac371dd62e56ae486b1a5038cf07eee56" title=" " alt="" coords="235,31,352,57"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="187,41,219,41,219,47,187,47"/>
-<area shape="rect" id="Node000003" href="$structImVector.html#a3a097635d464b1b70dc7d59996a88b28" title=" " alt="" coords="400,5,573,32"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="352,34,384,29,385,35,353,39"/>
-<area shape="rect" id="Node000004" href="$structImVector.html#a0f14f5736c3372157856eebb67123b75" title=" " alt="" coords="424,56,549,83"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="353,49,409,57,408,62,352,54"/>
-</map>

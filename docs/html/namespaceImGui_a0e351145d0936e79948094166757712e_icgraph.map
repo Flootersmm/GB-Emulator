@@ -1,6 +1,0 @@
-<map id="ImGui::IsPopupOpen" name="ImGui::IsPopupOpen">
-<area shape="rect" id="Node000001" title=" " alt="" coords="223,29,366,56"/>
-<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="329,16,317,10,294,8,273,10,261,15,259,20,264,27,260,30,253,21,258,11,272,5,294,3,319,5,332,12"/>
-<area shape="rect" id="Node000002" href="$namespaceImGui.html#a6d840f615c198c2342968f733fda11b3" title=" " alt="" coords="5,29,175,56"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="207,45,175,45,175,40,207,40"/>
-</map>

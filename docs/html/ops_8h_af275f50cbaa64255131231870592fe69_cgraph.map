@@ -1,9 +1,0 @@
-<map id="or_hl" name="or_hl">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,55,57"/>
-<area shape="rect" id="Node000002" href="$gb_8c.html#a880a6eddcdd4dc541115a3d40c89c6f6" title="Set the flags in the registers." alt="" coords="103,5,202,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="54,36,87,30,88,35,56,42"/>
-<area shape="rect" id="Node000003" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title="Read a byte." alt="" coords="119,56,186,83"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="56,46,104,57,103,62,54,52"/>
-<area shape="rect" id="Node000004" href="$gb_8c.html#aa98c3d7dea79dc6c2f2b6de0e9fafbe2" title=" " alt="" coords="250,56,370,83"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="187,67,234,67,234,72,187,72"/>
-</map>

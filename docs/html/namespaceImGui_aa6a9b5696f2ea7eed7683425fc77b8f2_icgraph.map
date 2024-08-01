@@ -1,9 +1,0 @@
-<map id="ImGui::EndPopup" name="ImGui::EndPopup">
-<area shape="rect" id="Node000001" title=" " alt="" coords="492,31,616,57"/>
-<area shape="rect" id="Node000002" href="$namespaceImGui.html#a6d840f615c198c2342968f733fda11b3" title=" " alt="" coords="258,5,427,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="476,37,427,31,428,26,477,32"/>
-<area shape="rect" id="Node000003" href="$namespaceImGui.html#af1b39e70cac2e1b9e62dd3c9d154cbd6" title=" " alt="" coords="241,56,444,83"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="477,56,445,60,444,54,476,51"/>
-<area shape="rect" id="Node000004" href="$namespaceImGui.html#afe7a28c6eb52fff3cc27d5a698fea4ff" title=" " alt="" coords="5,56,193,83"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="225,72,193,72,193,67,225,67"/>
-</map>

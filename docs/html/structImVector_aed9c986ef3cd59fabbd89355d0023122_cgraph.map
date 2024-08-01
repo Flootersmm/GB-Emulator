@@ -1,9 +1,0 @@
-<map id="ImVector::clear_delete" name="ImVector::clear_delete">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,158,57"/>
-<area shape="rect" id="Node000002" href="$structImVector.html#ae2d401b4ec5f1113cdb8edb5a61a38f7" title=" " alt="" coords="206,5,316,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,31,190,26,191,31,159,36"/>
-<area shape="rect" id="Node000003" href="$imgui_8h.html#a3c856832c3fe1da8767a9353da3707e1" title=" " alt="" coords="213,56,308,83"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="159,52,198,58,197,63,158,57"/>
-<area shape="rect" id="Node000004" href="$namespaceImGui.html#a269ec695c6e722ec3da85dae37f0675d" title=" " alt="" coords="364,56,483,83"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="309,67,349,67,349,72,309,72"/>
-</map>

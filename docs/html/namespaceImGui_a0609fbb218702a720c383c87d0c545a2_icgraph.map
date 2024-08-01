@@ -1,9 +1,0 @@
-<map id="ImGui::BeginTooltip" name="ImGui::BeginTooltip">
-<area shape="rect" id="Node000001" title=" " alt="" coords="424,35,559,61"/>
-<area shape="rect" id="Node000002" href="$namespaceImGui.html#ac2609b0f034d3bcd8d70d26df8694eaa" title=" " alt="" coords="182,5,376,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="408,39,376,35,377,29,409,34"/>
-<area shape="rect" id="Node000003" href="$namespaceImGui.html#aafb35fd3d7d0a7baac8f0590487a2594" title=" " alt="" coords="182,56,376,99"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="409,62,377,67,376,61,408,57"/>
-<area shape="rect" id="Node000004" href="$namespaceImGui.html#ab3f1fc018f903b7ad79fd10663375774" title=" " alt="" coords="5,64,134,91"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="166,80,134,80,134,75,166,75"/>
-</map>

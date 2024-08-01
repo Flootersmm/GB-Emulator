@@ -1,7 +1,0 @@
-<map id="DebugPrintInputEvent" name="DebugPrintInputEvent">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,155,57"/>
-<area shape="rect" id="Node000002" href="$namespaceImGui.html#a1d631e0e344472fb2da1a53a6bf55448" title=" " alt="" coords="210,5,353,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,32,194,27,195,32,156,37"/>
-<area shape="rect" id="Node000003" href="$imgui_8cpp.html#a06481235eb859e3ad05ad1c719a71c50" title=" " alt="" coords="203,56,360,83"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="156,51,188,55,187,60,155,56"/>
-</map>

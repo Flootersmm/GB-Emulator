@@ -1,9 +1,0 @@
-<map id="ImDrawList::AddText" name="ImDrawList::AddText">
-<area shape="rect" id="Node000001" title=" " alt="" coords="451,31,595,57"/>
-<area shape="rect" id="Node000002" href="$namespaceImGui.html#a3f63daa35c17837e05d2291af30cbd94" title=" " alt="" coords="235,5,384,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="435,36,384,30,384,25,436,31"/>
-<area shape="rect" id="Node000004" href="$namespaceImGui.html#afe7a28c6eb52fff3cc27d5a698fea4ff" title=" " alt="" coords="216,56,403,83"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="436,57,404,61,403,56,435,52"/>
-<area shape="rect" id="Node000003" href="$namespaceImGui.html#aa217c2f0448788f3c064bf828a8f9d8f" title=" " alt="" coords="5,5,168,32"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="219,21,168,21,168,16,219,16"/>
-</map>

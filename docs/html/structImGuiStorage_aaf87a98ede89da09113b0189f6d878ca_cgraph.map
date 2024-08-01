@@ -1,7 +1,0 @@
-<map id="ImGuiStorage::GetVoidPtr" name="ImGuiStorage::GetVoidPtr">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,179,57"/>
-<area shape="rect" id="Node000002" href="$structImVector.html#a278ca772697b2b2139d3b8add336a249" title=" " alt="" coords="229,5,332,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,30,214,25,214,30,180,35"/>
-<area shape="rect" id="Node000003" href="$imgui_8cpp.html#a409bfd6de574854cd644636ea13b6a8a" title=" " alt="" coords="227,56,335,83"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="180,53,212,57,211,63,179,58"/>
-</map>

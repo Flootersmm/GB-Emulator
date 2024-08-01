@@ -1,7 +1,0 @@
-<map id="get_colour" name="get_colour">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,87,32"/>
-<area shape="rect" id="Node000002" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title="Read a byte." alt="" coords="135,5,202,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,16,119,16,119,21,87,21"/>
-<area shape="rect" id="Node000003" href="$gb_8c.html#aa98c3d7dea79dc6c2f2b6de0e9fafbe2" title=" " alt="" coords="250,5,370,32"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="203,16,234,16,234,21,203,21"/>
-</map>

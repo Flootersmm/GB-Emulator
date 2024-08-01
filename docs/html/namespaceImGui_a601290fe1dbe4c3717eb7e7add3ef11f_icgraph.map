@@ -1,9 +1,0 @@
-<map id="ImGui::NavUpdateWindowingOverlay" name="ImGui::NavUpdateWindowingOverlay">
-<area shape="rect" id="Node000001" title=" " alt="" coords="528,5,723,48"/>
-<area shape="rect" id="Node000002" href="$namespaceImGui.html#a5ae3ff143fed82b60445ce593b18cd8c" title=" " alt="" coords="332,13,480,40"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="513,29,481,29,481,24,513,24"/>
-<area shape="rect" id="Node000003" href="$namespaceImGui.html#a246c37da45e88a12ade440a0feacb4ee" title=" " alt="" coords="160,13,284,40"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="316,29,285,29,285,24,316,24"/>
-<area shape="rect" id="Node000004" href="$namespaceImGui.html#ab51a164f547317c16c441f1599e3946d" title=" " alt="" coords="5,13,112,40"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="144,29,112,29,112,24,144,24"/>
-</map>

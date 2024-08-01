@@ -1,6 +1,0 @@
-<map id="AddWindowToDrawData" name="AddWindowToDrawData">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,170,56"/>
-<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="50,30,44,21,48,11,63,5,88,3,114,5,127,12,125,16,112,10,87,8,64,10,52,15,49,20,55,27"/>
-<area shape="rect" id="Node000002" href="$imgui_8cpp.html#a0d4bfbfc89237377e7ac93b9a59fb121" title=" " alt="" coords="218,29,396,56"/>
-<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="170,40,202,40,202,45,170,45"/>
-</map>

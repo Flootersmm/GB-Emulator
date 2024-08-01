@@ -1,9 +1,0 @@
-<map id="ImFormatStringV" name="ImFormatStringV">
-<area shape="rect" id="Node000001" title=" " alt="" coords="495,31,615,57"/>
-<area shape="rect" id="Node000002" href="$structImGuiTextBuffer.html#a49c29d4bf2871fc7635e9e15af145d92" title=" " alt="" coords="258,5,435,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="479,38,435,32,436,27,480,32"/>
-<area shape="rect" id="Node000003" href="$imgui_8cpp.html#a7d2a77b9735185891f885970b1e54626" title=" " alt="" coords="246,56,447,83"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="480,56,448,60,447,54,479,50"/>
-<area shape="rect" id="Node000004" href="$imgui_8cpp.html#a4f6d9c1be5c114ebb7b9400d2747bd37" title=" " alt="" coords="5,56,198,83"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="230,72,198,72,198,67,230,67"/>
-</map>

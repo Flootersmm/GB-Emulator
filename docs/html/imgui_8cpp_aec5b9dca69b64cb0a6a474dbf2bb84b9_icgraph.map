@@ -1,8 +1,0 @@
-<map id="AddWindowToSortBuffer" name="AddWindowToSortBuffer">
-<area shape="rect" id="Node000001" title=" " alt="" coords="332,29,496,56"/>
-<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="447,16,436,10,414,8,394,10,383,15,381,20,386,27,381,30,376,21,380,11,393,5,414,3,437,5,449,12"/>
-<area shape="rect" id="Node000002" href="$namespaceImGui.html#a246c37da45e88a12ade440a0feacb4ee" title=" " alt="" coords="160,29,284,56"/>
-<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="317,45,284,45,284,40,317,40"/>
-<area shape="rect" id="Node000003" href="$namespaceImGui.html#ab51a164f547317c16c441f1599e3946d" title=" " alt="" coords="5,29,112,56"/>
-<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="144,45,112,45,112,40,144,40"/>
-</map>

@@ -1,9 +1,0 @@
-<map id="ImGui::SaveIniSettingsToDisk" name="ImGui::SaveIniSettingsToDisk">
-<area shape="rect" id="Node000001" title=" " alt="" coords="417,31,614,57"/>
-<area shape="rect" id="Node000002" href="$namespaceImGui.html#afe7a28c6eb52fff3cc27d5a698fea4ff" title=" " alt="" coords="182,5,369,32"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="401,35,369,31,370,26,402,29"/>
-<area shape="rect" id="Node000003" href="$namespaceImGui.html#a8bdb90b84ec6e306d312fc8bfb7caf64" title=" " alt="" coords="198,56,352,83"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="402,59,353,64,353,59,401,53"/>
-<area shape="rect" id="Node000004" href="$namespaceImGui.html#ab3f1fc018f903b7ad79fd10663375774" title=" " alt="" coords="5,56,134,83"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="183,72,134,72,134,67,183,67"/>
-</map>
