@@ -26,7 +26,7 @@ GB *gb_init(const char *rom_path) {
             .sp = 0},
       .mem =
           {
-              .data = malloc(0x10000), // TODO: actual size
+              .data = malloc(0x10000),
               .size = 0x10000,
           },
       .flag = {0},
@@ -227,7 +227,6 @@ int _gb_power_on(GB *vm) {
 int _cart_header_read(GB *vm) {
   vm->cart.entry_point = vm->cart.data + 0x0100;
   vm->cart.logo = vm->cart.data + 0x0104;
-  // If less than 16 characters, pad with 0s.
   vm->cart.title = vm->cart.data + 0x0134;
   vm->cart.manufacturer_code = vm->cart.data + 0x013F;
   vm->cart.cgb_flag = vm->cart.data[0x0143];
@@ -559,20 +558,6 @@ void step(GB *vm) {
     return;
   }
 
-  // printf("ROM:%02X   ", 0);
-  // for (int i = 1; i < 0x176; i++) {
-  //   if (vm->r.pc == i - 1) {
-  //     printf("\033[31m%02X \033[0m", vm->cart.data[i - 1]);
-  //   } else {
-  //     printf("%02X ", vm->cart.data[i - 1]);
-  //   }
-  //   if (i % 16 == 0) {
-  //     printf("\n");
-  //     printf("ROM:%02X   ", i);
-  //   }
-  // }
-  // printf("\n\n\n");
-
   u8 opcode = vm->mem.data[vm->r.pc++];
   const OPS *instr = &ops[opcode];
   int cycles = op_ticks[opcode];
@@ -612,8 +597,7 @@ void step(GB *vm) {
     printf("Printing Tetris tileset to tile0.bin\n");
     FILE *f = fopen("tile0.bin", "wb");
     if (f) {
-      fwrite(&(vm->mem.data[0x8000]), 16, 1,
-             f); // Write 16 bytes from VRAM start address 0x8000
+      fwrite(&(vm->mem.data[0x8000]), 16, 1, f);
       fclose(f);
     }
   }
@@ -712,8 +696,15 @@ void set_lcd_status(GB *vm) {
   write_u8(vm, 0xFF41, status);
 }
 
+/// Checks the LCD enable bit at [0xFF40]
 bool is_lcd_enabled(GB *vm) { return (read_u8(vm, 0xFF40) & 0x80) != 0; }
 
+/// Read a byte
+///
+/// @param vm GB vm
+/// @param addr Memory address to read from
+///
+/// @return Byte from memory address
 u8 read_u8(GB *vm, u16 addr) {
   if (addr == 0xFF44) {
     return vm->current_scanline;
@@ -887,6 +878,9 @@ void request_interrupt(GB *vm, u8 interrupt_flag) {
   write_u8(vm, 0xFF0F, req);
 }
 
+/// Do interrupt routine
+///
+/// @param vm GB vm
 void do_interrupts(GB *vm) {
   if (vm->flag.interrupt_master_enable) {
     u8 req = read_u8(vm, 0xFF0F);     // Interrupt Request Register
@@ -905,17 +899,13 @@ void do_interrupts(GB *vm) {
 }
 
 void service_interrupt(GB *vm, u8 interrupt) {
-  // Disable interrupts
   vm->flag.interrupt_master_enable = false;
 
-  // Save current program counter
   vm->r.sp -= 2;
   write_u16(vm, vm->r.sp, vm->r.pc);
 
-  // Log the interrupt service
   printf("Servicing interrupt %d\n", interrupt);
 
-  // Set the program counter to the interrupt vector
   switch (interrupt) {
   case 0:
     vm->r.pc = 0x0040;
@@ -1086,35 +1076,7 @@ void render_tiles(GB *vm) {
   }
 }
 
-void render_background(GB *vm) {
-  u8 scroll_y = read_u8(vm, 0xFF42);
-  u8 scroll_x = read_u8(vm, 0xFF43);
-  u8 control = read_u8(vm, 0xFF40);
-  u16 bg_tile_map = (control & 0x08) ? 0x9C00 : 0x9800;
-  u16 bg_tile_data = (control & 0x10) ? 0x8000 : 0x8800;
-  bool use_signed = !(control & 0x10);
-
-  u8 y_pos = scroll_y + read_u8(vm, 0xFF44);
-  u16 tile_row = ((y_pos / 8) * 32);
-
-  for (int pixel = 0; pixel < 160; pixel++) {
-    u8 x_pos = pixel + scroll_x;
-    u16 tile_col = x_pos / 8;
-    u16 tile_num_addr = bg_tile_map + tile_row + tile_col;
-
-    i8 tile_num = use_signed ? (i8)read_u8(vm, tile_num_addr)
-                             : (u8)read_u8(vm, tile_num_addr);
-    u16 tile_loc = bg_tile_data + (tile_num * 16);
-    u8 line = y_pos % 8;
-    line *= 2;
-    u8 data1 = read_u8(vm, tile_loc + line);
-    u8 data2 = read_u8(vm, tile_loc + line + 1);
-
-    int color_bit = ((x_pos % 8) - 7) * -1;
-    int color_num =
-        ((data2 >> color_bit) & 1) << 1 | ((data1 >> color_bit) & 1);
-  }
-}
+void render_background(GB *vm) {}
 
 COLOUR get_colour(GB *vm, u8 colour_num, u16 address) {
   COLOUR res = WHITE;
@@ -1163,11 +1125,7 @@ COLOUR get_colour(GB *vm, u8 colour_num, u16 address) {
   return res;
 }
 
-void set_pixel(GB *vm, int x, int y, u32 color) {
-  if (x >= 0 && x < 160 && y >= 0 && y < 144) {
-    int index = (y * 160 + x) * 4;
-  }
-}
+void set_pixel(GB *vm, int x, int y, u32 color) {}
 
 void render_sprites(GB *vm) {
   bool use_8x16 = false;
@@ -1268,18 +1226,30 @@ void render_sprites(GB *vm) {
   }
 }
 
+/// Get bit value
+///
+/// @param byte Byte containing the bit to get
+/// @param bit Bit to get
+///
+/// @return Bit
 int bit_get_val(u8 byte, int bit) { return (byte >> bit) & 1; }
 
+/// Test bit value
+///
+/// @param byte Byte containing the bit to test
+/// @param bit Bit to test
+///
+/// @return True if bit is 1, false if bit is 0
 bool test_bit(u8 byte, int bit) { return (byte & (1 << bit)) != 0; }
 
 u8 get_joypad_state(GB *vm) {
   u8 res = vm->mem.data[0xFF00];
-  res ^= 0xFF; // Flip all bits
+  res ^= 0xFF;
 
   if (!(res & 0x10)) {
     u8 top_joypad = vm->joypad_state >> 4;
-    top_joypad |= 0xF0; // Turn the top 4 bits on
-    res &= top_joypad;  // Show what buttons are pressed
+    top_joypad |= 0xF0;
+    res &= top_joypad;
   } else if (!(res & 0x20)) {
     u8 bottom_joypad = vm->joypad_state & 0x0F;
     bottom_joypad |= 0xF0;
@@ -1292,7 +1262,7 @@ u8 get_joypad_state(GB *vm) {
 void key_pressed(GB *vm, int key) {
   bool previously_unset = !(vm->joypad_state & (1 << key));
 
-  vm->joypad_state &= ~(1 << key); // Set bit to 0 (pressed)
+  vm->joypad_state &= ~(1 << key);
 
   bool button = (key > 3);
   u8 key_req = vm->mem.data[0xFF00];
@@ -1309,9 +1279,7 @@ void key_pressed(GB *vm, int key) {
   }
 }
 
-void key_released(GB *vm, int key) {
-  vm->joypad_state |= (1 << key); // Set bit to 1 (released)
-}
+void key_released(GB *vm, int key) { vm->joypad_state |= (1 << key); }
 
 /// Set the flags in the registers
 ///

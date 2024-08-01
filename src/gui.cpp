@@ -3,7 +3,6 @@
 #include "gb.h"
 #include "shared.h"
 #include <SDL2/SDL.h>
-#include <ctype.h>
 #include <map>
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,19 +13,11 @@ extern std::atomic<bool> step_requested;
 char stdout_buffer[4096]; ///< Buffer for stdout redirection
 FILE *stdout_memstream;   ///< Space for stdout redirection
 
-// IJVM
-char *binary_path = NULL; ///< Path to IJVM binary
-bool program_started =
-    false; ///< True if we've started stepping through IJVM binary
-bool toggle_info = false;      ///< Show stack state
-bool toggle_backtrace = false; ///< Show callstack backtrace
-bool toggle_file = false;      ///< Show IJVM binary
-int prev_bp = -1;              ///< Previous breakpoint
-
 // IMGUI
-bool gui_active = true;               ///< True if the GUI is active
-bool gui_stack_active = false;        ///< True if the stack window is active
-bool gui_file_active = false;         ///< True if the file window is active
+bool gui_active = true;        ///< True if the GUI is active
+bool gui_stack_active = false; ///< True if the stack window is active
+bool gui_file_active = false;  ///< True if the file window is active
+bool demo_window_active = false;
 float fontScale = 1;                  ///< Global font scale
 float border_size = 3.0;              ///< Border size between windows
 ImVec2 window_main_size(0.0f, 0.0f);  ///< Main window size
@@ -38,7 +29,16 @@ std::map<std::string, ImVec4>
     color_map = ///< String, ImVec4 map of term colours to ImGui colours
     {{MAG, ImVec4(0.698f, 0.569f, 0.847f, 1.0f)},
      {RESET, ImVec4(1.0f, 1.0f, 1.0f, 1.0f)}};
+ImVec4 colorLightestGreen = ImVec4(0.61f, 0.73f, 0.06f, 1.00f); ///> #9BBC0F
+ImVec4 colorLightGreen = ImVec4(0.54f, 0.67f, 0.06f, 1.00f);    ///> #8BAC0F
+ImVec4 colorDarkGreen = ImVec4(0.19f, 0.38f, 0.19f, 1.00f);     ///> #306230
+ImVec4 colorDarkestGreen = ImVec4(0.06f, 0.22f, 0.06f, 1.00f);  ///> #0F380F
 
+/// Initialise a GLFW window
+///
+/// Creates a GLFW window, makes it the current context, enabled v-sync
+///
+/// @return GLFW window
 GLFWwindow *window_init() {
   if (!glfwInit()) {
     fprintf(stderr, "Failed to initialise GLFW\n");
@@ -65,14 +65,15 @@ GLFWwindow *window_init() {
 
 static GLuint texture;
 static int cycles = 0;
-static const int updateInterval =
-    15;                 // Update texture every 15 frames (1/4 second at 60 FPS)
-static int width = 160; // Example width
-static int height = 144; // Example height
-static unsigned char *pixels = new unsigned char[width * height * 4]; // RGBA
-static bool isBlack = true; // Toggle state for alternating colors
+static const int updateInterval = 15;
+static int width = 160;
+static int height = 144;
+static bool isBlack = true;
 static float scale = 2.0f;
 
+/// Update the Gameboy display texture
+///
+/// @param vm GB vm
 void update_texture(GB *vm) {
   u8 texture_data[144 * 160 * 3];
   for (int y = 0; y < 144; y++) {
@@ -89,6 +90,7 @@ void update_texture(GB *vm) {
                   texture_data);
 }
 
+/// Handle SDL_KEYDOWN and SDL_KEYUP events
 void handle_key_event(GB *vm, SDL_Event *event) {
   if (event->type == SDL_KEYDOWN) {
     switch (event->key.keysym.sym) {
@@ -147,32 +149,29 @@ void handle_key_event(GB *vm, SDL_Event *event) {
   }
 }
 
+/// Draw the Dear ImGUI window for the Gameboy display texture
 void draw_window_texture() {
-  // Calculate the size of the texture and the margin
   ImVec2 texture_size = ImVec2((float)width * scale, (float)height * scale);
   ImVec2 margin = ImVec2(texture_size.x * 0.05f, texture_size.y * 0.05f);
   float title_bar_height = ImGui::GetFrameHeightWithSpacing();
   ImVec2 window_size = ImVec2(texture_size.x + margin.x * 2,
                               texture_size.y + margin.y * 2 + title_bar_height);
 
-  // Set the window size to include the margin
   ImGui::SetNextWindowSize(window_size, ImGuiCond_Always);
 
-  // Begin a new window with the specified size
   ImGui::Begin("Texture Window", NULL,
                ImGuiWindowFlags_NoScrollbar |
                    ImGuiWindowFlags_NoScrollWithMouse |
                    ImGuiWindowFlags_NoResize);
 
-  // Remove padding and add margin
   ImGui::SetCursorPos(ImVec2(margin.x, margin.y + title_bar_height));
 
-  // Draw the texture scaled to the window size
   ImGui::Image((void *)(intptr_t)texture, texture_size);
 
   ImGui::End();
 }
 
+/// Draw the Dear ImGUI window for crude debugging
 void draw_window_crude_debug(GB *vm) {
   ImVec2 window_main_size = ImGui::GetWindowSize();
 
@@ -188,60 +187,44 @@ void draw_window_crude_debug(GB *vm) {
       if (ImGui::MenuItem("Save", "Ctrl+S")) {
         // TODO
       }
+      if (ImGui::MenuItem("Demo", "Show demo window")) {
+        demo_window_active == true ? demo_window_active = false
+                                   : demo_window_active = true;
+      }
       ImGui::EndMenu();
     }
     ImGui::EndMenuBar();
   }
 
-  if (ImGui::TreeNode("ROM Info")) {
+  if (ImGui::CollapsingHeader("ROM Info")) {
 
-    ImGui::Text("rom_path: %s", vm->rom_path);
-    ImGui::Text("mem.size: %u", vm->mem.size);
-    ImGui::Text("Cart Size: %u bytes", vm->cart.size);
-
+    ImGui::Text("Path: %s", vm->rom_path);
+    ImGui::Text("Size: %u bytes", vm->cart.size);
     ImGui::Text("Title:");
-    ImGui::BeginGroup();
     for (int i = 0; i < 16; i++) {
       char display_char = vm->cart.title[i] == 0 ? '_' : vm->cart.title[i];
       ImGui::SameLine();
-      ImGui::Text(&display_char);
+      ImGui::Text("%c", display_char);
     }
-    ImGui::EndGroup();
-
+    ImGui::Separator();
     ImGui::Text("Manufacturer Code: %02X %02X %02X",
                 vm->cart.manufacturer_code[0], vm->cart.manufacturer_code[1],
                 vm->cart.manufacturer_code[2]);
 
-    switch (vm->flag.cgb) {
-    case NON_CGB:
-      ImGui::Text("CGB Flag: NON_CGB");
-      break;
-    case CGB_ENHANCED:
-      ImGui::Text("CGB Flag: CGB_ENHANCED");
-      break;
-    case CGB_ONLY:
-      ImGui::Text("CGB Flag: CGB_ONLY");
-      break;
-    default:
-      ImGui::Text("CGB Flag: Unknown CGB flag");
-      break;
-    }
+    ImGui::Text("CGB Flag: %s", vm->flag.cgb == NON_CGB        ? "NON_CGB"
+                                : vm->flag.cgb == CGB_ENHANCED ? "CGB_ENHANCED"
+                                                               : "CGB_ONLY");
 
     ImGui::Text("Licensee: %s", licensee_get_name(vm));
-
     ImGui::Text("SGB Flag: %s", vm->cart.sgb_flag ? "true" : "false");
-
     ImGui::Text("Cartridge Type: %s",
                 cart_get_type_str(vm->cart.cartridge_enum));
-
-    ImGui::Text("Cart ROM Size: %s", rom_get_size_str(vm));
-
-    ImGui::Text("Cart RAM Size: %s", ram_get_size_str(vm));
-
+    ImGui::Text("ROM Size: %s", rom_get_size_str(vm));
+    ImGui::Text("RAM Size: %s", ram_get_size_str(vm));
     ImGui::Text("Destination: %s", destination_code_get_str(vm));
+    ImGui::Text("Mask ROM Version: %02X", vm->cart.mask_rom_ver_number);
 
-    ImGui::Text("Mask ROM Version Number: %02X", vm->cart.mask_rom_ver_number);
-
+    ImGui::Separator();
     ImGui::Text("Header Checksum: %02X", vm->cart.header_checksum);
     ImGui::SameLine();
     if ((!cart_header_checksum_calc(vm)) == (vm->cart.header_checksum)) {
@@ -265,7 +248,7 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::BeginGroup();
     for (u32 i = 0x0104; i < 0x0134; i++) {
       if (i != 0x0104 && (i - 0x0104) % 16 == 0) {
-        ImGui::TextWrapped("");
+        ImGui::TextWrapped(" ");
       }
       ImGui::SameLine();
       ImGui::Text("%02X", vm->cart.data[i]);
@@ -276,16 +259,11 @@ void draw_window_crude_debug(GB *vm) {
     } else {
       ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "Passed");
     }
-
     ImGui::EndGroup();
-
-    ImGui::Text("vram.item: %p", vm->vram.item);
-    ImGui::Text("vram.size: %u", vm->vram.size);
-
-    ImGui::TreePop();
+    ImGui::Separator();
   }
 
-  if (ImGui::TreeNode("Registers")) {
+  if (ImGui::CollapsingHeader("Registers")) {
     ImGui::Text("A: $%02X", vm->r.a);
     ImGui::Text("B: $%02X", vm->r.b);
     ImGui::Text("C: $%02X", vm->r.c);
@@ -301,6 +279,7 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::Text("SP: $%04X", vm->r.sp);
     ImGui::Text("Flags: Z:%d N:%d H:%d C:%d", (vm->r.f >> 7) & 1,
                 (vm->r.f >> 6) & 1, (vm->r.f >> 5) & 1, (vm->r.f >> 4) & 1);
+
     u8 interrupt_flags = read_u8(vm, 0xFF0F);
     u8 interrupt_enable = read_u8(vm, 0xFFFF);
     ImGui::Separator();
@@ -316,8 +295,8 @@ void draw_window_crude_debug(GB *vm) {
                 (interrupt_enable >> 1) & 1,  // LCD
                 (interrupt_enable >> 2) & 1,  // Timer
                 (interrupt_enable >> 4) & 1); // Joypad
-    ImGui::Separator();
 
+    ImGui::Separator();
     ImGui::Text("Timer Counter: %d", vm->timer_counter);
     ImGui::Text("Divider Counter: %d", vm->divider_counter);
     ImGui::Text("TMC: $%02X", vm->tmc);
@@ -325,6 +304,8 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::Text("TIMA: $%02X", vm->mem.data[0xFF05]);
     ImGui::Text("TMA: $%02X", vm->mem.data[0xFF06]);
     ImGui::Text("Cycles: %u", vm->mem.data[0xFF07]);
+
+    ImGui::Separator();
     ImGui::Text("Retrace_LY: %02X", vm->retrace_ly);
 
     ImGui::Separator();
@@ -348,10 +329,11 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::Text("OBJ (Sprite) Size: %d", (lcd_control >> 2) & 0x01);
     ImGui::Text("OBJ (Sprite) Display Enable: %d", (lcd_control >> 1) & 0x01);
     ImGui::Text("BG Display: %d", lcd_control & 0x01);
-    ImGui::TreePop();
+
+    ImGui::Separator();
   }
 
-  if (ImGui::TreeNode("Initial Memory Locs")) {
+  if (ImGui::CollapsingHeader("Memory Locations")) {
     const char *addresses[] = {
         "[$FF05]", "[$FF06]", "[$FF07]", "[$FF10]", "[$FF11]", "[$FF12]",
         "[$FF14]", "[$FF16]", "[$FF17]", "[$FF19]", "[$FF1A]", "[$FF1B]",
@@ -367,8 +349,7 @@ void draw_window_crude_debug(GB *vm) {
         0xFF45, 0xFF47, 0xFF48, 0xFF49, 0xFF4A, 0xFF4B, 0xFFFF};
 
     const int numAddresses = sizeof(addresses) / sizeof(addresses[0]);
-    const int numColumns =
-        4; // Adjust this value to change the number of columns in the grid
+    const int numColumns = 4;
     const int numRows = (numAddresses + numColumns - 1) / numColumns;
     const float rowHeight = ImGui::GetTextLineHeightWithSpacing();
     const float windowHeight = rowHeight * (numRows + 1);
@@ -379,7 +360,7 @@ void draw_window_crude_debug(GB *vm) {
       for (int j = 0; j < numColumns; ++j) {
         if (i + j < numAddresses) {
           ImGui::Text("%s: $%02X", addresses[i + j],
-                      vm->mem.io_registers[locations[i + j] - 0xFF00]);
+                      vm->mem.data[locations[i + j]]);
           if (j < numColumns - 1)
             ImGui::SameLine();
         }
@@ -387,25 +368,24 @@ void draw_window_crude_debug(GB *vm) {
     }
 
     ImGui::EndChild();
-    ImGui::TreePop();
   }
 
-  if (ImGui::TreeNode("Framebuffer Contents")) {
+  if (ImGui::CollapsingHeader("Framebuffer")) {
     ImGui::BeginChild("FramebufferView", ImVec2(0, 400), true);
     for (int y = 0; y < 144; y++) {
       for (int x = 0; x < 160; x++) {
         int red = vm->framebuffer[y][x][0];
         int green = vm->framebuffer[y][x][1];
         int blue = vm->framebuffer[y][x][2];
-        ImGui::Text("Pixel [%d, %d]: R=%d, G=%d, B=%d", x, y, red, green, blue);
+        ImGui::Text("[%03d, %03d]: %03d%03d%03d", x, y, red, green, blue);
+        ImGui::SameLine();
       }
       ImGui::Separator();
     }
     ImGui::EndChild();
-    ImGui::TreePop();
   }
 
-  if (ImGui::TreeNode("Current Instruction")) {
+  if (ImGui::CollapsingHeader("Current Instruction")) {
     const OPS *instr = &ops[vm->cart.data[vm->r.pc]];
     ImGui::Text("Opcode: %s", instr->debug_str);
     ImGui::Text("Length: %u", instr->length);
@@ -413,9 +393,8 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::Text("Operands:");
     for (int i = 0; i < instr->length; i++) {
       ImGui::Text("0x%02X", vm->cart.data[vm->r.pc + i]);
+      ImGui::SameLine();
     }
-
-    ImGui::TreePop();
   }
 
   if (ImGui::Button("Step")) {
@@ -445,17 +424,15 @@ void draw_window_crude_debug(GB *vm) {
   ImGui::End();
 }
 
+/// Draws the Dear ImGUI window to view the ROM
 void draw_rom_viewer_window(GB *vm) {
   ImGui::Begin("ROM Viewer");
 
-  // Calculate the number of rows
   int rows = vm->mem.size / 16;
   for (int row = 0; row < rows; row++) {
-    // Print the address
     ImGui::Text("ROM:%04X ", row * 16);
     ImGui::SameLine();
 
-    // Print the data
     for (int col = 0; col < 16; col++) {
       int index = row * 16 + col;
       if (vm->r.pc == index) {
@@ -473,13 +450,13 @@ void draw_rom_viewer_window(GB *vm) {
   ImGui::End();
 }
 
+/// Draws the Dear ImGUI window to view a detailed disassembly of memory at PC
 void draw_disassembly_window(GB *vm) {
   ImGui::Begin(
       "Disassembly Window", NULL,
       ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoScrollbar |
           ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoResize);
 
-  // Display around the current PC
   u16 start_address = vm->r.pc > 0x10 ? vm->r.pc - 0x10 : 0;
   u16 end_address = start_address + 0x20;
 
@@ -488,10 +465,8 @@ void draw_disassembly_window(GB *vm) {
     const char *op_str = ops[opcode].debug_str;
     int operand_length = ops[opcode].length;
 
-    // Print address
     ImGui::Text("%04X: ", address);
 
-    // Highlight the current PC
     if (address == vm->r.pc) {
       ImGui::SameLine();
       ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "%s ", op_str);
@@ -499,8 +474,6 @@ void draw_disassembly_window(GB *vm) {
       ImGui::SameLine();
       ImGui::Text("%s ", op_str);
     }
-
-    // Print operands
     for (int i = 1; i <= operand_length; i++) {
       ImGui::SameLine();
       ImGui::Text("%02X ", vm->mem.data[address + i]);
@@ -512,6 +485,10 @@ void draw_disassembly_window(GB *vm) {
   ImGui::End();
 }
 
+/// Main driver loop for SDL
+///
+/// @param window GLFW Window
+/// @param vm GB vm
 void main_loop(GLFWwindow *window, GB *vm) {
   ImGuiIO &io = ImGui::GetIO();
   (void)io;
@@ -539,6 +516,10 @@ void main_loop(GLFWwindow *window, GB *vm) {
     draw_rom_viewer_window(vm);
     draw_disassembly_window(vm);
 
+    if (demo_window_active) {
+      ImGui::ShowDemoWindow();
+    }
+
     glClear(GL_COLOR_BUFFER_BIT);
     imgui_render();
     glfwSwapBuffers(window);
@@ -548,16 +529,15 @@ void main_loop(GLFWwindow *window, GB *vm) {
       return;
     }
 
-    cycles++;
-    if (cycles % updateInterval == 0) {
-      isBlack = !isBlack;
-      update_texture(vm);
-    }
+    update_texture(vm);
   }
 
   SDL_Quit();
 }
 
+/// Initialise OpenGL texture
+///
+/// @return 0 on success, other for failure
 int texture_init() {
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
@@ -571,8 +551,10 @@ int texture_init() {
   return 0;
 }
 
+/// Clean up OpenGL texture
+///
+/// @return 0 for success, other for failure
 int texture_destroy() {
-  delete[] pixels;
   glDeleteTextures(1, &texture);
 
   return 0;

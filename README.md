@@ -20,12 +20,12 @@ A GB emulator in C, using Dear_ImGUI and GLFW. Built with Make.
 3. **Build the project with Make**:
 
    ```sh
-   make gui
+   make gb
    ```
 
 4. **Run the executable**:
    ```sh
-   ./gui path/to/rom
+   ./gb path/to/rom
    ```
 
 ### Generating Documentation
@@ -46,6 +46,9 @@ chmod +x generate_clangd.sh
 ./generate_clangd.sh
 ```
 
-### Current progress:
+## Current progress:
 
-Failing cpu_instrs 2.
+- Failing cpu_instrs 2.
+- Need to fix interrupts.
+- Need to implement ppc.
+- Need to refactor/clean up.

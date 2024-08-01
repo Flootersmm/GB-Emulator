@@ -2,6 +2,7 @@
 #include "gb.h"
 #include "ops.h"
 
+/// Table of ticks that each op takes
 const unsigned char op_ticks[256] = {
     2, 6, 4, 4, 4, 4, 4,  4, // 0x00 - 0x07
     2, 2, 2, 4, 4, 4, 10, 4, // 0x08 - 0x0F
@@ -37,6 +38,9 @@ const unsigned char op_ticks[256] = {
     8, 8, 8, 8, 8, 8, 8,  8  // 0xF8 - 0xFF
 };
 
+/// Table of ticks that each extended op takes
+///
+/// Extended ops are called after a 0xCB
 const unsigned char op_extended_ticks[256] = {
     8, 8, 8, 8, 8, 8, 8,  8, // 0x00 - 0x07
     8, 8, 8, 8, 8, 8, 16, 8, // 0x08 - 0x0F
@@ -72,6 +76,7 @@ const unsigned char op_extended_ticks[256] = {
     8, 8, 8, 8, 8, 8, 8,  8  // 0xF8 - 0xFF
 };
 
+/// Hell if I know
 const unsigned char ioReset[0x100] = {
     0x0F, 0x00, 0x7C, 0xFF, 0x00, 0x00, 0x00, 0xF8, 0xFF, 0xFF, 0xFF, 0xFF,
     0xFF, 0xFF, 0xFF, 0x01, 0x80, 0xBF, 0xF3, 0xFF, 0xBF, 0xFF, 0x3F, 0x00,
@@ -96,6 +101,9 @@ const unsigned char ioReset[0x100] = {
     0x98, 0xD1, 0x71, 0x02, 0x4D, 0x01, 0xC1, 0xFF, 0x0D, 0x00, 0xD3, 0x05,
     0xF9, 0x00, 0x0B, 0x00};
 
+/// Array of ops
+///
+/// Contains debug string, operand length, function pointer
 const OPS ops[256] = {
     {"NOP", 0, NO_OP, {.func_no_op = nop}},                         // 0x00
     {"LD BC, 0x%04X", 2, U16_OP, {.func_u16_op = ld_bc_nn}},        // 0x01
@@ -355,6 +363,10 @@ const OPS ops[256] = {
     {"RST 0x38", 0, NO_OP, {.func_no_op = rst_38}}                  // 0xff
 };
 
+/// Array of extended ops
+///
+/// Contains debug string, operand length, function pointer
+/// Extended ops are called after a 0xCB
 const OPS_extended ops_extended[256] = {
     {"RLC B", 0, NO_OP, {.func_no_op = rlc_b}},           // 0x00
     {"RLC C", 0, NO_OP, {.func_no_op = rlc_c}},           // 0x01
@@ -841,6 +853,7 @@ const int new_licensee_table_size =
 const int old_licensee_table_size =
     sizeof(old_licensees) / sizeof(old_licensees[0]);
 
+/// Cartridge type strings
 const char *cartridgeTypeStrings[] = {
     [ROM_ONLY] = "ROM ONLY",
     [ROM_MBC1] = "ROM MBC1",

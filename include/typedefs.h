@@ -52,6 +52,7 @@ typedef int i32;
 
 typedef struct GB GB;
 
+/// Classic Gameboy colours
 typedef enum {
   WHITE = 0x9BBC0F,
   LIGHT_GRAY = 0x8BAC0F,
@@ -73,6 +74,7 @@ typedef struct {
   const char *rom_banks;
 } RomSizeEntry;
 
+// Console type
 typedef struct {
   u8 code;
   char *type;
@@ -190,9 +192,9 @@ typedef struct {
   u32 size;
 } VRAM;
 
-typedef void (*FuncNoOp)(GB *vm);
-typedef void (*FuncU8Op)(GB *vm, u8 operand);
-typedef void (*FuncU16Op)(GB *vm, u16 operand);
+typedef void (*FuncNoOp)(GB *vm);               ///> Op that takes no operand
+typedef void (*FuncU8Op)(GB *vm, u8 operand);   ///> Op that takes u8 operand
+typedef void (*FuncU16Op)(GB *vm, u16 operand); ///> Op that takes u16 operand
 
 /// Enum for function types in OPS struct
 typedef enum {
@@ -201,7 +203,7 @@ typedef enum {
   U16_OP,
 } OpType;
 
-/// Opcode, with function pointer array
+/// Opcodes, with function pointer array
 typedef struct {
   const char *debug_str;
   u8 length;
@@ -213,6 +215,7 @@ typedef struct {
   } func;
 } OPS;
 
+/// Extended opcodes, with function pointer array
 typedef struct {
   const char *debug_str;
   u8 length;
@@ -244,7 +247,7 @@ struct GB {
   u32 cycles;
   u16 scanline_counter;
   u8 current_scanline;
-  u8 framebuffer[144][160][3];
+  u8 framebuffer[144][160][3]; ///> x, y, colour
   u8 tiles[384][8][8];
   COLOUR background_palette[4];
   u16 retrace_ly;

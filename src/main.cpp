@@ -12,6 +12,7 @@ const double GAMEBOY_CLOCK_SPEED = 4194304.0;
 const double FRAME_RATE = 59.73;
 const double CYCLES_PER_FRAME = GAMEBOY_CLOCK_SPEED / FRAME_RATE;
 
+/// Emulator thread handler for stepping and halting
 void emulator_thread(GB *vm) {
   bool breakpoint_hit = false;
 
@@ -32,7 +33,7 @@ void emulator_thread(GB *vm) {
       } else {
         step(vm);
 
-        if (vm->r.pc == 0xFFFFFF) {
+        if (vm->r.pc == 0xFFFFFF) { // Change for breakpoint
           breakpoint_hit = true;
           step_requested = false;
         }
@@ -43,6 +44,9 @@ void emulator_thread(GB *vm) {
   }
 }
 
+/// Main function
+///
+/// Runs emulator in one thread, GUI in another
 int main(int argc, char **argv) {
   if (argc < 2) {
     fprintf(stderr, "Usage: %s <rom_path>\n", argv[0]);
@@ -68,15 +72,12 @@ int main(int argc, char **argv) {
   imgui_init(window, vm);
   texture_init();
 
-  // Start the emulator thread
   std::thread emu_thread(emulator_thread, vm);
 
-  // Run the ImGui main loop
   main_loop(window, vm);
 
-  // Cleanup
-  running = false;   // Signal the emulator thread to stop
-  emu_thread.join(); // Wait for the emulator thread to finish
+  running = false;
+  emu_thread.join();
   texture_destroy();
   gb_destroy(vm);
   glfwDestroyWindow(window);
