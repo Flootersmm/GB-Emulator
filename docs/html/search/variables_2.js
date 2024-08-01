@@ -1,15 +1,21 @@
 var searchData=
 [
-  ['c_0',['c',['../structRegisters.html#a53aca908b29e1b36b9c83272fa841a3c',1,'Registers']]],
-  ['cart_1',['cart',['../structGB.html#ab4229684160a1dfd5b906f5d2fde806e',1,'GB']]],
-  ['cartridge_5fenum_2',['cartridge_enum',['../structCartridge.html#af972e8e4b33e4aa028a6deb6c789be97',1,'Cartridge']]],
-  ['cartridge_5ftype_3',['cartridge_type',['../structCartridge.html#a0990055f8f15f71b64a3734775fd2ffd',1,'Cartridge']]],
-  ['cartridgetypestrings_4',['cartridgeTypeStrings',['../tables_8c.html#acdc15e662b2888925734ed62abd3d35a',1,'cartridgeTypeStrings:&#160;tables.c'],['../tables_8h.html#acdc15e662b2888925734ed62abd3d35a',1,'cartridgeTypeStrings:&#160;tables.c']]],
-  ['cgb_5',['cgb',['../structFlags.html#a213fe9803526665eb53a5ec65cbe9e14',1,'Flags']]],
-  ['cgb_5fflag_6',['cgb_flag',['../structCartridge.html#adce6e9491ce8a4ee695454c85abfb416',1,'Cartridge']]],
-  ['code_7',['code',['../structLicensee.html#a01cf447df45877488db223763ddb585e',1,'Licensee::code'],['../structConsoleType.html#a5be903ae4d7a63aedfb5c5b5c82ffa9e',1,'ConsoleType::code']]],
-  ['color_5fmap_8',['color_map',['../gui_8cpp.html#af0472a83b0e99d815930cca4ad97c40b',1,'gui.cpp']]],
-  ['current_5fscanline_9',['current_scanline',['../structGB.html#a1531183ff61db80d4541e6393fdcdedf',1,'GB']]],
-  ['cycles_10',['cycles',['../structGB.html#a34dc4ce383524aad0c082b7b7589fe6e',1,'GB::cycles'],['../gui_8cpp.html#acede2ae039ab03f7ea6b1a1dced82098',1,'cycles:&#160;gui.cpp']]],
-  ['cycles_5fper_5fframe_11',['CYCLES_PER_FRAME',['../main_8cpp.html#a8fc516303c5bdbd28d0f8b6c706ed355',1,'main.cpp']]]
+  ['b_0',['b',['../structImGuiTextFilter_1_1ImGuiTextRange.html#a18a2df587336eecc6ba62c4275a4b7c8',1,'ImGuiTextFilter::ImGuiTextRange::b'],['../structRegisters.html#af24a18c78c117a0a7a8d0d74504172ec',1,'Registers::b']]],
+  ['backendflags_1',['BackendFlags',['../structImGuiIO.html#a92288d3e802788c8c408eac2c12e709c',1,'ImGuiIO']]],
+  ['backendlanguageuserdata_2',['BackendLanguageUserData',['../structImGuiIO.html#ad5dc2e55e630b44208ef07bbbef161ea',1,'ImGuiIO']]],
+  ['backendplatformname_3',['BackendPlatformName',['../structImGuiIO.html#a58510e764707bf979d086f6bc4c8b670',1,'ImGuiIO']]],
+  ['backendplatformuserdata_4',['BackendPlatformUserData',['../structImGuiIO.html#a6c0c878d0d5ca6ef90f0968bd59309d3',1,'ImGuiIO']]],
+  ['backendrenderername_5',['BackendRendererName',['../structImGuiIO.html#ad0902d7c892cff675fc0a685e8f1481d',1,'ImGuiIO']]],
+  ['backendrendereruserdata_6',['BackendRendererUserData',['../structImGuiIO.html#a9d1b2553e914286e9f92ab62f3d38265',1,'ImGuiIO']]],
+  ['backendusinglegacykeyarrays_7',['BackendUsingLegacyKeyArrays',['../structImGuiIO.html#a71d9fa7f004072892216d3504163cd12',1,'ImGuiIO']]],
+  ['backendusinglegacynavinputarray_8',['BackendUsingLegacyNavInputArray',['../structImGuiIO.html#aa9a50114735531c89671b9c591bf1f3b',1,'ImGuiIO']]],
+  ['background_5fpalette_9',['background_palette',['../structGB.html#aa11b6bbf4eb5b62ae7cae1dd56ee85ad',1,'GB']]],
+  ['bc_10',['bc',['../structRegisters.html#ad95c23e4843a57578eadb1a6d41d722f',1,'Registers']]],
+  ['blankcount_11',['blankcount',['../structGB.html#a31405c05632c5f9f8892cc1e8e4d9900',1,'GB']]],
+  ['border_5fsize_12',['border_size',['../gui_8cpp.html#afd09183de6e3b60e7de38a780ace6a88',1,'gui.cpp']]],
+  ['buf_13',['Buf',['../structImGuiInputTextCallbackData.html#ac8cd46c3473851c2822aae8240289069',1,'ImGuiInputTextCallbackData::Buf'],['../structImGuiTextBuffer.html#aa6de034b1920cdae5505cc58abf14240',1,'ImGuiTextBuffer::Buf']]],
+  ['bufdirty_14',['BufDirty',['../structImGuiInputTextCallbackData.html#aa2d91cca2b46de3f2b218573579f122b',1,'ImGuiInputTextCallbackData']]],
+  ['bufsize_15',['BufSize',['../structImGuiInputTextCallbackData.html#a0e391986e9359f6777ab27a3b08229a6',1,'ImGuiInputTextCallbackData']]],
+  ['buftextlen_16',['BufTextLen',['../structImGuiInputTextCallbackData.html#aa4db7629a772cfc3286a5a3fd1e5f1ab',1,'ImGuiInputTextCallbackData']]],
+  ['buttontextalign_17',['ButtonTextAlign',['../structImGuiStyle.html#a17246b12f4e069229d21808a87f78514',1,'ImGuiStyle']]]
 ];

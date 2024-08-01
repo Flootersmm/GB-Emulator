@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zpm_0',['ZPM',['../structZPM.html',1,'']]]
+  ['vram_0',['VRAM',['../structVRAM.html',1,'']]]
 ];

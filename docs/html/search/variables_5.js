@@ -1,12 +1,17 @@
 var searchData=
 [
-  ['f_0',['f',['../structRegisters.html#aa7729dccaf79fb457998e7b4fb445240',1,'Registers']]],
-  ['flag_1',['flag',['../structGB.html#a6ae38d2d436a4240574ee14db5780f89',1,'GB']]],
-  ['fontscale_2',['fontScale',['../gui_8cpp.html#a46fff7684124de2494bbdc903d71f1c2',1,'gui.cpp']]],
-  ['frame_5frate_3',['FRAME_RATE',['../main_8cpp.html#a860134d3d84dd2883095bbe3f72c3d1f',1,'main.cpp']]],
-  ['framebuffer_4',['framebuffer',['../structGB.html#a5b5143c5434d2d25f891042b1b5caf48',1,'GB']]],
-  ['func_5',['func',['../structOPS.html#a7cfbcbd993d358fc5d33717f1d63ee95',1,'OPS::func'],['../structOPS__extended.html#ad78fb4af2fd24f0b922e24dc6d5389b9',1,'OPS_extended::func']]],
-  ['func_5fno_5fop_6',['func_no_op',['../structOPS.html#a222877f0a6b3f14a2b1e7b7a925a3783',1,'OPS::func_no_op'],['../structOPS__extended.html#aa784e7df1d8df1aa0a78ffd617d6ef62',1,'OPS_extended::func_no_op']]],
-  ['func_5fu16_5fop_7',['func_u16_op',['../structOPS.html#a0c65d76c7a762692d4303d066f631bd6',1,'OPS::func_u16_op'],['../structOPS__extended.html#adae996d663833bd36b5ae096f77fe3a6',1,'OPS_extended::func_u16_op']]],
-  ['func_5fu8_5fop_8',['func_u8_op',['../structOPS.html#a78c4af4eb1fa3f547050296dfd59acc4',1,'OPS::func_u8_op'],['../structOPS__extended.html#ae2482dcb63528888a9609dd8b0d2fd41',1,'OPS_extended::func_u8_op']]]
+  ['e_0',['e',['../structImGuiTextFilter_1_1ImGuiTextRange.html#aa522cbb493ad3e02646938661c37ec0e',1,'ImGuiTextFilter::ImGuiTextRange::e'],['../structRegisters.html#aa2521be4cb3308d8fca17d6f26c78684',1,'Registers::e']]],
+  ['echo_5fram_1',['echo_ram',['../structMemory.html#a8f672781d757aa2fc74cc9a2df4c92f4',1,'Memory']]],
+  ['elemcount_2',['ElemCount',['../structImDrawCmd.html#aafe2532964fb1f6905d67d84dd3e8730',1,'ImDrawCmd']]],
+  ['ellipsischar_3',['EllipsisChar',['../structImFontConfig.html#af58c73936500737189bbcfa3480f8c3c',1,'ImFontConfig::EllipsisChar'],['../structImFont.html#a51df9d341917235207db60e775b11621',1,'ImFont::EllipsisChar']]],
+  ['ellipsischarcount_4',['EllipsisCharCount',['../structImFont.html#aaf3f1365b09c4e1c97d912df42b128ee',1,'ImFont']]],
+  ['ellipsischarstep_5',['EllipsisCharStep',['../structImFont.html#aa2e7621a68f75b00c16d2f5f73f722f6',1,'ImFont']]],
+  ['ellipsiswidth_6',['EllipsisWidth',['../structImFont.html#a202f2f33154765d3691f6302a13b66b7',1,'ImFont']]],
+  ['emptystring_7',['EmptyString',['../structImGuiTextBuffer.html#a471f810a368ec5f4a8ee12c407330c35',1,'ImGuiTextBuffer']]],
+  ['emu_5fmutex_8',['emu_mutex',['../main_8cpp.html#a5ecfb6340fe8206e62f0b566d658f9e2',1,'emu_mutex:&#160;main.cpp'],['../shared_8h.html#a5ecfb6340fe8206e62f0b566d658f9e2',1,'emu_mutex:&#160;main.cpp']]],
+  ['entry_5fpoint_9',['entry_point',['../structCartridge.html#ac436bb716a1f8866c63c34ada0762282',1,'Cartridge']]],
+  ['eventchar_10',['EventChar',['../structImGuiInputTextCallbackData.html#a7a6e9a43c5db8f236cde912b913fe707',1,'ImGuiInputTextCallbackData']]],
+  ['eventflag_11',['EventFlag',['../structImGuiInputTextCallbackData.html#a6ad2f8e385c68e56e6682fc0c4e79949',1,'ImGuiInputTextCallbackData']]],
+  ['eventkey_12',['EventKey',['../structImGuiInputTextCallbackData.html#a2db52e1da5e8109d4eeb5b0ab22200a9',1,'ImGuiInputTextCallbackData']]],
+  ['external_5fram_13',['external_ram',['../structMemory.html#a167c2658abe843813506c0f138544892',1,'Memory']]]
 ];

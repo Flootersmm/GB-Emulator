@@ -1,0 +1,13 @@
+<map id="ImGuiStorage::GetFloatRef" name="ImGuiStorage::GetFloatRef">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,56,186,83"/>
+<area shape="rect" id="Node000002" href="$structImVector.html#a278ca772697b2b2139d3b8add336a249" title=" " alt="" coords="239,5,342,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="149,53,223,33,225,38,151,58"/>
+<area shape="rect" id="Node000003" href="$imgui_8cpp.html#a409bfd6de574854cd644636ea13b6a8a" title=" " alt="" coords="237,56,345,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="186,67,221,67,221,72,186,72"/>
+<area shape="rect" id="Node000004" href="$structImVector.html#a541c8cd4b844f5276f10d160cb500533" title=" " alt="" coords="234,107,348,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="151,81,223,100,221,105,149,86"/>
+<area shape="rect" id="Node000005" href="$structImVector.html#a3a097635d464b1b70dc7d59996a88b28" title=" " alt="" coords="396,81,569,108"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="348,110,380,106,381,111,349,115"/>
+<area shape="rect" id="Node000006" href="$structImVector.html#a0f14f5736c3372157856eebb67123b75" title=" " alt="" coords="420,132,545,159"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="349,125,405,132,404,138,348,130"/>
+</map>

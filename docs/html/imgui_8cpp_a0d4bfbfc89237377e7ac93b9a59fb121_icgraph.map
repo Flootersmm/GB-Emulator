@@ -1,0 +1,11 @@
+<map id="IsWindowActiveAndVisible" name="IsWindowActiveAndVisible">
+<area shape="rect" id="Node000001" title=" " alt="" coords="612,55,791,81"/>
+<area shape="rect" id="Node000002" href="$imgui_8cpp.html#a61d631adc3bba197e5d939f8987fff7f" title=" " alt="" coords="400,29,564,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="597,59,565,55,565,50,597,53"/>
+<area shape="rect" id="Node000004" href="$namespaceImGui.html#ab51a164f547317c16c441f1599e3946d" title=" " alt="" coords="5,55,112,81"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="597,71,112,71,112,65,597,65"/>
+<area shape="poly" id="edge4_Node000002_Node000002" title=" " alt="" coords="520,16,507,10,482,8,459,10,447,15,444,20,449,27,445,30,438,21,443,11,458,5,482,3,508,5,522,12"/>
+<area shape="rect" id="Node000003" href="$imgui_8cpp.html#aa1b7f477fbb6049d246a41ac0616534f" title=" " alt="" coords="160,29,352,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="384,45,353,45,353,40,384,40"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="145,60,112,64,111,59,144,54"/>
+</map>

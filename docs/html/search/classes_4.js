@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['memory_0',['Memory',['../structMemory.html',1,'']]]
+  ['licensee_0',['Licensee',['../structLicensee.html',1,'']]]
 ];

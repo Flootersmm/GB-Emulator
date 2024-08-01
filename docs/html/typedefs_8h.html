@@ -135,7 +135,6 @@ $(function(){initNavTree('typedefs_8h.html',''); initResizable(true); });
 <area shape="poly" title=" " alt="" coords="544,39,586,70,634,114,679,167,699,197,714,228,719,249,719,270,714,304,708,303,714,269,713,249,709,230,694,199,675,170,630,117,582,74,541,43"/>
 <area shape="rect" href="tables_8h.html" title=" " alt="" coords="362,80,474,107"/>
 <area shape="poly" title=" " alt="" coords="485,44,436,82,432,77,481,40"/>
-<area shape="poly" title=" " alt="" coords="481,155,488,160,490,168,482,180,465,185,464,179,479,176,485,168,483,163,478,159"/>
 <area shape="rect" href="ops_8h.html" title=" " alt="" coords="306,229,404,256"/>
 <area shape="poly" title=" " alt="" coords="399,195,368,231,364,227,395,192"/>
 <area shape="poly" title=" " alt="" coords="479,169,522,175,569,185,615,202,658,227,676,245,690,265,706,303,701,305,685,268,672,248,655,231,613,207,567,190,521,180,479,174"/>
@@ -188,9 +187,10 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structVRAM.html" title="VRAM, with u8 items and u32 size.">VRAM</a>, with u8 items and u32 size.  <a href="structVRAM.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structOPS.html">OPS</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opcode, with function pointer array.  <a href="structOPS.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opcodes, with function pointer array.  <a href="structOPS.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structOPS__extended.html">OPS_extended</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extended opcodes, with function pointer array.  <a href="structOPS__extended.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structGB.html">GB</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main <a class="el" href="structGB.html" title="Main GB struct.">GB</a> struct.  <a href="structGB.html#details">More...</a><br /></td></tr>
@@ -216,8 +216,16 @@ Typedefs</h2></td></tr>
 <tr class="memitem:a7d06bbc7231c9230225cd8f5d767b531" id="r_a7d06bbc7231c9230225cd8f5d767b531"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d06bbc7231c9230225cd8f5d767b531">FuncNoOp</a>) (<a class="el" href="structGB.html">GB</a> *vm)</td></tr>
 <tr class="separator:a7d06bbc7231c9230225cd8f5d767b531"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91185aafc4db9cd380f92b6600dfaaca" id="r_a91185aafc4db9cd380f92b6600dfaaca"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a91185aafc4db9cd380f92b6600dfaaca">FuncU8Op</a>) (<a class="el" href="structGB.html">GB</a> *vm, <a class="el" href="#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> operand)</td></tr>
+<tr class="memdesc:a91185aafc4db9cd380f92b6600dfaaca"><td class="mdescLeft">&#160;</td><td class="mdescRight"><blockquote class="doxtable">
+<p>&zwj;Op that takes no operand </p>
+</blockquote>
+ <br /></td></tr>
 <tr class="separator:a91185aafc4db9cd380f92b6600dfaaca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeaf01caf81899fa6693007084dd8a808" id="r_aeaf01caf81899fa6693007084dd8a808"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeaf01caf81899fa6693007084dd8a808">FuncU16Op</a>) (<a class="el" href="structGB.html">GB</a> *vm, <a class="el" href="#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> operand)</td></tr>
+<tr class="memdesc:aeaf01caf81899fa6693007084dd8a808"><td class="mdescLeft">&#160;</td><td class="mdescRight"><blockquote class="doxtable">
+<p>&zwj;Op that takes u8 operand </p>
+</blockquote>
+ <br /></td></tr>
 <tr class="separator:aeaf01caf81899fa6693007084dd8a808"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
@@ -259,11 +267,12 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:a9336b0d28387f3c806f0031000188cd8"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structCartridge.html" title="ROM, with u8 items and u32 size.">Cartridge</a> type enum.  <a href="#a9336b0d28387f3c806f0031000188cd8">More...</a><br /></td></tr>
 <tr class="separator:a9336b0d28387f3c806f0031000188cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41b2bf5b77154e7c2eb4c6691c16542f" id="r_a41b2bf5b77154e7c2eb4c6691c16542f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41b2bf5b77154e7c2eb4c6691c16542f">COLOUR</a> { <a class="el" href="#a41b2bf5b77154e7c2eb4c6691c16542fa283fc479650da98250635b9c3c0e7e50">WHITE</a>
-, <a class="el" href="#a41b2bf5b77154e7c2eb4c6691c16542fa82a1f4f015ad85784e8c8671b7338433">LIGHT_GRAY</a>
-, <a class="el" href="#a41b2bf5b77154e7c2eb4c6691c16542fa656c37aed4a972689007d4c9ce88f425">DARK_GRAY</a>
-, <a class="el" href="#a41b2bf5b77154e7c2eb4c6691c16542faf77fb67151d0c18d397069ad8c271ba3">BLACK</a>
+<tr class="memitem:a41b2bf5b77154e7c2eb4c6691c16542f" id="r_a41b2bf5b77154e7c2eb4c6691c16542f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41b2bf5b77154e7c2eb4c6691c16542f">COLOUR</a> { <a class="el" href="#a41b2bf5b77154e7c2eb4c6691c16542fa283fc479650da98250635b9c3c0e7e50">WHITE</a> = 0x9BBC0F
+, <a class="el" href="#a41b2bf5b77154e7c2eb4c6691c16542fa82a1f4f015ad85784e8c8671b7338433">LIGHT_GRAY</a> = 0x8BAC0F
+, <a class="el" href="#a41b2bf5b77154e7c2eb4c6691c16542fa656c37aed4a972689007d4c9ce88f425">DARK_GRAY</a> = 0x306230
+, <a class="el" href="#a41b2bf5b77154e7c2eb4c6691c16542faf77fb67151d0c18d397069ad8c271ba3">BLACK</a> = 0x0F380F
  }</td></tr>
+<tr class="memdesc:a41b2bf5b77154e7c2eb4c6691c16542f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classic Gameboy colours.  <a href="#a41b2bf5b77154e7c2eb4c6691c16542f">More...</a><br /></td></tr>
 <tr class="separator:a41b2bf5b77154e7c2eb4c6691c16542f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e43d25b7589af8a282e3c9ce09426b1" id="r_a7e43d25b7589af8a282e3c9ce09426b1"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7e43d25b7589af8a282e3c9ce09426b1">CGB</a> { <a class="el" href="#a7e43d25b7589af8a282e3c9ce09426b1a16078ab7a2b65eae5cde51e5bd100e7c">NON_CGB</a> = 0x00
 , <a class="el" href="#a7e43d25b7589af8a282e3c9ce09426b1acb96cbc79e2b1cde714cc562a60defae">CGB_ENHANCED</a> = 0x80
@@ -275,7 +284,10 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#aa1aa1c6a8f3bbed5b167bc2d4511b969a86cbcf2bac41e080402f0f1371c3dbd2">U8_OP</a>
 , <a class="el" href="#aa1aa1c6a8f3bbed5b167bc2d4511b969abb46e85812bbd80feb7ebc4de0bf0acb">U16_OP</a>
  }</td></tr>
-<tr class="memdesc:aa1aa1c6a8f3bbed5b167bc2d4511b969"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum for function types in <a class="el" href="structOPS.html" title="Opcode, with function pointer array.">OPS</a> struct.  <a href="#aa1aa1c6a8f3bbed5b167bc2d4511b969">More...</a><br /></td></tr>
+<tr class="memdesc:aa1aa1c6a8f3bbed5b167bc2d4511b969"><td class="mdescLeft">&#160;</td><td class="mdescRight"><blockquote class="doxtable">
+<p>&zwj;Op that takes u16 operand </p>
+</blockquote>
+ <a href="#aa1aa1c6a8f3bbed5b167bc2d4511b969">More...</a><br /></td></tr>
 <tr class="separator:aa1aa1c6a8f3bbed5b167bc2d4511b969"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
@@ -291,7 +303,7 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00194">194</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00195">195</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -307,7 +319,12 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00196">196</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p><blockquote class="doxtable">
+<p>&zwj;Op that takes u8 operand </p>
+</blockquote>
+</p>
+
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00197">197</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -323,7 +340,12 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00195">195</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p><blockquote class="doxtable">
+<p>&zwj;Op that takes no operand </p>
+</blockquote>
+</p>
+
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00196">196</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -486,32 +508,32 @@ Enumerations</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00008">8</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">    8</span>             {</div>
-<div class="line"><span class="lineno">    9</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a6ea7366efc6b1baa0a366a734081bb48">ROM_ONLY</a> = 0x00,</div>
-<div class="line"><span class="lineno">   10</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a985101965fd4e9728d8d81334023cb90">ROM_MBC1</a> = 0x01,</div>
-<div class="line"><span class="lineno">   11</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a68fb1eb2c5a5bc72122a6c6e941a7869">ROM_MBC1_RAM</a> = 0x02,</div>
-<div class="line"><span class="lineno">   12</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8accaf87eb425d458f428506d18006d407">ROM_MBC1_RAM_BATT</a> = 0x03,</div>
-<div class="line"><span class="lineno">   13</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8aa9919ff6dece5a4e1aad0c90751b09ce">ROM_MBC2</a> = 0x05,</div>
-<div class="line"><span class="lineno">   14</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a4d431056f067e6b6441b2c8feef72c1d">ROM_MBC2_BATT</a> = 0x06,</div>
-<div class="line"><span class="lineno">   15</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8ad122d35828ee2169ff3c69bbe5321bf3">ROM_RAM</a> = 0x08,</div>
-<div class="line"><span class="lineno">   16</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a15fc25fbd7b0a55ae408cd29858a2f8e">ROM_RAM_BATT</a> = 0x09,</div>
-<div class="line"><span class="lineno">   17</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a2fb687057bb771d0140b96ed19991b70">ROM_MMM01</a> = 0x0B,</div>
-<div class="line"><span class="lineno">   18</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a31e14e24b382d7b4a2af09ef26ef8bc7">ROM_MMM01_SRAM</a> = 0x0C,</div>
-<div class="line"><span class="lineno">   19</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8aed5f234de57943bd8c32b14d174f634a">ROM_MMM01_SRAM_BATT</a> = 0x0D,</div>
-<div class="line"><span class="lineno">   20</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a6d0e66c51eabab40ca20f4546791b227">ROM_MBC3_TIMER_BATT</a> = 0x0F,</div>
-<div class="line"><span class="lineno">   21</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8ad824097a8d759007f97e399b2f22b4c7">ROM_MBC3_TIMER_RAM_BATT</a> = 0x10,</div>
-<div class="line"><span class="lineno">   22</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8adbd174d8f8e6d94a961689de65fd6a3c">ROM_MBC3</a> = 0x11,</div>
-<div class="line"><span class="lineno">   23</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a030ac8f3e8852a225b51701b35b2ac3c">ROM_MBC3_RAM</a> = 0x12,</div>
-<div class="line"><span class="lineno">   24</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a281297044925bd356d3f15a442cb0b6d">ROM_MBC3_RAM_BATT</a> = 0x13,</div>
-<div class="line"><span class="lineno">   25</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a338a72118dcd10bb2a15cc394e595dfd">ROM_MBC5</a> = 0x19,</div>
-<div class="line"><span class="lineno">   26</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a9e6106adf58c4d58a77309092da54c19">ROM_MBC5_RAM</a> = 0x1A,</div>
-<div class="line"><span class="lineno">   27</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8af40949c43e913c029825b906d01209af">ROM_MBC5_RAM_BATT</a> = 0x1B,</div>
-<div class="line"><span class="lineno">   28</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a0ebdcdc4883d6ee6b0e5e37965ef4321">ROM_MBC5_RUMBLE</a> = 0x1C,</div>
-<div class="line"><span class="lineno">   29</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8acad5ec5f3934505180122deee80b3ac5">ROM_MBC5_RUMBLE_SRAM</a> = 0x1D,</div>
-<div class="line"><span class="lineno">   30</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8af10c2606740fa37d93ec2a337ccd232e">ROM_MBC5_RUMBLE_SRAM_BATT</a> = 0x1E,</div>
-<div class="line"><span class="lineno">   31</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a1e23b5147d51f23e03cc45fc4d4659f3">POCKET_CAMERA</a> = 0x1F,</div>
-<div class="line"><span class="lineno">   32</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8ac8a088dead5fae0ee81dab40b197c44f">BANDAI_TAMA5</a> = 0xFD,</div>
-<div class="line"><span class="lineno">   33</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a2f9b4522bd9e32ed6d81a380d60e37ba">HUDSON_HUC3</a> = 0xFE,</div>
-<div class="line"><span class="lineno">   34</span>    <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a35f2eb00c78e77fef424a8fb5ae73a5f">HUDSON_HUC1</a> = 0xFF</div>
+<div class="line"><span class="lineno">    9</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a6ea7366efc6b1baa0a366a734081bb48">ROM_ONLY</a> = 0x00,</div>
+<div class="line"><span class="lineno">   10</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a985101965fd4e9728d8d81334023cb90">ROM_MBC1</a> = 0x01,</div>
+<div class="line"><span class="lineno">   11</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a68fb1eb2c5a5bc72122a6c6e941a7869">ROM_MBC1_RAM</a> = 0x02,</div>
+<div class="line"><span class="lineno">   12</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8accaf87eb425d458f428506d18006d407">ROM_MBC1_RAM_BATT</a> = 0x03,</div>
+<div class="line"><span class="lineno">   13</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8aa9919ff6dece5a4e1aad0c90751b09ce">ROM_MBC2</a> = 0x05,</div>
+<div class="line"><span class="lineno">   14</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a4d431056f067e6b6441b2c8feef72c1d">ROM_MBC2_BATT</a> = 0x06,</div>
+<div class="line"><span class="lineno">   15</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8ad122d35828ee2169ff3c69bbe5321bf3">ROM_RAM</a> = 0x08,</div>
+<div class="line"><span class="lineno">   16</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a15fc25fbd7b0a55ae408cd29858a2f8e">ROM_RAM_BATT</a> = 0x09,</div>
+<div class="line"><span class="lineno">   17</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a2fb687057bb771d0140b96ed19991b70">ROM_MMM01</a> = 0x0B,</div>
+<div class="line"><span class="lineno">   18</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a31e14e24b382d7b4a2af09ef26ef8bc7">ROM_MMM01_SRAM</a> = 0x0C,</div>
+<div class="line"><span class="lineno">   19</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8aed5f234de57943bd8c32b14d174f634a">ROM_MMM01_SRAM_BATT</a> = 0x0D,</div>
+<div class="line"><span class="lineno">   20</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a6d0e66c51eabab40ca20f4546791b227">ROM_MBC3_TIMER_BATT</a> = 0x0F,</div>
+<div class="line"><span class="lineno">   21</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8ad824097a8d759007f97e399b2f22b4c7">ROM_MBC3_TIMER_RAM_BATT</a> = 0x10,</div>
+<div class="line"><span class="lineno">   22</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8adbd174d8f8e6d94a961689de65fd6a3c">ROM_MBC3</a> = 0x11,</div>
+<div class="line"><span class="lineno">   23</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a030ac8f3e8852a225b51701b35b2ac3c">ROM_MBC3_RAM</a> = 0x12,</div>
+<div class="line"><span class="lineno">   24</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a281297044925bd356d3f15a442cb0b6d">ROM_MBC3_RAM_BATT</a> = 0x13,</div>
+<div class="line"><span class="lineno">   25</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a338a72118dcd10bb2a15cc394e595dfd">ROM_MBC5</a> = 0x19,</div>
+<div class="line"><span class="lineno">   26</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a9e6106adf58c4d58a77309092da54c19">ROM_MBC5_RAM</a> = 0x1A,</div>
+<div class="line"><span class="lineno">   27</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8af40949c43e913c029825b906d01209af">ROM_MBC5_RAM_BATT</a> = 0x1B,</div>
+<div class="line"><span class="lineno">   28</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a0ebdcdc4883d6ee6b0e5e37965ef4321">ROM_MBC5_RUMBLE</a> = 0x1C,</div>
+<div class="line"><span class="lineno">   29</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8acad5ec5f3934505180122deee80b3ac5">ROM_MBC5_RUMBLE_SRAM</a> = 0x1D,</div>
+<div class="line"><span class="lineno">   30</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8af10c2606740fa37d93ec2a337ccd232e">ROM_MBC5_RUMBLE_SRAM_BATT</a> = 0x1E,</div>
+<div class="line"><span class="lineno">   31</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a1e23b5147d51f23e03cc45fc4d4659f3">POCKET_CAMERA</a> = 0x1F,</div>
+<div class="line"><span class="lineno">   32</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8ac8a088dead5fae0ee81dab40b197c44f">BANDAI_TAMA5</a> = 0xFD,</div>
+<div class="line"><span class="lineno">   33</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a2f9b4522bd9e32ed6d81a380d60e37ba">HUDSON_HUC3</a> = 0xFE,</div>
+<div class="line"><span class="lineno">   34</span>  <a class="code hl_enumvalue" href="#a9336b0d28387f3c806f0031000188cd8a35f2eb00c78e77fef424a8fb5ae73a5f">HUDSON_HUC1</a> = 0xFF</div>
 <div class="line"><span class="lineno">   35</span>} <a class="code hl_enumeration" href="#a9336b0d28387f3c806f0031000188cd8">CartridgeType</a>;</div>
 <div class="ttc" id="atypedefs_8h_html_a9336b0d28387f3c806f0031000188cd8"><div class="ttname"><a href="#a9336b0d28387f3c806f0031000188cd8">CartridgeType</a></div><div class="ttdeci">CartridgeType</div><div class="ttdoc">Cartridge type enum.</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00008">typedefs.h:8</a></div></div>
 <div class="ttc" id="atypedefs_8h_html_a9336b0d28387f3c806f0031000188cd8a030ac8f3e8852a225b51701b35b2ac3c"><div class="ttname"><a href="#a9336b0d28387f3c806f0031000188cd8a030ac8f3e8852a225b51701b35b2ac3c">ROM_MBC3_RAM</a></div><div class="ttdeci">@ ROM_MBC3_RAM</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00023">typedefs.h:23</a></div></div>
@@ -586,6 +608,8 @@ Enumerations</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Classic Gameboy colours. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a41b2bf5b77154e7c2eb4c6691c16542fa283fc479650da98250635b9c3c0e7e50" name="a41b2bf5b77154e7c2eb4c6691c16542fa283fc479650da98250635b9c3c0e7e50"></a>WHITE&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a41b2bf5b77154e7c2eb4c6691c16542fa82a1f4f015ad85784e8c8671b7338433" name="a41b2bf5b77154e7c2eb4c6691c16542fa82a1f4f015ad85784e8c8671b7338433"></a>LIGHT_GRAY&#160;</td><td class="fielddoc"></td></tr>
@@ -593,18 +617,18 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="a41b2bf5b77154e7c2eb4c6691c16542faf77fb67151d0c18d397069ad8c271ba3" name="a41b2bf5b77154e7c2eb4c6691c16542faf77fb67151d0c18d397069ad8c271ba3"></a>BLACK&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00055">55</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   55</span>             {</div>
-<div class="line"><span class="lineno">   56</span>    <a class="code hl_enumvalue" href="#a41b2bf5b77154e7c2eb4c6691c16542fa283fc479650da98250635b9c3c0e7e50">WHITE</a>,</div>
-<div class="line"><span class="lineno">   57</span>    <a class="code hl_enumvalue" href="#a41b2bf5b77154e7c2eb4c6691c16542fa82a1f4f015ad85784e8c8671b7338433">LIGHT_GRAY</a>,</div>
-<div class="line"><span class="lineno">   58</span>    <a class="code hl_enumvalue" href="#a41b2bf5b77154e7c2eb4c6691c16542fa656c37aed4a972689007d4c9ce88f425">DARK_GRAY</a>,</div>
-<div class="line"><span class="lineno">   59</span>    <a class="code hl_enumvalue" href="#a41b2bf5b77154e7c2eb4c6691c16542faf77fb67151d0c18d397069ad8c271ba3">BLACK</a></div>
-<div class="line"><span class="lineno">   60</span>} <a class="code hl_enumeration" href="#a41b2bf5b77154e7c2eb4c6691c16542f">COLOUR</a>;</div>
-<div class="ttc" id="atypedefs_8h_html_a41b2bf5b77154e7c2eb4c6691c16542f"><div class="ttname"><a href="#a41b2bf5b77154e7c2eb4c6691c16542f">COLOUR</a></div><div class="ttdeci">COLOUR</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00055">typedefs.h:55</a></div></div>
-<div class="ttc" id="atypedefs_8h_html_a41b2bf5b77154e7c2eb4c6691c16542fa283fc479650da98250635b9c3c0e7e50"><div class="ttname"><a href="#a41b2bf5b77154e7c2eb4c6691c16542fa283fc479650da98250635b9c3c0e7e50">WHITE</a></div><div class="ttdeci">@ WHITE</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00056">typedefs.h:56</a></div></div>
-<div class="ttc" id="atypedefs_8h_html_a41b2bf5b77154e7c2eb4c6691c16542fa656c37aed4a972689007d4c9ce88f425"><div class="ttname"><a href="#a41b2bf5b77154e7c2eb4c6691c16542fa656c37aed4a972689007d4c9ce88f425">DARK_GRAY</a></div><div class="ttdeci">@ DARK_GRAY</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00058">typedefs.h:58</a></div></div>
-<div class="ttc" id="atypedefs_8h_html_a41b2bf5b77154e7c2eb4c6691c16542fa82a1f4f015ad85784e8c8671b7338433"><div class="ttname"><a href="#a41b2bf5b77154e7c2eb4c6691c16542fa82a1f4f015ad85784e8c8671b7338433">LIGHT_GRAY</a></div><div class="ttdeci">@ LIGHT_GRAY</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00057">typedefs.h:57</a></div></div>
-<div class="ttc" id="atypedefs_8h_html_a41b2bf5b77154e7c2eb4c6691c16542faf77fb67151d0c18d397069ad8c271ba3"><div class="ttname"><a href="#a41b2bf5b77154e7c2eb4c6691c16542faf77fb67151d0c18d397069ad8c271ba3">BLACK</a></div><div class="ttdeci">@ BLACK</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00060">typedefs.h:59</a></div></div>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00056">56</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">   56</span>             {</div>
+<div class="line"><span class="lineno">   57</span>  <a class="code hl_enumvalue" href="#a41b2bf5b77154e7c2eb4c6691c16542fa283fc479650da98250635b9c3c0e7e50">WHITE</a> = 0x9BBC0F,</div>
+<div class="line"><span class="lineno">   58</span>  <a class="code hl_enumvalue" href="#a41b2bf5b77154e7c2eb4c6691c16542fa82a1f4f015ad85784e8c8671b7338433">LIGHT_GRAY</a> = 0x8BAC0F,</div>
+<div class="line"><span class="lineno">   59</span>  <a class="code hl_enumvalue" href="#a41b2bf5b77154e7c2eb4c6691c16542fa656c37aed4a972689007d4c9ce88f425">DARK_GRAY</a> = 0x306230,</div>
+<div class="line"><span class="lineno">   60</span>  <a class="code hl_enumvalue" href="#a41b2bf5b77154e7c2eb4c6691c16542faf77fb67151d0c18d397069ad8c271ba3">BLACK</a> = 0x0F380F</div>
+<div class="line"><span class="lineno">   61</span>} <a class="code hl_enumeration" href="#a41b2bf5b77154e7c2eb4c6691c16542f">COLOUR</a>;</div>
+<div class="ttc" id="atypedefs_8h_html_a41b2bf5b77154e7c2eb4c6691c16542f"><div class="ttname"><a href="#a41b2bf5b77154e7c2eb4c6691c16542f">COLOUR</a></div><div class="ttdeci">COLOUR</div><div class="ttdoc">Classic Gameboy colours.</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00056">typedefs.h:56</a></div></div>
+<div class="ttc" id="atypedefs_8h_html_a41b2bf5b77154e7c2eb4c6691c16542fa283fc479650da98250635b9c3c0e7e50"><div class="ttname"><a href="#a41b2bf5b77154e7c2eb4c6691c16542fa283fc479650da98250635b9c3c0e7e50">WHITE</a></div><div class="ttdeci">@ WHITE</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00057">typedefs.h:57</a></div></div>
+<div class="ttc" id="atypedefs_8h_html_a41b2bf5b77154e7c2eb4c6691c16542fa656c37aed4a972689007d4c9ce88f425"><div class="ttname"><a href="#a41b2bf5b77154e7c2eb4c6691c16542fa656c37aed4a972689007d4c9ce88f425">DARK_GRAY</a></div><div class="ttdeci">@ DARK_GRAY</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00059">typedefs.h:59</a></div></div>
+<div class="ttc" id="atypedefs_8h_html_a41b2bf5b77154e7c2eb4c6691c16542fa82a1f4f015ad85784e8c8671b7338433"><div class="ttname"><a href="#a41b2bf5b77154e7c2eb4c6691c16542fa82a1f4f015ad85784e8c8671b7338433">LIGHT_GRAY</a></div><div class="ttdeci">@ LIGHT_GRAY</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00058">typedefs.h:58</a></div></div>
+<div class="ttc" id="atypedefs_8h_html_a41b2bf5b77154e7c2eb4c6691c16542faf77fb67151d0c18d397069ad8c271ba3"><div class="ttname"><a href="#a41b2bf5b77154e7c2eb4c6691c16542faf77fb67151d0c18d397069ad8c271ba3">BLACK</a></div><div class="ttdeci">@ BLACK</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00061">typedefs.h:60</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -620,23 +644,27 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Enum for function types in <a class="el" href="structOPS.html" title="Opcode, with function pointer array.">OPS</a> struct. </p>
+<p><blockquote class="doxtable">
+<p>&zwj;Op that takes u16 operand </p>
+</blockquote>
+</p>
+<p>Enum for function types in <a class="el" href="structOPS.html" title="Opcodes, with function pointer array.">OPS</a> struct </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa1aa1c6a8f3bbed5b167bc2d4511b969ae76c941d2316666913c673a032deb9ba" name="aa1aa1c6a8f3bbed5b167bc2d4511b969ae76c941d2316666913c673a032deb9ba"></a>NO_OP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aa1aa1c6a8f3bbed5b167bc2d4511b969a86cbcf2bac41e080402f0f1371c3dbd2" name="aa1aa1c6a8f3bbed5b167bc2d4511b969a86cbcf2bac41e080402f0f1371c3dbd2"></a>U8_OP&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="aa1aa1c6a8f3bbed5b167bc2d4511b969abb46e85812bbd80feb7ebc4de0bf0acb" name="aa1aa1c6a8f3bbed5b167bc2d4511b969abb46e85812bbd80feb7ebc4de0bf0acb"></a>U16_OP&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00199">199</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">  199</span>             {</div>
-<div class="line"><span class="lineno">  200</span>  <a class="code hl_enumvalue" href="#aa1aa1c6a8f3bbed5b167bc2d4511b969ae76c941d2316666913c673a032deb9ba">NO_OP</a>,</div>
-<div class="line"><span class="lineno">  201</span>  <a class="code hl_enumvalue" href="#aa1aa1c6a8f3bbed5b167bc2d4511b969a86cbcf2bac41e080402f0f1371c3dbd2">U8_OP</a>,</div>
-<div class="line"><span class="lineno">  202</span>  <a class="code hl_enumvalue" href="#aa1aa1c6a8f3bbed5b167bc2d4511b969abb46e85812bbd80feb7ebc4de0bf0acb">U16_OP</a>,</div>
-<div class="line"><span class="lineno">  203</span>} <a class="code hl_enumeration" href="#aa1aa1c6a8f3bbed5b167bc2d4511b969">OpType</a>;</div>
-<div class="ttc" id="atypedefs_8h_html_aa1aa1c6a8f3bbed5b167bc2d4511b969"><div class="ttname"><a href="#aa1aa1c6a8f3bbed5b167bc2d4511b969">OpType</a></div><div class="ttdeci">OpType</div><div class="ttdoc">Enum for function types in OPS struct.</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00199">typedefs.h:199</a></div></div>
-<div class="ttc" id="atypedefs_8h_html_aa1aa1c6a8f3bbed5b167bc2d4511b969a86cbcf2bac41e080402f0f1371c3dbd2"><div class="ttname"><a href="#aa1aa1c6a8f3bbed5b167bc2d4511b969a86cbcf2bac41e080402f0f1371c3dbd2">U8_OP</a></div><div class="ttdeci">@ U8_OP</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00201">typedefs.h:201</a></div></div>
-<div class="ttc" id="atypedefs_8h_html_aa1aa1c6a8f3bbed5b167bc2d4511b969abb46e85812bbd80feb7ebc4de0bf0acb"><div class="ttname"><a href="#aa1aa1c6a8f3bbed5b167bc2d4511b969abb46e85812bbd80feb7ebc4de0bf0acb">U16_OP</a></div><div class="ttdeci">@ U16_OP</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00202">typedefs.h:202</a></div></div>
-<div class="ttc" id="atypedefs_8h_html_aa1aa1c6a8f3bbed5b167bc2d4511b969ae76c941d2316666913c673a032deb9ba"><div class="ttname"><a href="#aa1aa1c6a8f3bbed5b167bc2d4511b969ae76c941d2316666913c673a032deb9ba">NO_OP</a></div><div class="ttdeci">@ NO_OP</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00200">typedefs.h:200</a></div></div>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00200">200</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  200</span>             {</div>
+<div class="line"><span class="lineno">  201</span>  <a class="code hl_enumvalue" href="#aa1aa1c6a8f3bbed5b167bc2d4511b969ae76c941d2316666913c673a032deb9ba">NO_OP</a>,</div>
+<div class="line"><span class="lineno">  202</span>  <a class="code hl_enumvalue" href="#aa1aa1c6a8f3bbed5b167bc2d4511b969a86cbcf2bac41e080402f0f1371c3dbd2">U8_OP</a>,</div>
+<div class="line"><span class="lineno">  203</span>  <a class="code hl_enumvalue" href="#aa1aa1c6a8f3bbed5b167bc2d4511b969abb46e85812bbd80feb7ebc4de0bf0acb">U16_OP</a>,</div>
+<div class="line"><span class="lineno">  204</span>} <a class="code hl_enumeration" href="#aa1aa1c6a8f3bbed5b167bc2d4511b969">OpType</a>;</div>
+<div class="ttc" id="atypedefs_8h_html_aa1aa1c6a8f3bbed5b167bc2d4511b969"><div class="ttname"><a href="#aa1aa1c6a8f3bbed5b167bc2d4511b969">OpType</a></div><div class="ttdeci">OpType</div><div class="ttdoc">‍Op that takes u16 operand</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00200">typedefs.h:200</a></div></div>
+<div class="ttc" id="atypedefs_8h_html_aa1aa1c6a8f3bbed5b167bc2d4511b969a86cbcf2bac41e080402f0f1371c3dbd2"><div class="ttname"><a href="#aa1aa1c6a8f3bbed5b167bc2d4511b969a86cbcf2bac41e080402f0f1371c3dbd2">U8_OP</a></div><div class="ttdeci">@ U8_OP</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00202">typedefs.h:202</a></div></div>
+<div class="ttc" id="atypedefs_8h_html_aa1aa1c6a8f3bbed5b167bc2d4511b969abb46e85812bbd80feb7ebc4de0bf0acb"><div class="ttname"><a href="#aa1aa1c6a8f3bbed5b167bc2d4511b969abb46e85812bbd80feb7ebc4de0bf0acb">U16_OP</a></div><div class="ttdeci">@ U16_OP</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00203">typedefs.h:203</a></div></div>
+<div class="ttc" id="atypedefs_8h_html_aa1aa1c6a8f3bbed5b167bc2d4511b969ae76c941d2316666913c673a032deb9ba"><div class="ttname"><a href="#aa1aa1c6a8f3bbed5b167bc2d4511b969ae76c941d2316666913c673a032deb9ba">NO_OP</a></div><div class="ttdeci">@ NO_OP</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00201">typedefs.h:201</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -646,7 +674,7 @@ Enumerations</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="typedefs_8h.html">typedefs.h</a></li>
-    <li class="footer">Generated on Wed Jul 31 2024 05:55:24 for GB Emulator by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generated on Thu Aug 1 2024 11:02:28 for GB Emulator by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

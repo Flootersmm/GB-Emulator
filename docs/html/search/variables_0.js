@@ -1,5 +1,21 @@
 var searchData=
 [
-  ['a_0',['a',['../structRegisters.html#ad3bed05757be0c7bea3a8d690b11e54e',1,'Registers']]],
-  ['af_1',['af',['../structRegisters.html#a9d45b99a1d4995ed6f6630ae8f6ec4fa',1,'Registers']]]
+  ['_5fchannels_0',['_Channels',['../structImDrawListSplitter.html#ab3b0bdddacaa7b347c41735c2d9952dc',1,'ImDrawListSplitter']]],
+  ['_5fcliprectstack_1',['_ClipRectStack',['../structImDrawList.html#ae950024f053f3c94dc2c763d20be609d',1,'ImDrawList']]],
+  ['_5fcmdbuffer_2',['_CmdBuffer',['../structImDrawChannel.html#a8bb018bc09e2a1f4389c78390a437f78',1,'ImDrawChannel']]],
+  ['_5fcmdheader_3',['_CmdHeader',['../structImDrawList.html#a87d1ec89ec6a742fd4d097d2b924e92b',1,'ImDrawList']]],
+  ['_5fcount_4',['_Count',['../structImDrawListSplitter.html#ae3a1593ee05bc52e6284943eab3c97a2',1,'ImDrawListSplitter']]],
+  ['_5fcurrent_5',['_Current',['../structImDrawListSplitter.html#a99a46d62e09810f31d0a6efd4a0d2b09',1,'ImDrawListSplitter']]],
+  ['_5fdata_6',['_Data',['../structImDrawList.html#ad5a67c6f1487a812410e9979d1cf4a02',1,'ImDrawList']]],
+  ['_5ffringescale_7',['_FringeScale',['../structImDrawList.html#aa667eca45099e5679b161c17ac6ec7e0',1,'ImDrawList']]],
+  ['_5fidxbuffer_8',['_IdxBuffer',['../structImDrawChannel.html#abf48aaacbb4908d4b1ff8b54ee85a45f',1,'ImDrawChannel']]],
+  ['_5fidxwriteptr_9',['_IdxWritePtr',['../structImDrawList.html#a771f4c7f71873852fe030c3e498e5843',1,'ImDrawList']]],
+  ['_5fownername_10',['_OwnerName',['../structImDrawList.html#a643f385fb9d5fc35a431e72a10a212f5',1,'ImDrawList']]],
+  ['_5fpath_11',['_Path',['../structImDrawList.html#a5bdc39abf351360500048628b8dc1b07',1,'ImDrawList']]],
+  ['_5fselectionorder_12',['_SelectionOrder',['../structImGuiSelectionBasicStorage.html#ac19585561995804e48065e21f1bb5b30',1,'ImGuiSelectionBasicStorage']]],
+  ['_5fsplitter_13',['_Splitter',['../structImDrawList.html#a2893207705100e8a5da8122da56bd162',1,'ImDrawList']]],
+  ['_5fstorage_14',['_Storage',['../structImGuiSelectionBasicStorage.html#aefb9716a0b190090ce3234fd3f7a0b77',1,'ImGuiSelectionBasicStorage']]],
+  ['_5ftextureidstack_15',['_TextureIdStack',['../structImDrawList.html#a848faddd121da050214b8d8159e5e704',1,'ImDrawList']]],
+  ['_5fvtxcurrentidx_16',['_VtxCurrentIdx',['../structImDrawList.html#a2228793183665bc3d8612795555fe505',1,'ImDrawList']]],
+  ['_5fvtxwriteptr_17',['_VtxWritePtr',['../structImDrawList.html#a67f870f5140bf1cab14b8515b7386073',1,'ImDrawList']]]
 ];

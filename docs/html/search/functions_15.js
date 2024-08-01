@@ -1,12 +1,7 @@
 var searchData=
 [
-  ['xor_5fa_0',['xor_a',['../ops_8c.html#abd5876b281ece13dfb3bd921e9742ed5',1,'xor_a(GB *vm):&#160;ops.c'],['../ops_8h.html#abd5876b281ece13dfb3bd921e9742ed5',1,'xor_a(GB *vm):&#160;ops.c']]],
-  ['xor_5fb_1',['xor_b',['../ops_8c.html#aa51b9fda173f0d76a4fa635f8b2902b5',1,'xor_b(GB *vm):&#160;ops.c'],['../ops_8h.html#aa51b9fda173f0d76a4fa635f8b2902b5',1,'xor_b(GB *vm):&#160;ops.c']]],
-  ['xor_5fc_2',['xor_c',['../ops_8c.html#a87e4c4bf4bd96f20ad21126d4245f205',1,'xor_c(GB *vm):&#160;ops.c'],['../ops_8h.html#a87e4c4bf4bd96f20ad21126d4245f205',1,'xor_c(GB *vm):&#160;ops.c']]],
-  ['xor_5fd_3',['xor_d',['../ops_8c.html#a0683f6913162fab4f94c55c5eb7971da',1,'xor_d(GB *vm):&#160;ops.c'],['../ops_8h.html#a0683f6913162fab4f94c55c5eb7971da',1,'xor_d(GB *vm):&#160;ops.c']]],
-  ['xor_5fe_4',['xor_e',['../ops_8c.html#a0b29af5a991bddc180bef5c1f1dd7181',1,'xor_e(GB *vm):&#160;ops.c'],['../ops_8h.html#a0b29af5a991bddc180bef5c1f1dd7181',1,'xor_e(GB *vm):&#160;ops.c']]],
-  ['xor_5fh_5',['xor_h',['../ops_8c.html#a76cc365ee8f5b0f627b1d37ab68646a6',1,'xor_h(GB *vm):&#160;ops.c'],['../ops_8h.html#a76cc365ee8f5b0f627b1d37ab68646a6',1,'xor_h(GB *vm):&#160;ops.c']]],
-  ['xor_5fhl_6',['xor_hl',['../ops_8c.html#a9b90fd4caa34a2a798a3fef33d89fd4f',1,'xor_hl(GB *vm):&#160;ops.c'],['../ops_8h.html#a9b90fd4caa34a2a798a3fef33d89fd4f',1,'xor_hl(GB *vm):&#160;ops.c']]],
-  ['xor_5fl_7',['xor_l',['../ops_8c.html#a69d0bdcfa915a040c2e06035a7c6298b',1,'xor_l(GB *vm):&#160;ops.c'],['../ops_8h.html#a69d0bdcfa915a040c2e06035a7c6298b',1,'xor_l(GB *vm):&#160;ops.c']]],
-  ['xor_5fn_8',['xor_n',['../ops_8c.html#aefec16c03e25b6af945127e1b0cecdda',1,'xor_n(GB *vm, u8 operand):&#160;ops.c'],['../ops_8h.html#aefec16c03e25b6af945127e1b0cecdda',1,'xor_n(GB *vm, u8 operand):&#160;ops.c']]]
+  ['value_0',['Value',['../namespaceImGui.html#a1b3324308e43eeded5c3599fa0f03e85',1,'ImGui::Value(const char *prefix, bool b)'],['../namespaceImGui.html#a654ceb70f2dd1598f88861f54764ee08',1,'ImGui::Value(const char *prefix, int v)'],['../namespaceImGui.html#aec80a3e35bf7c1ff5704334e5a3ebd5a',1,'ImGui::Value(const char *prefix, unsigned int v)'],['../namespaceImGui.html#a0c8b87438082a1d0a46ae2a76090ca16',1,'ImGui::Value(const char *prefix, float v, const char *float_format=NULL)']]],
+  ['vsliderfloat_1',['VSliderFloat',['../namespaceImGui.html#a990332e589b828093786bbc007b9bfda',1,'ImGui']]],
+  ['vsliderint_2',['VSliderInt',['../namespaceImGui.html#a3cf7cf500353bf13250e29d788bd3fff',1,'ImGui']]],
+  ['vsliderscalar_3',['VSliderScalar',['../namespaceImGui.html#a6ad24ca37a530d43f9d1c727d94e4829',1,'ImGui']]]
 ];

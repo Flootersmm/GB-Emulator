@@ -10,9 +10,9 @@ PROJECT_LOGO           =
 INPUT                  = src include
 FILE_PATTERNS          = *.c *.h *.cpp
 RECURSIVE              = YES
-EXCLUDE                = *imgui* !imgui_wrapper.h !imgui_wrapper.cpp *imstb*
+EXCLUDE                = *imgui_* !imgui_wrapper.h !imgui_wrapper.cpp *imstb*
 EXCLUDE_SYMLINKS       = NO
-EXCLUDE_PATTERNS       = *imgui* !imgui_wrapper.h !imgui_wrapper.cpp *imstb*
+EXCLUDE_PATTERNS       = *imgui_* !imgui_wrapper.h !imgui_wrapper.cpp *imstb*
 
 # Build related settings
 OUTPUT_DIRECTORY       = docs

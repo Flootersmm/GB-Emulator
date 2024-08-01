@@ -1,0 +1,11 @@
+<map id="ImDrawList::PushClipRect" name="ImDrawList::PushClipRect">
+<area shape="rect" id="Node000001" title=" " alt="" coords="711,35,889,61"/>
+<area shape="rect" id="Node000002" href="$imgui_8cpp.html#a86964372ace3c5efb9325a2162f04efd" title=" " alt="" coords="463,5,639,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="696,38,640,32,640,26,696,33"/>
+<area shape="rect" id="Node000003" href="$namespaceImGui.html#a92ac596d91c03957e034022b239a881d" title=" " alt="" coords="439,56,663,99"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="696,63,664,67,664,61,695,58"/>
+<area shape="rect" id="Node000004" href="$namespaceImGui.html#a6b080917e0b311340f252f37cdc21736" title=" " alt="" coords="160,64,391,91"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="424,80,391,80,391,75,424,75"/>
+<area shape="rect" id="Node000005" href="$namespaceImGui.html#ab51a164f547317c16c441f1599e3946d" title=" " alt="" coords="5,64,112,91"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="144,80,112,80,112,75,144,75"/>
+</map>

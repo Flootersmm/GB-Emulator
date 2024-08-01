@@ -105,6 +105,9 @@ $(function(){initNavTree('structOPS__extended.html',''); initResizable(true); })
 </div><!--header-->
 <div class="contents">
 
+<p>Extended opcodes, with function pointer array.  
+ <a href="#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="typedefs_8h_source.html">typedefs.h</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Collaboration diagram for OPS_extended:</div>
@@ -113,10 +116,10 @@ $(function(){initNavTree('structOPS__extended.html',''); initResizable(true); })
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="structOPS__extended__coll__graph.png" border="0" usemap="#aOPS__extended_coll__map" alt="Collaboration graph"/></div>
 <map name="aOPS__extended_coll__map" id="aOPS__extended_coll__map">
-<area shape="rect" title=" " alt="" coords="127,309,236,336"/>
+<area shape="rect" title="Extended opcodes, with function pointer array." alt="" coords="127,309,236,336"/>
 <area shape="rect" href="structGB.html" title="Main GB struct." alt="" coords="266,187,307,213"/>
 <area shape="poly" title=" " alt="" coords="252,209,223,220,199,239,189,256,184,275,183,309,177,309,179,274,184,254,195,236,221,215,250,204"/>
-<area shape="rect" href="structOPS.html" title="Opcode, with function pointer array." alt="" coords="314,309,363,336"/>
+<area shape="rect" href="structOPS.html" title="Opcodes, with function pointer array." alt="" coords="314,309,363,336"/>
 <area shape="poly" title=" " alt="" coords="281,229,279,257,286,284,298,299,315,309,312,314,295,303,281,287,274,257,276,228"/>
 <area shape="rect" href="structRegisters.html" title="Registers a, b, c, d, e, f, h, l, af, bc, de, hl, sp, pc." alt="" coords="5,96,83,123"/>
 <area shape="poly" title=" " alt="" coords="89,126,177,160,267,190,265,195,175,165,87,131"/>
@@ -144,20 +147,21 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a0a440b9eafd7808f20a3cbcdcbfbdea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad031d70a11af4fe25d1829111e6c06d0" id="r_ad031d70a11af4fe25d1829111e6c06d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#aa1aa1c6a8f3bbed5b167bc2d4511b969">OpType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad031d70a11af4fe25d1829111e6c06d0">type</a></td></tr>
 <tr class="separator:ad031d70a11af4fe25d1829111e6c06d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad78fb4af2fd24f0b922e24dc6d5389b9" id="r_ad78fb4af2fd24f0b922e24dc6d5389b9"><td class="memItemLeft" >union {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="memitem:aa50ac03d81f2af157803529d67936267" id="r_aa50ac03d81f2af157803529d67936267"><td class="memItemLeft" >union {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7781a764f27ca143f64636e3b8f9f009" id="r_a7781a764f27ca143f64636e3b8f9f009"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="typedefs_8h.html#a7d06bbc7231c9230225cd8f5d767b531">FuncNoOp</a>&#160;&#160;&#160;<a class="el" href="#aa784e7df1d8df1aa0a78ffd617d6ef62">func_no_op</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a7781a764f27ca143f64636e3b8f9f009"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdb6b08904c2960bdd93a1543338934e" id="r_abdb6b08904c2960bdd93a1543338934e"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="typedefs_8h.html#a91185aafc4db9cd380f92b6600dfaaca">FuncU8Op</a>&#160;&#160;&#160;<a class="el" href="#ae2482dcb63528888a9609dd8b0d2fd41">func_u8_op</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:abdb6b08904c2960bdd93a1543338934e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa42050ee8ace0ddc5161afb7d4a6e1c" id="r_afa42050ee8ace0ddc5161afb7d4a6e1c"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="typedefs_8h.html#aeaf01caf81899fa6693007084dd8a808">FuncU16Op</a>&#160;&#160;&#160;<a class="el" href="#adae996d663833bd36b5ae096f77fe3a6">func_u16_op</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:afa42050ee8ace0ddc5161afb7d4a6e1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad78fb4af2fd24f0b922e24dc6d5389b9" id="r_ad78fb4af2fd24f0b922e24dc6d5389b9"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad78fb4af2fd24f0b922e24dc6d5389b9">func</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:ad78fb4af2fd24f0b922e24dc6d5389b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61bfff7a2dceb15f1edba11b5d85398b" id="r_a61bfff7a2dceb15f1edba11b5d85398b"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="typedefs_8h.html#a7d06bbc7231c9230225cd8f5d767b531">FuncNoOp</a>&#160;&#160;&#160;<a class="el" href="#aa784e7df1d8df1aa0a78ffd617d6ef62">func_no_op</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a61bfff7a2dceb15f1edba11b5d85398b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9d40b797d1b04d349e770d4c2fe9214" id="r_ac9d40b797d1b04d349e770d4c2fe9214"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="typedefs_8h.html#a91185aafc4db9cd380f92b6600dfaaca">FuncU8Op</a>&#160;&#160;&#160;<a class="el" href="#ae2482dcb63528888a9609dd8b0d2fd41">func_u8_op</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:ac9d40b797d1b04d349e770d4c2fe9214"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac87046e62507310daeaab721ea21c3be" id="r_ac87046e62507310daeaab721ea21c3be"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="typedefs_8h.html#aeaf01caf81899fa6693007084dd8a808">FuncU16Op</a>&#160;&#160;&#160;<a class="el" href="#adae996d663833bd36b5ae096f77fe3a6">func_u16_op</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:ac87046e62507310daeaab721ea21c3be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa50ac03d81f2af157803529d67936267" id="r_aa50ac03d81f2af157803529d67936267"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa50ac03d81f2af157803529d67936267">func</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:aa50ac03d81f2af157803529d67936267"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00217">217</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<div class="textblock"><p>Extended opcodes, with function pointer array. </p>
+
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00219">219</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a id="ab50e96ea65b21a65ce2360f48e430d92" name="ab50e96ea65b21a65ce2360f48e430d92"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab50e96ea65b21a65ce2360f48e430d92">&#9670;&#160;</a></span>debug_str</h2>
@@ -171,12 +175,12 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00218">218</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00220">220</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
-<a id="ad78fb4af2fd24f0b922e24dc6d5389b9" name="ad78fb4af2fd24f0b922e24dc6d5389b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad78fb4af2fd24f0b922e24dc6d5389b9">&#9670;&#160;</a></span>[union]</h2>
+<a id="aa50ac03d81f2af157803529d67936267" name="aa50ac03d81f2af157803529d67936267"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa50ac03d81f2af157803529d67936267">&#9670;&#160;</a></span>[union]</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -201,7 +205,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00222">222</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00224">224</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -217,7 +221,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00224">224</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00226">226</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -233,7 +237,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00223">223</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00225">225</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -249,7 +253,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00219">219</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00221">221</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -265,7 +269,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00220">220</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00222">222</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -278,7 +282,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structOPS__extended.html">OPS_extended</a></li>
-    <li class="footer">Generated on Wed Jul 31 2024 05:55:25 for GB Emulator by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generated on Thu Aug 1 2024 11:02:28 for GB Emulator by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

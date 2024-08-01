@@ -1,0 +1,10 @@
+<map id="AddRootWindowToDrawData" name="AddRootWindowToDrawData">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,198,81"/>
+<area shape="rect" id="Node000002" href="$imgui_8cpp.html#a61d631adc3bba197e5d939f8987fff7f" title=" " alt="" coords="246,29,410,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,55,230,51,231,56,198,60"/>
+<area shape="rect" id="Node000004" href="$imgui_8cpp.html#a088ffc0a5ef8ac04dd17caed97a9aeb4" title=" " alt="" coords="246,80,411,107"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="198,76,231,80,230,85,198,81"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="291,30,285,21,289,11,304,5,328,3,354,5,368,12,366,16,353,10,328,8,305,10,293,15,290,20,296,27"/>
+<area shape="rect" id="Node000003" href="$imgui_8cpp.html#a0d4bfbfc89237377e7ac93b9a59fb121" title=" " alt="" coords="459,29,637,56"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="411,40,443,40,443,45,411,45"/>
+</map>

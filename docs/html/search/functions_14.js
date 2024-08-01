@@ -1,11 +1,19 @@
 var searchData=
 [
-  ['window_5ffile_5fsize_0',['window_file_size',['../gui_8cpp.html#a1ad0b086559e324bcf03c1c07b61125a',1,'gui.cpp']]],
-  ['window_5finit_1',['window_init',['../gui_8cpp.html#a1e8e55366c1419c08c91382f06413e43',1,'window_init():&#160;gui.cpp'],['../gb_8h.html#acf9f3c343e2e515e52db377e36e3b512',1,'window_init(void):&#160;gui.cpp']]],
-  ['window_5fmain_5fsize_2',['window_main_size',['../gui_8cpp.html#a106fb4cdcf06aec3f9fe60f2319ea957',1,'gui.cpp']]],
-  ['window_5fmenu_5fsize_3',['window_menu_size',['../gui_8cpp.html#a8965b0d68f94fa6fc7a526b5d7417cba',1,'gui.cpp']]],
-  ['window_5fshell_5fsize_4',['window_shell_size',['../gui_8cpp.html#a90d9a765c5857f4fa9a2005d95d4b584',1,'gui.cpp']]],
-  ['window_5fstack_5fsize_5',['window_stack_size',['../gui_8cpp.html#a890dba1502ddfcf25949aba787fafe33',1,'gui.cpp']]],
-  ['write_5fu16_6',['write_u16',['../gb_8c.html#ac92a8ab8dadad65dcd738d060ea2a761',1,'write_u16(GB *vm, u16 addr, u16 value):&#160;gb.c'],['../gb_8h.html#ac92a8ab8dadad65dcd738d060ea2a761',1,'write_u16(GB *vm, u16 addr, u16 value):&#160;gb.c']]],
-  ['write_5fu8_7',['write_u8',['../gb_8c.html#a2e82c7fb7e1d3142fe17cc501afcee9c',1,'write_u8(GB *vm, u16 addr, u8 value):&#160;gb.c'],['../gb_8h.html#a2e82c7fb7e1d3142fe17cc501afcee9c',1,'write_u8(GB *vm, u16 addr, u8 value):&#160;gb.c']]]
+  ['unindent_0',['Unindent',['../namespaceImGui.html#ad577d36753634c9bbdc3750b0e5217f5',1,'ImGui']]],
+  ['update_5fgraphics_1',['update_graphics',['../gb_8c.html#af854fd8ffc85c1aa48708cf896a07d3f',1,'update_graphics(GB *vm, int cycles):&#160;gb.c'],['../gb_8h.html#af854fd8ffc85c1aa48708cf896a07d3f',1,'update_graphics(GB *vm, int cycles):&#160;gb.c']]],
+  ['update_5ftexture_2',['update_texture',['../gui_8cpp.html#ab05b142f6b75fc29f6872cd10661757b',1,'gui.cpp']]],
+  ['update_5ftimers_3',['update_timers',['../gb_8c.html#a7a4269393a119fb11f81c347c4504103',1,'update_timers(GB *vm, u16 cycles):&#160;gb.c'],['../gb_8h.html#a7a4269393a119fb11f81c347c4504103',1,'update_timers(GB *vm, u16 cycles):&#160;gb.c']]],
+  ['updatealiaskey_4',['UpdateAliasKey',['../imgui_8cpp.html#a316580ae3c05306701b597a0fe689c18',1,'imgui.cpp']]],
+  ['updatedebugtoolflashstylecolor_5',['UpdateDebugToolFlashStyleColor',['../namespaceImGui.html#a5546af91b363126c8f3c7890b6e85020',1,'ImGui']]],
+  ['updatedebugtoolitempicker_6',['UpdateDebugToolItemPicker',['../namespaceImGui.html#aafb35fd3d7d0a7baac8f0590487a2594',1,'ImGui']]],
+  ['updatedebugtoolstackqueries_7',['UpdateDebugToolStackQueries',['../namespaceImGui.html#a614fcb837655fad97e28152b76920e28',1,'ImGui']]],
+  ['updatekeyboardinputs_8',['UpdateKeyboardInputs',['../namespaceImGui.html#ab9f7d60c2c00ab2bad55e49288983766',1,'ImGui']]],
+  ['updatekeyroutingtable_9',['UpdateKeyRoutingTable',['../namespaceImGui.html#ae48847b764f778b336dcb65519295c84',1,'ImGui']]],
+  ['updatemouseinputs_10',['UpdateMouseInputs',['../namespaceImGui.html#accb45e7a4174fdc2e0d2b662c834759d',1,'ImGui']]],
+  ['updatemousewheel_11',['UpdateMouseWheel',['../namespaceImGui.html#a45a39b3a2cfa3aa899eecb63bac79d1a',1,'ImGui']]],
+  ['updatesettings_12',['UpdateSettings',['../namespaceImGui.html#a8bdb90b84ec6e306d312fc8bfb7caf64',1,'ImGui']]],
+  ['updateviewportsnewframe_13',['UpdateViewportsNewFrame',['../namespaceImGui.html#adb4972997c580544e6f850d3eadf16ab',1,'ImGui']]],
+  ['updatewindowinfocusorderlist_14',['UpdateWindowInFocusOrderList',['../imgui_8cpp.html#a9ad81ef7c1bc5f9bd46cadd696f3f31e',1,'imgui.cpp']]],
+  ['updatewindowmanualresize_15',['UpdateWindowManualResize',['../namespaceImGui.html#ae4f2e06e52d0ee2cb6df362e53431d02',1,'ImGui']]]
 ];

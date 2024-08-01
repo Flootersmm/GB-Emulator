@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['x_0',['X',['../gb_8c.html#a9d05c1e17cd23c39474437caa82ac41b',1,'X:&#160;gb.c'],['../gb_8h.html#a9d05c1e17cd23c39474437caa82ac41b',1,'X:&#160;gb.h']]]
+  ['map_5flegacy_5fnav_5finput_5fto_5fkey1_0',['MAP_LEGACY_NAV_INPUT_TO_KEY1',['../imgui_8cpp.html#ab9e91dc90678a94b1115add63495e83e',1,'imgui.cpp']]],
+  ['map_5flegacy_5fnav_5finput_5fto_5fkey2_1',['MAP_LEGACY_NAV_INPUT_TO_KEY2',['../imgui_8cpp.html#a83b8cb33c0680201c0756c6c210af71c',1,'imgui.cpp']]]
 ];

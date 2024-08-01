@@ -1,13 +1,23 @@
 var searchData=
 [
-  ['texture_0',['texture',['../gui_8cpp.html#a0704dfe56dec926cb35f7bdc0834ecd0',1,'gui.cpp']]],
-  ['tima_1',['tima',['../structGB.html#aad2704aa81f85d9eb5b3f307d128f8d6',1,'GB']]],
-  ['timer_5fcounter_2',['timer_counter',['../structGB.html#aa430d0716dae84b69c7a7a0e22c45a10',1,'GB']]],
-  ['title_3',['title',['../structCartridge.html#a15b43d4e68acd3b438febb570eb7ffe8',1,'Cartridge']]],
-  ['tma_4',['tma',['../structGB.html#ad939ff183aa691ce5ffc3f103f37865f',1,'GB']]],
-  ['tmc_5',['tmc',['../structGB.html#a500106b655fda004371204596361456f',1,'GB']]],
-  ['toggle_5fbacktrace_6',['toggle_backtrace',['../gui_8cpp.html#a46eebb3755a57fc1ecd282927adfcd29',1,'gui.cpp']]],
-  ['toggle_5ffile_7',['toggle_file',['../gui_8cpp.html#aa8b62aef353748d36e66a6d1639c5801',1,'gui.cpp']]],
-  ['toggle_5finfo_8',['toggle_info',['../gui_8cpp.html#a73dd72de6fc6e848a54dd87e705ab69e',1,'gui.cpp']]],
-  ['type_9',['type',['../structConsoleType.html#ac606dab0102b8064abb9b700b2ff6994',1,'ConsoleType::type'],['../structFlags.html#aa380459b2f17968884a48d97b782ff81',1,'Flags::type'],['../structOPS.html#ab921f19c58413e2134aba61fdf298868',1,'OPS::type'],['../structOPS__extended.html#ad031d70a11af4fe25d1829111e6c06d0',1,'OPS_extended::type']]]
+  ['r_0',['r',['../structGB.html#aa2bfd15314ed7f35d6d415d1464830da',1,'GB']]],
+  ['ram_5fsize_1',['ram_size',['../structCartridge.html#a21b1f8c69727d3e77c75453144927a63',1,'Cartridge']]],
+  ['rangedirection_2',['RangeDirection',['../structImGuiSelectionRequest.html#aeb2fcecb060638a1aa03a74e646c6bb0',1,'ImGuiSelectionRequest']]],
+  ['rangefirstitem_3',['RangeFirstItem',['../structImGuiSelectionRequest.html#abb6d03064b03ebc051a6e577f3ec626a',1,'ImGuiSelectionRequest']]],
+  ['rangelastitem_4',['RangeLastItem',['../structImGuiSelectionRequest.html#ace27f231ebae7709ca230f06e19a4e89',1,'ImGuiSelectionRequest']]],
+  ['rangesrcitem_5',['RangeSrcItem',['../structImGuiMultiSelectIO.html#a9e628d471aec28be6206b7cf156b17c8',1,'ImGuiMultiSelectIO']]],
+  ['rangesrcreset_6',['RangeSrcReset',['../structImGuiMultiSelectIO.html#a9373703b4813b42cfb1ac148cb346552',1,'ImGuiMultiSelectIO']]],
+  ['rasterizerdensity_7',['RasterizerDensity',['../structImFontConfig.html#a16af4c04622910d619882b9d068fddc9',1,'ImFontConfig']]],
+  ['rasterizermultiply_8',['RasterizerMultiply',['../structImFontConfig.html#a9365265cc52098a8ecf89ff47f6106f2',1,'ImFontConfig']]],
+  ['refframe_9',['RefFrame',['../structImGuiOnceUponAFrame.html#a2d44776b8e7bdeec217f88be9f832e08',1,'ImGuiOnceUponAFrame']]],
+  ['requests_10',['Requests',['../structImGuiMultiSelectIO.html#aba5e6ee0184f05432deba747ddc81d93',1,'ImGuiMultiSelectIO']]],
+  ['resize_5fborder_5fdef_11',['resize_border_def',['../imgui_8cpp.html#a80f601256308bd185d2d25e71f1e320a',1,'imgui.cpp']]],
+  ['resize_5fgrip_5fdef_12',['resize_grip_def',['../imgui_8cpp.html#a4172a86a71ad90be6fb63c63f362222d',1,'imgui.cpp']]],
+  ['retrace_5fly_13',['retrace_ly',['../structGB.html#ab17ef3512dc0c01873a5bc5cd7bb009e',1,'GB']]],
+  ['rom_5fbank0_14',['rom_bank0',['../structMemory.html#af9038087e221c79a18cf942bbeecefe3',1,'Memory']]],
+  ['rom_5fbank1_15',['rom_bank1',['../structMemory.html#a87deb770f73de7ca811d4f1cde791930',1,'Memory']]],
+  ['rom_5fbanks_16',['rom_banks',['../structRomSizeEntry.html#a587f0dedbba71e78553de08ba6a7a172',1,'RomSizeEntry']]],
+  ['rom_5fpath_17',['rom_path',['../structGB.html#acbceb11b6070f31d7dc7e33f7f5125da',1,'GB']]],
+  ['rom_5fsize_18',['rom_size',['../structRomSizeEntry.html#a8c568a2741fa81e69bad9fc78422e539',1,'RomSizeEntry::rom_size'],['../structCartridge.html#af18c52fe0b6412b348101d5c8b6aecfc',1,'Cartridge::rom_size']]],
+  ['running_19',['running',['../shared_8h.html#af53701aded99286de42137bffab9561a',1,'shared.h']]]
 ];

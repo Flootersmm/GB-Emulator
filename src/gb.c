@@ -119,14 +119,14 @@ GB *gb_init(const char *rom_path) {
 
 /// Clean up the GB vm
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 ///
 /// @return 0 for success, -1 for failure
 int gb_destroy(GB *vm) { return 0; }
 
 /// Initialise the power on sequence
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 ///
 /// @return 0 for success, -1 for failure
 int _gb_power_on(GB *vm) {
@@ -221,7 +221,7 @@ int _gb_power_on(GB *vm) {
 
 /// Separates the cart header into distinct fields
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 ///
 /// @return 0 for success, -1 for failure
 int _cart_header_read(GB *vm) {
@@ -258,7 +258,7 @@ const char *cart_get_type_str(CartridgeType type) {
 
 /// Convert licensee name from hex to string
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 ///
 /// @return 0 for success, -1 for failure
 const char *licensee_get_name(GB *vm) {
@@ -291,7 +291,7 @@ const char *licensee_get_name(GB *vm) {
 /// rom_size = "32 KiB";
 /// rom_banks = "2 (no banking)";
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 ///
 /// @return Rom size string
 const char *rom_get_size_str(GB *vm) {
@@ -380,7 +380,7 @@ const char *rom_get_size_str(GB *vm) {
 /// sram_size = "8 KiB";
 /// sram_banks = "1 bank";
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 ///
 /// @return RAM size string
 const char *ram_get_size_str(GB *vm) {
@@ -438,7 +438,7 @@ const char *ram_get_size_str(GB *vm) {
 /// code = "$01";
 /// desination = "Overseas only";
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 ///
 /// @return Destination code string
 const char *destination_code_get_str(GB *vm) {
@@ -467,7 +467,7 @@ const char *destination_code_get_str(GB *vm) {
 
 /// Calculate cart header checksum
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 ///
 /// @return Checksum as u8
 u8 cart_header_checksum_calc(GB *vm) {
@@ -482,7 +482,7 @@ u8 cart_header_checksum_calc(GB *vm) {
 ///
 /// Adds together cart header bytes, minus the last checksum itself
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 ///
 /// @return Checksum as u16
 u16 cart_global_checksum_calc(GB *vm) {
@@ -496,7 +496,7 @@ u16 cart_global_checksum_calc(GB *vm) {
 
 /// Checks cart logo against known Nintendo logo
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 ///
 /// @return True if matching, false if not
 bool _logo_check(GB *vm) {
@@ -521,7 +521,7 @@ bool _logo_check(GB *vm) {
 
 /// Set various flags from cartridge header
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 void _cart_header_set_flags(GB *vm) {
   _logo_check(vm) ? (vm->flag.logo_match = true)
                   : (vm->flag.logo_match = false);
@@ -532,7 +532,7 @@ void _cart_header_set_flags(GB *vm) {
   case 0x80:
     vm->flag.cgb = CGB_ENHANCED;
   case 0xC0:
-    vm->flag.cgb = CGB_ONLY; ///< Bit 6 ignored, so = CGB_ENHANCED
+    vm->flag.cgb = CGB_ONLY; // Bit 6 ignored, so = CGB_ENHANCED
   }
 
   vm->cart.sgb_flag == 0x03 ? (vm->flag.sgb = true) : (vm->flag.sgb = false);
@@ -701,7 +701,7 @@ bool is_lcd_enabled(GB *vm) { return (read_u8(vm, 0xFF40) & 0x80) != 0; }
 
 /// Read a byte
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 /// @param addr Memory address to read from
 ///
 /// @return Byte from memory address
@@ -732,7 +732,7 @@ u16 read_u16(GB *vm, u16 addr) {
 ///
 /// Handles restricted memory regions and mirroring for echo RAM
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 /// @param addr Memory address
 /// @param value Value to write
 void write_u8(GB *vm, u16 addr, u8 value) {
@@ -760,7 +760,7 @@ void write_u8(GB *vm, u16 addr, u8 value) {
 ///
 /// Handles restricted memory regions and mirroring for echo RAM
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 /// @param addr Memory address
 /// @param value Value to write
 void write_u16(GB *vm, u16 addr, u16 value) {
@@ -803,7 +803,7 @@ void do_dma_transfer(GB *vm, u8 data) {
 
 /// Update timers based on the number of cycles passed
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 /// @param cycles Number of cycles to update timers with
 void update_timers(GB *vm, u16 cycles) {
   do_divider_register(vm, cycles);
@@ -826,7 +826,7 @@ void update_timers(GB *vm, u16 cycles) {
 
 /// Handle the divider register
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 /// @param cycles Number of cycles to update divider with
 void do_divider_register(GB *vm, u16 cycles) {
   vm->divider_register += cycles;
@@ -838,19 +838,19 @@ void do_divider_register(GB *vm, u16 cycles) {
 
 /// Check if the clock is enabled
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 /// @return True if the clock is enabled, false otherwise
 bool is_clock_enabled(GB *vm) { return (read_u8(vm, 0xFF07) & 0x04) != 0; }
 
 /// Get the clock frequency
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 /// @return Clock frequency as an 8-bit value
 u8 get_clock_freq(GB *vm) { return read_u8(vm, 0xFF07) & 0x03; }
 
 /// Set the clock frequency
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 void set_clock_freq(GB *vm) {
   switch (get_clock_freq(vm)) {
   case 0:
@@ -870,7 +870,7 @@ void set_clock_freq(GB *vm) {
 
 /// Request an interrupt
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 /// @param interrupt_flag Interrupt flag to set
 void request_interrupt(GB *vm, u8 interrupt_flag) {
   u8 req = read_u8(vm, 0xFF0F);
@@ -880,7 +880,7 @@ void request_interrupt(GB *vm, u8 interrupt_flag) {
 
 /// Do interrupt routine
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 void do_interrupts(GB *vm) {
   if (vm->flag.interrupt_master_enable) {
     u8 req = read_u8(vm, 0xFF0F);     // Interrupt Request Register
@@ -1256,6 +1256,7 @@ u8 get_joypad_state(GB *vm) {
     res &= bottom_joypad;
   }
 
+  vm->mem.data[0xFF00] = res;
   return res;
 }
 
@@ -1277,13 +1278,20 @@ void key_pressed(GB *vm, int key) {
   if (request_interrupt_bool && !previously_unset) {
     request_interrupt(vm, 4);
   }
+
+  // Ensure the joypad state is updated in memory
+  vm->mem.data[0xFF00] = key_req;
 }
 
-void key_released(GB *vm, int key) { vm->joypad_state |= (1 << key); }
+void key_released(GB *vm, int key) {
+  vm->joypad_state |= (1 << key);
+  // Ensure the joypad state is updated in memory
+  vm->mem.data[0xFF00] = vm->joypad_state;
+}
 
 /// Set the flags in the registers
 ///
-/// @param vm GB vm
+/// @param vm GB *vm
 /// @param z Zero flag
 /// @param n Subtract flag
 /// @param h Half carry flag

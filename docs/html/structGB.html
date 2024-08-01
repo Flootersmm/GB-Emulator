@@ -117,7 +117,7 @@ $(function(){initNavTree('structGB.html',''); initResizable(true); });
 <div class="center"><img src="structGB__coll__graph.png" border="0" usemap="#aGB_coll__map" alt="Collaboration graph"/></div>
 <map name="aGB_coll__map" id="aGB_coll__map">
 <area shape="rect" title="Main GB struct." alt="" coords="266,187,307,213"/>
-<area shape="rect" href="structOPS.html" title="Opcode, with function pointer array." alt="" coords="262,309,311,336"/>
+<area shape="rect" href="structOPS.html" title="Opcodes, with function pointer array." alt="" coords="262,309,311,336"/>
 <area shape="poly" title=" " alt="" coords="254,218,242,227,234,239,226,261,234,284,246,299,263,309,260,314,243,303,229,287,221,261,229,236,239,224,251,214"/>
 <area shape="rect" href="structRegisters.html" title="Registers a, b, c, d, e, f, h, l, af, bc, de, hl, sp, pc." alt="" coords="5,96,83,123"/>
 <area shape="poly" title=" " alt="" coords="89,126,177,160,267,190,265,195,175,165,87,131"/>
@@ -175,16 +175,60 @@ Public Attributes</h2></td></tr>
 <tr class="separator:aa69ad153c081ccb9e278351d8b4b16d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1531183ff61db80d4541e6393fdcdedf" id="r_a1531183ff61db80d4541e6393fdcdedf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1531183ff61db80d4541e6393fdcdedf">current_scanline</a></td></tr>
 <tr class="separator:a1531183ff61db80d4541e6393fdcdedf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b5143c5434d2d25f891042b1b5caf48" id="r_a5b5143c5434d2d25f891042b1b5caf48"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5b5143c5434d2d25f891042b1b5caf48">framebuffer</a> [160 *144 *4]</td></tr>
-<tr class="separator:a5b5143c5434d2d25f891042b1b5caf48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd6de867fc6cacb4c647fa23f27b269a" id="r_abd6de867fc6cacb4c647fa23f27b269a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd6de867fc6cacb4c647fa23f27b269a">framebuffer</a> [144][160][3]</td></tr>
+<tr class="separator:abd6de867fc6cacb4c647fa23f27b269a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77b15522a0a3cc23efabe4bca7b9a5c8" id="r_a77b15522a0a3cc23efabe4bca7b9a5c8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a77b15522a0a3cc23efabe4bca7b9a5c8">tiles</a> [384][8][8]</td></tr>
+<tr class="memdesc:a77b15522a0a3cc23efabe4bca7b9a5c8"><td class="mdescLeft">&#160;</td><td class="mdescRight"><blockquote class="doxtable">
+<p>&zwj;x, y, colour </p>
+</blockquote>
+ <br /></td></tr>
+<tr class="separator:a77b15522a0a3cc23efabe4bca7b9a5c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa11b6bbf4eb5b62ae7cae1dd56ee85ad" id="r_aa11b6bbf4eb5b62ae7cae1dd56ee85ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#a41b2bf5b77154e7c2eb4c6691c16542f">COLOUR</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa11b6bbf4eb5b62ae7cae1dd56ee85ad">background_palette</a> [4]</td></tr>
+<tr class="separator:aa11b6bbf4eb5b62ae7cae1dd56ee85ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab17ef3512dc0c01873a5bc5cd7bb009e" id="r_ab17ef3512dc0c01873a5bc5cd7bb009e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab17ef3512dc0c01873a5bc5cd7bb009e">retrace_ly</a></td></tr>
+<tr class="separator:ab17ef3512dc0c01873a5bc5cd7bb009e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40cd9d54dea0e06b3cb4788dad22ef65" id="r_a40cd9d54dea0e06b3cb4788dad22ef65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40cd9d54dea0e06b3cb4788dad22ef65">joypad_state</a></td></tr>
 <tr class="separator:a40cd9d54dea0e06b3cb4788dad22ef65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31405c05632c5f9f8892cc1e8e4d9900" id="r_a31405c05632c5f9f8892cc1e8e4d9900"><td class="memItemLeft" align="right" valign="top"><a class="el" href="typedefs_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31405c05632c5f9f8892cc1e8e4d9900">blankcount</a></td></tr>
+<tr class="separator:a31405c05632c5f9f8892cc1e8e4d9900"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main <a class="el" href="structGB.html" title="Main GB struct.">GB</a> struct. </p>
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00229">229</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00231">231</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="aa11b6bbf4eb5b62ae7cae1dd56ee85ad" name="aa11b6bbf4eb5b62ae7cae1dd56ee85ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa11b6bbf4eb5b62ae7cae1dd56ee85ad">&#9670;&#160;</a></span>background_palette</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="typedefs_8h.html#a41b2bf5b77154e7c2eb4c6691c16542f">COLOUR</a> GB::background_palette[4]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00252">252</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+
+</div>
+</div>
+<a id="a31405c05632c5f9f8892cc1e8e4d9900" name="a31405c05632c5f9f8892cc1e8e4d9900"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31405c05632c5f9f8892cc1e8e4d9900">&#9670;&#160;</a></span>blankcount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="typedefs_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> GB::blankcount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00255">255</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+
+</div>
+</div>
 <a id="ab4229684160a1dfd5b906f5d2fde806e" name="ab4229684160a1dfd5b906f5d2fde806e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab4229684160a1dfd5b906f5d2fde806e">&#9670;&#160;</a></span>cart</h2>
 
@@ -197,7 +241,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00235">235</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00237">237</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -213,7 +257,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00247">247</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00249">249</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -229,7 +273,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00245">245</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00247">247</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -245,7 +289,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00240">240</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00242">242</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -261,7 +305,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00242">242</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00244">244</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -277,7 +321,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00230">230</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00232">232</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -293,23 +337,23 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00234">234</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00236">236</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
-<a id="a5b5143c5434d2d25f891042b1b5caf48" name="a5b5143c5434d2d25f891042b1b5caf48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b5143c5434d2d25f891042b1b5caf48">&#9670;&#160;</a></span>framebuffer</h2>
+<a id="abd6de867fc6cacb4c647fa23f27b269a" name="abd6de867fc6cacb4c647fa23f27b269a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd6de867fc6cacb4c647fa23f27b269a">&#9670;&#160;</a></span>framebuffer</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="typedefs_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> GB::framebuffer[160 *144 *4]</td>
+          <td class="memname"><a class="el" href="typedefs_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> GB::framebuffer[144][160][3]</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00248">248</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00250">250</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -325,7 +369,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00249">249</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00254">254</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -341,7 +385,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00233">233</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00235">235</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -357,7 +401,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00238">238</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00240">240</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -373,7 +417,23 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00232">232</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00234">234</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+
+</div>
+</div>
+<a id="ab17ef3512dc0c01873a5bc5cd7bb009e" name="ab17ef3512dc0c01873a5bc5cd7bb009e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab17ef3512dc0c01873a5bc5cd7bb009e">&#9670;&#160;</a></span>retrace_ly</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="typedefs_8h.html#ace9d960e74685e2cd84b36132dbbf8aa">u16</a> GB::retrace_ly</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00253">253</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -389,7 +449,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00231">231</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00233">233</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -405,7 +465,28 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00246">246</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00248">248</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+
+</div>
+</div>
+<a id="a77b15522a0a3cc23efabe4bca7b9a5c8" name="a77b15522a0a3cc23efabe4bca7b9a5c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77b15522a0a3cc23efabe4bca7b9a5c8">&#9670;&#160;</a></span>tiles</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="typedefs_8h.html#a92c50087ca0e64fa93fc59402c55f8ca">u8</a> GB::tiles[384][8][8]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><blockquote class="doxtable">
+<p>&zwj;x, y, colour </p>
+</blockquote>
+</p>
+
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00251">251</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -421,7 +502,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00243">243</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00245">245</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -437,7 +518,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00239">239</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00241">241</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -453,7 +534,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00244">244</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00246">246</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -469,7 +550,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00241">241</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00243">243</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -485,7 +566,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00237">237</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00239">239</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -501,7 +582,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00236">236</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="typedefs_8h_source.html#l00238">238</a> of file <a class="el" href="typedefs_8h_source.html">typedefs.h</a>.</p>
 
 </div>
 </div>
@@ -514,7 +595,7 @@ Public Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="structGB.html">GB</a></li>
-    <li class="footer">Generated on Wed Jul 31 2024 05:55:25 for GB Emulator by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generated on Thu Aug 1 2024 11:02:28 for GB Emulator by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

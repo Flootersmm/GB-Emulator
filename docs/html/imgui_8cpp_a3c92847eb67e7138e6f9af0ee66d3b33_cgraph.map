@@ -1,0 +1,11 @@
+<map id="CreateNewWindow" name="CreateNewWindow">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,56,140,83"/>
+<area shape="rect" id="Node000002" href="$imgui_8cpp.html#a5d785c6507f49736b3b1f7868f9f959c" title=" " alt="" coords="188,56,364,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,67,172,67,172,72,140,72"/>
+<area shape="rect" id="Node000003" href="$imgui_8cpp.html#a1dc50294d00308b0e87af6cace2fe04e" title=" " alt="" coords="441,5,590,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="342,53,434,33,435,38,343,58"/>
+<area shape="rect" id="Node000004" href="$namespaceImGui.html#a7bf620af1d66ee7d7b06701894d23e60" title=" " alt="" coords="434,56,598,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="364,67,418,67,418,72,364,72"/>
+<area shape="rect" id="Node000005" href="$imgui_8cpp.html#a9924fbe297e670b0a477e2844f1a53c8" title=" " alt="" coords="412,107,619,133"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="343,81,435,100,434,106,342,86"/>
+</map>

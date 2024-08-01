@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['white_0',['WHITE',['../typedefs_8h.html#a41b2bf5b77154e7c2eb4c6691c16542fa283fc479650da98250635b9c3c0e7e50',1,'typedefs.h']]]
+  ['u16_5fop_0',['U16_OP',['../typedefs_8h.html#aa1aa1c6a8f3bbed5b167bc2d4511b969abb46e85812bbd80feb7ebc4de0bf0acb',1,'typedefs.h']]],
+  ['u8_5fop_1',['U8_OP',['../typedefs_8h.html#aa1aa1c6a8f3bbed5b167bc2d4511b969a86cbcf2bac41e080402f0f1371c3dbd2',1,'typedefs.h']]]
 ];

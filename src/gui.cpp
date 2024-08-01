@@ -33,6 +33,7 @@ ImVec4 colorLightestGreen = ImVec4(0.61f, 0.73f, 0.06f, 1.00f); ///> #9BBC0F
 ImVec4 colorLightGreen = ImVec4(0.54f, 0.67f, 0.06f, 1.00f);    ///> #8BAC0F
 ImVec4 colorDarkGreen = ImVec4(0.19f, 0.38f, 0.19f, 1.00f);     ///> #306230
 ImVec4 colorDarkestGreen = ImVec4(0.06f, 0.22f, 0.06f, 1.00f);  ///> #0F380F
+char last_key_pressed = '\0';
 
 /// Initialise a GLFW window
 ///
@@ -90,62 +91,66 @@ void update_texture(GB *vm) {
                   texture_data);
 }
 
-/// Handle SDL_KEYDOWN and SDL_KEYUP events
-void handle_key_event(GB *vm, SDL_Event *event) {
-  if (event->type == SDL_KEYDOWN) {
-    switch (event->key.keysym.sym) {
-    case SDLK_a:
-      key_pressed(vm, 4);
-      break;
-    case SDLK_s:
-      key_pressed(vm, 5);
-      break;
-    case SDLK_RETURN:
-      key_pressed(vm, 7);
-      break;
-    case SDLK_SPACE:
-      key_pressed(vm, 6);
-      break;
-    case SDLK_RIGHT:
-      key_pressed(vm, 0);
-      break;
-    case SDLK_LEFT:
-      key_pressed(vm, 1);
-      break;
-    case SDLK_UP:
-      key_pressed(vm, 2);
-      break;
-    case SDLK_DOWN:
-      key_pressed(vm, 3);
-      break;
-    }
-  } else if (event->type == SDL_KEYUP) {
-    switch (event->key.keysym.sym) {
-    case SDLK_a:
-      key_released(vm, 4);
-      break;
-    case SDLK_s:
-      key_released(vm, 5);
-      break;
-    case SDLK_RETURN:
-      key_released(vm, 7);
-      break;
-    case SDLK_SPACE:
-      key_released(vm, 6);
-      break;
-    case SDLK_RIGHT:
-      key_released(vm, 0);
-      break;
-    case SDLK_LEFT:
-      key_released(vm, 1);
-      break;
-    case SDLK_UP:
-      key_released(vm, 2);
-      break;
-    case SDLK_DOWN:
-      key_released(vm, 3);
-      break;
-    }
+/// Handle ImGuiIO keypresses
+void handle_key_event(GB *vm, char &last_key_pressed) {
+  ImGuiIO &io = ImGui::GetIO();
+
+  if (io.KeysDown[ImGuiKey_A]) {
+    key_pressed(vm, 4);
+    last_key_pressed = 'A';
+  }
+  if (io.KeysDown[ImGuiKey_S]) {
+    key_pressed(vm, 5);
+    last_key_pressed = 'S';
+  }
+  if (io.KeysDown[ImGuiKey_Enter]) {
+    key_pressed(vm, 7);
+    last_key_pressed = 'E';
+  }
+  if (io.KeysDown[ImGuiKey_Space]) {
+    key_pressed(vm, 6);
+    last_key_pressed = ' ';
+  }
+  if (io.KeysDown[ImGuiKey_RightArrow]) {
+    key_pressed(vm, 0);
+    last_key_pressed = '>';
+  }
+  if (io.KeysDown[ImGuiKey_LeftArrow]) {
+    key_pressed(vm, 1);
+    last_key_pressed = '<';
+  }
+  if (io.KeysDown[ImGuiKey_UpArrow]) {
+    key_pressed(vm, 2);
+    last_key_pressed = '^';
+  }
+  if (io.KeysDown[ImGuiKey_DownArrow]) {
+    key_pressed(vm, 3);
+    last_key_pressed = 'v';
+  }
+
+  if (!io.KeysDown[ImGuiKey_A]) {
+    key_released(vm, 4);
+  }
+  if (!io.KeysDown[ImGuiKey_S]) {
+    key_released(vm, 5);
+  }
+  if (!io.KeysDown[ImGuiKey_Enter]) {
+    key_released(vm, 7);
+  }
+  if (!io.KeysDown[ImGuiKey_Space]) {
+    key_released(vm, 6);
+  }
+  if (!io.KeysDown[ImGuiKey_RightArrow]) {
+    key_released(vm, 0);
+  }
+  if (!io.KeysDown[ImGuiKey_LeftArrow]) {
+    key_released(vm, 1);
+  }
+  if (!io.KeysDown[ImGuiKey_UpArrow]) {
+    key_released(vm, 2);
+  }
+  if (!io.KeysDown[ImGuiKey_DownArrow]) {
+    key_released(vm, 3);
   }
 }
 
@@ -313,6 +318,11 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::Text("ScrollX (0xFF43): 0x%02X", vm->mem.data[0xFF43]);
     ImGui::Text("WindowY (0xFF4A): 0x%02X", vm->mem.data[0xFF4A]);
     ImGui::Text("WindowX (0xFF4B): 0x%02X", vm->mem.data[0xFF4B]);
+
+    ImGui::Separator();
+    ImGui::Text("Joypad %02X", vm->mem.data[0xFF00]);
+    ImGui::Text("Last Key Pressed: %c",
+                last_key_pressed ? last_key_pressed : ' ');
 
     ImGui::Separator();
     u8 lcd_control = vm->mem.data[0xFF40];
@@ -501,20 +511,15 @@ void main_loop(GLFWwindow *window, GB *vm) {
   while (!glfwWindowShouldClose(window) && running) {
     glfwPollEvents();
 
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-      handle_key_event(vm, &event);
-    }
-
     imgui_new_frame();
 
     {
       std::lock_guard<std::mutex> lock(emu_mutex);
       draw_window_crude_debug(vm);
+      draw_window_texture();
+      draw_rom_viewer_window(vm);
+      draw_disassembly_window(vm);
     }
-    draw_window_texture();
-    draw_rom_viewer_window(vm);
-    draw_disassembly_window(vm);
 
     if (demo_window_active) {
       ImGui::ShowDemoWindow();
@@ -523,6 +528,7 @@ void main_loop(GLFWwindow *window, GB *vm) {
     glClear(GL_COLOR_BUFFER_BIT);
     imgui_render();
     glfwSwapBuffers(window);
+    handle_key_event(vm, last_key_pressed);
 
     if (ImGui::IsKeyPressed(ImGuiKey_Escape)) {
       running = false;

@@ -1,0 +1,26 @@
+<map id="ImGui::TextColored" name="ImGui::TextColored">
+<area shape="rect" id="Node000001" title=" " alt="" coords="617,107,752,133"/>
+<area shape="rect" id="Node000002" href="$gui_8cpp.html#a395b0220ed1e9e0a2bd74f2d5ef12e4e" title="Draws the Dear ImGUI window to view a detailed disassembly of memory at PC." alt="" coords="371,5,551,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="653,99,614,71,568,46,536,35,537,30,570,42,617,67,656,95"/>
+<area shape="rect" id="Node000005" href="$gui_8cpp.html#abd583f9ce3303d081b5e7905a4518205" title="Draws the Dear ImGUI window to view the ROM." alt="" coords="374,56,548,83"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="607,105,523,86,524,81,608,100"/>
+<area shape="rect" id="Node000006" href="$gui_8cpp.html#afacd084c4ffdd1ae130003bc5c26663a" title="Draw the Dear ImGUI window for crude debugging." alt="" coords="370,107,552,133"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="602,123,552,123,552,117,602,117"/>
+<area shape="rect" id="Node000007" href="$namespaceImGui.html#ab4a87bf4a874a8e5872b60b4a9b1d99e" title=" " alt="" coords="353,157,569,184"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="608,140,524,159,523,154,607,135"/>
+<area shape="rect" id="Node000010" href="$namespaceImGui.html#aafb35fd3d7d0a7baac8f0590487a2594" title=" " alt="" coords="364,212,558,255"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="655,145,616,172,571,198,534,214,532,209,568,194,613,168,652,141"/>
+<area shape="rect" id="Node000003" href="$gui_8cpp.html#a6e9b5912f48a0cc57a6142285783615a" title="Main driver loop for SDL." alt="" coords="164,52,244,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="369,38,245,61,244,56,368,33"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main function." alt="" coords="5,52,55,79"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="148,68,55,68,55,63,148,63"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="358,70,245,69,245,63,359,65"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="379,105,244,76,245,71,381,100"/>
+<area shape="rect" id="Node000008" href="$namespaceImGui.html#afe7a28c6eb52fff3cc27d5a698fea4ff" title=" " alt="" coords="110,103,298,129"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="380,156,269,133,271,127,381,151"/>
+<area shape="rect" id="Node000009" href="$namespaceImGui.html#a1b6e100d30894c9379908efc540e5486" title=" " alt="" coords="103,177,305,204"/>
+<area shape="poly" id="edge10_Node000007_Node000009" title=" " alt="" coords="338,183,306,185,305,180,337,178"/>
+<area shape="poly" id="edge11_Node000009_Node000009" title=" " alt="" coords="233,164,223,158,204,156,186,158,176,163,174,168,179,176,174,178,169,169,172,159,184,153,204,151,225,153,236,160"/>
+<area shape="rect" id="Node000011" href="$namespaceImGui.html#ab3f1fc018f903b7ad79fd10663375774" title=" " alt="" coords="140,228,268,255"/>
+<area shape="poly" id="edge13_Node000010_Node000011" title=" " alt="" coords="349,239,269,242,268,237,348,234"/>
+</map>

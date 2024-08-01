@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['new_5flicensee_5fcode_0',['new_licensee_code',['../structCartridge.html#a3461eb588e214319028f965373879635',1,'Cartridge']]],
-  ['new_5flicensee_5ftable_5fsize_1',['new_licensee_table_size',['../tables_8c.html#a975f80e9fd512280f2ed55f67cf1b669',1,'new_licensee_table_size:&#160;tables.c'],['../tables_8h.html#a975f80e9fd512280f2ed55f67cf1b669',1,'new_licensee_table_size:&#160;tables.c']]],
-  ['new_5flicensees_2',['new_licensees',['../tables_8c.html#a3a261c73b83ff640714b8ecc60e70c7c',1,'new_licensees:&#160;tables.c'],['../tables_8h.html#a3a261c73b83ff640714b8ecc60e70c7c',1,'new_licensees:&#160;tables.c']]]
+  ['l_0',['l',['../structRegisters.html#a064604fce69bcc55b4dca11084561949',1,'Registers']]],
+  ['length_1',['length',['../structOPS.html#a6a284d8392426e712e409c0773688b10',1,'OPS::length'],['../structOPS__extended.html#a0a440b9eafd7808f20a3cbcdcbfbdea9',1,'OPS_extended::length']]],
+  ['locked_2',['Locked',['../structImFontAtlas.html#a2222ff64ba974a8ee7a286617f879f9b',1,'ImFontAtlas']]],
+  ['logfilename_3',['LogFilename',['../structImGuiIO.html#ae77a1beed11820366800645232a6ad1c',1,'ImGuiIO']]],
+  ['logo_4',['logo',['../structCartridge.html#affc122c00a4897870d11280d6516a1eb',1,'Cartridge']]],
+  ['logo_5fmatch_5',['logo_match',['../structFlags.html#a6739a72c0c80432a94119a5cba29d301',1,'Flags']]],
+  ['logsliderdeadzone_6',['LogSliderDeadzone',['../structImGuiStyle.html#a6c8674e8aa93236717b36110d7b1f1da',1,'ImGuiStyle']]]
 ];

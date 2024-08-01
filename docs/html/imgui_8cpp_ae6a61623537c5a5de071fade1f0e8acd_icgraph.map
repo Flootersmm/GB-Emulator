@@ -1,0 +1,20 @@
+<map id="ImFileOpen" name="ImFileOpen">
+<area shape="rect" id="Node000001" title=" " alt="" coords="889,56,977,83"/>
+<area shape="rect" id="Node000002" href="$imgui_8cpp.html#acdc4b377b19c5dbd32e76bd0066c8476" title=" " alt="" coords="669,5,815,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="873,56,840,47,797,35,798,30,841,41,874,50"/>
+<area shape="rect" id="Node000006" href="$namespaceImGui.html#a8feab4b22519bc5eae9754b0ad545d81" title=" " alt="" coords="682,56,802,83"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="873,72,803,72,803,67,873,67"/>
+<area shape="rect" id="Node000008" href="$namespaceImGui.html#afa4985e7810be4e687bc4ff28cec8a4d" title=" " alt="" coords="643,107,841,133"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="874,88,841,97,798,109,797,104,840,92,873,83"/>
+<area shape="rect" id="Node000003" href="$namespaceImGui.html#a4bf22fb84ba768fc18383af50e8c217f" title=" " alt="" coords="384,5,595,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="653,21,596,21,596,16,653,16"/>
+<area shape="rect" id="Node000004" href="$namespaceImGui.html#a8bdb90b84ec6e306d312fc8bfb7caf64" title=" " alt="" coords="182,56,336,83"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="411,38,323,58,322,53,410,33"/>
+<area shape="rect" id="Node000005" href="$namespaceImGui.html#ab3f1fc018f903b7ad79fd10663375774" title=" " alt="" coords="5,56,134,83"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="166,72,134,72,134,67,166,67"/>
+<area shape="rect" id="Node000007" href="$namespaceImGui.html#a7bd295da4be19bab98262c76fcaeb4fb" title=" " alt="" coords="424,56,555,83"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="666,72,555,72,555,67,666,67"/>
+<area shape="poly" id="edge9_Node000008_Node000004" title=" " alt="" coords="627,118,510,111,384,97,320,86,321,81,384,92,510,105,628,113"/>
+<area shape="rect" id="Node000009" href="$namespaceImGui.html#afe7a28c6eb52fff3cc27d5a698fea4ff" title=" " alt="" coords="396,157,583,184"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="658,140,560,159,559,154,657,134"/>
+</map>

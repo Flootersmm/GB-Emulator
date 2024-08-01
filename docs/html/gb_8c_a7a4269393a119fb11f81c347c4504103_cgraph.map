@@ -4,7 +4,7 @@
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="68,130,105,91,155,49,173,37,176,42,158,53,109,95,72,134"/>
 <area shape="rect" id="Node000003" href="$gb_8c.html#a650b2f365839fcb08101914086af2185" title="Check if the clock is enabled." alt="" coords="489,56,611,83"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="82,129,116,113,156,99,240,82,325,72,473,65,474,71,326,77,241,87,157,104,118,118,84,134"/>
-<area shape="rect" id="Node000004" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title=" " alt="" coords="659,157,726,184"/>
+<area shape="rect" id="Node000004" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title="Read a byte." alt="" coords="659,157,726,184"/>
 <area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="109,139,328,134,469,137,611,149,644,155,643,161,610,155,469,143,328,139,109,145"/>
 <area shape="rect" id="Node000006" href="$gb_8c.html#ae9bca81c7651390ccc9248d600b1f444" title="Request an interrupt." alt="" coords="163,157,281,184"/>
 <area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="110,151,148,157,147,162,109,156"/>

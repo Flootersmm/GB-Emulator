@@ -1,8 +1,8 @@
 <map id="set_lcd_status" name="set_lcd_status">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,81,112,108"/>
-<area shape="rect" id="Node000002" href="$gb_8c.html#a7f6b5417589314a4b6e887d4bce8f5b4" title=" " alt="" coords="326,5,433,32"/>
+<area shape="rect" id="Node000002" href="$gb_8c.html#a7f6b5417589314a4b6e887d4bce8f5b4" title="Checks the LCD enable bit at [0xFF40]." alt="" coords="326,5,433,32"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,78,120,62,159,48,237,31,310,21,311,26,238,36,160,53,122,67,87,83"/>
-<area shape="rect" id="Node000003" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title=" " alt="" coords="648,81,715,108"/>
+<area shape="rect" id="Node000003" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title="Read a byte." alt="" coords="648,81,715,108"/>
 <area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="112,89,325,83,462,82,600,85,632,87,632,93,600,91,462,88,325,88,112,95"/>
 <area shape="rect" id="Node000005" href="$gb_8c.html#ae9bca81c7651390ccc9248d600b1f444" title="Request an interrupt." alt="" coords="160,107,278,133"/>
 <area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="112,100,145,106,144,111,111,106"/>

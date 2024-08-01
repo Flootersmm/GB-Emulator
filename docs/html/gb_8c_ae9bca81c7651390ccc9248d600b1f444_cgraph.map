@@ -1,6 +1,6 @@
 <map id="request_interrupt" name="request_interrupt">
 <area shape="rect" id="Node000001" title="Request an interrupt." alt="" coords="5,5,124,32"/>
-<area shape="rect" id="Node000002" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title=" " alt="" coords="456,5,524,32"/>
+<area shape="rect" id="Node000002" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title="Read a byte." alt="" coords="456,5,524,32"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="124,16,441,16,441,21,124,21"/>
 <area shape="rect" id="Node000004" href="$gb_8c.html#a2e82c7fb7e1d3142fe17cc501afcee9c" title="Write an 8&#45;bit value to memory." alt="" coords="172,31,242,57"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="125,27,157,32,156,38,124,32"/>

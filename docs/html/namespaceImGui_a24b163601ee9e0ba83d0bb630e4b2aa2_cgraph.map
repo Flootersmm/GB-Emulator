@@ -1,0 +1,6 @@
+<map id="ImGui::PopButtonRepeat" name="ImGui::PopButtonRepeat">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,173,56"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="55,30,49,21,53,11,67,5,89,3,113,5,126,12,123,16,111,10,89,8,68,10,57,15,54,20,59,27"/>
+<area shape="rect" id="Node000002" href="$namespaceImGui.html#aa93281155e1dd23715dbd384e91edc6b" title=" " alt="" coords="221,29,359,56"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="173,40,205,40,205,45,173,45"/>
+</map>

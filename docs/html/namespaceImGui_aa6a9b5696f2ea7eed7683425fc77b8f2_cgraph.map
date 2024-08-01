@@ -1,0 +1,21 @@
+<map id="ImGui::EndPopup" name="ImGui::EndPopup">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,107,130,133"/>
+<area shape="rect" id="Node000002" href="$namespaceImGui.html#a5479d93794a004c67ceb6d13f37c8254" title=" " alt="" coords="178,107,265,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,117,162,117,162,123,130,123"/>
+<area shape="rect" id="Node000003" href="$namespaceImGui.html#a2ebcd048d1ca025fb972e1c2e920e3f3" title=" " alt="" coords="322,56,442,83"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="265,104,322,85,324,90,266,109"/>
+<area shape="rect" id="Node000009" href="$namespaceImGui.html#aef1c8a6e5a3c70cb10d03d2a2a66dfd8" title=" " alt="" coords="313,107,451,133"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="265,117,297,117,297,123,265,123"/>
+<area shape="rect" id="Node000010" href="$imgui_8cpp.html#a5c592415f88804e2f907477767d3dda1" title=" " alt="" coords="316,157,448,184"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="266,131,324,150,322,155,265,136"/>
+<area shape="rect" id="Node000004" href="$imgui_8cpp.html#ac4a6194720e9d693bc9d34e97d9465aa" title=" " alt="" coords="536,5,627,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="437,53,520,31,521,37,438,58"/>
+<area shape="rect" id="Node000005" href="$namespaceImGui.html#ade3ea98b4e2e73c8d4ffeecab0d1aa5b" title=" " alt="" coords="526,56,637,83"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="443,67,511,67,511,72,443,72"/>
+<area shape="rect" id="Node000008" href="$namespaceImGui.html#aa4824a1b351c063b4aff9b9f4fb5fd4d" title=" " alt="" coords="499,107,664,133"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="438,81,512,100,511,105,437,86"/>
+<area shape="rect" id="Node000006" href="$imgui_8cpp.html#a5dea124c81c7ae6affc151441b0f4372" title=" " alt="" coords="712,56,788,83"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="637,67,696,67,696,72,637,72"/>
+<area shape="rect" id="Node000007" href="$imgui_8cpp.html#aab6460bf5ebaa4975159cf0cd4324820" title=" " alt="" coords="836,56,923,83"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="789,67,821,67,821,72,789,72"/>
+</map>

@@ -1,6 +1,6 @@
 <map id="GB" name="GB">
 <area shape="rect" id="Node000001" title="Main GB struct." alt="" coords="266,187,307,213"/>
-<area shape="rect" id="Node000009" href="$structOPS.html" title="Opcode, with function pointer array." alt="" coords="262,309,311,336"/>
+<area shape="rect" id="Node000009" href="$structOPS.html" title="Opcodes, with function pointer array." alt="" coords="262,309,311,336"/>
 <area shape="poly" id="edge9_Node000009_Node000001" title=" " alt="" coords="254,218,242,227,234,239,226,261,234,284,246,299,263,309,260,314,243,303,229,287,221,261,229,236,239,224,251,214"/>
 <area shape="rect" id="Node000002" href="$structRegisters.html" title="Registers a, b, c, d, e, f, h, l, af, bc, de, hl, sp, pc." alt="" coords="5,96,83,123"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,126,177,160,267,190,265,195,175,165,87,131"/>

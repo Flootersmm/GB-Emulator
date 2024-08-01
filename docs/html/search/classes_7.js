@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['vram_0',['VRAM',['../structVRAM.html',1,'']]]
+  ['registers_0',['Registers',['../structRegisters.html',1,'']]],
+  ['romsizeentry_1',['RomSizeEntry',['../structRomSizeEntry.html',1,'']]]
 ];

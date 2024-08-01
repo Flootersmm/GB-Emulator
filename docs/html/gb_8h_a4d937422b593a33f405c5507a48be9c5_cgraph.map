@@ -2,7 +2,7 @@
 <area shape="rect" id="Node000001" title="Set the clock frequency." alt="" coords="5,5,112,32"/>
 <area shape="rect" id="Node000002" href="$gb_8c.html#a362801a37de91117ec09102ecf203dd6" title="Get the clock frequency." alt="" coords="160,5,266,32"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,16,144,16,144,21,112,21"/>
-<area shape="rect" id="Node000003" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title=" " alt="" coords="314,5,381,32"/>
+<area shape="rect" id="Node000003" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title="Read a byte." alt="" coords="314,5,381,32"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="266,16,298,16,298,21,266,21"/>
 <area shape="rect" id="Node000004" href="$gb_8c.html#aa98c3d7dea79dc6c2f2b6de0e9fafbe2" title=" " alt="" coords="429,5,550,32"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="382,16,414,16,414,21,382,21"/>

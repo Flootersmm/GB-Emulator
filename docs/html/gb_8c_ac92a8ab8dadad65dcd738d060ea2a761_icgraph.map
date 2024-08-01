@@ -38,12 +38,12 @@
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="516,105,450,116,449,111,516,100"/>
 <area shape="rect" id="Node000006" href="$ops_8c.html#a5245624d1bf0da279884ff608e5bed2f" title=" " alt="" coords="369,157,446,184"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="518,116,505,122,436,159,433,154,502,118,516,111"/>
-<area shape="rect" id="Node000021" href="$gb_8c.html#aabecfd5ba072355c2ba5d64daf2e3ca7" title=" " alt="" coords="359,791,456,817"/>
+<area shape="rect" id="Node000021" href="$gb_8c.html#aabecfd5ba072355c2ba5d64daf2e3ca7" title="Do interrupt routine." alt="" coords="359,791,456,817"/>
 <area shape="poly" id="edge20_Node000020_Node000021" title=" " alt="" coords="488,807,456,807,456,801,488,801"/>
 <area shape="rect" id="Node000022" href="$gb_8c.html#ae073831e45a5ab2b9048410ecdabc5c9" title=" " alt="" coords="265,791,311,817"/>
 <area shape="poly" id="edge21_Node000021_Node000022" title=" " alt="" coords="343,807,312,807,312,801,343,801"/>
-<area shape="rect" id="Node000023" href="$main_8cpp.html#a950362bbfabb6e34a60097f5c916694f" title=" " alt="" coords="103,791,217,817"/>
+<area shape="rect" id="Node000023" href="$main_8cpp.html#a950362bbfabb6e34a60097f5c916694f" title="Emulator thread handler for stepping and halting." alt="" coords="103,791,217,817"/>
 <area shape="poly" id="edge22_Node000022_Node000023" title=" " alt="" coords="249,807,217,807,217,801,249,801"/>
-<area shape="rect" id="Node000024" href="$main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title=" " alt="" coords="5,791,55,817"/>
+<area shape="rect" id="Node000024" href="$main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main function." alt="" coords="5,791,55,817"/>
 <area shape="poly" id="edge23_Node000023_Node000024" title=" " alt="" coords="87,807,55,807,55,801,87,801"/>
 </map>

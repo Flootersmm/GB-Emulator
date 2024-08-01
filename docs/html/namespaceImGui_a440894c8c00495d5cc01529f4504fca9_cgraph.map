@@ -1,0 +1,13 @@
+<map id="ImGui::BeginPopupContextItem" name="ImGui::BeginPopupContextItem">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,81,212,108"/>
+<area shape="rect" id="Node000002" href="$namespaceImGui.html#ac9a400eff3a9561d95e80486c52a660b" title=" " alt="" coords="269,56,420,83"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,81,253,76,254,82,212,86"/>
+<area shape="rect" id="Node000006" href="$namespaceImGui.html#ae53a0c1818d2804e3b1331f0c1777434" title=" " alt="" coords="260,107,429,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="212,103,245,107,244,112,212,108"/>
+<area shape="rect" id="Node000003" href="$imgui_8cpp.html#a989cfbd85e6f3d725efd883c4275872e" title=" " alt="" coords="484,5,663,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="408,53,495,33,496,39,409,58"/>
+<area shape="rect" id="Node000004" href="$imgui_8cpp.html#a486a2f0ac6b8bc3c18f14d08b3c808d6" title=" " alt="" coords="477,56,670,83"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="420,67,461,67,461,72,420,72"/>
+<area shape="rect" id="Node000005" href="$namespaceImGui.html#add3290865a67327258c3a32b695adb28" title=" " alt="" coords="498,107,649,133"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="409,81,496,100,495,105,408,86"/>
+</map>

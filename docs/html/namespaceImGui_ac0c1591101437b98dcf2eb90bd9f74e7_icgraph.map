@@ -1,0 +1,9 @@
+<map id="ImGui::NavUpdatePageUpPageDown" name="ImGui::NavUpdatePageUpPageDown">
+<area shape="rect" id="Node000001" title=" " alt="" coords="609,13,851,40"/>
+<area shape="rect" id="Node000002" href="$namespaceImGui.html#a82099721acb65e7d7ada3d818bc9f4e8" title=" " alt="" coords="360,5,561,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="594,29,562,29,562,24,594,24"/>
+<area shape="rect" id="Node000003" href="$namespaceImGui.html#aab7d3ffa460af6604421e8c2d8bdef19" title=" " alt="" coords="182,13,312,40"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="345,29,312,29,312,24,345,24"/>
+<area shape="rect" id="Node000004" href="$namespaceImGui.html#ab3f1fc018f903b7ad79fd10663375774" title=" " alt="" coords="5,13,134,40"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="166,29,134,29,134,24,166,24"/>
+</map>

@@ -1,4 +1,30 @@
 var searchData=
 [
-  ['joypad_5fstate_0',['joypad_state',['../structGB.html#a40cd9d54dea0e06b3cb4788dad22ef65',1,'GB']]]
+  ['id_0',['ID',['../structImGuiViewport.html#a426c45b1cb97238caf5bded6f1312ecd',1,'ImGuiViewport']]],
+  ['idxbuffer_1',['IdxBuffer',['../structImDrawList.html#adf292ff70a954d82daf061c609e75dfc',1,'ImDrawList']]],
+  ['idxoffset_2',['IdxOffset',['../structImDrawCmd.html#adec5adcd0cc6cf0da193bf0437fbba47',1,'ImDrawCmd']]],
+  ['imgui_5fviewport_5fdefault_5fid_3',['IMGUI_VIEWPORT_DEFAULT_ID',['../namespaceImGui.html#aa7a318e32bff29010e015a15ab6b6067',1,'ImGui']]],
+  ['indentspacing_4',['IndentSpacing',['../structImGuiStyle.html#a32ea292dee2b4e178a227acacd061921',1,'ImGuiStyle']]],
+  ['indexadvancex_5',['IndexAdvanceX',['../structImFont.html#af906476eda06d8a842d0a843a247f530',1,'ImFont']]],
+  ['indexlookup_6',['IndexLookup',['../structImFont.html#a0c948f3741da03da9bc1731e236173c8',1,'ImFont']]],
+  ['inifilename_7',['IniFilename',['../structImGuiIO.html#a89e8efe8f82b539c961dc22cc2499402',1,'ImGuiIO']]],
+  ['inisavingrate_8',['IniSavingRate',['../structImGuiIO.html#a9b37eea17baa240a93b1288673a6eeb9',1,'ImGuiIO']]],
+  ['innerdir_9',['InnerDir',['../structImGuiResizeGripDef.html#a82a1367d835f206fc24b3f114c60f897',1,'ImGuiResizeGripDef::InnerDir'],['../structImGuiResizeBorderDef.html#ac7561a6f748779d0318a80e6c91cfc10',1,'ImGuiResizeBorderDef::InnerDir']]],
+  ['inputbuf_10',['InputBuf',['../structImGuiTextFilter.html#ad070acb1038199dd4e8f5d010c5cb5ba',1,'ImGuiTextFilter']]],
+  ['inputlineheight_11',['InputLineHeight',['../structImGuiPlatformImeData.html#a632e782797251337e8373f2ca6562bc4',1,'ImGuiPlatformImeData']]],
+  ['inputpos_12',['InputPos',['../structImGuiPlatformImeData.html#a6e3d0f257f1dd4f8cc07eb20dfaddd6b',1,'ImGuiPlatformImeData']]],
+  ['inputqueuecharacters_13',['InputQueueCharacters',['../structImGuiIO.html#a4d9fb1151f10f1f6f7597bb3a21e1447',1,'ImGuiIO']]],
+  ['inputqueuesurrogate_14',['InputQueueSurrogate',['../structImGuiIO.html#a4740dc94f803920e809747d2c602d571',1,'ImGuiIO']]],
+  ['interrupt_5fdisable_5fpending_15',['interrupt_disable_pending',['../structFlags.html#ab6870533bbd043d7f7254cfcd4c3e25c',1,'Flags']]],
+  ['interrupt_5fenable_16',['interrupt_enable',['../structMemory.html#a9ac7e12a6d7db16252d37553d6b756b0',1,'Memory']]],
+  ['interrupt_5fenable_5fpending_17',['interrupt_enable_pending',['../structFlags.html#ae9f21a981882e88fe8d82fcfb16e3214',1,'Flags']]],
+  ['interrupt_5fmaster_5fenable_18',['interrupt_master_enable',['../structFlags.html#a6a8e38b845843e3d541460300ad3ab28',1,'Flags']]],
+  ['io_5fregisters_19',['io_registers',['../structMemory.html#af5f86d27b920ec79c7d07b5a84f07fb4',1,'Memory']]],
+  ['ioreset_20',['ioReset',['../tables_8c.html#aeaf0a6be5b897ab296ffe30ba1802158',1,'ioReset:&#160;tables.c'],['../tables_8h.html#aeaf0a6be5b897ab296ffe30ba1802158',1,'ioReset:&#160;tables.c']]],
+  ['isblack_21',['isBlack',['../gui_8cpp.html#ac2b539334d18c4ab98f14d23d7215e06',1,'gui.cpp']]],
+  ['item_22',['item',['../structZPM.html#aef8ea109dd3b16563d8740556e751aba',1,'ZPM::item'],['../structVRAM.html#a4daa4539746276defd69a1a1912d73f8',1,'VRAM::item']]],
+  ['iteminnerspacing_23',['ItemInnerSpacing',['../structImGuiStyle.html#a1a12021be99583fb491cff2df75d1ae1',1,'ImGuiStyle']]],
+  ['itemscount_24',['ItemsCount',['../structImGuiListClipper.html#a4e2b4e8efe10615d04ad2aeea467f522',1,'ImGuiListClipper::ItemsCount'],['../structImGuiMultiSelectIO.html#a8aaf15ddd4d4db06cfd341c6bb09980a',1,'ImGuiMultiSelectIO::ItemsCount']]],
+  ['itemsheight_25',['ItemsHeight',['../structImGuiListClipper.html#a19762cb78ff0adccb414027c25678a60',1,'ImGuiListClipper']]],
+  ['itemspacing_26',['ItemSpacing',['../structImGuiStyle.html#a6bc07d81e049cd75e86e6b3753c0da4a',1,'ImGuiStyle']]]
 ];

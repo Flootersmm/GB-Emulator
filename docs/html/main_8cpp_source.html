@@ -105,108 +105,119 @@ $(function(){initNavTree('main_8cpp_source.html',''); initResizable(true); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="gb_8h.html">gb.h</a>&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="shared_8h.html">shared.h</a>&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;GLFW/glfw3.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;chrono&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="main_8cpp.html#abf2a020ce8fef00220912e3844844181">    9</a></span>std::atomic&lt;bool&gt; <a class="code hl_variable" href="shared_8h.html#af53701aded99286de42137bffab9561a">running</a>(<span class="keyword">true</span>);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="main_8cpp.html#a5ecfb6340fe8206e62f0b566d658f9e2">   10</a></span>std::mutex <a class="code hl_variable" href="main_8cpp.html#a5ecfb6340fe8206e62f0b566d658f9e2">emu_mutex</a>;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="main_8cpp.html#ae2da31fe618bea5197ea33ca474ebd23">   11</a></span>std::atomic&lt;bool&gt; <a class="code hl_variable" href="gui_8cpp.html#aabf162ee473c863d308ed83d1c01355d">step_requested</a>(<span class="keyword">true</span>);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="main_8cpp.html#a46929be97936aaaf596adbed7efabbb3">   12</a></span><span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code hl_variable" href="main_8cpp.html#a46929be97936aaaf596adbed7efabbb3">GAMEBOY_CLOCK_SPEED</a> = 4194304.0;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="main_8cpp.html#a860134d3d84dd2883095bbe3f72c3d1f">   13</a></span><span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code hl_variable" href="main_8cpp.html#a860134d3d84dd2883095bbe3f72c3d1f">FRAME_RATE</a> = 59.73;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="main_8cpp.html#a8fc516303c5bdbd28d0f8b6c706ed355">   14</a></span><span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code hl_variable" href="main_8cpp.html#a8fc516303c5bdbd28d0f8b6c706ed355">CYCLES_PER_FRAME</a> = <a class="code hl_variable" href="main_8cpp.html#a46929be97936aaaf596adbed7efabbb3">GAMEBOY_CLOCK_SPEED</a> / <a class="code hl_variable" href="main_8cpp.html#a860134d3d84dd2883095bbe3f72c3d1f">FRAME_RATE</a>;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="main_8cpp.html#abf2a020ce8fef00220912e3844844181">    8</a></span>std::atomic&lt;bool&gt; <a class="code hl_variable" href="shared_8h.html#af53701aded99286de42137bffab9561a">running</a>(<span class="keyword">true</span>);</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="main_8cpp.html#a5ecfb6340fe8206e62f0b566d658f9e2">    9</a></span>std::mutex <a class="code hl_variable" href="main_8cpp.html#a5ecfb6340fe8206e62f0b566d658f9e2">emu_mutex</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="main_8cpp.html#ae2da31fe618bea5197ea33ca474ebd23">   10</a></span>std::atomic&lt;bool&gt; <a class="code hl_variable" href="gui_8cpp.html#aabf162ee473c863d308ed83d1c01355d">step_requested</a>(<span class="keyword">true</span>);</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="main_8cpp.html#a46929be97936aaaf596adbed7efabbb3">   11</a></span><span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code hl_variable" href="main_8cpp.html#a46929be97936aaaf596adbed7efabbb3">GAMEBOY_CLOCK_SPEED</a> = 4194304.0;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="main_8cpp.html#a860134d3d84dd2883095bbe3f72c3d1f">   12</a></span><span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code hl_variable" href="main_8cpp.html#a860134d3d84dd2883095bbe3f72c3d1f">FRAME_RATE</a> = 59.73;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="main_8cpp.html#a8fc516303c5bdbd28d0f8b6c706ed355">   13</a></span><span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code hl_variable" href="main_8cpp.html#a8fc516303c5bdbd28d0f8b6c706ed355">CYCLES_PER_FRAME</a> = <a class="code hl_variable" href="main_8cpp.html#a46929be97936aaaf596adbed7efabbb3">GAMEBOY_CLOCK_SPEED</a> / <a class="code hl_variable" href="main_8cpp.html#a860134d3d84dd2883095bbe3f72c3d1f">FRAME_RATE</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="main_8cpp.html#a950362bbfabb6e34a60097f5c916694f">   16</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="main_8cpp.html#a950362bbfabb6e34a60097f5c916694f">emulator_thread</a>(<a class="code hl_struct" href="structGB.html">GB</a> *vm) {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="keywordflow">while</span> (<a class="code hl_variable" href="shared_8h.html#af53701aded99286de42137bffab9561a">running</a>) {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>      std::lock_guard&lt;std::mutex&gt; lock(<a class="code hl_variable" href="main_8cpp.html#a5ecfb6340fe8206e62f0b566d658f9e2">emu_mutex</a>);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>      <span class="keywordflow">if</span> (vm-&gt;<a class="code hl_variable" href="structGB.html#a6ae38d2d436a4240574ee14db5780f89">flag</a>.<a class="code hl_variable" href="structFlags.html#a132ce96935145270fe354141f49e138f">halt</a>) {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_variable" href="shared_8h.html#af53701aded99286de42137bffab9561a">running</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>      }</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>      <span class="keywordflow">if</span> (<a class="code hl_variable" href="gui_8cpp.html#aabf162ee473c863d308ed83d1c01355d">step_requested</a>) {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <a class="code hl_function" href="gb_8c.html#ae073831e45a5ab2b9048410ecdabc5c9">step</a>(vm);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <a class="code hl_variable" href="gui_8cpp.html#aabf162ee473c863d308ed83d1c01355d">step_requested</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>      }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    std::this_thread::sleep_for(std::chrono::microseconds(</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>((vm-&gt;<a class="code hl_variable" href="structGB.html#aa430d0716dae84b69c7a7a0e22c45a10">timer_counter</a> / <a class="code hl_variable" href="main_8cpp.html#a46929be97936aaaf596adbed7efabbb3">GAMEBOY_CLOCK_SPEED</a>) * 1000000)));</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="keywordtype">bool</span> breakpoint_hit = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keywordflow">while</span> (<a class="code hl_variable" href="shared_8h.html#af53701aded99286de42137bffab9561a">running</a>) {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>      std::lock_guard&lt;std::mutex&gt; lock(<a class="code hl_variable" href="main_8cpp.html#a5ecfb6340fe8206e62f0b566d658f9e2">emu_mutex</a>);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>      <span class="keywordflow">if</span> (vm-&gt;<a class="code hl_variable" href="structGB.html#a6ae38d2d436a4240574ee14db5780f89">flag</a>.<a class="code hl_variable" href="structFlags.html#a132ce96935145270fe354141f49e138f">halt</a>) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_variable" href="shared_8h.html#af53701aded99286de42137bffab9561a">running</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>      }</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>      <span class="keywordflow">if</span> (breakpoint_hit) {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="gui_8cpp.html#aabf162ee473c863d308ed83d1c01355d">step_requested</a>) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>          <a class="code hl_function" href="gb_8c.html#ae073831e45a5ab2b9048410ecdabc5c9">step</a>(vm);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>          <a class="code hl_variable" href="gui_8cpp.html#aabf162ee473c863d308ed83d1c01355d">step_requested</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>      } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <a class="code hl_function" href="gb_8c.html#ae073831e45a5ab2b9048410ecdabc5c9">step</a>(vm);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">if</span> (vm-&gt;<a class="code hl_variable" href="structGB.html#aa2bfd15314ed7f35d6d415d1464830da">r</a>.<a class="code hl_variable" href="structRegisters.html#acff646a3d9a21c693a03a5417e177053">pc</a> == 0xFFFFFF) { <span class="comment">// Change for breakpoint</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>          breakpoint_hit = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>          <a class="code hl_variable" href="gui_8cpp.html#aabf162ee473c863d308ed83d1c01355d">step_requested</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>      }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    std::this_thread::sleep_for(std::chrono::microseconds(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        (vm-&gt;<a class="code hl_variable" href="structGB.html#aa430d0716dae84b69c7a7a0e22c45a10">timer_counter</a> / <a class="code hl_variable" href="main_8cpp.html#a46929be97936aaaf596adbed7efabbb3">GAMEBOY_CLOCK_SPEED</a>) * 10000))); <span class="comment">// 1000000</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
 </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">   34</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  <span class="keywordflow">if</span> (argc &lt; 2) {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    fprintf(stderr, <span class="stringliteral">&quot;Usage: %s &lt;rom_path&gt;\n&quot;</span>, argv[0]);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    exit(EXIT_FAILURE);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  }</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  <span class="keyword">const</span> <span class="keywordtype">char</span> *rom_path = argv[1];</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  GLFWwindow *window = <a class="code hl_function" href="gui_8cpp.html#a1e8e55366c1419c08c91382f06413e43">window_init</a>();</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="keywordflow">if</span> (!window) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    fprintf(stderr, <span class="stringliteral">&quot;Failed to initialize GLFW window\n&quot;</span>);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <a class="code hl_struct" href="structGB.html">GB</a> *vm = <a class="code hl_function" href="gb_8c.html#ac213e383456ea5569bf9f03fbc4b47d6">gb_init</a>(rom_path);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  <span class="keywordflow">if</span> (!vm) {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    fprintf(stderr, <span class="stringliteral">&quot;Failed to initialize GB\n&quot;</span>);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    glfwDestroyWindow(window);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    glfwTerminate();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="foldopen" id="foldopen00050" data-start="{" data-end="}">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">   50</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv) {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>  <span class="keywordflow">if</span> (argc &lt; 2) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    fprintf(stderr, <span class="stringliteral">&quot;Usage: %s &lt;rom_path&gt;\n&quot;</span>, argv[0]);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    exit(EXIT_FAILURE);</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  }</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  imgui_init(window, vm);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  <a class="code hl_function" href="gui_8cpp.html#aaadac544d627adfb86b9950b96e0be27">texture_init</a>();</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="comment">// Start the emulator thread</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  std::thread emu_thread(<a class="code hl_function" href="main_8cpp.html#a950362bbfabb6e34a60097f5c916694f">emulator_thread</a>, vm);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="comment">// Run the ImGui main loop</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <a class="code hl_function" href="gui_8cpp.html#a6e9b5912f48a0cc57a6142285783615a">main_loop</a>(window, vm);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <span class="comment">// Cleanup</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <a class="code hl_variable" href="shared_8h.html#af53701aded99286de42137bffab9561a">running</a> = <span class="keyword">false</span>;   <span class="comment">// Signal the emulator thread to stop</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  emu_thread.join(); <span class="comment">// Wait for the emulator thread to finish</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <a class="code hl_function" href="gui_8cpp.html#a2965978f827f4e4db3ea299c859d2151">texture_destroy</a>();</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <a class="code hl_function" href="gb_8c.html#a008e9959fa5fd87c39f03271134d0e0c">gb_destroy</a>(vm);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  glfwDestroyWindow(window);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  glfwTerminate();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  <span class="keyword">const</span> <span class="keywordtype">char</span> *rom_path = argv[1];</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  GLFWwindow *window = <a class="code hl_function" href="gui_8cpp.html#a1e8e55366c1419c08c91382f06413e43">window_init</a>();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  <span class="keywordflow">if</span> (!window) {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    fprintf(stderr, <span class="stringliteral">&quot;Failed to initialize GLFW window\n&quot;</span>);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <a class="code hl_struct" href="structGB.html">GB</a> *vm = <a class="code hl_function" href="gb_8c.html#ac213e383456ea5569bf9f03fbc4b47d6">gb_init</a>(rom_path);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <span class="keywordflow">if</span> (!vm) {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    fprintf(stderr, <span class="stringliteral">&quot;Failed to initialize GB\n&quot;</span>);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    glfwDestroyWindow(window);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    glfwTerminate();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  imgui_init(window, vm);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>  <a class="code hl_function" href="gui_8cpp.html#aaadac544d627adfb86b9950b96e0be27">texture_init</a>();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  std::thread emu_thread(<a class="code hl_function" href="main_8cpp.html#a950362bbfabb6e34a60097f5c916694f">emulator_thread</a>, vm);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <a class="code hl_function" href="gui_8cpp.html#a6e9b5912f48a0cc57a6142285783615a">main_loop</a>(window, vm);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <a class="code hl_variable" href="shared_8h.html#af53701aded99286de42137bffab9561a">running</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  emu_thread.join();</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  <a class="code hl_function" href="gui_8cpp.html#a2965978f827f4e4db3ea299c859d2151">texture_destroy</a>();</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  <a class="code hl_function" href="gb_8c.html#a008e9959fa5fd87c39f03271134d0e0c">gb_destroy</a>(vm);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  glfwDestroyWindow(window);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>  glfwTerminate();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
 </div>
 <div class="ttc" id="agb_8c_html_a008e9959fa5fd87c39f03271134d0e0c"><div class="ttname"><a href="gb_8c.html#a008e9959fa5fd87c39f03271134d0e0c">gb_destroy</a></div><div class="ttdeci">int gb_destroy(GB *vm)</div><div class="ttdoc">Clean up the GB vm.</div><div class="ttdef"><b>Definition</b> <a href="gb_8c_source.html#l00125">gb.c:125</a></div></div>
 <div class="ttc" id="agb_8c_html_ac213e383456ea5569bf9f03fbc4b47d6"><div class="ttname"><a href="gb_8c.html#ac213e383456ea5569bf9f03fbc4b47d6">gb_init</a></div><div class="ttdeci">GB * gb_init(const char *rom_path)</div><div class="ttdoc">Gameboy initialisation.</div><div class="ttdef"><b>Definition</b> <a href="gb_8c_source.html#l00013">gb.c:13</a></div></div>
-<div class="ttc" id="agb_8c_html_ae073831e45a5ab2b9048410ecdabc5c9"><div class="ttname"><a href="gb_8c.html#ae073831e45a5ab2b9048410ecdabc5c9">step</a></div><div class="ttdeci">void step(GB *vm)</div><div class="ttdef"><b>Definition</b> <a href="gb_8c_source.html#l00545">gb.c:545</a></div></div>
+<div class="ttc" id="agb_8c_html_ae073831e45a5ab2b9048410ecdabc5c9"><div class="ttname"><a href="gb_8c.html#ae073831e45a5ab2b9048410ecdabc5c9">step</a></div><div class="ttdeci">void step(GB *vm)</div><div class="ttdef"><b>Definition</b> <a href="gb_8c_source.html#l00544">gb.c:544</a></div></div>
 <div class="ttc" id="agb_8h_html"><div class="ttname"><a href="gb_8h.html">gb.h</a></div></div>
-<div class="ttc" id="agui_8cpp_html_a1e8e55366c1419c08c91382f06413e43"><div class="ttname"><a href="gui_8cpp.html#a1e8e55366c1419c08c91382f06413e43">window_init</a></div><div class="ttdeci">GLFWwindow * window_init()</div><div class="ttdef"><b>Definition</b> <a href="gui_8cpp_source.html#l00042">gui.cpp:42</a></div></div>
-<div class="ttc" id="agui_8cpp_html_a2965978f827f4e4db3ea299c859d2151"><div class="ttname"><a href="gui_8cpp.html#a2965978f827f4e4db3ea299c859d2151">texture_destroy</a></div><div class="ttdeci">int texture_destroy()</div><div class="ttdef"><b>Definition</b> <a href="gui_8cpp_source.html#l00510">gui.cpp:510</a></div></div>
-<div class="ttc" id="agui_8cpp_html_a6e9b5912f48a0cc57a6142285783615a"><div class="ttname"><a href="gui_8cpp.html#a6e9b5912f48a0cc57a6142285783615a">main_loop</a></div><div class="ttdeci">void main_loop(GLFWwindow *window, GB *vm)</div><div class="ttdef"><b>Definition</b> <a href="gui_8cpp_source.html#l00446">gui.cpp:446</a></div></div>
-<div class="ttc" id="agui_8cpp_html_aaadac544d627adfb86b9950b96e0be27"><div class="ttname"><a href="gui_8cpp.html#aaadac544d627adfb86b9950b96e0be27">texture_init</a></div><div class="ttdeci">int texture_init()</div><div class="ttdef"><b>Definition</b> <a href="gui_8cpp_source.html#l00497">gui.cpp:497</a></div></div>
+<div class="ttc" id="agui_8cpp_html_a1e8e55366c1419c08c91382f06413e43"><div class="ttname"><a href="gui_8cpp.html#a1e8e55366c1419c08c91382f06413e43">window_init</a></div><div class="ttdeci">GLFWwindow * window_init()</div><div class="ttdoc">‍#0F380F</div><div class="ttdef"><b>Definition</b> <a href="gui_8cpp_source.html#l00042">gui.cpp:42</a></div></div>
+<div class="ttc" id="agui_8cpp_html_a2965978f827f4e4db3ea299c859d2151"><div class="ttname"><a href="gui_8cpp.html#a2965978f827f4e4db3ea299c859d2151">texture_destroy</a></div><div class="ttdeci">int texture_destroy()</div><div class="ttdoc">Clean up OpenGL texture.</div><div class="ttdef"><b>Definition</b> <a href="gui_8cpp_source.html#l00557">gui.cpp:557</a></div></div>
+<div class="ttc" id="agui_8cpp_html_a6e9b5912f48a0cc57a6142285783615a"><div class="ttname"><a href="gui_8cpp.html#a6e9b5912f48a0cc57a6142285783615a">main_loop</a></div><div class="ttdeci">void main_loop(GLFWwindow *window, GB *vm)</div><div class="ttdoc">Main driver loop for SDL.</div><div class="ttdef"><b>Definition</b> <a href="gui_8cpp_source.html#l00492">gui.cpp:492</a></div></div>
+<div class="ttc" id="agui_8cpp_html_aaadac544d627adfb86b9950b96e0be27"><div class="ttname"><a href="gui_8cpp.html#aaadac544d627adfb86b9950b96e0be27">texture_init</a></div><div class="ttdeci">int texture_init()</div><div class="ttdoc">Initialise OpenGL texture.</div><div class="ttdef"><b>Definition</b> <a href="gui_8cpp_source.html#l00541">gui.cpp:541</a></div></div>
 <div class="ttc" id="agui_8cpp_html_aabf162ee473c863d308ed83d1c01355d"><div class="ttname"><a href="gui_8cpp.html#aabf162ee473c863d308ed83d1c01355d">step_requested</a></div><div class="ttdeci">std::atomic&lt; bool &gt; step_requested</div></div>
-<div class="ttc" id="amain_8cpp_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition</b> <a href="#l00034">main.cpp:34</a></div></div>
-<div class="ttc" id="amain_8cpp_html_a46929be97936aaaf596adbed7efabbb3"><div class="ttname"><a href="main_8cpp.html#a46929be97936aaaf596adbed7efabbb3">GAMEBOY_CLOCK_SPEED</a></div><div class="ttdeci">const double GAMEBOY_CLOCK_SPEED</div><div class="ttdef"><b>Definition</b> <a href="#l00012">main.cpp:12</a></div></div>
-<div class="ttc" id="amain_8cpp_html_a5ecfb6340fe8206e62f0b566d658f9e2"><div class="ttname"><a href="main_8cpp.html#a5ecfb6340fe8206e62f0b566d658f9e2">emu_mutex</a></div><div class="ttdeci">std::mutex emu_mutex</div><div class="ttdef"><b>Definition</b> <a href="#l00010">main.cpp:10</a></div></div>
-<div class="ttc" id="amain_8cpp_html_a860134d3d84dd2883095bbe3f72c3d1f"><div class="ttname"><a href="main_8cpp.html#a860134d3d84dd2883095bbe3f72c3d1f">FRAME_RATE</a></div><div class="ttdeci">const double FRAME_RATE</div><div class="ttdef"><b>Definition</b> <a href="#l00013">main.cpp:13</a></div></div>
-<div class="ttc" id="amain_8cpp_html_a8fc516303c5bdbd28d0f8b6c706ed355"><div class="ttname"><a href="main_8cpp.html#a8fc516303c5bdbd28d0f8b6c706ed355">CYCLES_PER_FRAME</a></div><div class="ttdeci">const double CYCLES_PER_FRAME</div><div class="ttdef"><b>Definition</b> <a href="#l00014">main.cpp:14</a></div></div>
-<div class="ttc" id="amain_8cpp_html_a950362bbfabb6e34a60097f5c916694f"><div class="ttname"><a href="main_8cpp.html#a950362bbfabb6e34a60097f5c916694f">emulator_thread</a></div><div class="ttdeci">void emulator_thread(GB *vm)</div><div class="ttdef"><b>Definition</b> <a href="#l00016">main.cpp:16</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdoc">Main function.</div><div class="ttdef"><b>Definition</b> <a href="#l00050">main.cpp:50</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a46929be97936aaaf596adbed7efabbb3"><div class="ttname"><a href="main_8cpp.html#a46929be97936aaaf596adbed7efabbb3">GAMEBOY_CLOCK_SPEED</a></div><div class="ttdeci">const double GAMEBOY_CLOCK_SPEED</div><div class="ttdef"><b>Definition</b> <a href="#l00011">main.cpp:11</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a5ecfb6340fe8206e62f0b566d658f9e2"><div class="ttname"><a href="main_8cpp.html#a5ecfb6340fe8206e62f0b566d658f9e2">emu_mutex</a></div><div class="ttdeci">std::mutex emu_mutex</div><div class="ttdef"><b>Definition</b> <a href="#l00009">main.cpp:9</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a860134d3d84dd2883095bbe3f72c3d1f"><div class="ttname"><a href="main_8cpp.html#a860134d3d84dd2883095bbe3f72c3d1f">FRAME_RATE</a></div><div class="ttdeci">const double FRAME_RATE</div><div class="ttdef"><b>Definition</b> <a href="#l00012">main.cpp:12</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a8fc516303c5bdbd28d0f8b6c706ed355"><div class="ttname"><a href="main_8cpp.html#a8fc516303c5bdbd28d0f8b6c706ed355">CYCLES_PER_FRAME</a></div><div class="ttdeci">const double CYCLES_PER_FRAME</div><div class="ttdef"><b>Definition</b> <a href="#l00013">main.cpp:13</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a950362bbfabb6e34a60097f5c916694f"><div class="ttname"><a href="main_8cpp.html#a950362bbfabb6e34a60097f5c916694f">emulator_thread</a></div><div class="ttdeci">void emulator_thread(GB *vm)</div><div class="ttdoc">Emulator thread handler for stepping and halting.</div><div class="ttdef"><b>Definition</b> <a href="#l00016">main.cpp:16</a></div></div>
 <div class="ttc" id="ashared_8h_html"><div class="ttname"><a href="shared_8h.html">shared.h</a></div></div>
 <div class="ttc" id="ashared_8h_html_af53701aded99286de42137bffab9561a"><div class="ttname"><a href="shared_8h.html#af53701aded99286de42137bffab9561a">running</a></div><div class="ttdeci">std::atomic&lt; bool &gt; running</div></div>
-<div class="ttc" id="astructFlags_html_a132ce96935145270fe354141f49e138f"><div class="ttname"><a href="structFlags.html#a132ce96935145270fe354141f49e138f">Flags::halt</a></div><div class="ttdeci">bool halt</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00135">typedefs.h:135</a></div></div>
-<div class="ttc" id="astructGB_html"><div class="ttname"><a href="structGB.html">GB</a></div><div class="ttdoc">Main GB struct.</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00229">typedefs.h:229</a></div></div>
-<div class="ttc" id="astructGB_html_a6ae38d2d436a4240574ee14db5780f89"><div class="ttname"><a href="structGB.html#a6ae38d2d436a4240574ee14db5780f89">GB::flag</a></div><div class="ttdeci">Flags flag</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00234">typedefs.h:234</a></div></div>
-<div class="ttc" id="astructGB_html_aa430d0716dae84b69c7a7a0e22c45a10"><div class="ttname"><a href="structGB.html#aa430d0716dae84b69c7a7a0e22c45a10">GB::timer_counter</a></div><div class="ttdeci">int timer_counter</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00239">typedefs.h:239</a></div></div>
+<div class="ttc" id="astructFlags_html_a132ce96935145270fe354141f49e138f"><div class="ttname"><a href="structFlags.html#a132ce96935145270fe354141f49e138f">Flags::halt</a></div><div class="ttdeci">bool halt</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00136">typedefs.h:136</a></div></div>
+<div class="ttc" id="astructGB_html"><div class="ttname"><a href="structGB.html">GB</a></div><div class="ttdoc">Main GB struct.</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00231">typedefs.h:231</a></div></div>
+<div class="ttc" id="astructGB_html_a6ae38d2d436a4240574ee14db5780f89"><div class="ttname"><a href="structGB.html#a6ae38d2d436a4240574ee14db5780f89">GB::flag</a></div><div class="ttdeci">Flags flag</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00236">typedefs.h:236</a></div></div>
+<div class="ttc" id="astructGB_html_aa2bfd15314ed7f35d6d415d1464830da"><div class="ttname"><a href="structGB.html#aa2bfd15314ed7f35d6d415d1464830da">GB::r</a></div><div class="ttdeci">Registers r</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00234">typedefs.h:234</a></div></div>
+<div class="ttc" id="astructGB_html_aa430d0716dae84b69c7a7a0e22c45a10"><div class="ttname"><a href="structGB.html#aa430d0716dae84b69c7a7a0e22c45a10">GB::timer_counter</a></div><div class="ttdeci">int timer_counter</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00241">typedefs.h:241</a></div></div>
+<div class="ttc" id="astructRegisters_html_acff646a3d9a21c693a03a5417e177053"><div class="ttname"><a href="structRegisters.html#acff646a3d9a21c693a03a5417e177053">Registers::pc</a></div><div class="ttdeci">u16 pc</div><div class="ttdef"><b>Definition</b> <a href="typedefs_8h_source.html#l00128">typedefs.h:128</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="main_8cpp.html">main.cpp</a></li>
-    <li class="footer">Generated on Wed Jul 31 2024 05:55:24 for GB Emulator by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
+    <li class="footer">Generated on Thu Aug 1 2024 11:02:28 for GB Emulator by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.11.0 </li>
   </ul>
 </div>
 </body>

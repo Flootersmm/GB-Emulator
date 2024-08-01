@@ -1,0 +1,6 @@
+<map id="ImGui::SetScrollHereY" name="ImGui::SetScrollHereY">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,160,56"/>
+<area shape="rect" id="Node000002" href="$namespaceImGui.html#a670d32573369e7ece9330d73f47e4d8b" title=" " alt="" coords="208,29,387,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,40,192,40,192,45,160,45"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="261,30,254,21,259,11,274,5,297,3,323,5,336,12,334,16,321,10,297,8,275,10,263,15,260,20,265,27"/>
+</map>

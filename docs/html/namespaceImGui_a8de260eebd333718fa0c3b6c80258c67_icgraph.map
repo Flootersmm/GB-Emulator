@@ -1,0 +1,9 @@
+<map id="ImGui::GetFrameHeightWithSpacing" name="ImGui::GetFrameHeightWithSpacing">
+<area shape="rect" id="Node000001" title=" " alt="" coords="426,5,614,48"/>
+<area shape="rect" id="Node000002" href="$gui_8cpp.html#ae827c5e3bb6a31948b56323adf16be1f" title="Draw the Dear ImGUI window for the Gameboy display texture." alt="" coords="231,13,378,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="411,29,379,29,379,24,411,24"/>
+<area shape="rect" id="Node000003" href="$gui_8cpp.html#a6e9b5912f48a0cc57a6142285783615a" title="Main driver loop for SDL." alt="" coords="103,13,183,40"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="215,29,184,29,184,24,215,24"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627" title="Main function." alt="" coords="5,13,55,40"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="87,29,55,29,55,24,87,24"/>
+</map>

@@ -1,9 +1,27 @@
 var searchData=
 [
-  ['h_0',['h',['../structRegisters.html#a1252c49d515b25dd6dd49d496ca2dad5',1,'Registers']]],
-  ['halt_1',['halt',['../structFlags.html#a132ce96935145270fe354141f49e138f',1,'Flags']]],
-  ['header_5fchecksum_2',['header_checksum',['../structCartridge.html#a9a984734a63478fdb4207d7ed0e5b070',1,'Cartridge']]],
-  ['height_3',['height',['../gui_8cpp.html#ad12fc34ce789bce6c8a05d8a17138534',1,'gui.cpp']]],
-  ['hl_4',['hl',['../structRegisters.html#a05601c827c4a70a6e41fcb8aca030ad2',1,'Registers']]],
-  ['hram_5',['hram',['../structMemory.html#ab648688d8264d37c8a8d221307a552fc',1,'Memory']]]
+  ['gameboy_5fclock_5fspeed_0',['GAMEBOY_CLOCK_SPEED',['../main_8cpp.html#a46929be97936aaaf596adbed7efabbb3',1,'main.cpp']]],
+  ['gcrc32lookuptable_1',['GCrc32LookupTable',['../imgui_8cpp.html#afbe703729b56cf3c55213055de7f5004',1,'imgui.cpp']]],
+  ['getclipboardtextfn_2',['GetClipboardTextFn',['../structImGuiIO.html#a974c08e33e5f2abcdd23981c9b9350ae',1,'ImGuiIO']]],
+  ['gimallocatorallocfunc_3',['GImAllocatorAllocFunc',['../imgui_8cpp.html#abca205b589baa43688f2c5eb062d0a64',1,'imgui.cpp']]],
+  ['gimallocatorfreefunc_4',['GImAllocatorFreeFunc',['../imgui_8cpp.html#a3a23f2e8fb3672baff48f0c7f1a4aec2',1,'imgui.cpp']]],
+  ['gimallocatoruserdata_5',['GImAllocatorUserData',['../imgui_8cpp.html#a42e3a0e8feed1a6b8fb9ffe79af9d706',1,'imgui.cpp']]],
+  ['gimgui_6',['GImGui',['../imgui_8cpp.html#a26aa67b834c0453a50c5e3970a8eba07',1,'imgui.cpp']]],
+  ['gkeynames_7',['GKeyNames',['../imgui_8cpp.html#a79d4c3237f846bba392512bf614440a0',1,'imgui.cpp']]],
+  ['global_5fchecksum_8',['global_checksum',['../structCartridge.html#a0b6845bf0f9964659f16a9388133ad4e',1,'Cartridge']]],
+  ['glocalizationentriesenus_9',['GLocalizationEntriesEnUS',['../imgui_8cpp.html#ab939070be3a158fa0de15812bb372e70',1,'imgui.cpp']]],
+  ['glyphadvancex_10',['GlyphAdvanceX',['../structImFontAtlasCustomRect.html#a062a08fee260f08e669231e602682617',1,'ImFontAtlasCustomRect']]],
+  ['glyphextraspacing_11',['GlyphExtraSpacing',['../structImFontConfig.html#a82db103689b1c434ec92875721967c07',1,'ImFontConfig']]],
+  ['glyphid_12',['GlyphID',['../structImFontAtlasCustomRect.html#a697df6d4ccdaac2077c43cdc1b5435a4',1,'ImFontAtlasCustomRect']]],
+  ['glyphmaxadvancex_13',['GlyphMaxAdvanceX',['../structImFontConfig.html#af9040efaa5998aef3add4b629d7dc255',1,'ImFontConfig']]],
+  ['glyphminadvancex_14',['GlyphMinAdvanceX',['../structImFontConfig.html#a3015c4ad464a7b5abeb5b926e8896bf6',1,'ImFontConfig']]],
+  ['glyphoffset_15',['GlyphOffset',['../structImFontConfig.html#a290a81956fdcb7ad3b5e3152594db121',1,'ImFontConfig::GlyphOffset'],['../structImFontAtlasCustomRect.html#a03f4d8c267b53dd7981560b0fb5b8b03',1,'ImFontAtlasCustomRect::GlyphOffset']]],
+  ['glyphranges_16',['GlyphRanges',['../structImFontConfig.html#aa174ceff80323012cd1b717d864258dd',1,'ImFontConfig']]],
+  ['glyphs_17',['Glyphs',['../structImFont.html#a1a0901fc1a8cbd41d582d6cef4946bc9',1,'ImFont']]],
+  ['grabminsize_18',['GrabMinSize',['../structImGuiStyle.html#a04db033d001b343815cdcd2491576ef7',1,'ImGuiStyle']]],
+  ['grabrounding_19',['GrabRounding',['../structImGuiStyle.html#a42369d83032545066803a7db62936e8f',1,'ImGuiStyle']]],
+  ['gstylevarinfo_20',['GStyleVarInfo',['../imgui_8cpp.html#a7ecde2aa28c7a36ff4cf4576e7ade58b',1,'imgui.cpp']]],
+  ['gui_5factive_21',['gui_active',['../gui_8cpp.html#ad13d11281939f18fd6309453a0bcafb0',1,'gui.cpp']]],
+  ['gui_5ffile_5factive_22',['gui_file_active',['../gui_8cpp.html#a61930e5832313979742cd7ee4e840c45',1,'gui.cpp']]],
+  ['gui_5fstack_5factive_23',['gui_stack_active',['../gui_8cpp.html#a1bcd4228991d31745e9d1096bb1a8c7b',1,'gui.cpp']]]
 ];

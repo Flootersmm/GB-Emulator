@@ -1,6 +1,6 @@
 <map id="do_dma_transfer" name="do_dma_transfer">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,56,124,83"/>
-<area shape="rect" id="Node000002" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title=" " alt="" coords="173,5,240,32"/>
+<area shape="rect" id="Node000002" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title="Read a byte." alt="" coords="173,5,240,32"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,53,158,33,160,38,105,58"/>
 <area shape="rect" id="Node000004" href="$gb_8c.html#a2e82c7fb7e1d3142fe17cc501afcee9c" title="Write an 8&#45;bit value to memory." alt="" coords="172,56,242,83"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="124,76,156,75,156,81,124,81"/>

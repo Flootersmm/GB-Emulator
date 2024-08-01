@@ -1,0 +1,10 @@
+<map id="CalcWindowAutoFitSize" name="CalcWindowAutoFitSize">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,169,57"/>
+<area shape="rect" id="Node000002" href="$imgui_8cpp.html#ae3ec71d72d2a2849cc73305c3164ee43" title=" " alt="" coords="474,5,616,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,27,216,16,343,10,459,11,458,17,344,15,217,21,147,33"/>
+<area shape="rect" id="Node000003" href="$imgui_8cpp.html#a0c4618a6985c33c4936f1d9f1c7b26b4" title=" " alt="" coords="217,31,426,57"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="169,41,201,41,201,47,169,47"/>
+<area shape="rect" id="Node000004" href="$namespaceImGui.html#a7bf620af1d66ee7d7b06701894d23e60" title=" " alt="" coords="239,81,404,108"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="153,55,242,75,241,80,152,61"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="426,29,459,26,459,31,426,35"/>
+</map>

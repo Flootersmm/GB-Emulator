@@ -1,0 +1,11 @@
+<map id="GetCombinedRootWindow" name="GetCombinedRootWindow">
+<area shape="rect" id="Node000001" title=" " alt="" coords="480,31,656,57"/>
+<area shape="rect" id="Node000002" href="$namespaceImGui.html#a51ed119ab4be7fcf47a34644e262c87e" title=" " alt="" coords="260,5,432,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="464,35,432,31,433,26,465,30"/>
+<area shape="rect" id="Node000003" href="$namespaceImGui.html#aaed1ebf40cc2cb2ec30b0ba39b91d4a5" title=" " alt="" coords="260,56,432,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="464,58,432,62,432,57,464,53"/>
+<area shape="rect" id="Node000004" href="$namespaceImGui.html#a6758a456204101a9c4a660da4cfba2c9" title=" " alt="" coords="5,27,212,53"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="244,60,212,55,212,50,245,54"/>
+<area shape="rect" id="Node000005" href="$namespaceImGui.html#aef8b2c0baa27bd5c68f676aaf14ed946" title=" " alt="" coords="18,77,199,120"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="245,84,200,90,199,85,244,79"/>
+</map>

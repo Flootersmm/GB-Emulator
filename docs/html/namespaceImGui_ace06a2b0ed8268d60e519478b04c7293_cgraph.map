@@ -1,0 +1,6 @@
+<map id="ImGui::BeginChildFrame" name="ImGui::BeginChildFrame">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,170,56"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="54,30,49,21,53,11,66,5,88,3,111,5,123,12,121,16,109,10,87,8,67,10,56,15,54,20,59,27"/>
+<area shape="rect" id="Node000002" href="$namespaceImGui.html#aebac8b07ee9ea0e452c98813a3e907c3" title=" " alt="" coords="218,29,345,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="170,40,202,40,202,45,170,45"/>
+</map>

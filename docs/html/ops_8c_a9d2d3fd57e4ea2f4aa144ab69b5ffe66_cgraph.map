@@ -1,6 +1,6 @@
 <map id="res_7_hlp" name="res_7_hlp">
 <area shape="rect" id="Node000001" title=" " alt="" coords="5,5,83,32"/>
-<area shape="rect" id="Node000002" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title=" " alt="" coords="415,5,483,32"/>
+<area shape="rect" id="Node000002" href="$gb_8c.html#a2adf3c14ba3031648862af5667f25754" title="Read a byte." alt="" coords="415,5,483,32"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,16,400,16,400,21,83,21"/>
 <area shape="rect" id="Node000004" href="$gb_8c.html#a2e82c7fb7e1d3142fe17cc501afcee9c" title="Write an 8&#45;bit value to memory." alt="" coords="131,31,201,57"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="84,24,116,31,115,36,82,29"/>

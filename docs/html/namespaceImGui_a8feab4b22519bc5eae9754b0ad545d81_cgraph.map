@@ -1,0 +1,11 @@
+<map id="ImGui::LogToFile" name="ImGui::LogToFile">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,126,57"/>
+<area shape="rect" id="Node000002" href="$imgui_8cpp.html#ae6a61623537c5a5de071fade1f0e8acd" title=" " alt="" coords="174,31,262,57"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,41,158,41,158,47,126,47"/>
+<area shape="rect" id="Node000003" href="$structImVector.html#ac371dd62e56ae486b1a5038cf07eee56" title=" " alt="" coords="310,31,427,57"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="262,41,294,41,294,47,262,47"/>
+<area shape="rect" id="Node000004" href="$structImVector.html#a3a097635d464b1b70dc7d59996a88b28" title=" " alt="" coords="475,5,649,32"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="427,34,460,29,460,35,428,39"/>
+<area shape="rect" id="Node000005" href="$structImVector.html#a0f14f5736c3372157856eebb67123b75" title=" " alt="" coords="499,56,625,83"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="428,49,484,57,484,62,427,54"/>
+</map>

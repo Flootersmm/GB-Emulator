@@ -1,11 +1,16 @@
 var searchData=
 [
-  ['r_0',['r',['../structGB.html#aa2bfd15314ed7f35d6d415d1464830da',1,'GB']]],
-  ['ram_5fsize_1',['ram_size',['../structCartridge.html#a21b1f8c69727d3e77c75453144927a63',1,'Cartridge']]],
-  ['rom_5fbank0_2',['rom_bank0',['../structMemory.html#af9038087e221c79a18cf942bbeecefe3',1,'Memory']]],
-  ['rom_5fbank1_3',['rom_bank1',['../structMemory.html#a87deb770f73de7ca811d4f1cde791930',1,'Memory']]],
-  ['rom_5fbanks_4',['rom_banks',['../structRomSizeEntry.html#a587f0dedbba71e78553de08ba6a7a172',1,'RomSizeEntry']]],
-  ['rom_5fpath_5',['rom_path',['../structGB.html#acbceb11b6070f31d7dc7e33f7f5125da',1,'GB']]],
-  ['rom_5fsize_6',['rom_size',['../structRomSizeEntry.html#a8c568a2741fa81e69bad9fc78422e539',1,'RomSizeEntry::rom_size'],['../structCartridge.html#af18c52fe0b6412b348101d5c8b6aecfc',1,'Cartridge::rom_size']]],
-  ['running_7',['running',['../shared_8h.html#af53701aded99286de42137bffab9561a',1,'shared.h']]]
+  ['oam_0',['oam',['../structMemory.html#a00fe08cbc03318a22340265e0946f918',1,'Memory']]],
+  ['old_5flicensee_5fcode_1',['old_licensee_code',['../structCartridge.html#a26f040cac4d795fb10700c3848b6ce13',1,'Cartridge']]],
+  ['old_5flicensee_5ftable_5fsize_2',['old_licensee_table_size',['../tables_8c.html#a85c8806c83a2df0ef6eaacbefc501936',1,'old_licensee_table_size:&#160;tables.c'],['../tables_8h.html#a85c8806c83a2df0ef6eaacbefc501936',1,'old_licensee_table_size:&#160;tables.c']]],
+  ['old_5flicensees_3',['old_licensees',['../tables_8c.html#a1a54e21104a8eec5cc77b29ff79cdd67',1,'old_licensees:&#160;tables.c'],['../tables_8h.html#a1a54e21104a8eec5cc77b29ff79cdd67',1,'old_licensees:&#160;tables.c']]],
+  ['op_4',['op',['../structGB.html#ab36d85c9ac7f1d7e4aa81ae5af5c6512',1,'GB']]],
+  ['op_5fextended_5fticks_5',['op_extended_ticks',['../tables_8c.html#a86be2446d667c7430b6300e72fcd5bb3',1,'op_extended_ticks:&#160;tables.c'],['../tables_8h.html#a86be2446d667c7430b6300e72fcd5bb3',1,'op_extended_ticks:&#160;tables.c']]],
+  ['op_5fticks_6',['op_ticks',['../tables_8c.html#a1653fa2372e57894bf0ee53857772fd0',1,'op_ticks:&#160;tables.c'],['../tables_8h.html#a1653fa2372e57894bf0ee53857772fd0',1,'op_ticks:&#160;tables.c']]],
+  ['ops_7',['ops',['../tables_8c.html#af6660189499f839c4be5d226f8da6151',1,'ops:&#160;tables.c'],['../tables_8h.html#af6660189499f839c4be5d226f8da6151',1,'ops:&#160;tables.c']]],
+  ['ops_5fextended_8',['ops_extended',['../tables_8c.html#a02f0c50682b2df8e75add0c59344c03c',1,'ops_extended:&#160;tables.c'],['../tables_8h.html#a02f0c50682b2df8e75add0c59344c03c',1,'ops_extended:&#160;tables.c']]],
+  ['outerangle_9',['OuterAngle',['../structImGuiResizeBorderDef.html#a98a0fd1c91fa782c3c4d5093113b2fa9',1,'ImGuiResizeBorderDef']]],
+  ['oversampleh_10',['OversampleH',['../structImFontConfig.html#ab460df0d8019ffa8d124e8988c710910',1,'ImFontConfig']]],
+  ['oversamplev_11',['OversampleV',['../structImFontConfig.html#a8018f84c60bfafb2b4629aeb77a047cb',1,'ImFontConfig']]],
+  ['ownerviewport_12',['OwnerViewport',['../structImDrawData.html#afe3a34d1f384c37e99627e6efbc91815',1,'ImDrawData']]]
 ];

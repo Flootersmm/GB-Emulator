@@ -1,0 +1,9 @@
+<map id="ImGui::SetNextItemWidth" name="ImGui::SetNextItemWidth">
+<area shape="rect" id="Node000001" title=" " alt="" coords="241,56,413,83"/>
+<area shape="rect" id="Node000002" href="$structImGuiTextFilter.html#ab93ad5985019ff9d3781606551fc26cc" title=" " alt="" coords="24,5,174,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,55,162,35,163,30,249,49"/>
+<area shape="rect" id="Node000003" href="$namespaceImGui.html#a7bd295da4be19bab98262c76fcaeb4fb" title=" " alt="" coords="34,56,164,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="225,72,165,72,165,67,225,67"/>
+<area shape="rect" id="Node000004" href="$namespaceImGui.html#afe7a28c6eb52fff3cc27d5a698fea4ff" title=" " alt="" coords="5,107,193,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="249,89,163,109,162,103,248,84"/>
+</map>

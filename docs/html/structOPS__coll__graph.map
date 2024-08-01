@@ -1,5 +1,5 @@
 <map id="OPS" name="OPS">
-<area shape="rect" id="Node000001" title="Opcode, with function pointer array." alt="" coords="5,96,55,123"/>
+<area shape="rect" id="Node000001" title="Opcodes, with function pointer array." alt="" coords="5,96,55,123"/>
 <area shape="rect" id="Node000002" href="$structGB.html" title="Main GB struct." alt="" coords="235,219,276,245"/>
 <area shape="poly" id="edge9_Node000002_Node000001" title=" " alt="" coords="22,138,18,167,21,181,27,193,41,203,63,211,121,222,235,228,235,233,121,227,62,216,39,208,23,196,16,183,13,167,17,137"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="220,230,138,218,100,209,73,197,55,167,34,124,38,122,59,164,76,193,101,204,139,213,221,225"/>

@@ -1,0 +1,7 @@
+<map id="ImGui::AcceptDragDropPayload" name="ImGui::AcceptDragDropPayload">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,214,57"/>
+<area shape="rect" id="Node000002" href="$structImGuiPayload.html#a7864aeb80bc28683748d015562eead4d" title=" " alt="" coords="262,5,440,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,30,246,27,246,32,214,36"/>
+<area shape="rect" id="Node000003" href="$namespaceImGui.html#aed7dae248aa865bf06c1d60c0e809537" title=" " alt="" coords="277,56,425,83"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="214,52,261,57,261,63,214,58"/>
+</map>

@@ -1,0 +1,19 @@
+<map id="ImGuiListClipper::Step" name="ImGuiListClipper::Step">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,127,159,153"/>
+<area shape="rect" id="Node000002" href="$imgui_8cpp.html#a39e46fb2d1c766ea6b5292ecefc17575" title=" " alt="" coords="207,97,402,124"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,127,191,123,192,128,159,133"/>
+<area shape="rect" id="Node000008" href="$ops_8c.html#adfb9960921afda13093cb2889dd72586" title=" " alt="" coords="285,152,324,179"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="159,146,270,159,269,164,159,151"/>
+<area shape="rect" id="Node000003" href="$imgui_8cpp.html#a764cef0a8c459918b835f009c65e4648" title=" " alt="" coords="457,5,638,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="331,94,385,68,449,41,471,34,473,39,451,47,387,73,333,99"/>
+<area shape="rect" id="Node000004" href="$imgui_8cpp.html#a7113cc5c8a07391b4e1f3a3fa7132e4a" title=" " alt="" coords="462,56,634,99"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="402,95,446,89,446,94,403,100"/>
+<area shape="rect" id="Node000006" href="$structImGuiListClipper.html#a82246d0893e128696297fcc77280177d" title=" " alt="" coords="450,123,645,165"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="403,121,435,126,434,131,402,127"/>
+<area shape="rect" id="Node000005" href="$structImVector.html#a2f88ac70791f2da6d4168d7b29f38f1e" title=" " alt="" coords="733,64,848,91"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="634,75,718,75,718,80,634,80"/>
+<area shape="rect" id="Node000007" href="$imgui_8cpp.html#a5b273684da3af4d7e23dfbf5cfde1497" title=" " alt="" coords="693,123,888,165"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="646,141,678,141,678,147,646,147"/>
+<area shape="rect" id="Node000009" href="$gb_8c.html#a9517f6c560686d01ccdfbd225bd978e4" title=" " alt="" coords="510,189,585,216"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="325,166,496,192,495,197,324,171"/>
+</map>

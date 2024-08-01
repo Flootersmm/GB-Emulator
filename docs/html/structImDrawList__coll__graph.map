@@ -1,0 +1,38 @@
+<map id="ImDrawList" name="ImDrawList">
+<area shape="rect" id="Node000001" title=" " alt="" coords="752,212,840,239"/>
+<area shape="rect" id="Node000003" href="$structImDrawCmd.html" title=" " alt="" coords="971,117,1066,144"/>
+<area shape="poly" id="edge4_Node000003_Node000001" title=" " alt="" coords="819,199,839,182,863,167,917,146,970,134,971,139,919,151,865,172,842,186,822,203"/>
+<area shape="rect" id="Node000002" href="$structImVector.html" title=" " alt="" coords="1146,127,1319,153"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1146,159,841,219,840,214,1145,154"/>
+<area shape="rect" id="Node000013" href="$structImDrawChannel.html" title=" " alt="" coords="1441,127,1556,153"/>
+<area shape="poly" id="edge17_Node000013_Node000002" title=" " alt="" coords="1334,137,1440,137,1440,143,1334,143"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="1082,131,1146,134,1146,139,1082,136"/>
+<area shape="rect" id="Node000004" href="$structImVec4.html" title=" " alt="" coords="164,141,230,168"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="245,136,267,131,313,125,350,125,434,127,864,120,947,120,971,122,970,127,947,125,864,125,434,132,350,130,314,130,267,136,246,141"/>
+<area shape="rect" id="Node000010" href="$structImDrawCmdHeader.html" title=" " alt="" coords="451,141,588,168"/>
+<area shape="poly" id="edge13_Node000010_Node000004" title=" " alt="" coords="246,152,451,152,451,157,246,157"/>
+<area shape="rect" id="Node000014" href="$structImVector.html" title=" " alt="" coords="448,192,591,219"/>
+<area shape="poly" id="edge20_Node000014_Node000004" title=" " alt="" coords="246,168,268,173,361,189,448,198,447,203,360,194,266,179,245,173"/>
+<area shape="rect" id="Node000005" href="$structImVector.html" title=" " alt="" coords="438,24,601,51"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="608,52,684,69,729,84,756,115,775,150,788,184,795,211,789,212,783,186,770,152,752,118,726,89,683,74,607,57"/>
+<area shape="poly" id="edge18_Node000013_Node000005" title=" " alt="" coords="616,26,794,19,1234,19,1272,22,1310,31,1381,60,1441,95,1482,124,1479,129,1438,99,1379,65,1309,36,1271,27,1234,24,795,24,616,32"/>
+<area shape="rect" id="Node000006" href="$structImVector.html" title=" " alt="" coords="435,307,604,333"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="619,318,674,309,726,291,760,266,783,237,788,241,764,269,729,296,675,315,619,323"/>
+<area shape="rect" id="Node000007" href="$structImDrawVert.html" title=" " alt="" coords="152,307,243,333"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="254,299,266,296,366,278,502,259,751,228,751,233,503,264,367,284,268,301,255,304"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="259,317,435,317,435,323,259,323"/>
+<area shape="rect" id="Node000008" href="$structImVec2.html" title=" " alt="" coords="5,335,72,361"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="87,337,151,325,152,331,87,342"/>
+<area shape="rect" id="Node000009" href="$structImVector.html" title=" " alt="" coords="267,359,410,385"/>
+<area shape="poly" id="edge11_Node000009_Node000008" title=" " alt="" coords="88,355,96,356,185,364,267,368,267,373,184,369,95,361,87,360"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="426,382,496,385,575,379,615,372,655,360,692,344,726,323,747,304,764,280,787,238,791,240,769,283,751,307,729,327,694,349,656,365,617,377,576,384,496,390,425,387"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="604,162,666,174,729,191,771,209,769,214,727,196,664,179,603,168"/>
+<area shape="rect" id="Node000011" href="$structImDrawListSplitter.html" title=" " alt="" coords="1942,211,2072,237"/>
+<area shape="poly" id="edge14_Node000001_Node000011" title=" " alt="" coords="1927,236,1834,244,1734,248,1017,248,922,243,840,234,841,229,923,238,1017,243,1733,243,1834,239,1927,231"/>
+<area shape="rect" id="Node000012" href="$structImVector.html" title=" " alt="" coords="1636,149,1828,176"/>
+<area shape="poly" id="edge15_Node000011_Node000012" title=" " alt="" coords="1811,177,1944,207,1943,213,1810,183"/>
+<area shape="poly" id="edge16_Node000012_Node000013" title=" " alt="" coords="1572,144,1636,151,1635,156,1571,150"/>
+<area shape="poly" id="edge19_Node000001_Node000014" title=" " alt="" coords="607,209,751,220,751,225,607,214"/>
+<area shape="rect" id="Node000015" href="$structImVector.html" title=" " alt="" coords="434,421,605,448"/>
+<area shape="poly" id="edge21_Node000001_Node000015" title=" " alt="" coords="620,440,676,431,702,421,726,406,744,388,758,367,778,319,788,274,791,239,797,239,793,274,783,321,763,370,748,391,729,410,705,426,677,436,621,445"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="ImGui::IsWindowHovered" name="ImGui::IsWindowHovered">
+<area shape="rect" id="Node000001" title=" " alt="" coords="260,35,431,61"/>
+<area shape="rect" id="Node000002" href="$namespaceImGui.html#a6758a456204101a9c4a660da4cfba2c9" title=" " alt="" coords="5,5,212,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,38,212,34,213,29,245,33"/>
+<area shape="rect" id="Node000003" href="$namespaceImGui.html#aef8b2c0baa27bd5c68f676aaf14ed946" title=" " alt="" coords="18,56,199,99"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="245,63,199,69,199,64,244,58"/>
+</map>

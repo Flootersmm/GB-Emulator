@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['registers_0',['Registers',['../structRegisters.html',1,'']]],
-  ['romsizeentry_1',['RomSizeEntry',['../structRomSizeEntry.html',1,'']]]
+  ['ops_0',['OPS',['../structOPS.html',1,'']]],
+  ['ops_5fextended_1',['OPS_extended',['../structOPS__extended.html',1,'']]]
 ];
