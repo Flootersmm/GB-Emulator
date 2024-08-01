@@ -4,4 +4,4 @@ imgui.ini
 cpu_log.txt
 build/*
 gui
-docs/
+docs/*
