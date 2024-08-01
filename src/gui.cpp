@@ -34,6 +34,7 @@ ImVec4 colorLightGreen = ImVec4(0.54f, 0.67f, 0.06f, 1.00f);    ///> #8BAC0F
 ImVec4 colorDarkGreen = ImVec4(0.19f, 0.38f, 0.19f, 1.00f);     ///> #306230
 ImVec4 colorDarkestGreen = ImVec4(0.06f, 0.22f, 0.06f, 1.00f);  ///> #0F380F
 char last_key_pressed = '\0';
+float rom_window_width = 0;
 
 /// Initialise a GLFW window
 ///
@@ -162,12 +163,13 @@ void draw_window_texture() {
   ImVec2 window_size = ImVec2(texture_size.x + margin.x * 2,
                               texture_size.y + margin.y * 2 + title_bar_height);
 
-  ImGui::SetNextWindowSize(window_size, ImGuiCond_Always);
-
+  ImGui::SetNextWindowPos(ImVec2(487 + rom_window_width, 360));
+  ImGui::SetNextWindowSize(window_size);
   ImGui::Begin("Texture Window", NULL,
                ImGuiWindowFlags_NoScrollbar |
                    ImGuiWindowFlags_NoScrollWithMouse |
-                   ImGuiWindowFlags_NoResize);
+                   ImGuiWindowFlags_NoResize |
+                   ImGuiWindowFlags_NoMove);
 
   ImGui::SetCursorPos(ImVec2(margin.x, margin.y + title_bar_height));
 
@@ -176,13 +178,12 @@ void draw_window_texture() {
   ImGui::End();
 }
 
-/// Draw the Dear ImGUI window for crude debugging
 void draw_window_crude_debug(GB *vm) {
   ImVec2 window_main_size = ImGui::GetWindowSize();
 
   ImGui::SetNextWindowPos(ImVec2(0, 0));
-  ImGui::SetNextWindowSize(ImVec2(500.0f, window_main_size.y * 1.5f));
-  ImGui::Begin("GB Emulator", &gui_active, ImGuiWindowFlags_MenuBar);
+  ImGui::SetNextWindowSize(ImVec2(487.0f, 720.0f));
+  ImGui::Begin("GB Emulator", &gui_active, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
   if (ImGui::BeginMenuBar()) {
     if (ImGui::BeginMenu("File")) {
@@ -268,20 +269,30 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::Separator();
   }
 
-  if (ImGui::CollapsingHeader("Registers")) {
-    ImGui::Text("A: $%02X", vm->r.a);
-    ImGui::Text("B: $%02X", vm->r.b);
-    ImGui::Text("C: $%02X", vm->r.c);
-    ImGui::Text("D: $%02X", vm->r.d);
-    ImGui::Text("E: $%02X", vm->r.e);
-    ImGui::Text("F: $%02X", vm->r.f);
-    ImGui::Text("H: $%02X", vm->r.h);
-    ImGui::Text("AF: $%04X", vm->r.af);
-    ImGui::Text("BC: $%04X", vm->r.bc);
-    ImGui::Text("DE: $%04X", vm->r.de);
-    ImGui::Text("HL: $%04X", vm->r.hl);
-    ImGui::Text("PC: $%04X", vm->r.pc);
-    ImGui::Text("SP: $%04X", vm->r.sp);
+if (ImGui::CollapsingHeader("Registers")) {
+    ImGui::Columns(2, "RegistersColumns");
+    
+    ImGui::Text("A:"); ImGui::SameLine(40); ImGui::Text("$%02X", vm->r.a);
+    ImGui::Text("B:"); ImGui::SameLine(40); ImGui::Text("$%02X", vm->r.b);
+    ImGui::Text("C:"); ImGui::SameLine(40); ImGui::Text("$%02X", vm->r.c);
+    ImGui::Text("D:"); ImGui::SameLine(40); ImGui::Text("$%02X", vm->r.d);
+    ImGui::Text("E:"); ImGui::SameLine(40); ImGui::Text("$%02X", vm->r.e);
+    ImGui::Text("F:"); ImGui::SameLine(40); ImGui::Text("$%02X", vm->r.f);
+    ImGui::Text("H:"); ImGui::SameLine(40); ImGui::Text("$%02X", vm->r.h);
+    ImGui::Text("L:"); ImGui::SameLine(40); ImGui::Text("$%02X", vm->r.l);
+    
+    ImGui::NextColumn();
+    
+    ImGui::Text("AF:"); ImGui::SameLine(40); ImGui::Text("$%04X", vm->r.af);
+    ImGui::Text("BC:"); ImGui::SameLine(40); ImGui::Text("$%04X", vm->r.bc);
+    ImGui::Text("DE:"); ImGui::SameLine(40); ImGui::Text("$%04X", vm->r.de);
+    ImGui::Text("HL:"); ImGui::SameLine(40); ImGui::Text("$%04X", vm->r.hl);
+    ImGui::Text("PC:"); ImGui::SameLine(40); ImGui::Text("$%04X", vm->r.pc);
+    ImGui::Text("SP:"); ImGui::SameLine(40); ImGui::Text("$%04X", vm->r.sp);
+    
+    ImGui::Columns(1);
+    
+    ImGui::Separator();
     ImGui::Text("Flags: Z:%d N:%d H:%d C:%d", (vm->r.f >> 7) & 1,
                 (vm->r.f >> 6) & 1, (vm->r.f >> 5) & 1, (vm->r.f >> 4) & 1);
 
@@ -311,16 +322,13 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::Text("Cycles: %u", vm->mem.data[0xFF07]);
 
     ImGui::Separator();
-    ImGui::Text("Retrace_LY: %02X", vm->retrace_ly);
-
-    ImGui::Separator();
     ImGui::Text("ScrollY (0xFF42): 0x%02X", vm->mem.data[0xFF42]);
     ImGui::Text("ScrollX (0xFF43): 0x%02X", vm->mem.data[0xFF43]);
     ImGui::Text("WindowY (0xFF4A): 0x%02X", vm->mem.data[0xFF4A]);
     ImGui::Text("WindowX (0xFF4B): 0x%02X", vm->mem.data[0xFF4B]);
 
     ImGui::Separator();
-    ImGui::Text("Joypad %02X", vm->mem.data[0xFF00]);
+    ImGui::Text("Joypad: %02X", vm->mem.data[0xFF00]);
     ImGui::Text("Last Key Pressed: %c",
                 last_key_pressed ? last_key_pressed : ' ');
 
@@ -330,18 +338,17 @@ void draw_window_crude_debug(GB *vm) {
 
     ImGui::Separator();
 
-    ImGui::Text("LCD Display Enable: %d", (lcd_control >> 7) & 0x01);
-    ImGui::Text("Window Tile Map Display Select: %d",
-                (lcd_control >> 6) & 0x01);
-    ImGui::Text("Window Display Enable: %d", (lcd_control >> 5) & 0x01);
-    ImGui::Text("BG & Window Tile Data Select: %d", (lcd_control >> 4) & 0x01);
-    ImGui::Text("BG Tile Map Display Select: %d", (lcd_control >> 3) & 0x01);
-    ImGui::Text("OBJ (Sprite) Size: %d", (lcd_control >> 2) & 0x01);
-    ImGui::Text("OBJ (Sprite) Display Enable: %d", (lcd_control >> 1) & 0x01);
-    ImGui::Text("BG Display: %d", lcd_control & 0x01);
+    ImGui::Text("LCD Display Enable:             %d", (lcd_control >> 7) & 0x01);
+    ImGui::Text("Window Tile Map Display Select: %d", (lcd_control >> 6) & 0x01);
+    ImGui::Text("Window Display Enable:          %d", (lcd_control >> 5) & 0x01);
+    ImGui::Text("BG & Window Tile Data Select:   %d", (lcd_control >> 4) & 0x01);
+    ImGui::Text("BG Tile Map Display Select:     %d", (lcd_control >> 3) & 0x01);
+    ImGui::Text("OBJ (Sprite) Size:              %d", (lcd_control >> 2) & 0x01);
+    ImGui::Text("OBJ (Sprite) Display Enable:    %d", (lcd_control >> 1) & 0x01);
+    ImGui::Text("BG Display:                     %d", lcd_control & 0x01);
 
     ImGui::Separator();
-  }
+}
 
   if (ImGui::CollapsingHeader("Memory Locations")) {
     const char *addresses[] = {
@@ -396,34 +403,28 @@ void draw_window_crude_debug(GB *vm) {
   }
 
   if (ImGui::CollapsingHeader("Current Instruction")) {
-    const OPS *instr = &ops[vm->cart.data[vm->r.pc]];
+    const OPS *instr = &ops[vm->mem.data[vm->r.pc]];
     ImGui::Text("Opcode: %s", instr->debug_str);
     ImGui::Text("Length: %u", instr->length);
 
     ImGui::Text("Operands:");
+    ImGui::SameLine();
     for (int i = 0; i < instr->length; i++) {
       ImGui::Text("0x%02X", vm->cart.data[vm->r.pc + i]);
       ImGui::SameLine();
     }
   }
 
+  ImGui::NewLine();
+  ImGui::Separator();
+  ImGui::NewLine();
+
   if (ImGui::Button("Step")) {
     {
       step_requested = true;
     }
   }
-  static char pc_input[5] = "";
 
-  ImGui::Text("Set Program Counter:");
-  ImGui::InputText("##pc_input", pc_input, IM_ARRAYSIZE(pc_input),
-                   ImGuiInputTextFlags_CharsHexadecimal);
-
-  if (ImGui::Button("Update PC")) {
-    unsigned int new_pc;
-    if (sscanf(pc_input, "%x", &new_pc) == 1) {
-      vm->r.pc = static_cast<u16>(new_pc);
-    }
-  }
   ImGui::SliderFloat("Font scale", &fontScale, 1.0f, 3.0f, "%.1f");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
               1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
@@ -434,22 +435,25 @@ void draw_window_crude_debug(GB *vm) {
   ImGui::End();
 }
 
-/// Draws the Dear ImGUI window to view the ROM
 void draw_rom_viewer_window(GB *vm) {
-  ImGui::Begin("ROM Viewer");
+  rom_window_width = ImGui::CalcTextSize("ROM:0000 ").x + 18 * ImGui::CalcTextSize("FF ").x;
+
+  ImGui::SetNextWindowPos(ImVec2(487, 0));
+  ImGui::SetNextWindowSize(ImVec2(rom_window_width, 720.0f));
+  ImGui::Begin("ROM Viewer", NULL, ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize);
 
   int rows = vm->mem.size / 16;
   for (int row = 0; row < rows; row++) {
-    ImGui::Text("ROM:%04X ", row * 16);
+    ImGui::Text("ROM:%04X", row * 16);
     ImGui::SameLine();
 
     for (int col = 0; col < 16; col++) {
       int index = row * 16 + col;
       if (vm->r.pc == index) {
-        ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "%02X ",
+        ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "%02X",
                            vm->mem.data[index]);
       } else {
-        ImGui::Text("%02X ", vm->mem.data[index]);
+        ImGui::Text("%02X", vm->mem.data[index]);
       }
       if (col < 15) {
         ImGui::SameLine();
@@ -460,12 +464,13 @@ void draw_rom_viewer_window(GB *vm) {
   ImGui::End();
 }
 
-/// Draws the Dear ImGUI window to view a detailed disassembly of memory at PC
 void draw_disassembly_window(GB *vm) {
+  ImGui::SetNextWindowPos(ImVec2(487 + rom_window_width, 0));
+  ImGui::SetNextWindowSize(ImVec2(1280 - (480 + rom_window_width), 360.0f));
   ImGui::Begin(
       "Disassembly Window", NULL,
       ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoScrollbar |
-          ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoResize);
+          ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
   u16 start_address = vm->r.pc > 0x10 ? vm->r.pc - 0x10 : 0;
   u16 end_address = start_address + 0x20;
@@ -495,10 +500,6 @@ void draw_disassembly_window(GB *vm) {
   ImGui::End();
 }
 
-/// Main driver loop for SDL
-///
-/// @param window GLFW Window
-/// @param vm GB vm
 void main_loop(GLFWwindow *window, GB *vm) {
   ImGuiIO &io = ImGui::GetIO();
   (void)io;
@@ -541,9 +542,6 @@ void main_loop(GLFWwindow *window, GB *vm) {
   SDL_Quit();
 }
 
-/// Initialise OpenGL texture
-///
-/// @return 0 on success, other for failure
 int texture_init() {
   glGenTextures(1, &texture);
   glBindTexture(GL_TEXTURE_2D, texture);
@@ -557,9 +555,6 @@ int texture_init() {
   return 0;
 }
 
-/// Clean up OpenGL texture
-///
-/// @return 0 for success, other for failure
 int texture_destroy() {
   glDeleteTextures(1, &texture);
 
