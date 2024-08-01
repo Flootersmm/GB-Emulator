@@ -774,8 +774,11 @@ void inc_l(GB *vm) {
 }
 
 void inc_hl(GB *vm) {
-  vm->r.hl++;
-  _reg_set_flag(vm, vm->r.l == 0, 0, (vm->r.l & 0x0F) == 0, vm->r.f & 0x10);
+  u8 value = read_u8(vm, vm->r.hl);
+  u8 before = value;
+  value++;
+  write_u8(vm, vm->r.hl, value);
+  _reg_set_flag(vm, value == 0, 0, (before & 0x0F) == 0x0F, vm->r.f & 0x10);
 }
 
 // 10. DEC n
@@ -1924,7 +1927,7 @@ void jp_nn(GB *vm, u16 address) { vm->r.pc = address; }
 // 2. JP cc,nn
 void jp_nz_nn(GB *vm, u16 address) {
   if (!(vm->r.f & 0x80)) {
-    vm->r.pc = address;
+    vm->r.pc = address - 2;
   }
 }
 

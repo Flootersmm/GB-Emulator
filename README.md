@@ -48,4 +48,4 @@ chmod +x generate_clangd.sh
 
 ### Current progress:
 
-Failing cpu_instrs 1, 2, 8, 11.
+Failing cpu_instrs 2.
