@@ -983,13 +983,16 @@ void nop(GB *vm) {}
 void halt(GB *vm) { vm->flag.halt = true; }
 
 // 8. STOP
-void stop(GB *vm) { vm->flag.stop = true; }
+void stop(GB *vm) {
+  vm->flag.stop = true;
+  vm->mem.data[0xFF04] = 0;
+}
 
 // 9. DI
-void di(GB *vm) { vm->flag.interrupt_disable_pending = true; }
+void di(GB *vm) { vm->flag.interrupt_disable_handling = true; }
 
 // 10. EI
-void ei(GB *vm) { vm->flag.interrupt_enable_pending = true; }
+void ei(GB *vm) { vm->flag.interrupt_enable_handling = true; }
 
 // 3.3.6 Rotates & Shifts
 // 1. RLCA

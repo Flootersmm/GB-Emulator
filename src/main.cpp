@@ -28,19 +28,19 @@ void emulator_thread(GB *vm) {
       if (breakpoint_hit) {
         if (step_requested) {
           step(vm);
-          step_requested = true;
+          step_requested = false;
         }
       } else {
         step(vm);
 
-        if (vm->r.pc == 0xFFFFFF) { // Change for breakpoint
+        if (vm->r.pc == 0x2817F) { // Change for breakpoint
           breakpoint_hit = true;
           step_requested = false;
         }
       }
     }
     std::this_thread::sleep_for(std::chrono::microseconds(static_cast<int>(
-        (vm->timer_counter / GAMEBOY_CLOCK_SPEED) * 10000))); // 1000000
+        (vm->timer_counter / GAMEBOY_CLOCK_SPEED) * 1000))); // 1000000
   }
 }
 

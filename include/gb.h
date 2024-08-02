@@ -67,10 +67,11 @@ COLOUR get_colour(GB *vm, u8 colour_num, u16 address);
 void set_pixel(GB *vm, int x, int y, u32 color);
 void render_sprites(GB *vm);
 int bit_get_val(u8 byte, int bit);
-bool test_bit(u8 byte, int bit);
+bool test_bit(u8 byte, u8 bit);
 u8 get_joypad_state(GB *vm);
-void key_pressed(GB *vm, int key);
+void key_pressed(GB *vm, u8 key);
 void key_released(GB *vm, int key);
+void debug_tile_display(GB *vm);
 
 // gui.c forward declarations
 GLFWwindow *window_init(void);

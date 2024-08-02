@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#define LY 0xFF44
+
 /// Cartridge type enum
 typedef enum {
   ROM_ONLY = 0x00,
@@ -136,8 +138,8 @@ typedef struct {
   bool halt;
   bool stop;
   bool interrupt_master_enable;
-  bool interrupt_disable_pending;
-  bool interrupt_enable_pending;
+  bool interrupt_disable_handling;
+  bool interrupt_enable_handling;
   ConsoleType type;
 } Flags;
 
@@ -227,6 +229,10 @@ typedef struct {
   } func;
 } OPS_extended;
 
+typedef struct {
+  u8 mode;
+} PPU;
+
 /// Main GB struct
 struct GB {
   i32 dummy;
@@ -238,7 +244,9 @@ struct GB {
   ZPM zpm;
   VRAM vram;
   OPS op;
-  int timer_counter;
+  PPU ppu;
+  u16 timer_counter;
+  u16 clock_frequency;
   int divider_counter;
   u8 tmc;
   u8 divider_register;

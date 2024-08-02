@@ -46,7 +46,6 @@ GB *gb_init(const char *rom_path) {
       .divider_register = 0,
       .tima = 0,
       .tma = 0,
-      .current_scanline = 0,
   };
 
   if (!vm->mem.data) {
@@ -95,8 +94,6 @@ GB *gb_init(const char *rom_path) {
     fclose(logfile);
   }
 
-  fclose(fp);
-
   // TODO: place 256 byte program into 0x0000, this is the poweron program
   // get from disassembly online
   // marc.rawer.de/Gameboy/Docs/GBCPUman.pdf 2.7
@@ -134,9 +131,10 @@ int _gb_power_on(GB *vm) {
   memcpy(vm->mem.data, vm->cart.data, vm->cart.size);
 
   vm->flag.halt = false;
+  vm->flag.stop = false;
   vm->flag.interrupt_master_enable = false;
-  vm->flag.interrupt_disable_pending = false;
-  vm->flag.interrupt_enable_pending = false;
+  vm->flag.interrupt_disable_handling = false;
+  vm->flag.interrupt_enable_handling = false;
 
   // TODO: fix this
   vm->flag.type.code = 0x00;
@@ -542,17 +540,18 @@ void _cart_header_set_flags(GB *vm) {
 }
 
 void step(GB *vm) {
-  FILE *logfile = fopen("cpu_log.txt", "a");
-  if (logfile) {
-    fprintf(logfile,
-            "A:%02X F:%02X B:%02X C:%02X D:%02X E:%02X H:%02X L:%02X SP:%04X "
-            "PC:%04X PCMEM:%02X,%02X,%02X,%02X\n",
-            vm->r.a, vm->r.f, vm->r.b, vm->r.c, vm->r.d, vm->r.e, vm->r.h,
-            vm->r.l, vm->r.sp, vm->r.pc, read_u8(vm, vm->r.pc),
-            read_u8(vm, vm->r.pc + 1), read_u8(vm, vm->r.pc + 2),
-            read_u8(vm, vm->r.pc + 3));
-    fclose(logfile);
-  }
+  // Gameboy doctor
+  // FILE *logfile = fopen("cpu_log.txt", "a");
+  // if (logfile) {
+  //  fprintf(logfile,
+  //          "A:%02X F:%02X B:%02X C:%02X D:%02X E:%02X H:%02X L:%02X SP:%04X "
+  //          "PC:%04X PCMEM:%02X,%02X,%02X,%02X\n",
+  //          vm->r.a, vm->r.f, vm->r.b, vm->r.c, vm->r.d, vm->r.e, vm->r.h,
+  //          vm->r.l, vm->r.sp, vm->r.pc, read_u8(vm, vm->r.pc),
+  //          read_u8(vm, vm->r.pc + 1), read_u8(vm, vm->r.pc + 2),
+  //          read_u8(vm, vm->r.pc + 3));
+  //  fclose(logfile);
+  //}
 
   if (vm->flag.halt) {
     return;
@@ -592,27 +591,61 @@ void step(GB *vm) {
 
   update_timers(vm, cycles);
   update_graphics(vm, cycles);
-
-  if (vm->r.pc == 0x282a) {
-    printf("Printing Tetris tileset to tile0.bin\n");
-    FILE *f = fopen("tile0.bin", "wb");
-    if (f) {
-      fwrite(&(vm->mem.data[0x8000]), 16, 1, f);
-      fclose(f);
-    }
-  }
+  // debug_tile_display(vm);
 
   // DI and EI have a delay.
-  if (vm->flag.interrupt_disable_pending) {
+  if (vm->flag.interrupt_disable_handling) {
     vm->flag.interrupt_master_enable = false;
-    vm->flag.interrupt_disable_pending = false;
+    vm->flag.interrupt_disable_handling = false;
   }
-  if (vm->flag.interrupt_enable_pending) {
+  if (vm->flag.interrupt_enable_handling) {
     vm->flag.interrupt_master_enable = true;
-    vm->flag.interrupt_enable_pending = false;
+    vm->flag.interrupt_enable_handling = false;
   }
 
   do_interrupts(vm);
+}
+
+void debug_tile_display(GB *vm) {
+  int tile_index = 0;
+  int tile_size = 16; // Each tile is 16 bytes (8x8 pixels, 2 bits per pixel)
+
+  for (int tile_y = 0; tile_y < 144; tile_y += 8) {
+    for (int tile_x = 0; tile_x < 160; tile_x += 8) {
+      for (int y = 0; y < 8; ++y) {
+        uint8_t byte2 = vm->mem.data[0x8000 + tile_index * tile_size + y * 2];
+        uint8_t byte1 =
+            vm->mem.data[0x8000 + tile_index * tile_size + y * 2 + 1];
+
+        for (int x = 0; x < 8; ++x) {
+          uint8_t bit1 = (byte1 >> (7 - x)) & 1;
+          uint8_t bit2 = (byte2 >> (7 - x)) & 1;
+          uint8_t color = (bit2 << 1) | bit1;
+
+          uint8_t r = 0, g = 0, b = 0;
+          switch (color) {
+          case 0:
+            r = g = b = 255;
+            break; // White
+          case 1:
+            r = g = b = 192;
+            break; // Light gray
+          case 2:
+            r = g = b = 96;
+            break; // Dark gray
+          case 3:
+            r = g = b = 0;
+            break; // Black
+          }
+
+          vm->framebuffer[tile_y + y][tile_x + x][0] = r;
+          vm->framebuffer[tile_y + y][tile_x + x][1] = g;
+          vm->framebuffer[tile_y + y][tile_x + x][2] = b;
+        }
+      }
+      tile_index++;
+    }
+  }
 }
 
 void update_graphics(GB *vm, int cycles) {
@@ -625,16 +658,15 @@ void update_graphics(GB *vm, int cycles) {
   vm->scanline_counter -= cycles;
 
   if (vm->scanline_counter <= 0) {
-    vm->mem.data[0xFF44]++;
-    vm->current_scanline = read_u8(vm, 0xFF44);
+    vm->mem.data[LY]++;
 
     vm->scanline_counter = 456;
 
-    if (vm->current_scanline == 144) {
+    if (vm->mem.data[LY] == 144) {
       request_interrupt(vm, 0);
-    } else if (vm->current_scanline > 153) {
-      write_u8(vm, 0xFF44, 0);
-    } else if (vm->current_scanline < 144) {
+    } else if (vm->mem.data[LY] > 153) {
+      write_u8(vm, LY, 0);
+    } else if (vm->mem.data[LY] < 144) {
       draw_scanline(vm);
     }
   }
@@ -644,14 +676,14 @@ void set_lcd_status(GB *vm) {
   u8 status = read_u8(vm, 0xFF41);
   if (!is_lcd_enabled(vm)) {
     vm->scanline_counter = 456;
-    vm->mem.data[0xFF44] = 0;
+    vm->mem.data[LY] = 0;
     status &= 252;
     status |= 1;
     write_u8(vm, 0xFF41, status);
     return;
   }
 
-  u8 current_line = read_u8(vm, 0xFF44);
+  u8 current_line = read_u8(vm, LY);
   u8 current_mode = status & 0x3;
   u8 mode = 0;
   bool req_int = false;
@@ -706,12 +738,14 @@ bool is_lcd_enabled(GB *vm) { return (read_u8(vm, 0xFF40) & 0x80) != 0; }
 ///
 /// @return Byte from memory address
 u8 read_u8(GB *vm, u16 addr) {
-  if (addr == 0xFF44) {
-    return vm->current_scanline;
+  // TODO: odd timer behaviour when writing to TAC.
 
-    // Gameboy doctor
+  // Gameboy doctor
+  if (addr == 0xFF44) {
     // return 0x90;
-  } else if (addr == 0xFF00) {
+  }
+
+  if (addr == 0xFF00) {
     return get_joypad_state(vm);
   } else if (addr >= vm->mem.size) {
     return 0xFF;
@@ -736,10 +770,10 @@ u16 read_u16(GB *vm, u16 addr) {
 /// @param addr Memory address
 /// @param value Value to write
 void write_u8(GB *vm, u16 addr, u8 value) {
-  if (addr == 0xFF44) {
-    vm->mem.data[0xFF44] = 0;
-  } else if (addr == 0xFF46) {
+  if (addr == 0xFF46) {
     do_dma_transfer(vm, value);
+  } else if (addr == 0xFF04) {
+    vm->mem.data[0xFF04] = 0;
   } else if (addr == 0xFF00) {
     vm->mem.data[addr] = value;
   } else if (addr < 0x8000) {
@@ -806,37 +840,46 @@ void do_dma_transfer(GB *vm, u8 data) {
 /// @param vm GB *vm
 /// @param cycles Number of cycles to update timers with
 void update_timers(GB *vm, u16 cycles) {
-  do_divider_register(vm, cycles);
-
   if (is_clock_enabled(vm)) {
-    vm->timer_counter -= cycles;
+    vm->timer_counter += cycles;
 
-    if (vm->timer_counter <= 0) {
-      set_clock_freq(vm);
+    if (vm->timer_counter >= vm->clock_frequency) {
+      vm->timer_counter = 0;
+      bool overflow = false;
 
-      if (read_u8(vm, 0xFF05) == 255) {
-        write_u8(vm, 0xFF05, read_u8(vm, 0xFF06));
+      if (read_u8(vm, 0xFF05) == 0xFF) {
+        overflow = true;
+        vm->mem.data[0xFF05]++;
+      }
+
+      if (overflow) {
+        vm->mem.data[0xFF05] = vm->mem.data[0xFF06];
+
         request_interrupt(vm, 2);
-      } else {
-        write_u8(vm, 0xFF05, read_u8(vm, 0xFF05) + 1);
       }
     }
   }
+
+  do_divider_register(vm, cycles);
 }
 
 /// Handle the divider register
 ///
+/// Incremented at 16384Hz.
+///
 /// @param vm GB *vm
 /// @param cycles Number of cycles to update divider with
 void do_divider_register(GB *vm, u16 cycles) {
-  vm->divider_register += cycles;
-  if (vm->divider_counter >= 256) { // 255?
-    vm->divider_counter = 0;
+  vm->divider_counter += cycles;
+  if (vm->divider_counter >= 0xFF) { // 255?
+    vm->divider_counter -= 0xFF;
     vm->mem.data[0xFF04]++;
   }
 }
 
 /// Check if the clock is enabled
+///
+/// Reads bit 2 of TAC, 0xFF07
 ///
 /// @param vm GB *vm
 /// @return True if the clock is enabled, false otherwise
@@ -844,31 +887,38 @@ bool is_clock_enabled(GB *vm) { return (read_u8(vm, 0xFF07) & 0x04) != 0; }
 
 /// Get the clock frequency
 ///
+/// Reads bit 1 of TAC, 0xFF07
+///
 /// @param vm GB *vm
 /// @return Clock frequency as an 8-bit value
 u8 get_clock_freq(GB *vm) { return read_u8(vm, 0xFF07) & 0x03; }
 
 /// Set the clock frequency
 ///
+/// Based on bit 1 of TAC, we increment our timer_counter at various M-cycle
+/// frequencies.
+///
 /// @param vm GB *vm
 void set_clock_freq(GB *vm) {
   switch (get_clock_freq(vm)) {
   case 0:
-    vm->timer_counter = 1024;
+    vm->clock_frequency = 1024;
     break;
   case 1:
-    vm->timer_counter = 16;
+    vm->clock_frequency = 16;
     break;
   case 2:
-    vm->timer_counter = 64;
+    vm->clock_frequency = 64;
     break;
   case 3:
-    vm->timer_counter = 256;
+    vm->clock_frequency = 256;
     break;
   }
 }
 
 /// Request an interrupt
+///
+/// Read interrupt flags, set a bit, and write flags back with new set bit
 ///
 /// @param vm GB *vm
 /// @param interrupt_flag Interrupt flag to set
@@ -880,11 +930,14 @@ void request_interrupt(GB *vm, u8 interrupt_flag) {
 
 /// Do interrupt routine
 ///
+/// Checks if IME is set, then checks for enabled AND requested interrupts, and
+/// services all of them
+///
 /// @param vm GB *vm
 void do_interrupts(GB *vm) {
   if (vm->flag.interrupt_master_enable) {
-    u8 req = read_u8(vm, 0xFF0F);     // Interrupt Request Register
-    u8 enabled = read_u8(vm, 0xFFFF); // Interrupt Enable Register
+    u8 req = read_u8(vm, 0xFF0F);
+    u8 enabled = read_u8(vm, 0xFFFF);
     u8 fire = req & enabled;
 
     if (fire > 0) {
@@ -902,9 +955,7 @@ void service_interrupt(GB *vm, u8 interrupt) {
   vm->flag.interrupt_master_enable = false;
 
   vm->r.sp -= 2;
-  write_u16(vm, vm->r.sp, vm->r.pc);
-
-  printf("Servicing interrupt %d\n", interrupt);
+  write_u16(vm, vm->r.sp, vm->r.pc); // Push PC to stack, interrupts are calls
 
   switch (interrupt) {
   case 0:
@@ -928,9 +979,9 @@ void service_interrupt(GB *vm, u8 interrupt) {
 
   u8 req = read_u8(vm, 0xFF0F);
   req &= ~(1 << interrupt);
-  write_u8(vm, 0xFF0F, req);
+  write_u8(vm, 0xFF0F, req); // Unset the requested interrupt
 
-  vm->cycles += 20;
+  vm->cycles += 20; // 5 M-cycles
 }
 
 void draw_scanline(GB *vm) {
@@ -945,138 +996,134 @@ void draw_scanline(GB *vm) {
 }
 
 void render_tiles(GB *vm) {
-  u16 tile_data = 0;
-  u16 background_memory = 0;
-  bool unsig = true;
+  if (test_bit(vm->mem.data[0xFF40], 0)) {
+    u16 tile_data = 0;
+    u16 background_memory = 0;
+    bool unsig = true;
 
-  u8 scroll_x = read_u8(vm, 0xFF42);
-  u8 scroll_y = read_u8(vm, 0xFF43);
-  u8 window_x = read_u8(vm, 0xFF4A);
-  u8 window_y = read_u8(vm, 0xFF4B) - 7;
+    u8 scroll_x = read_u8(vm, 0xFF42);
+    u8 scroll_y = read_u8(vm, 0xFF43);
+    u8 window_x = read_u8(vm, 0xFF4A);
+    u8 window_y = read_u8(vm, 0xFF4B) - 7;
 
-  bool using_window = false;
+    bool using_window = false;
 
-  if (test_bit(vm->mem.data[0xFF40], 4)) {
-    tile_data = 0x8000;
-  } else {
-    tile_data = 0x8800;
-    unsig = false;
-  }
-
-  if (false == using_window) {
-    if (test_bit(vm->mem.data[0xFF40], 3)) {
-      background_memory = 0x9C00;
+    if (test_bit(vm->mem.data[0xFF40], 5)) {
+      if (window_y <= read_u8(vm, 0xFF44))
+        using_window = true;
     } else {
-      background_memory = 0x9800;
+      using_window = false;
     }
-  } else {
-    if (test_bit(vm->mem.data[0xFF40], 6)) {
-      background_memory = 0x9C00;
+
+    if (test_bit(vm->mem.data[0xFF40], 4)) {
+      tile_data = 0x8000;
     } else {
-      background_memory = 0x9800;
+      tile_data = 0x8800;
+      unsig = false;
     }
-  }
 
-  u8 y_pos = 0;
-
-  if (!using_window) {
-    y_pos = scroll_y + read_u8(vm, 0xFF44);
-  } else {
-    y_pos = read_u8(vm, 0xFF44) - window_y;
-  }
-
-  u16 tile_row = (((u8)(y_pos / 8)) * 8);
-
-  for (int pixel = 0; pixel < 160; pixel++) {
-    u8 x_pos = pixel + scroll_x;
-
-    if (using_window) {
-      if (pixel >= window_x) {
-        x_pos = pixel - window_x;
+    if (!using_window) {
+      if (test_bit(vm->mem.data[0xFF40], 3)) {
+        background_memory = 0x9C00;
+      } else {
+        background_memory = 0x9800;
+      }
+    } else {
+      if (test_bit(vm->mem.data[0xFF40], 6)) {
+        background_memory = 0x9C00;
+      } else {
+        background_memory = 0x9800;
       }
     }
 
-    u16 tile_col = (x_pos / 8);
-    i16 tile_num;
+    u8 y_pos = 0;
 
-    u16 tile_address = background_memory + tile_row + tile_col;
-    if (unsig) {
-      tile_num = (u8)read_u8(vm, tile_address);
+    if (!using_window) {
+      y_pos = scroll_y + read_u8(vm, LY);
     } else {
-      tile_num = (i8)read_u8(vm, tile_address);
+      y_pos = read_u8(vm, LY) - window_y;
     }
 
-    u16 tile_location = tile_data;
+    u16 tile_row = (((u8)(y_pos / 8)) * 32);
 
-    if (unsig) {
-      tile_location += (tile_num * 16);
-    } else {
-      tile_location += ((tile_num + 128) * 16);
+    for (int pixel = 0; pixel < 160; pixel++) {
+      u8 x_pos = pixel + scroll_x;
+
+      if (using_window) {
+        if (pixel >= window_x) {
+          x_pos = pixel - window_x;
+        }
+      }
+
+      u16 tile_col = (x_pos / 8);
+      i16 tile_num;
+
+      u16 tile_address = background_memory + tile_row + tile_col;
+      if (unsig) {
+        tile_num = (u8)read_u8(vm, tile_address);
+      } else {
+        tile_num = (i8)read_u8(vm, tile_address);
+      }
+
+      u16 tile_location = tile_data;
+
+      if (unsig) {
+        tile_location += (tile_num * 16);
+      } else {
+        tile_location += ((tile_num + 128) * 16);
+      }
+
+      u8 line = y_pos % 8;
+      line *= 2;
+
+      u8 data_1 = read_u8(vm, (tile_location + line));
+      u8 data_2 = read_u8(vm, (tile_location + line + 1));
+
+      i16 colour_bit = x_pos % 8;
+      colour_bit = 7 - colour_bit;
+
+      i16 colour_num = ((data_2 >> colour_bit) & 1) << 1;
+      colour_num |= (data_1 >> colour_bit) & 1;
+
+      COLOUR col = get_colour(vm, colour_num, 0xFF47);
+      i16 red = 0;
+      i16 green = 0;
+      i16 blue = 0;
+
+      switch (col) {
+      case WHITE:
+        red = (WHITE >> 16) & 0xFF;
+        green = (WHITE >> 8) & 0xFF;
+        blue = WHITE & 0xFF;
+        break;
+      case LIGHT_GRAY:
+        red = (LIGHT_GRAY >> 16) & 0xFF;
+        green = (LIGHT_GRAY >> 8) & 0xFF;
+        blue = LIGHT_GRAY & 0xFF;
+        break;
+      case DARK_GRAY:
+        red = (DARK_GRAY >> 16) & 0xFF;
+        green = (DARK_GRAY >> 8) & 0xFF;
+        blue = DARK_GRAY & 0xFF;
+        break;
+      case BLACK:
+        red = (BLACK >> 16) & 0xFF;
+        green = (BLACK >> 8) & 0xFF;
+        blue = BLACK & 0xFF;
+        break;
+      }
+
+      i16 finally = read_u8(vm, LY);
+      if ((finally < 0) || (finally > 143) || (pixel < 0) || (pixel > 159)) {
+        continue;
+      }
+
+      vm->framebuffer[finally][pixel][0] = red;
+      vm->framebuffer[finally][pixel][1] = green;
+      vm->framebuffer[finally][pixel][2] = blue;
     }
-
-    u8 line = y_pos % 8;
-    line *= 2;
-
-    u8 data_1 = read_u8(vm, (tile_location + line));
-    u8 data_2 = read_u8(vm, (tile_location + line + 1));
-
-    i16 colour_bit = x_pos % 8;
-    colour_bit -= 7;
-    colour_bit *= -1;
-
-    i16 colour_num = ((data_2 >> colour_bit) & 1) << 1;
-    colour_num |= (data_1 >> colour_bit) & 1;
-
-    COLOUR col = get_colour(vm, colour_num, 0xFF47);
-    i16 red = 0;
-    i16 green = 0;
-    i16 blue = 0;
-
-    switch (col) {
-    case WHITE:
-      red = (WHITE >> 16) & 0xFF;
-      green = (WHITE >> 8) & 0xFF;
-      blue = WHITE & 0xFF;
-      break;
-    case LIGHT_GRAY:
-      red = (LIGHT_GRAY >> 16) & 0xFF;
-      green = (LIGHT_GRAY >> 8) & 0xFF;
-      blue = LIGHT_GRAY & 0xFF;
-      break;
-    case DARK_GRAY:
-      red = (DARK_GRAY >> 16) & 0xFF;
-      green = (DARK_GRAY >> 8) & 0xFF;
-      blue = DARK_GRAY & 0xFF;
-      break;
-    case BLACK:
-      red = (BLACK >> 16) & 0xFF;
-      green = (BLACK >> 8) & 0xFF;
-      blue = BLACK & 0xFF;
-      break;
-    }
-
-    i16 finally = read_u8(vm, 0xFF44);
-    if ((finally < 0) || (finally > 143) || (pixel < 0) || (pixel > 159)) {
-      continue;
-    }
-
-    vm->framebuffer[pixel][finally][0] = red;
-    vm->framebuffer[pixel][finally][1] = green;
-    vm->framebuffer[pixel][finally][2] = blue;
-
-    // for (int x = 0; x < 144; x++) {
-    //   for (int y = 0; y < 160; y++) {
-    //     if ((x + y) % 10 == 0) {
-    //       vm->framebuffer[x][y][0] = red;
-    //       vm->framebuffer[x][y][1] = green;
-    //       vm->framebuffer[x][y][2] = blue;
-    //     }
-    //   }
-    // }
   }
 }
-
-void render_background(GB *vm) {}
 
 COLOUR get_colour(GB *vm, u8 colour_num, u16 address) {
   COLOUR res = WHITE;
@@ -1128,99 +1175,100 @@ COLOUR get_colour(GB *vm, u8 colour_num, u16 address) {
 void set_pixel(GB *vm, int x, int y, u32 color) {}
 
 void render_sprites(GB *vm) {
-  bool use_8x16 = false;
+  if (test_bit(vm->mem.data[0xFF40], 1)) {
+    bool use_8x16 = false;
 
-  if (test_bit(vm->mem.data[0xFF40], 2)) {
-    use_8x16 = true;
-  }
-
-  for (int sprite = 0; sprite < 40; sprite++) {
-    u8 index = sprite * 4;
-    u8 y_pos = read_u8(vm, 0xFE00 + index) - 16;
-    u8 x_pos = read_u8(vm, 0xFE00 + index + 1) - 8;
-    u8 tile_location = read_u8(vm, 0xFE00 + index + 2);
-    u8 attributes = read_u8(vm, 0xFE00 + index + 3);
-
-    bool y_flip = test_bit(attributes, 6);
-    bool x_flip = test_bit(attributes, 5);
-
-    i16 scanline = read_u16(vm, 0xFF44);
-
-    i16 y_size = 8;
-    if (use_8x16) {
-      y_size = 16;
+    if (test_bit(vm->mem.data[0xFF40], 2)) {
+      use_8x16 = true;
     }
 
-    if ((scanline >= y_pos) && (scanline < (y_pos + y_size))) {
-      i16 line = scanline - y_pos;
+    for (int sprite = 0; sprite < 40; sprite++) {
+      u8 index = sprite * 4;
+      u8 y_pos = read_u8(vm, 0xFE00 + index) - 16;
+      u8 x_pos = read_u8(vm, 0xFE00 + index + 1) - 8;
+      u8 tile_location = read_u8(vm, 0xFE00 + index + 2);
+      u8 attributes = read_u8(vm, 0xFE00 + index + 3);
 
-      if (y_flip) {
-        line -= y_size;
-        line *= -1;
-      }
+      bool y_flip = test_bit(attributes, 6);
+      bool x_flip = test_bit(attributes, 5);
 
-      line *= 2;
-      u16 data_address = (0x8000 + (tile_location * 16)) + line;
-      u8 data_1 = read_u8(vm, data_address);
-      u8 data_2 = read_u8(vm, data_address + 1);
+      i16 scanline = read_u16(vm, LY);
 
-      for (int tile_pixel = 7; tile_pixel >= 0; tile_pixel--) {
-        i16 colour_bit = tile_pixel;
+      i16 y_size = use_8x16 ? 16 : 8;
 
-        if (x_flip) {
-          colour_bit -= 7;
-          colour_bit *= -1;
+      if ((scanline >= y_pos) && (scanline < (y_pos + y_size))) {
+        i16 line = scanline - y_pos;
+
+        if (y_flip) {
+          line = y_size - 1 - line;
         }
 
-        i16 colour_num = ((data_2 >> colour_bit) & 1) << 1;
-        colour_num |= (data_1 >> colour_bit) & 1;
+        line *= 2;
+        u16 data_address = (0x8000 + (tile_location * 16)) + line;
+        u8 data_1 = read_u8(vm, data_address);
+        u8 data_2 = read_u8(vm, data_address + 1);
 
-        COLOUR col = get_colour(vm, colour_num, 0xFF47);
+        for (int tile_pixel = 7; tile_pixel >= 0; tile_pixel--) {
+          i16 colour_bit = x_flip ? tile_pixel : 7 - tile_pixel;
 
-        if (col == WHITE) {
-          continue;
+          i16 colour_num = ((data_2 >> colour_bit) & 1) << 1;
+          colour_num |= (data_1 >> colour_bit) & 1;
+
+          COLOUR col = get_colour(vm, colour_num,
+                                  test_bit(attributes, 4) ? 0xFF49 : 0xFF48);
+
+          if (col == WHITE) {
+            continue;
+          }
+
+          i16 red = 0;
+          i16 green = 0;
+          i16 blue = 0;
+
+          switch (col) {
+          case WHITE:
+            red = (WHITE >> 16) & 0xFF;
+            green = (WHITE >> 8) & 0xFF;
+            blue = WHITE & 0xFF;
+            break;
+          case LIGHT_GRAY:
+            red = (LIGHT_GRAY >> 16) & 0xFF;
+            green = (LIGHT_GRAY >> 8) & 0xFF;
+            blue = LIGHT_GRAY & 0xFF;
+            break;
+          case DARK_GRAY:
+            red = (DARK_GRAY >> 16) & 0xFF;
+            green = (DARK_GRAY >> 8) & 0xFF;
+            blue = DARK_GRAY & 0xFF;
+            break;
+          case BLACK:
+            red = (BLACK >> 16) & 0xFF;
+            green = (BLACK >> 8) & 0xFF;
+            blue = BLACK & 0xFF;
+            break;
+          }
+
+          i16 x_pix = 0 - tile_pixel;
+          x_pix += 7;
+
+          i16 pixel = x_pos + x_pix;
+
+          if ((scanline < 0) || (scanline > 143) || (pixel < 0) ||
+              (pixel > 159)) {
+            continue;
+          }
+
+          if (test_bit(attributes, 7) &&
+              (vm->framebuffer[scanline][x_pix][0] != 255 ||
+               vm->framebuffer[scanline][x_pix][1] != 255 ||
+               vm->framebuffer[scanline][x_pix][2] != 255)) {
+            continue;
+          }
+
+          vm->framebuffer[scanline][x_pix][0] = red;
+          vm->framebuffer[scanline][x_pix][1] = green;
+          vm->framebuffer[scanline][x_pix][2] = blue;
         }
-
-        i16 red = 0;
-        i16 green = 0;
-        i16 blue = 0;
-
-        switch (col) {
-        case WHITE:
-          red = (WHITE >> 16) & 0xFF;
-          green = (WHITE >> 8) & 0xFF;
-          blue = WHITE & 0xFF;
-          break;
-        case LIGHT_GRAY:
-          red = (LIGHT_GRAY >> 16) & 0xFF;
-          green = (LIGHT_GRAY >> 8) & 0xFF;
-          blue = LIGHT_GRAY & 0xFF;
-          break;
-        case DARK_GRAY:
-          red = (DARK_GRAY >> 16) & 0xFF;
-          green = (DARK_GRAY >> 8) & 0xFF;
-          blue = DARK_GRAY & 0xFF;
-          break;
-        case BLACK:
-          red = (BLACK >> 16) & 0xFF;
-          green = (BLACK >> 8) & 0xFF;
-          blue = BLACK & 0xFF;
-          break;
-        }
-
-        i16 x_pix = 0 - tile_pixel;
-        x_pix += 7;
-
-        i16 pixel = x_pos + x_pix;
-
-        if ((scanline < 0) || (scanline > 143) || (pixel < 0) ||
-            (pixel > 159)) {
-          continue;
-        }
-
-        vm->framebuffer[tile_pixel][scanline][0] = red;
-        vm->framebuffer[tile_pixel][scanline][1] = green;
-        vm->framebuffer[tile_pixel][scanline][2] = blue;
       }
     }
   }
@@ -1240,10 +1288,18 @@ int bit_get_val(u8 byte, int bit) { return (byte >> bit) & 1; }
 /// @param bit Bit to test
 ///
 /// @return True if bit is 1, false if bit is 0
-bool test_bit(u8 byte, int bit) { return (byte & (1 << bit)) != 0; }
+bool test_bit(u8 byte, u8 bit) { return (byte & (1 << bit)) != 0; }
 
+/// Get joypad state
+///
+/// In the joypad bit, 0xFF00, the high nibble is directional buttons and the
+/// low nibble is action buttons (start, select)
+///
+/// @param vm GB *vm
+///
+/// @return Joypad state bit
 u8 get_joypad_state(GB *vm) {
-  u8 res = vm->mem.data[0xFF00];
+  u8 res = vm->mem.data[0xFF00]; // Direct read, otherwise inaccessible
   res ^= 0xFF;
 
   if (!(res & 0x10)) {
@@ -1260,7 +1316,13 @@ u8 get_joypad_state(GB *vm) {
   return res;
 }
 
-void key_pressed(GB *vm, int key) {
+/// Handles a joypad key press
+///
+/// Called in gui.cpp, during Dear ImGUI key handling
+///
+/// @param vm GB *vm
+/// @param key Key to process
+void key_pressed(GB *vm, u8 key) {
   bool previously_unset = !(vm->joypad_state & (1 << key));
 
   vm->joypad_state &= ~(1 << key);
@@ -1275,17 +1337,21 @@ void key_pressed(GB *vm, int key) {
     request_interrupt_bool = true;
   }
 
-  if (request_interrupt_bool && !previously_unset) {
+  if (!request_interrupt_bool && !previously_unset) {
     request_interrupt(vm, 4);
   }
 
-  // Ensure the joypad state is updated in memory
   vm->mem.data[0xFF00] = key_req;
 }
 
+/// Handles a joypad key release
+///
+/// Called in gui.cpp, during Dear ImGUI key handling, unsets joypad key bit
+///
+/// @param vm GB *vm
+/// @param key Key to process
 void key_released(GB *vm, int key) {
   vm->joypad_state |= (1 << key);
-  // Ensure the joypad state is updated in memory
   vm->mem.data[0xFF00] = vm->joypad_state;
 }
 

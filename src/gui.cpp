@@ -202,6 +202,12 @@ void draw_window_crude_debug(GB *vm) {
     ImGui::EndMenuBar();
   }
 
+  if (ImGui::Button("Step")) {
+    {
+      step_requested = true;
+    }
+  }
+
   if (ImGui::CollapsingHeader("ROM Info")) {
 
     ImGui::Text("Path: %s", vm->rom_path);
@@ -289,6 +295,8 @@ if (ImGui::CollapsingHeader("Registers")) {
     ImGui::Text("HL:"); ImGui::SameLine(40); ImGui::Text("$%04X", vm->r.hl);
     ImGui::Text("PC:"); ImGui::SameLine(40); ImGui::Text("$%04X", vm->r.pc);
     ImGui::Text("SP:"); ImGui::SameLine(40); ImGui::Text("$%04X", vm->r.sp);
+    ImGui::Text("STAT:"); ImGui::SameLine(40); ImGui::Text("$%04X", vm->mem.data[0xFF41]);
+    ImGui::Text("LY:"); ImGui::SameLine(40); ImGui::Text("$%04X", vm->mem.data[LY]);
     
     ImGui::Columns(1);
     
@@ -300,13 +308,13 @@ if (ImGui::CollapsingHeader("Registers")) {
     u8 interrupt_enable = read_u8(vm, 0xFFFF);
     ImGui::Separator();
 
-    ImGui::Text("Interrupts Requested: V-Blank:%d LCD:%d Timer:%d Joypad:%d",
+    ImGui::Text("Interrupts Requested: V-Blank: %d LCD: %d Timer: %d Joypad: %d",
                 (interrupt_flags >> 0) & 1,  // V-Blank
                 (interrupt_flags >> 1) & 1,  // LCD
                 (interrupt_flags >> 2) & 1,  // Timer
                 (interrupt_flags >> 4) & 1); // Joypad
 
-    ImGui::Text("Interrupts Enabled: V-Blank:%d LCD:%d Timer:%d Joypad:%d",
+    ImGui::Text("Interrupts Enabled:   V-Blank: %d LCD: %d Timer: %d Joypad: %d",
                 (interrupt_enable >> 0) & 1,  // V-Blank
                 (interrupt_enable >> 1) & 1,  // LCD
                 (interrupt_enable >> 2) & 1,  // Timer
@@ -335,6 +343,7 @@ if (ImGui::CollapsingHeader("Registers")) {
     ImGui::Separator();
     u8 lcd_control = vm->mem.data[0xFF40];
     ImGui::Text("LCD Control Register: 0x%02X", lcd_control);
+    ImGui::Text("Scanline counter: %04x", vm->scanline_counter);
 
     ImGui::Separator();
 
@@ -419,11 +428,6 @@ if (ImGui::CollapsingHeader("Registers")) {
   ImGui::Separator();
   ImGui::NewLine();
 
-  if (ImGui::Button("Step")) {
-    {
-      step_requested = true;
-    }
-  }
 
   ImGui::SliderFloat("Font scale", &fontScale, 1.0f, 3.0f, "%.1f");
   ImGui::Text("Application average %.3f ms/frame (%.1f FPS)",
@@ -452,9 +456,17 @@ void draw_rom_viewer_window(GB *vm) {
       if (vm->r.pc == index) {
         ImGui::TextColored(ImVec4(1.0f, 0.0f, 0.0f, 1.0f), "%02X",
                            vm->mem.data[index]);
+      } else if (index >= 0x8000 && index <= 0x87FF){
+        ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "%02X",
+                           vm->mem.data[index]);
       } else {
+        if (vm->mem.data[index] == 0x66 || vm->mem.data[index] == 0x3C){
+        ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "%02X",
+                           vm->mem.data[index]);
+
+        } else {
         ImGui::Text("%02X", vm->mem.data[index]);
-      }
+      }}
       if (col < 15) {
         ImGui::SameLine();
       }
