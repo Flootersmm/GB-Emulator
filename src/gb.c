@@ -1005,8 +1005,8 @@ void render_tiles(GB *vm) {
     u16 background_memory = 0;
     bool unsig = true;
 
-    u8 scroll_x = read_u8(vm, 0xFF42);
-    u8 scroll_y = read_u8(vm, 0xFF43);
+    u8 scroll_y = read_u8(vm, 0xFF42);
+    u8 scroll_x = read_u8(vm, 0xFF43);
     u8 window_x = read_u8(vm, 0xFF4A);
     u8 window_y = read_u8(vm, 0xFF4B) - 7;
 
@@ -1051,7 +1051,7 @@ void render_tiles(GB *vm) {
     u16 tile_row = (((u8)(y_pos / 8)) * 32);
 
     for (int pixel = 0; pixel < 160; pixel++) {
-      u8 x_pos = pixel + scroll_x;
+      u8 x_pos = pixel + scroll_x; // + scroll_y instead? seems to owrk nicer
 
       if (using_window) {
         if (pixel >= window_x) {
