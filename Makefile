@@ -13,7 +13,7 @@ ODIR = obj
 SRCDIR = src
 
 LIBS = -lm -ldl -lreadline
-GUI_LIBS = -lglfw -lGL `sdl2-config --libs`
+GUI_LIBS = -lglfw -lGL `sdl2-config --libs` 
 
 DEPS = $(wildcard $(IDIR)/*.h) $(wildcard $(IDIR_DEAR_IMGUI)/*.h)
 CSRCS = $(wildcard $(SRCDIR)/*.c)

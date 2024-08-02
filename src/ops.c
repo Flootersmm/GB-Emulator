@@ -932,7 +932,7 @@ void swap_hl(GB *vm) {
 void daa(GB *vm) {
   // https://forums.nesdev.org/viewtopic.php?t=15944
   // My saviour
-  vm->cycles += 4;
+  vm->cycles += 16;
   unsigned short s = vm->r.a;
   int n_flag = vm->r.f & 0x40;
   int h_flag = vm->r.f & 0x20;

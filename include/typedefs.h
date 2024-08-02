@@ -146,6 +146,7 @@ typedef struct {
 /// Memory map, with u8 items and u32 size
 typedef struct {
   u8 *data;             ///> 0x0000-FFFF
+  u8 *boot_rom;         ///> 0x0000-0100: Nintendo boot rom
   u8 *rom_bank0;        ///> 0x0000-3FFF: ROM Bank 0
   u8 *rom_bank1;        ///> 0x4000-7FFF: ROM Bank 1 (switchable)
   u8 *vram;             ///> 0x8000-9FFF: Video RAM
@@ -261,6 +262,7 @@ struct GB {
   u16 retrace_ly;
   u8 joypad_state;
   u8 blankcount;
+  bool paused;
 };
 
 #endif

@@ -3,6 +3,15 @@
 #include "tables.h"
 #include "typedefs.h"
 
+// Variable declarations for ROM and RAM banking
+bool m_MBC1 = false;
+bool m_MBC2 = false;
+u8 m_CurrentROMBank = 1;
+u8 m_RAMBanks[0x8000];
+u8 m_CurrentRAMBank = 0;
+bool m_EnableRAM = false;
+bool m_RomBanking = true;
+
 /// Gameboy initialisation
 ///
 /// Malloc space for the vm, set registers to appropriate values, clears ram,
@@ -40,12 +49,14 @@ GB *gb_init(const char *rom_path) {
               .item = NULL,
               .size = 255,
           },
-      .timer_counter = 0x400,
+      .timer_counter = 0,
       .divider_counter = 0,
       .tmc = 0,
       .divider_register = 0,
+      .clock_frequency = 1024,
       .tima = 0,
       .tma = 0,
+      .paused = false,
   };
 
   if (!vm->mem.data) {
@@ -54,6 +65,7 @@ GB *gb_init(const char *rom_path) {
     return NULL;
   }
 
+  vm->mem.boot_rom = vm->mem.data + 0x0000;
   vm->mem.rom_bank0 = vm->mem.data + 0x0000;
   vm->mem.rom_bank1 = vm->mem.data + 0x4000;
   vm->mem.vram = vm->mem.data + 0x8000;
@@ -88,16 +100,35 @@ GB *gb_init(const char *rom_path) {
 
   fread(vm->cart.data, vm->cart.size, sizeof(u8), fp);
 
-  // Gameboy doctor
-  FILE *logfile = fopen("cpu_log.txt", "w");
-  if (logfile) {
-    fclose(logfile);
+  FILE *boot_fp = fopen("./roms/dmg_boot.bin", "rb");
+  if (boot_fp == NULL) {
+    fprintf(stderr, "Error opening boot ROM at ./roms/dmg_boot.bin\n");
+    free(vm->cart.data);
+    free(vm);
+    return NULL;
   }
 
-  // TODO: place 256 byte program into 0x0000, this is the poweron program
-  // get from disassembly online
-  // marc.rawer.de/Gameboy/Docs/GBCPUman.pdf 2.7
-  // Then set registers to values and set ram to 0x0
+  fread(vm->mem.boot_rom, sizeof(u8), 0x0100, boot_fp);
+  fclose(boot_fp);
+
+  // Initialize RAM banks
+  memset(&m_RAMBanks, 0, sizeof(m_RAMBanks));
+  m_CurrentRAMBank = 0;
+
+  // Detect ROM bank mode
+  switch (vm->cart.data[0x147]) {
+  case 1:
+  case 2:
+  case 3:
+    m_MBC1 = true;
+    break;
+  case 5:
+  case 6:
+    m_MBC2 = true;
+    break;
+  default:
+    break;
+  }
 
   _cart_header_read(vm);
   _logo_check(vm);
@@ -127,8 +158,15 @@ int gb_destroy(GB *vm) { return 0; }
 ///
 /// @return 0 for success, -1 for failure
 int _gb_power_on(GB *vm) {
+  // To do boot rom, start with pc at 0x0000, then 'the boot ROM writes to the
+  // BANK register at $FF50, which unmaps the boot ROM. The ldh [$FF50], a
+  // instruction being located at $00FE (and being two bytes long), the first
+  // instruction executed from the cartridge ROM is at $0100.'
+  //
+  // So, we need memory banks up and running first.
 
   memcpy(vm->mem.data, vm->cart.data, vm->cart.size);
+  vm->mem.data[0xFF50] = 1; // This unmaps the boot ROM, if I had that set up
 
   vm->flag.halt = false;
   vm->flag.stop = false;
@@ -169,7 +207,7 @@ int _gb_power_on(GB *vm) {
   } else {
     _reg_set_flag(vm, 1, 0, 1, 1);
   }
-  vm->r.pc = 0x0100;
+  vm->r.pc = 0x0100; // 100 to skip boot rom
   vm->r.sp = 0xFFFE;
 
   // DMG
@@ -214,7 +252,7 @@ int _gb_power_on(GB *vm) {
   vm->mem.data[0xFF4A] = 0x00; // WY
   vm->mem.data[0xFF4B] = 0x00; // WX
   vm->mem.data[0xFFFF] = 0x00; // IE
-  //
+
   // read logo from the header, unpack it into VRAM, slowly scroll it down.
   // Once finished scrolling, play sound, read logo again, compare to copy,
   // compute header checksum.
@@ -667,6 +705,7 @@ void update_graphics(GB *vm, int cycles) {
     vm->scanline_counter = 456;
 
     if (vm->mem.data[LY] == 144) {
+      vm->mem.data[0xFF85] = 0; // Otherwise Tetris loops idk
       request_interrupt(vm, 0);
     } else if (vm->mem.data[LY] > 153) {
       write_u8(vm, LY, 0);
@@ -674,6 +713,7 @@ void update_graphics(GB *vm, int cycles) {
       draw_scanline(vm);
     }
   }
+  vm->mem.data[0xFF85] = 0xFF;
 }
 
 void set_lcd_status(GB *vm) {
@@ -733,6 +773,10 @@ void set_lcd_status(GB *vm) {
 }
 
 /// Checks the LCD enable bit at [0xFF40]
+///
+/// @param vm GB *vm
+///
+/// @return True if LCD enabled, false if LCD disabled
 bool is_lcd_enabled(GB *vm) { return (read_u8(vm, 0xFF40) & 0x80) != 0; }
 
 /// Read a byte
@@ -778,10 +822,11 @@ void write_u8(GB *vm, u16 addr, u8 value) {
     do_dma_transfer(vm, value);
   } else if (addr == 0xFF04) {
     vm->mem.data[0xFF04] = 0;
+    vm->divider_counter = 0;
   } else if (addr == 0xFF00) {
     vm->mem.data[addr] = value;
   } else if (addr < 0x8000) {
-    return;
+    // Handle ROM and RAM banking
   } else if (addr >= 0xE000 && addr < 0xFE00) {
     vm->mem.data[addr] = value;
     vm->mem.data[addr - 0x2000] = value;
@@ -806,7 +851,7 @@ void write_u16(GB *vm, u16 addr, u16 value) {
   u8 high = (value >> 8) & 0xFF;
 
   if (addr < 0x8000) {
-    return;
+    // Handle ROM and RAM banking
   } else if (addr >= 0xE000 && addr < 0xFE00) {
     vm->mem.data[addr] = low;
     vm->mem.data[addr - 0x2000] = low;
@@ -819,7 +864,7 @@ void write_u16(GB *vm, u16 addr, u16 value) {
   }
 
   if (addr + 1 < 0x8000) {
-    return;
+    // Handle ROM and RAM banking
   } else if (addr + 1 >= 0xE000 && addr + 1 < 0xFE00) {
     vm->mem.data[addr + 1] = high;
     vm->mem.data[addr + 1 - 0x2000] = high;
@@ -853,8 +898,8 @@ void update_timers(GB *vm, u16 cycles) {
 
       if (read_u8(vm, 0xFF05) == 0xFF) {
         overflow = true;
-        vm->mem.data[0xFF05]++;
       }
+      vm->mem.data[0xFF05]++;
 
       if (overflow) {
         vm->mem.data[0xFF05] = vm->mem.data[0xFF06];
@@ -875,8 +920,8 @@ void update_timers(GB *vm, u16 cycles) {
 /// @param cycles Number of cycles to update divider with
 void do_divider_register(GB *vm, u16 cycles) {
   vm->divider_counter += cycles;
-  if (vm->divider_counter >= 0xFF) { // 255?
-    vm->divider_counter -= 0xFF;
+  if (vm->divider_counter >= 256) { // 255?
+    vm->divider_counter = 0;
     vm->mem.data[0xFF04]++;
   }
 }
@@ -983,9 +1028,9 @@ void service_interrupt(GB *vm, u8 interrupt) {
 
   u8 req = read_u8(vm, 0xFF0F);
   req &= ~(1 << interrupt);
-  write_u8(vm, 0xFF0F, req); // Unset the requested interrupt
+  write_u8(vm, 0xFF0F, req);
 
-  vm->cycles += 20; // 5 M-cycles
+  vm->cycles += 20;
 }
 
 void draw_scanline(GB *vm) {
@@ -1051,7 +1096,7 @@ void render_tiles(GB *vm) {
     u16 tile_row = (((u8)(y_pos / 8)) * 32);
 
     for (int pixel = 0; pixel < 160; pixel++) {
-      u8 x_pos = pixel + scroll_x; // + scroll_y instead? seems to owrk nicer
+      u8 x_pos = pixel + scroll_x;
 
       if (using_window) {
         if (pixel >= window_x) {
@@ -1303,20 +1348,19 @@ bool test_bit(u8 byte, u8 bit) { return (byte & (1 << bit)) != 0; }
 ///
 /// @return Joypad state bit
 u8 get_joypad_state(GB *vm) {
-  u8 res = vm->mem.data[0xFF00]; // Direct read, otherwise inaccessible
+  u8 res = vm->mem.data[0xFF00];
   res ^= 0xFF;
 
-  if (!(res & 0x10)) {
+  if (!test_bit(res, 4)) {
     u8 top_joypad = vm->joypad_state >> 4;
-    top_joypad |= 0xF0;
+    res |= 0xF0;
     res &= top_joypad;
-  } else if (!(res & 0x20)) {
+  } else if (!test_bit(res, 5)) {
     u8 bottom_joypad = vm->joypad_state & 0x0F;
-    bottom_joypad |= 0xF0;
+    res |= 0xF0;
     res &= bottom_joypad;
   }
 
-  vm->mem.data[0xFF00] = res;
   return res;
 }
 
@@ -1327,25 +1371,33 @@ u8 get_joypad_state(GB *vm) {
 /// @param vm GB *vm
 /// @param key Key to process
 void key_pressed(GB *vm, u8 key) {
-  bool previously_unset = !(vm->joypad_state & (1 << key));
+  bool previously_unset = false;
 
-  vm->joypad_state &= ~(1 << key);
+  if (!test_bit(vm->joypad_state, key)) {
+    previously_unset = true;
+  }
 
-  bool button = (key > 3);
+  vm->joypad_state = vm->joypad_state &= ~(1 << key);
+
+  bool button = true;
+  if (key > 3) {
+    button = true;
+  } else {
+    button = false;
+  }
+
   u8 key_req = vm->mem.data[0xFF00];
   bool request_interrupt_bool = false;
 
-  if (button && !(key_req & 0x20)) {
+  if (button && !test_bit(key_req, 5)) {
     request_interrupt_bool = true;
-  } else if (!button && !(key_req & 0x10)) {
+  } else if (!button && !test_bit(key_req, 4)) {
     request_interrupt_bool = true;
   }
 
-  if (!request_interrupt_bool && !previously_unset) {
+  if (request_interrupt_bool && !previously_unset) {
     request_interrupt(vm, 4);
   }
-
-  vm->mem.data[0xFF00] = key_req;
 }
 
 /// Handles a joypad key release

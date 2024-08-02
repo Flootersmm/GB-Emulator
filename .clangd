@@ -1,5 +1,5 @@
 CompileFlags:
   Add: [
-    -I/home/conrad/projects/gb/include/,
-    -I/home/conrad/projects/gb/include/dear_imgui/
+    -I/home/conrad/projects/gb-emulator/include/,
+    -I/home/conrad/projects/gb-emulator/include/dear_imgui/
   ]

@@ -33,7 +33,7 @@ void emulator_thread(GB *vm) {
       } else {
         step(vm);
 
-        if (vm->r.pc == 0x2817F) { // Change for breakpoint
+        if (vm->r.pc == 0x036CFF) { // Change for breakpoint
           breakpoint_hit = true;
           step_requested = false;
         }
