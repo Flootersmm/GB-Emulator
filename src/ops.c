@@ -188,16 +188,16 @@ void ld_sp_hl(GB *vm) { vm->r.sp = vm->r.hl; }
 // 3. LD HL,SP+n
 void ld_hl_sp_n(GB *vm, u8 offset) {
   i16 result = vm->r.sp + (i8)offset;
-  _reg_set_flag(vm, 0, 0, ((vm->r.sp & 0x0F) + (offset & 0x0F)) > 0x0F,
-                ((vm->r.sp & 0xFF) + (offset & 0xFF)) > 0xFF);
+  reg_set_flag(vm, 0, 0, ((vm->r.sp & 0x0F) + (offset & 0x0F)) > 0x0F,
+               ((vm->r.sp & 0xFF) + (offset & 0xFF)) > 0xFF);
   vm->r.hl = result;
 }
 
 // 4. LDHL SP,n
 void ldhl_sp_n(GB *vm, u8 offset) {
   i16 result = vm->r.sp + (i8)offset;
-  _reg_set_flag(vm, 0, 0, ((vm->r.sp & 0x0F) + (offset & 0x0F)) > 0x0F,
-                ((vm->r.sp & 0xFF) + (offset & 0xFF)) > 0xFF);
+  reg_set_flag(vm, 0, 0, ((vm->r.sp & 0x0F) + (offset & 0x0F)) > 0x0F,
+               ((vm->r.sp & 0xFF) + (offset & 0xFF)) > 0xFF);
   vm->r.hl = result;
 }
 
@@ -252,65 +252,65 @@ void pop_hl(GB *vm) {
 // 1. ADD A,n
 void add_a_a(GB *vm) {
   u16 result = vm->r.a + vm->r.a;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.a & 0x0F)) > 0x0F, result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.a & 0x0F)) > 0x0F, result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void add_a_b(GB *vm) {
   u16 result = vm->r.a + vm->r.b;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.b & 0x0F)) > 0x0F, result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.b & 0x0F)) > 0x0F, result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void add_a_c(GB *vm) {
   u16 result = vm->r.a + vm->r.c;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.c & 0x0F)) > 0x0F, result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.c & 0x0F)) > 0x0F, result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void add_a_d(GB *vm) {
   u16 result = vm->r.a + vm->r.d;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.d & 0x0F)) > 0x0F, result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.d & 0x0F)) > 0x0F, result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void add_a_e(GB *vm) {
   u16 result = vm->r.a + vm->r.e;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.e & 0x0F)) > 0x0F, result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.e & 0x0F)) > 0x0F, result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void add_a_h(GB *vm) {
   u16 result = vm->r.a + vm->r.h;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.h & 0x0F)) > 0x0F, result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.h & 0x0F)) > 0x0F, result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void add_a_l(GB *vm) {
   u16 result = vm->r.a + vm->r.l;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.l & 0x0F)) > 0x0F, result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.l & 0x0F)) > 0x0F, result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void add_a_hl(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
   u16 result = vm->r.a + value;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (value & 0x0F)) > 0x0F, result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (value & 0x0F)) > 0x0F, result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void add_a_n(GB *vm, u8 operand) {
   u16 result = vm->r.a + operand;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (operand & 0x0F)) > 0x0F, result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (operand & 0x0F)) > 0x0F, result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
@@ -318,63 +318,63 @@ void add_a_n(GB *vm, u8 operand) {
 void adc_a_a(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u16 result = vm->r.a + vm->r.a + carry;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.a & 0x0F) + carry) > 0x0F,
-                result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.a & 0x0F) + carry) > 0x0F,
+               result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void adc_a_b(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u16 result = vm->r.a + vm->r.b + carry;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.b & 0x0F) + carry) > 0x0F,
-                result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.b & 0x0F) + carry) > 0x0F,
+               result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void adc_a_c(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u16 result = vm->r.a + vm->r.c + carry;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.c & 0x0F) + carry) > 0x0F,
-                result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.c & 0x0F) + carry) > 0x0F,
+               result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void adc_a_d(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u16 result = vm->r.a + vm->r.d + carry;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.d & 0x0F) + carry) > 0x0F,
-                result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.d & 0x0F) + carry) > 0x0F,
+               result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void adc_a_e(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u16 result = vm->r.a + vm->r.e + carry;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.e & 0x0F) + carry) > 0x0F,
-                result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.e & 0x0F) + carry) > 0x0F,
+               result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void adc_a_h(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u16 result = vm->r.a + vm->r.h + carry;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.h & 0x0F) + carry) > 0x0F,
-                result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.h & 0x0F) + carry) > 0x0F,
+               result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void adc_a_l(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u16 result = vm->r.a + vm->r.l + carry;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (vm->r.l & 0x0F) + carry) > 0x0F,
-                result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (vm->r.l & 0x0F) + carry) > 0x0F,
+               result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
@@ -382,82 +382,82 @@ void adc_a_hl(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
   u8 carry = (vm->r.f & 0x10) >> 4;
   u16 result = vm->r.a + value + carry;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (value & 0x0F) + carry) > 0x0F,
-                result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (value & 0x0F) + carry) > 0x0F,
+               result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 void adc_a_n(GB *vm, u8 operand) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u16 result = vm->r.a + operand + carry;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 0,
-                ((vm->r.a & 0x0F) + (operand & 0x0F) + carry) > 0x0F,
-                result > 0xFF);
+  reg_set_flag(vm, (result & 0xFF) == 0, 0,
+               ((vm->r.a & 0x0F) + (operand & 0x0F) + carry) > 0x0F,
+               result > 0xFF);
   vm->r.a = result & 0xFF;
 }
 
 // 3. SUB A,n
 void sub_a(GB *vm) {
   u16 result = vm->r.a - vm->r.a;
-  _reg_set_flag(vm, 1, 1, 0, 0);
+  reg_set_flag(vm, 1, 1, 0, 0);
   vm->r.a = result & 0xFF;
 }
 
 void sub_b(GB *vm) {
   u16 result = vm->r.a - vm->r.b;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 1,
-                (vm->r.a & 0x0F) < (vm->r.b & 0x0F), vm->r.a < vm->r.b);
+  reg_set_flag(vm, (result & 0xFF) == 0, 1, (vm->r.a & 0x0F) < (vm->r.b & 0x0F),
+               vm->r.a < vm->r.b);
   vm->r.a = result & 0xFF;
 }
 
 void sub_c(GB *vm) {
   u16 result = vm->r.a - vm->r.c;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 1,
-                (vm->r.a & 0x0F) < (vm->r.c & 0x0F), vm->r.a < vm->r.c);
+  reg_set_flag(vm, (result & 0xFF) == 0, 1, (vm->r.a & 0x0F) < (vm->r.c & 0x0F),
+               vm->r.a < vm->r.c);
   vm->r.a = result & 0xFF;
 }
 
 void sub_d(GB *vm) {
   u16 result = vm->r.a - vm->r.d;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 1,
-                (vm->r.a & 0x0F) < (vm->r.d & 0x0F), vm->r.a < vm->r.d);
+  reg_set_flag(vm, (result & 0xFF) == 0, 1, (vm->r.a & 0x0F) < (vm->r.d & 0x0F),
+               vm->r.a < vm->r.d);
   vm->r.a = result & 0xFF;
 }
 
 void sub_e(GB *vm) {
   u16 result = vm->r.a - vm->r.e;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 1,
-                (vm->r.a & 0x0F) < (vm->r.e & 0x0F), vm->r.a < vm->r.e);
+  reg_set_flag(vm, (result & 0xFF) == 0, 1, (vm->r.a & 0x0F) < (vm->r.e & 0x0F),
+               vm->r.a < vm->r.e);
   vm->r.a = result & 0xFF;
 }
 
 void sub_h(GB *vm) {
   u16 result = vm->r.a - vm->r.h;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 1,
-                (vm->r.a & 0x0F) < (vm->r.h & 0x0F), vm->r.a < vm->r.h);
+  reg_set_flag(vm, (result & 0xFF) == 0, 1, (vm->r.a & 0x0F) < (vm->r.h & 0x0F),
+               vm->r.a < vm->r.h);
   vm->r.a = result & 0xFF;
 }
 
 void sub_l(GB *vm) {
   u16 result = vm->r.a - vm->r.l;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 1,
-                (vm->r.a & 0x0F) < (vm->r.l & 0x0F), vm->r.a < vm->r.l);
+  reg_set_flag(vm, (result & 0xFF) == 0, 1, (vm->r.a & 0x0F) < (vm->r.l & 0x0F),
+               vm->r.a < vm->r.l);
   vm->r.a = result & 0xFF;
 }
 
 void sub_hl(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
   u16 result = vm->r.a - value;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 1, (vm->r.a & 0x0F) < (value & 0x0F),
-                vm->r.a < value);
+  reg_set_flag(vm, (result & 0xFF) == 0, 1, (vm->r.a & 0x0F) < (value & 0x0F),
+               vm->r.a < value);
   vm->r.a = result & 0xFF;
 }
 
 void sub_n(GB *vm, u8 operand) {
   u16 result = vm->r.a - operand;
-  _reg_set_flag(vm, (result & 0xFF) == 0, 1,
-                (vm->r.a & 0x0F) < (operand & 0x0F), vm->r.a < operand);
+  reg_set_flag(vm, (result & 0xFF) == 0, 1, (vm->r.a & 0x0F) < (operand & 0x0F),
+               vm->r.a < operand);
   vm->r.a = result & 0xFF;
 }
 
@@ -465,63 +465,63 @@ void sub_n(GB *vm, u8 operand) {
 void sbc_a_a(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.a - carry;
-  _reg_set_flag(vm, result == 0, 1,
-                ((vm->r.a & 0xF) - (vm->r.a & 0xF) - carry) < 0,
-                (vm->r.a < vm->r.a + carry));
+  reg_set_flag(vm, result == 0, 1,
+               ((vm->r.a & 0xF) - (vm->r.a & 0xF) - carry) < 0,
+               (vm->r.a < vm->r.a + carry));
   vm->r.a = result;
 }
 
 void sbc_a_b(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.b - carry;
-  _reg_set_flag(vm, result == 0, 1,
-                ((vm->r.a & 0xF) - (vm->r.b & 0xF) - carry) < 0,
-                (vm->r.a < vm->r.b + carry));
+  reg_set_flag(vm, result == 0, 1,
+               ((vm->r.a & 0xF) - (vm->r.b & 0xF) - carry) < 0,
+               (vm->r.a < vm->r.b + carry));
   vm->r.a = result;
 }
 
 void sbc_a_c(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.c - carry;
-  _reg_set_flag(vm, result == 0, 1,
-                ((vm->r.a & 0xF) - (vm->r.c & 0xF) - carry) < 0,
-                (vm->r.a < vm->r.c + carry));
+  reg_set_flag(vm, result == 0, 1,
+               ((vm->r.a & 0xF) - (vm->r.c & 0xF) - carry) < 0,
+               (vm->r.a < vm->r.c + carry));
   vm->r.a = result;
 }
 
 void sbc_a_d(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.d - carry;
-  _reg_set_flag(vm, result == 0, 1,
-                ((vm->r.a & 0xF) - (vm->r.d & 0xF) - carry) < 0,
-                (vm->r.a < vm->r.d + carry));
+  reg_set_flag(vm, result == 0, 1,
+               ((vm->r.a & 0xF) - (vm->r.d & 0xF) - carry) < 0,
+               (vm->r.a < vm->r.d + carry));
   vm->r.a = result;
 }
 
 void sbc_a_e(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.e - carry;
-  _reg_set_flag(vm, result == 0, 1,
-                ((vm->r.a & 0xF) - (vm->r.e & 0xF) - carry) < 0,
-                (vm->r.a < vm->r.e + carry));
+  reg_set_flag(vm, result == 0, 1,
+               ((vm->r.a & 0xF) - (vm->r.e & 0xF) - carry) < 0,
+               (vm->r.a < vm->r.e + carry));
   vm->r.a = result;
 }
 
 void sbc_a_h(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.h - carry;
-  _reg_set_flag(vm, result == 0, 1,
-                ((vm->r.a & 0xF) - (vm->r.h & 0xF) - carry) < 0,
-                (vm->r.a < vm->r.h + carry));
+  reg_set_flag(vm, result == 0, 1,
+               ((vm->r.a & 0xF) - (vm->r.h & 0xF) - carry) < 0,
+               (vm->r.a < vm->r.h + carry));
   vm->r.a = result;
 }
 
 void sbc_a_l(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - vm->r.l - carry;
-  _reg_set_flag(vm, result == 0, 1,
-                ((vm->r.a & 0xF) - (vm->r.l & 0xF) - carry) < 0,
-                (vm->r.a < vm->r.l + carry));
+  reg_set_flag(vm, result == 0, 1,
+               ((vm->r.a & 0xF) - (vm->r.l & 0xF) - carry) < 0,
+               (vm->r.a < vm->r.l + carry));
   vm->r.a = result;
 }
 
@@ -529,248 +529,248 @@ void sbc_a_hl(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 value = read_u8(vm, vm->r.hl);
   u8 result = vm->r.a - value - carry;
-  _reg_set_flag(vm, result == 0, 1,
-                ((vm->r.a & 0xF) - (value & 0xF) - carry) < 0,
-                (vm->r.a < value + carry));
+  reg_set_flag(vm, result == 0, 1,
+               ((vm->r.a & 0xF) - (value & 0xF) - carry) < 0,
+               (vm->r.a < value + carry));
   vm->r.a = result;
 }
 
 void sbc_a_n(GB *vm, u8 operand) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 result = vm->r.a - operand - carry;
-  _reg_set_flag(vm, result == 0, 1,
-                ((vm->r.a & 0xF) - (operand & 0xF) - carry) < 0,
-                (vm->r.a < operand + carry));
+  reg_set_flag(vm, result == 0, 1,
+               ((vm->r.a & 0xF) - (operand & 0xF) - carry) < 0,
+               (vm->r.a < operand + carry));
   vm->r.a = result;
 }
 
 // 5. AND n
 void and_a(GB *vm) {
   vm->r.a &= vm->r.a;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
 }
 
 void and_b(GB *vm) {
   vm->r.a &= vm->r.b;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
 }
 
 void and_c(GB *vm) {
   vm->r.a &= vm->r.c;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
 }
 
 void and_d(GB *vm) {
   vm->r.a &= vm->r.d;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
 }
 
 void and_e(GB *vm) {
   vm->r.a &= vm->r.e;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
 }
 
 void and_h(GB *vm) {
   vm->r.a &= vm->r.h;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
 }
 
 void and_l(GB *vm) {
   vm->r.a &= vm->r.l;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
 }
 
 void and_hl(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
   vm->r.a &= value;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
 }
 
 void and_n(GB *vm, u8 operand) {
   vm->r.a &= operand;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 1, 0);
 }
 // 6. OR n
 void or_a(GB *vm) {
   vm->r.a |= vm->r.a;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void or_b(GB *vm) {
   vm->r.a |= vm->r.b;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void or_c(GB *vm) {
   vm->r.a |= vm->r.c;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void or_d(GB *vm) {
   vm->r.a |= vm->r.d;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void or_e(GB *vm) {
   vm->r.a |= vm->r.e;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void or_h(GB *vm) {
   vm->r.a |= vm->r.h;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void or_l(GB *vm) {
   vm->r.a |= vm->r.l;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void or_hl(GB *vm) {
   vm->r.a |= read_u8(vm, vm->r.hl);
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void or_n(GB *vm, u8 operand) {
   vm->r.a |= operand;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 // 7. XOR n
 void xor_a(GB *vm) {
   vm->r.a ^= vm->r.a;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void xor_b(GB *vm) {
   vm->r.a ^= vm->r.b;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void xor_c(GB *vm) {
   vm->r.a ^= vm->r.c;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void xor_d(GB *vm) {
   vm->r.a ^= vm->r.d;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void xor_e(GB *vm) {
   vm->r.a ^= vm->r.e;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void xor_h(GB *vm) {
   vm->r.a ^= vm->r.h;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void xor_l(GB *vm) {
   vm->r.a ^= vm->r.l;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void xor_hl(GB *vm) {
   vm->r.a ^= read_u8(vm, vm->r.hl);
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void xor_n(GB *vm, u8 operand) {
   vm->r.a ^= operand;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 // 8. CP n
 void cp_a(GB *vm) {
   u8 result = vm->r.a - vm->r.a;
-  _reg_set_flag(vm, 1, 1, 0, 0);
+  reg_set_flag(vm, 1, 1, 0, 0);
 }
 
 void cp_b(GB *vm) {
   u8 result = vm->r.a - vm->r.b;
-  _reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (vm->r.b & 0xF),
-                vm->r.a < vm->r.b);
+  reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (vm->r.b & 0xF),
+               vm->r.a < vm->r.b);
 }
 
 void cp_c(GB *vm) {
   u8 result = vm->r.a - vm->r.c;
-  _reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (vm->r.c & 0xF),
-                vm->r.a < vm->r.c);
+  reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (vm->r.c & 0xF),
+               vm->r.a < vm->r.c);
 }
 
 void cp_d(GB *vm) {
   u8 result = vm->r.a - vm->r.d;
-  _reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (vm->r.d & 0xF),
-                vm->r.a < vm->r.d);
+  reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (vm->r.d & 0xF),
+               vm->r.a < vm->r.d);
 }
 
 void cp_e(GB *vm) {
   u8 result = vm->r.a - vm->r.e;
-  _reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (vm->r.e & 0xF),
-                vm->r.a < vm->r.e);
+  reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (vm->r.e & 0xF),
+               vm->r.a < vm->r.e);
 }
 
 void cp_h(GB *vm) {
   u8 result = vm->r.a - vm->r.h;
-  _reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (vm->r.h & 0xF),
-                vm->r.a < vm->r.h);
+  reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (vm->r.h & 0xF),
+               vm->r.a < vm->r.h);
 }
 
 void cp_l(GB *vm) {
   u8 result = vm->r.a - vm->r.l;
-  _reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (vm->r.l & 0xF),
-                vm->r.a < vm->r.l);
+  reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (vm->r.l & 0xF),
+               vm->r.a < vm->r.l);
 }
 
 void cp_hl(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
   u8 result = vm->r.a - value;
-  _reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (value & 0xF),
-                vm->r.a < value);
+  reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (value & 0xF),
+               vm->r.a < value);
 }
 
 void cp_n(GB *vm, u8 operand) {
   u8 result = vm->r.a - operand;
-  _reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (operand & 0xF),
-                vm->r.a < operand);
+  reg_set_flag(vm, result == 0, 1, (vm->r.a & 0xF) < (operand & 0xF),
+               vm->r.a < operand);
 }
 
 // 9. INC n
 void inc_a(GB *vm) {
   vm->r.a++;
-  _reg_set_flag(vm, vm->r.a == 0, 0, (vm->r.a & 0x0F) == 0, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.a == 0, 0, (vm->r.a & 0x0F) == 0, vm->r.f & 0x10);
 }
 
 void inc_b(GB *vm) {
   vm->r.b++;
-  _reg_set_flag(vm, vm->r.b == 0, 0, (vm->r.b & 0x0F) == 0, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.b == 0, 0, (vm->r.b & 0x0F) == 0, vm->r.f & 0x10);
 }
 
 void inc_c(GB *vm) {
   vm->r.c++;
-  _reg_set_flag(vm, vm->r.c == 0, 0, (vm->r.c & 0x0F) == 0, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.c == 0, 0, (vm->r.c & 0x0F) == 0, vm->r.f & 0x10);
 }
 
 void inc_d(GB *vm) {
   vm->r.d++;
-  _reg_set_flag(vm, vm->r.d == 0, 0, (vm->r.d & 0x0F) == 0, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.d == 0, 0, (vm->r.d & 0x0F) == 0, vm->r.f & 0x10);
 }
 
 void inc_e(GB *vm) {
   vm->r.e++;
-  _reg_set_flag(vm, vm->r.e == 0, 0, (vm->r.e & 0x0F) == 0, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.e == 0, 0, (vm->r.e & 0x0F) == 0, vm->r.f & 0x10);
 }
 
 void inc_h(GB *vm) {
   vm->r.h++;
-  _reg_set_flag(vm, vm->r.h == 0, 0, (vm->r.h & 0x0F) == 0, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.h == 0, 0, (vm->r.h & 0x0F) == 0, vm->r.f & 0x10);
 }
 
 void inc_l(GB *vm) {
   vm->r.l++;
-  _reg_set_flag(vm, vm->r.l == 0, 0, (vm->r.l & 0x0F) == 0, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.l == 0, 0, (vm->r.l & 0x0F) == 0, vm->r.f & 0x10);
 }
 
 void inc_hl(GB *vm) {
@@ -778,91 +778,91 @@ void inc_hl(GB *vm) {
   u8 before = value;
   value++;
   write_u8(vm, vm->r.hl, value);
-  _reg_set_flag(vm, value == 0, 0, (before & 0x0F) == 0x0F, vm->r.f & 0x10);
+  reg_set_flag(vm, value == 0, 0, (before & 0x0F) == 0x0F, vm->r.f & 0x10);
 }
 
 // 10. DEC n
 void dec_a(GB *vm) {
   vm->r.a--;
-  _reg_set_flag(vm, vm->r.a == 0, 1, (vm->r.a & 0x0F) == 0x0F, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.a == 0, 1, (vm->r.a & 0x0F) == 0x0F, vm->r.f & 0x10);
 }
 
 void dec_b(GB *vm) {
   vm->r.b--;
-  _reg_set_flag(vm, vm->r.b == 0, 1, (vm->r.b & 0x0F) == 0x0F, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.b == 0, 1, (vm->r.b & 0x0F) == 0x0F, vm->r.f & 0x10);
 }
 
 void dec_c(GB *vm) {
   vm->r.c--;
-  _reg_set_flag(vm, vm->r.c == 0, 1, (vm->r.c & 0x0F) == 0x0F, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.c == 0, 1, (vm->r.c & 0x0F) == 0x0F, vm->r.f & 0x10);
 }
 
 void dec_d(GB *vm) {
   vm->r.d--;
-  _reg_set_flag(vm, vm->r.d == 0, 1, (vm->r.d & 0x0F) == 0x0F, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.d == 0, 1, (vm->r.d & 0x0F) == 0x0F, vm->r.f & 0x10);
 }
 
 void dec_e(GB *vm) {
   vm->r.e--;
-  _reg_set_flag(vm, vm->r.e == 0, 1, (vm->r.e & 0x0F) == 0x0F, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.e == 0, 1, (vm->r.e & 0x0F) == 0x0F, vm->r.f & 0x10);
 }
 
 void dec_h(GB *vm) {
   vm->r.h--;
-  _reg_set_flag(vm, vm->r.h == 0, 1, (vm->r.h & 0x0F) == 0x0F, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.h == 0, 1, (vm->r.h & 0x0F) == 0x0F, vm->r.f & 0x10);
 }
 
 void dec_l(GB *vm) {
   vm->r.l--;
-  _reg_set_flag(vm, vm->r.l == 0, 1, (vm->r.l & 0x0F) == 0x0F, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.l == 0, 1, (vm->r.l & 0x0F) == 0x0F, vm->r.f & 0x10);
 }
 
 void dec_hl(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
   value--;
   write_u8(vm, vm->r.hl, value);
-  _reg_set_flag(vm, value == 0, 1, (value & 0x0F) == 0x0F, vm->r.f & 0x10);
+  reg_set_flag(vm, value == 0, 1, (value & 0x0F) == 0x0F, vm->r.f & 0x10);
 }
 
 // 3.3.4 16-Bit Arithmetic
 // 1. ADD HL,n
 void add_hl_bc(GB *vm) {
   u32 result = vm->r.hl + vm->r.bc;
-  _reg_set_flag(vm, vm->r.f & 0x80, 0,
-                ((vm->r.hl & 0xFFF) + (vm->r.bc & 0xFFF)) > 0xFFF,
-                result > 0xFFFF);
+  reg_set_flag(vm, vm->r.f & 0x80, 0,
+               ((vm->r.hl & 0xFFF) + (vm->r.bc & 0xFFF)) > 0xFFF,
+               result > 0xFFFF);
   vm->r.hl = result;
 }
 
 void add_hl_de(GB *vm) {
   u32 result = vm->r.hl + vm->r.de;
-  _reg_set_flag(vm, vm->r.f & 0x80, 0,
-                ((vm->r.hl & 0xFFF) + (vm->r.de & 0xFFF)) > 0xFFF,
-                result > 0xFFFF);
+  reg_set_flag(vm, vm->r.f & 0x80, 0,
+               ((vm->r.hl & 0xFFF) + (vm->r.de & 0xFFF)) > 0xFFF,
+               result > 0xFFFF);
   vm->r.hl = result;
 }
 
 void add_hl_hl(GB *vm) {
   u32 result = vm->r.hl + vm->r.hl;
-  _reg_set_flag(vm, vm->r.f & 0x80, 0,
-                ((vm->r.hl & 0xFFF) + (vm->r.hl & 0xFFF)) > 0xFFF,
-                result > 0xFFFF);
+  reg_set_flag(vm, vm->r.f & 0x80, 0,
+               ((vm->r.hl & 0xFFF) + (vm->r.hl & 0xFFF)) > 0xFFF,
+               result > 0xFFFF);
   vm->r.hl = result;
 }
 
 void add_hl_sp(GB *vm) {
   u32 result = vm->r.hl + vm->r.sp;
-  _reg_set_flag(vm, vm->r.f & 0x80, 0,
-                ((vm->r.hl & 0xFFF) + (vm->r.sp & 0xFFF)) > 0xFFF,
-                result > 0xFFFF);
+  reg_set_flag(vm, vm->r.f & 0x80, 0,
+               ((vm->r.hl & 0xFFF) + (vm->r.sp & 0xFFF)) > 0xFFF,
+               result > 0xFFFF);
   vm->r.hl = result;
 }
 
 // 2. ADD SP,n
 void add_sp_n(GB *vm, u8 operand) {
   u32 result = vm->r.sp + (i8)operand;
-  _reg_set_flag(vm, 0, 0, ((vm->r.sp & 0x0F) + (operand & 0x0F)) > 0x0F,
-                ((vm->r.sp & 0xFF) + (operand & 0xFF)) > 0xFF);
+  reg_set_flag(vm, 0, 0, ((vm->r.sp & 0x0F) + (operand & 0x0F)) > 0x0F,
+               ((vm->r.sp & 0xFF) + (operand & 0xFF)) > 0xFF);
   vm->r.sp = result;
 }
 
@@ -888,44 +888,44 @@ void dec_sp(GB *vm) { vm->r.sp--; }
 // 1. SWAP n
 void swap_a(GB *vm) {
   vm->r.a = (vm->r.a << 4) | (vm->r.a >> 4);
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, 0);
 }
 
 void swap_b(GB *vm) {
   vm->r.b = (vm->r.b << 4) | (vm->r.b >> 4);
-  _reg_set_flag(vm, vm->r.b == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.b == 0, 0, 0, 0);
 }
 
 void swap_c(GB *vm) {
   vm->r.c = (vm->r.c << 4) | (vm->r.c >> 4);
-  _reg_set_flag(vm, vm->r.c == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.c == 0, 0, 0, 0);
 }
 
 void swap_d(GB *vm) {
   vm->r.d = (vm->r.d << 4) | (vm->r.d >> 4);
-  _reg_set_flag(vm, vm->r.d == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.d == 0, 0, 0, 0);
 }
 
 void swap_e(GB *vm) {
   vm->r.e = (vm->r.e << 4) | (vm->r.e >> 4);
-  _reg_set_flag(vm, vm->r.e == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.e == 0, 0, 0, 0);
 }
 
 void swap_h(GB *vm) {
   vm->r.h = (vm->r.h << 4) | (vm->r.h >> 4);
-  _reg_set_flag(vm, vm->r.h == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.h == 0, 0, 0, 0);
 }
 
 void swap_l(GB *vm) {
   vm->r.l = (vm->r.l << 4) | (vm->r.l >> 4);
-  _reg_set_flag(vm, vm->r.l == 0, 0, 0, 0);
+  reg_set_flag(vm, vm->r.l == 0, 0, 0, 0);
 }
 
 void swap_hl(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
   value = (value << 4) | (value >> 4);
   write_u8(vm, vm->r.hl, value);
-  _reg_set_flag(vm, value == 0, 0, 0, 0);
+  reg_set_flag(vm, value == 0, 0, 0, 0);
 }
 
 // 2. DAA
@@ -958,23 +958,23 @@ void daa(GB *vm) {
   vm->r.a = s & 0xFF;
 
   int z_flag = (vm->r.a == 0) ? 0x80 : 0;
-  _reg_set_flag(vm, z_flag, n_flag, 0, c_flag);
+  reg_set_flag(vm, z_flag, n_flag, 0, c_flag);
 }
 
 // 3. CPL
 void cpl(GB *vm) {
   vm->r.a = ~vm->r.a;
-  _reg_set_flag(vm, vm->r.f & 0x80, 1, 1, vm->r.f & 0x10);
+  reg_set_flag(vm, vm->r.f & 0x80, 1, 1, vm->r.f & 0x10);
 }
 
 // 4. CCF
 void ccf(GB *vm) {
   u8 carry = vm->r.f & 0x10;
-  _reg_set_flag(vm, vm->r.f & 0x80, 0, 0, !carry);
+  reg_set_flag(vm, vm->r.f & 0x80, 0, 0, !carry);
 }
 
 // 5. SCF
-void scf(GB *vm) { _reg_set_flag(vm, vm->r.f & 0x80, 0, 0, 1); }
+void scf(GB *vm) { reg_set_flag(vm, vm->r.f & 0x80, 0, 0, 1); }
 
 // 6. NOP
 void nop(GB *vm) {}
@@ -999,7 +999,7 @@ void ei(GB *vm) { vm->flag.interrupt_enable_handling = true; }
 void rlca(GB *vm) {
   u8 carry = (vm->r.a & 0x80) >> 7;
   vm->r.a = (vm->r.a << 1) | carry;
-  _reg_set_flag(vm, 0, 0, 0, carry);
+  reg_set_flag(vm, 0, 0, 0, carry);
 }
 
 // 2. RLA
@@ -1007,14 +1007,14 @@ void rla(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 new_carry = (vm->r.a & 0x80) >> 7;
   vm->r.a = (vm->r.a << 1) | carry;
-  _reg_set_flag(vm, 0, 0, 0, new_carry);
+  reg_set_flag(vm, 0, 0, 0, new_carry);
 }
 
 // 3. RRCA
 void rrca(GB *vm) {
   u8 carry = vm->r.a & 0x01;
   vm->r.a = (vm->r.a >> 1) | (carry << 7);
-  _reg_set_flag(vm, 0, 0, 0, carry);
+  reg_set_flag(vm, 0, 0, 0, carry);
 }
 
 // 4. RRA
@@ -1022,50 +1022,50 @@ void rra(GB *vm) {
   u8 carry = (vm->r.f & 0x10) >> 4;
   u8 new_carry = vm->r.a & 0x01;
   vm->r.a = (vm->r.a >> 1) | (carry << 7);
-  _reg_set_flag(vm, 0, 0, 0, new_carry);
+  reg_set_flag(vm, 0, 0, 0, new_carry);
 }
 
 // 5. RLC n
 void rlc_a(GB *vm) {
   u8 carry = (vm->r.a & 0x80) >> 7;
   vm->r.a = (vm->r.a << 1) | carry;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, carry);
 }
 
 void rlc_b(GB *vm) {
   u8 carry = (vm->r.b & 0x80) >> 7;
   vm->r.b = (vm->r.b << 1) | carry;
-  _reg_set_flag(vm, vm->r.b == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.b == 0, 0, 0, carry);
 }
 
 void rlc_c(GB *vm) {
   u8 carry = (vm->r.c & 0x80) >> 7;
   vm->r.c = (vm->r.c << 1) | carry;
-  _reg_set_flag(vm, vm->r.c == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.c == 0, 0, 0, carry);
 }
 
 void rlc_d(GB *vm) {
   u8 carry = (vm->r.d & 0x80) >> 7;
   vm->r.d = (vm->r.d << 1) | carry;
-  _reg_set_flag(vm, vm->r.d == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.d == 0, 0, 0, carry);
 }
 
 void rlc_e(GB *vm) {
   u8 carry = (vm->r.e & 0x80) >> 7;
   vm->r.e = (vm->r.e << 1) | carry;
-  _reg_set_flag(vm, vm->r.e == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.e == 0, 0, 0, carry);
 }
 
 void rlc_h(GB *vm) {
   u8 carry = (vm->r.h & 0x80) >> 7;
   vm->r.h = (vm->r.h << 1) | carry;
-  _reg_set_flag(vm, vm->r.h == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.h == 0, 0, 0, carry);
 }
 
 void rlc_l(GB *vm) {
   u8 carry = (vm->r.l & 0x80) >> 7;
   vm->r.l = (vm->r.l << 1) | carry;
-  _reg_set_flag(vm, vm->r.l == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.l == 0, 0, 0, carry);
 }
 
 void rlc_hl(GB *vm) {
@@ -1073,50 +1073,50 @@ void rlc_hl(GB *vm) {
   u8 carry = (value & 0x80) >> 7;
   value = (value << 1) | carry;
   write_u8(vm, vm->r.hl, value);
-  _reg_set_flag(vm, value == 0, 0, 0, carry);
+  reg_set_flag(vm, value == 0, 0, 0, carry);
 }
 
 // 6. RL n
 void rl_a(GB *vm) {
   u8 carry = (vm->r.a & 0x80) >> 7;
   vm->r.a = (vm->r.a << 1) | ((vm->r.f & 0x10) >> 4);
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, carry);
 }
 
 void rl_b(GB *vm) {
   u8 carry = (vm->r.b & 0x80) >> 7;
   vm->r.b = (vm->r.b << 1) | ((vm->r.f & 0x10) >> 4);
-  _reg_set_flag(vm, vm->r.b == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.b == 0, 0, 0, carry);
 }
 
 void rl_c(GB *vm) {
   u8 carry = (vm->r.c & 0x80) >> 7;
   vm->r.c = (vm->r.c << 1) | ((vm->r.f & 0x10) >> 4);
-  _reg_set_flag(vm, vm->r.c == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.c == 0, 0, 0, carry);
 }
 
 void rl_d(GB *vm) {
   u8 carry = (vm->r.d & 0x80) >> 7;
   vm->r.d = (vm->r.d << 1) | ((vm->r.f & 0x10) >> 4);
-  _reg_set_flag(vm, vm->r.d == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.d == 0, 0, 0, carry);
 }
 
 void rl_e(GB *vm) {
   u8 carry = (vm->r.e & 0x80) >> 7;
   vm->r.e = (vm->r.e << 1) | ((vm->r.f & 0x10) >> 4);
-  _reg_set_flag(vm, vm->r.e == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.e == 0, 0, 0, carry);
 }
 
 void rl_h(GB *vm) {
   u8 carry = (vm->r.h & 0x80) >> 7;
   vm->r.h = (vm->r.h << 1) | ((vm->r.f & 0x10) >> 4);
-  _reg_set_flag(vm, vm->r.h == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.h == 0, 0, 0, carry);
 }
 
 void rl_l(GB *vm) {
   u8 carry = (vm->r.l & 0x80) >> 7;
   vm->r.l = (vm->r.l << 1) | ((vm->r.f & 0x10) >> 4);
-  _reg_set_flag(vm, vm->r.l == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.l == 0, 0, 0, carry);
 }
 
 void rl_hl(GB *vm) {
@@ -1124,50 +1124,50 @@ void rl_hl(GB *vm) {
   u8 carry = (value & 0x80) >> 7;
   value = (value << 1) | ((vm->r.f & 0x10) >> 4);
   write_u8(vm, vm->r.hl, value);
-  _reg_set_flag(vm, value == 0, 0, 0, carry);
+  reg_set_flag(vm, value == 0, 0, 0, carry);
 }
 
 // 7. RRC n
 void rrc_a(GB *vm) {
   u8 carry = vm->r.a & 0x01;
   vm->r.a = (vm->r.a >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, carry);
 }
 
 void rrc_b(GB *vm) {
   u8 carry = vm->r.b & 0x01;
   vm->r.b = (vm->r.b >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.b == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.b == 0, 0, 0, carry);
 }
 
 void rrc_c(GB *vm) {
   u8 carry = vm->r.c & 0x01;
   vm->r.c = (vm->r.c >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.c == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.c == 0, 0, 0, carry);
 }
 
 void rrc_d(GB *vm) {
   u8 carry = vm->r.d & 0x01;
   vm->r.d = (vm->r.d >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.d == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.d == 0, 0, 0, carry);
 }
 
 void rrc_e(GB *vm) {
   u8 carry = vm->r.e & 0x01;
   vm->r.e = (vm->r.e >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.e == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.e == 0, 0, 0, carry);
 }
 
 void rrc_h(GB *vm) {
   u8 carry = vm->r.h & 0x01;
   vm->r.h = (vm->r.h >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.h == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.h == 0, 0, 0, carry);
 }
 
 void rrc_l(GB *vm) {
   u8 carry = vm->r.l & 0x01;
   vm->r.l = (vm->r.l >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.l == 0, 0, 0, carry);
+  reg_set_flag(vm, vm->r.l == 0, 0, 0, carry);
 }
 
 void rrc_hl(GB *vm) {
@@ -1175,7 +1175,7 @@ void rrc_hl(GB *vm) {
   u8 carry = value & 0x01;
   value = (value >> 1) | (carry << 7);
   write_u8(vm, vm->r.hl, value);
-  _reg_set_flag(vm, value == 0, 0, 0, carry);
+  reg_set_flag(vm, value == 0, 0, 0, carry);
 }
 
 // 8. RR n
@@ -1183,49 +1183,49 @@ void rr_a(GB *vm) {
   u8 carry = vm->r.f & 0x10 ? 1 : 0;
   u8 old_carry = vm->r.a & 0x01;
   vm->r.a = (vm->r.a >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, old_carry);
 }
 
 void rr_b(GB *vm) {
   u8 carry = vm->r.f & 0x10 ? 1 : 0;
   u8 old_carry = vm->r.b & 0x01;
   vm->r.b = (vm->r.b >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.b == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.b == 0, 0, 0, old_carry);
 }
 
 void rr_c(GB *vm) {
   u8 carry = vm->r.f & 0x10 ? 1 : 0;
   u8 old_carry = vm->r.c & 0x01;
   vm->r.c = (vm->r.c >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.c == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.c == 0, 0, 0, old_carry);
 }
 
 void rr_d(GB *vm) {
   u8 carry = vm->r.f & 0x10 ? 1 : 0;
   u8 old_carry = vm->r.d & 0x01;
   vm->r.d = (vm->r.d >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.d == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.d == 0, 0, 0, old_carry);
 }
 
 void rr_e(GB *vm) {
   u8 carry = vm->r.f & 0x10 ? 1 : 0;
   u8 old_carry = vm->r.e & 0x01;
   vm->r.e = (vm->r.e >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.e == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.e == 0, 0, 0, old_carry);
 }
 
 void rr_h(GB *vm) {
   u8 carry = vm->r.f & 0x10 ? 1 : 0;
   u8 old_carry = vm->r.h & 0x01;
   vm->r.h = (vm->r.h >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.h == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.h == 0, 0, 0, old_carry);
 }
 
 void rr_l(GB *vm) {
   u8 carry = vm->r.f & 0x10 ? 1 : 0;
   u8 old_carry = vm->r.l & 0x01;
   vm->r.l = (vm->r.l >> 1) | (carry << 7);
-  _reg_set_flag(vm, vm->r.l == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.l == 0, 0, 0, old_carry);
 }
 
 void rr_hl(GB *vm) {
@@ -1234,50 +1234,50 @@ void rr_hl(GB *vm) {
   u8 old_carry = value & 0x01;
   value = (value >> 1) | (carry << 7);
   write_u8(vm, vm->r.hl, value);
-  _reg_set_flag(vm, value == 0, 0, 0, old_carry);
+  reg_set_flag(vm, value == 0, 0, 0, old_carry);
 }
 
 // 9. SLA n
 void sla_a(GB *vm) {
   u8 old_carry = vm->r.a & 0x80;
   vm->r.a <<= 1;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, old_carry >> 7);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, old_carry >> 7);
 }
 
 void sla_b(GB *vm) {
   u8 old_carry = vm->r.b & 0x80;
   vm->r.b <<= 1;
-  _reg_set_flag(vm, vm->r.b == 0, 0, 0, old_carry >> 7);
+  reg_set_flag(vm, vm->r.b == 0, 0, 0, old_carry >> 7);
 }
 
 void sla_c(GB *vm) {
   u8 old_carry = vm->r.c & 0x80;
   vm->r.c <<= 1;
-  _reg_set_flag(vm, vm->r.c == 0, 0, 0, old_carry >> 7);
+  reg_set_flag(vm, vm->r.c == 0, 0, 0, old_carry >> 7);
 }
 
 void sla_d(GB *vm) {
   u8 old_carry = vm->r.d & 0x80;
   vm->r.d <<= 1;
-  _reg_set_flag(vm, vm->r.d == 0, 0, 0, old_carry >> 7);
+  reg_set_flag(vm, vm->r.d == 0, 0, 0, old_carry >> 7);
 }
 
 void sla_e(GB *vm) {
   u8 old_carry = vm->r.e & 0x80;
   vm->r.e <<= 1;
-  _reg_set_flag(vm, vm->r.e == 0, 0, 0, old_carry >> 7);
+  reg_set_flag(vm, vm->r.e == 0, 0, 0, old_carry >> 7);
 }
 
 void sla_h(GB *vm) {
   u8 old_carry = vm->r.h & 0x80;
   vm->r.h <<= 1;
-  _reg_set_flag(vm, vm->r.h == 0, 0, 0, old_carry >> 7);
+  reg_set_flag(vm, vm->r.h == 0, 0, 0, old_carry >> 7);
 }
 
 void sla_l(GB *vm) {
   u8 old_carry = vm->r.l & 0x80;
   vm->r.l <<= 1;
-  _reg_set_flag(vm, vm->r.l == 0, 0, 0, old_carry >> 7);
+  reg_set_flag(vm, vm->r.l == 0, 0, 0, old_carry >> 7);
 }
 
 void sla_hl(GB *vm) {
@@ -1285,50 +1285,50 @@ void sla_hl(GB *vm) {
   u8 old_carry = value & 0x80;
   value <<= 1;
   write_u8(vm, vm->r.hl, value);
-  _reg_set_flag(vm, value == 0, 0, 0, old_carry >> 7);
+  reg_set_flag(vm, value == 0, 0, 0, old_carry >> 7);
 }
 
 // 10. SRA n
 void sra_a(GB *vm) {
   u8 old_carry = vm->r.a & 0x01;
   vm->r.a = (vm->r.a >> 1) | (vm->r.a & 0x80);
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, old_carry);
 }
 
 void sra_b(GB *vm) {
   u8 old_carry = vm->r.b & 0x01;
   vm->r.b = (vm->r.b >> 1) | (vm->r.b & 0x80);
-  _reg_set_flag(vm, vm->r.b == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.b == 0, 0, 0, old_carry);
 }
 
 void sra_c(GB *vm) {
   u8 old_carry = vm->r.c & 0x01;
   vm->r.c = (vm->r.c >> 1) | (vm->r.c & 0x80);
-  _reg_set_flag(vm, vm->r.c == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.c == 0, 0, 0, old_carry);
 }
 
 void sra_d(GB *vm) {
   u8 old_carry = vm->r.d & 0x01;
   vm->r.d = (vm->r.d >> 1) | (vm->r.d & 0x80);
-  _reg_set_flag(vm, vm->r.d == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.d == 0, 0, 0, old_carry);
 }
 
 void sra_e(GB *vm) {
   u8 old_carry = vm->r.e & 0x01;
   vm->r.e = (vm->r.e >> 1) | (vm->r.e & 0x80);
-  _reg_set_flag(vm, vm->r.e == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.e == 0, 0, 0, old_carry);
 }
 
 void sra_h(GB *vm) {
   u8 old_carry = vm->r.h & 0x01;
   vm->r.h = (vm->r.h >> 1) | (vm->r.h & 0x80);
-  _reg_set_flag(vm, vm->r.h == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.h == 0, 0, 0, old_carry);
 }
 
 void sra_l(GB *vm) {
   u8 old_carry = vm->r.l & 0x01;
   vm->r.l = (vm->r.l >> 1) | (vm->r.l & 0x80);
-  _reg_set_flag(vm, vm->r.l == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.l == 0, 0, 0, old_carry);
 }
 
 void sra_hl(GB *vm) {
@@ -1336,50 +1336,50 @@ void sra_hl(GB *vm) {
   u8 old_carry = value & 0x01;
   value = (value >> 1) | (value & 0x80);
   write_u8(vm, vm->r.hl, value);
-  _reg_set_flag(vm, value == 0, 0, 0, old_carry);
+  reg_set_flag(vm, value == 0, 0, 0, old_carry);
 }
 
 // 11. SRL n
 void srl_a(GB *vm) {
   u8 old_carry = vm->r.a & 0x01;
   vm->r.a >>= 1;
-  _reg_set_flag(vm, vm->r.a == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.a == 0, 0, 0, old_carry);
 }
 
 void srl_b(GB *vm) {
   u8 old_carry = vm->r.b & 0x01;
   vm->r.b >>= 1;
-  _reg_set_flag(vm, vm->r.b == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.b == 0, 0, 0, old_carry);
 }
 
 void srl_c(GB *vm) {
   u8 old_carry = vm->r.c & 0x01;
   vm->r.c >>= 1;
-  _reg_set_flag(vm, vm->r.c == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.c == 0, 0, 0, old_carry);
 }
 
 void srl_d(GB *vm) {
   u8 old_carry = vm->r.d & 0x01;
   vm->r.d >>= 1;
-  _reg_set_flag(vm, vm->r.d == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.d == 0, 0, 0, old_carry);
 }
 
 void srl_e(GB *vm) {
   u8 old_carry = vm->r.e & 0x01;
   vm->r.e >>= 1;
-  _reg_set_flag(vm, vm->r.e == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.e == 0, 0, 0, old_carry);
 }
 
 void srl_h(GB *vm) {
   u8 old_carry = vm->r.h & 0x01;
   vm->r.h >>= 1;
-  _reg_set_flag(vm, vm->r.h == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.h == 0, 0, 0, old_carry);
 }
 
 void srl_l(GB *vm) {
   u8 old_carry = vm->r.l & 0x01;
   vm->r.l >>= 1;
-  _reg_set_flag(vm, vm->r.l == 0, 0, 0, old_carry);
+  reg_set_flag(vm, vm->r.l == 0, 0, 0, old_carry);
 }
 
 void srl_hl(GB *vm) {
@@ -1387,273 +1387,273 @@ void srl_hl(GB *vm) {
   u8 old_carry = value & 0x01;
   value >>= 1;
   write_u8(vm, vm->r.hl, value);
-  _reg_set_flag(vm, value == 0, 0, 0, old_carry);
+  reg_set_flag(vm, value == 0, 0, 0, old_carry);
 }
 
 // 3.3.7 Bit Opcodes
 // 1. BIT b,r
 void bit_0_a(GB *vm) {
-  _reg_set_flag(vm, (vm->r.a & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.a & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_1_a(GB *vm) {
-  _reg_set_flag(vm, (vm->r.a & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.a & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_2_a(GB *vm) {
-  _reg_set_flag(vm, (vm->r.a & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.a & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_3_a(GB *vm) {
-  _reg_set_flag(vm, (vm->r.a & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.a & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_4_a(GB *vm) {
-  _reg_set_flag(vm, (vm->r.a & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.a & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_5_a(GB *vm) {
-  _reg_set_flag(vm, (vm->r.a & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.a & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_6_a(GB *vm) {
-  _reg_set_flag(vm, (vm->r.a & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.a & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_7_a(GB *vm) {
-  _reg_set_flag(vm, (vm->r.a & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.a & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_0_b(GB *vm) {
-  _reg_set_flag(vm, (vm->r.b & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.b & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_1_b(GB *vm) {
-  _reg_set_flag(vm, (vm->r.b & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.b & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_2_b(GB *vm) {
-  _reg_set_flag(vm, (vm->r.b & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.b & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_3_b(GB *vm) {
-  _reg_set_flag(vm, (vm->r.b & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.b & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_4_b(GB *vm) {
-  _reg_set_flag(vm, (vm->r.b & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.b & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_5_b(GB *vm) {
-  _reg_set_flag(vm, (vm->r.b & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.b & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_6_b(GB *vm) {
-  _reg_set_flag(vm, (vm->r.b & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.b & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_7_b(GB *vm) {
-  _reg_set_flag(vm, (vm->r.b & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.b & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_0_c(GB *vm) {
-  _reg_set_flag(vm, (vm->r.c & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.c & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_1_c(GB *vm) {
-  _reg_set_flag(vm, (vm->r.c & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.c & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_2_c(GB *vm) {
-  _reg_set_flag(vm, (vm->r.c & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.c & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_3_c(GB *vm) {
-  _reg_set_flag(vm, (vm->r.c & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.c & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_4_c(GB *vm) {
-  _reg_set_flag(vm, (vm->r.c & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.c & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_5_c(GB *vm) {
-  _reg_set_flag(vm, (vm->r.c & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.c & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_6_c(GB *vm) {
-  _reg_set_flag(vm, (vm->r.c & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.c & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_7_c(GB *vm) {
-  _reg_set_flag(vm, (vm->r.c & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.c & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_0_d(GB *vm) {
-  _reg_set_flag(vm, (vm->r.d & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.d & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_1_d(GB *vm) {
-  _reg_set_flag(vm, (vm->r.d & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.d & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_2_d(GB *vm) {
-  _reg_set_flag(vm, (vm->r.d & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.d & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_3_d(GB *vm) {
-  _reg_set_flag(vm, (vm->r.d & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.d & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_4_d(GB *vm) {
-  _reg_set_flag(vm, (vm->r.d & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.d & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_5_d(GB *vm) {
-  _reg_set_flag(vm, (vm->r.d & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.d & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_6_d(GB *vm) {
-  _reg_set_flag(vm, (vm->r.d & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.d & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_7_d(GB *vm) {
-  _reg_set_flag(vm, (vm->r.d & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.d & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_0_e(GB *vm) {
-  _reg_set_flag(vm, (vm->r.e & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.e & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_1_e(GB *vm) {
-  _reg_set_flag(vm, (vm->r.e & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.e & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_2_e(GB *vm) {
-  _reg_set_flag(vm, (vm->r.e & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.e & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_3_e(GB *vm) {
-  _reg_set_flag(vm, (vm->r.e & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.e & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_4_e(GB *vm) {
-  _reg_set_flag(vm, (vm->r.e & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.e & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_5_e(GB *vm) {
-  _reg_set_flag(vm, (vm->r.e & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.e & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_6_e(GB *vm) {
-  _reg_set_flag(vm, (vm->r.e & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.e & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_7_e(GB *vm) {
-  _reg_set_flag(vm, (vm->r.e & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.e & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_0_h(GB *vm) {
-  _reg_set_flag(vm, (vm->r.h & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.h & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_1_h(GB *vm) {
-  _reg_set_flag(vm, (vm->r.h & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.h & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_2_h(GB *vm) {
-  _reg_set_flag(vm, (vm->r.h & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.h & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_3_h(GB *vm) {
-  _reg_set_flag(vm, (vm->r.h & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.h & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_4_h(GB *vm) {
-  _reg_set_flag(vm, (vm->r.h & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.h & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_5_h(GB *vm) {
-  _reg_set_flag(vm, (vm->r.h & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.h & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_6_h(GB *vm) {
-  _reg_set_flag(vm, (vm->r.h & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.h & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_7_h(GB *vm) {
-  _reg_set_flag(vm, (vm->r.h & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.h & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_0_l(GB *vm) {
-  _reg_set_flag(vm, (vm->r.l & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.l & 0x01) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_1_l(GB *vm) {
-  _reg_set_flag(vm, (vm->r.l & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.l & 0x02) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_2_l(GB *vm) {
-  _reg_set_flag(vm, (vm->r.l & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.l & 0x04) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_3_l(GB *vm) {
-  _reg_set_flag(vm, (vm->r.l & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.l & 0x08) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_4_l(GB *vm) {
-  _reg_set_flag(vm, (vm->r.l & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.l & 0x10) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_5_l(GB *vm) {
-  _reg_set_flag(vm, (vm->r.l & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.l & 0x20) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_6_l(GB *vm) {
-  _reg_set_flag(vm, (vm->r.l & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.l & 0x40) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_7_l(GB *vm) {
-  _reg_set_flag(vm, (vm->r.l & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
+  reg_set_flag(vm, (vm->r.l & 0x80) == 0, 0, 1, (vm->r.f & 0x10) >> 4);
 }
 
 void bit_0_hlp(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
-  _reg_set_flag(vm, !(value & (1 << 0)), 0, 1, vm->r.f & 0x10);
+  reg_set_flag(vm, !(value & (1 << 0)), 0, 1, vm->r.f & 0x10);
 }
 
 void bit_1_hlp(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
-  _reg_set_flag(vm, !(value & (1 << 1)), 0, 1, vm->r.f & 0x10);
+  reg_set_flag(vm, !(value & (1 << 1)), 0, 1, vm->r.f & 0x10);
 }
 
 void bit_2_hlp(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
-  _reg_set_flag(vm, !(value & (1 << 2)), 0, 1, vm->r.f & 0x10);
+  reg_set_flag(vm, !(value & (1 << 2)), 0, 1, vm->r.f & 0x10);
 }
 
 void bit_3_hlp(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
-  _reg_set_flag(vm, !(value & (1 << 3)), 0, 1, vm->r.f & 0x10);
+  reg_set_flag(vm, !(value & (1 << 3)), 0, 1, vm->r.f & 0x10);
 }
 
 void bit_4_hlp(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
-  _reg_set_flag(vm, !(value & (1 << 4)), 0, 1, vm->r.f & 0x10);
+  reg_set_flag(vm, !(value & (1 << 4)), 0, 1, vm->r.f & 0x10);
 }
 
 void bit_5_hlp(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
-  _reg_set_flag(vm, !(value & (1 << 5)), 0, 1, vm->r.f & 0x10);
+  reg_set_flag(vm, !(value & (1 << 5)), 0, 1, vm->r.f & 0x10);
 }
 
 void bit_6_hlp(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
-  _reg_set_flag(vm, !(value & (1 << 6)), 0, 1, vm->r.f & 0x10);
+  reg_set_flag(vm, !(value & (1 << 6)), 0, 1, vm->r.f & 0x10);
 }
 
 void bit_7_hlp(GB *vm) {
   u8 value = read_u8(vm, vm->r.hl);
-  _reg_set_flag(vm, !(value & (1 << 7)), 0, 1, vm->r.f & 0x10);
+  reg_set_flag(vm, !(value & (1 << 7)), 0, 1, vm->r.f & 0x10);
 }
 
 // 2. SET b,r

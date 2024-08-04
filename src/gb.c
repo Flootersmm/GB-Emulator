@@ -3,22 +3,13 @@
 #include "tables.h"
 #include "typedefs.h"
 
-// Variable declarations for ROM and RAM banking
-bool m_MBC1 = false;
-bool m_MBC2 = false;
-u8 m_CurrentROMBank = 1;
-u8 m_RAMBanks[0x8000];
-u8 m_CurrentRAMBank = 0;
-bool m_EnableRAM = false;
-bool m_RomBanking = true;
-
 /// Gameboy initialisation
 ///
 /// Malloc space for the vm, set registers to appropriate values, clears ram,
 /// loads the cart, interprets the header, and sets appropriate flags.
 ///
 /// @param rom_path Path to the rom to be played
-/// @return A GB vm instance
+/// @return A GB vm instanctep
 GB *gb_init(const char *rom_path) {
   GB *vm = (GB *)malloc(sizeof(GB));
   *vm = (GB){
@@ -108,39 +99,22 @@ GB *gb_init(const char *rom_path) {
     return NULL;
   }
 
-  fread(vm->mem.boot_rom, sizeof(u8), 0x0100, boot_fp);
+  vm->mem.boot_rom = malloc(0x0100);
+
+  fread(vm->mem.boot_rom, 0x0100, sizeof(u8), boot_fp);
   fclose(boot_fp);
 
-  // Initialize RAM banks
-  memset(&m_RAMBanks, 0, sizeof(m_RAMBanks));
-  m_CurrentRAMBank = 0;
-
-  // Detect ROM bank mode
-  switch (vm->cart.data[0x147]) {
-  case 1:
-  case 2:
-  case 3:
-    m_MBC1 = true;
-    break;
-  case 5:
-  case 6:
-    m_MBC2 = true;
-    break;
-  default:
-    break;
-  }
-
-  _cart_header_read(vm);
-  _logo_check(vm);
+  cart_header_read(vm);
+  logo_check(vm);
   if ((cart_header_checksum_calc(vm)) != vm->cart.header_checksum) {
     return NULL;
   };
-  _cart_header_set_flags(vm);
+  cart_header_set_flags(vm);
   if (!vm->flag.logo_match) {
     return NULL;
   };
 
-  _gb_power_on(vm);
+  gb_power_on(vm);
 
   return vm;
 }
@@ -157,7 +131,7 @@ int gb_destroy(GB *vm) { return 0; }
 /// @param vm GB *vm
 ///
 /// @return 0 for success, -1 for failure
-int _gb_power_on(GB *vm) {
+int gb_power_on(GB *vm) {
   // To do boot rom, start with pc at 0x0000, then 'the boot ROM writes to the
   // BANK register at $FF50, which unmaps the boot ROM. The ldh [$FF50], a
   // instruction being located at $00FE (and being two bytes long), the first
@@ -166,6 +140,8 @@ int _gb_power_on(GB *vm) {
   // So, we need memory banks up and running first.
 
   memcpy(vm->mem.data, vm->cart.data, vm->cart.size);
+  // memcpy(vm->mem.data, vm->mem.boot_rom, 0x0100);
+
   vm->mem.data[0xFF50] = 1; // This unmaps the boot ROM, if I had that set up
 
   vm->flag.halt = false;
@@ -203,9 +179,9 @@ int _gb_power_on(GB *vm) {
   vm->r.d = 0x00;
   vm->r.e = 0xD8;
   if (vm->cart.header_checksum == 0) {
-    _reg_set_flag(vm, 1, 0, 0, 0);
+    reg_set_flag(vm, 1, 0, 0, 0);
   } else {
-    _reg_set_flag(vm, 1, 0, 1, 1);
+    reg_set_flag(vm, 1, 0, 1, 1);
   }
   vm->r.pc = 0x0100; // 100 to skip boot rom
   vm->r.sp = 0xFFFE;
@@ -264,7 +240,7 @@ int _gb_power_on(GB *vm) {
 /// @param vm GB *vm
 ///
 /// @return 0 for success, -1 for failure
-int _cart_header_read(GB *vm) {
+int cart_header_read(GB *vm) {
   vm->cart.entry_point = vm->cart.data + 0x0100;
   vm->cart.logo = vm->cart.data + 0x0104;
   vm->cart.title = vm->cart.data + 0x0134;
@@ -285,7 +261,7 @@ int _cart_header_read(GB *vm) {
 }
 
 /// Free the cart memory
-void _free_cartridge(Cartridge *cart) {}
+void free_cartridge(Cartridge *cart) {}
 
 /// Convert cartridge type from hex to string
 const char *cart_get_type_str(CartridgeType type) {
@@ -539,7 +515,7 @@ u16 cart_global_checksum_calc(GB *vm) {
 /// @param vm GB *vm
 ///
 /// @return True if matching, false if not
-bool _logo_check(GB *vm) {
+bool logo_check(GB *vm) {
   /// The Nintendo Logo
   ///
   /// To be displayed on power on. The vm fails if its logo doesn't match
@@ -562,9 +538,8 @@ bool _logo_check(GB *vm) {
 /// Set various flags from cartridge header
 ///
 /// @param vm GB *vm
-void _cart_header_set_flags(GB *vm) {
-  _logo_check(vm) ? (vm->flag.logo_match = true)
-                  : (vm->flag.logo_match = false);
+void cart_header_set_flags(GB *vm) {
+  logo_check(vm) ? (vm->flag.logo_match = true) : (vm->flag.logo_match = false);
 
   switch (vm->cart.cgb_flag) {
   case 0x00:
@@ -1238,8 +1213,8 @@ void render_sprites(GB *vm) {
       u8 tile_location = read_u8(vm, 0xFE00 + index + 2);
       u8 attributes = read_u8(vm, 0xFE00 + index + 3);
 
-      bool y_flip = test_bit(attributes, 6);
-      bool x_flip = test_bit(attributes, 5);
+      bool x_flip = test_bit(attributes, 6);
+      bool y_flip = test_bit(attributes, 5);
 
       i16 scanline = read_u16(vm, LY);
 
@@ -1418,7 +1393,7 @@ void key_released(GB *vm, int key) {
 /// @param n Subtract flag
 /// @param h Half carry flag
 /// @param c Carry flag
-void _reg_set_flag(GB *vm, u8 z, u8 n, u8 h, u8 c) {
+void reg_set_flag(GB *vm, u8 z, u8 n, u8 h, u8 c) {
   // 0 remains 0, other values become 1
   z = !!z;
   n = !!n;

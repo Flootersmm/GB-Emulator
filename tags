@@ -4406,7 +4406,7 @@ GLvoid	include/dear_imgui/imgui_impl_opengl3_loader.h	/^typedef void GLvoid;$/;"
 GREEN	roms/gameboy-doctor/gameboy-doctor	/^GREEN = u"\\u001b[32m"$/;"	v
 GRN	include/dear_imgui/imgui_wrapper.h	/^#define GRN /;"	d
 GStyleVarInfo	src/imgui.cpp	/^static const ImGuiDataVarInfo GStyleVarInfo[] =$/;"	v	typeref:typename:const ImGuiDataVarInfo[]	file:
-GUI_LIBS	Makefile	/^GUI_LIBS = -lglfw -lGL `sdl2-config --libs`$/;"	m
+GUI_LIBS	Makefile	/^GUI_LIBS = -lglfw -lGL `sdl2-config --libs` $/;"	m
 Gameboy Doctor	roms/gameboy-doctor/README.md	/^# Gameboy Doctor$/;"	c
 GcAwakeTransientWindowBuffers	src/imgui.cpp	/^void ImGui::GcAwakeTransientWindowBuffers(ImGuiWindow* window)$/;"	f	class:ImGui	typeref:typename:void
 GcCompactAll	include/dear_imgui/imgui_internal.h	/^    bool                    GcCompactAll;                       \/\/ Request full GC$/;"	m	struct:ImGuiContext	typeref:typename:bool
@@ -5347,6 +5347,18 @@ ImGuiFocusedFlags_NoPopupHierarchy	include/dear_imgui/imgui.h	/^    ImGuiFocused
 ImGuiFocusedFlags_None	include/dear_imgui/imgui.h	/^    ImGuiFocusedFlags_None                          = 0,$/;"	e	enum:ImGuiFocusedFlags_
 ImGuiFocusedFlags_RootAndChildWindows	include/dear_imgui/imgui.h	/^    ImGuiFocusedFlags_RootAndChildWindows           = ImGuiFocusedFlags_RootWindow | ImGuiFocuse/;"	e	enum:ImGuiFocusedFlags_
 ImGuiFocusedFlags_RootWindow	include/dear_imgui/imgui.h	/^    ImGuiFocusedFlags_RootWindow                    = 1 << 1,   \/\/ Test from root window (top /;"	e	enum:ImGuiFocusedFlags_
+ImGuiFreeType	include/dear_imgui/imgui_freetype.h	/^namespace ImGuiFreeType$/;"	n
+ImGuiFreeTypeBuilderFlags	include/dear_imgui/imgui_freetype.h	/^enum ImGuiFreeTypeBuilderFlags$/;"	g
+ImGuiFreeTypeBuilderFlags_Bitmap	include/dear_imgui/imgui_freetype.h	/^    ImGuiFreeTypeBuilderFlags_Bitmap        = 1 << 9    \/\/ Enable FreeType bitmap glyphs$/;"	e	enum:ImGuiFreeTypeBuilderFlags
+ImGuiFreeTypeBuilderFlags_Bold	include/dear_imgui/imgui_freetype.h	/^    ImGuiFreeTypeBuilderFlags_Bold          = 1 << 5,   \/\/ Styling: Should we artificially emb/;"	e	enum:ImGuiFreeTypeBuilderFlags
+ImGuiFreeTypeBuilderFlags_ForceAutoHint	include/dear_imgui/imgui_freetype.h	/^    ImGuiFreeTypeBuilderFlags_ForceAutoHint = 1 << 2,   \/\/ Indicates that the auto-hinter is p/;"	e	enum:ImGuiFreeTypeBuilderFlags
+ImGuiFreeTypeBuilderFlags_LightHinting	include/dear_imgui/imgui_freetype.h	/^    ImGuiFreeTypeBuilderFlags_LightHinting  = 1 << 3,   \/\/ A lighter hinting algorithm for gra/;"	e	enum:ImGuiFreeTypeBuilderFlags
+ImGuiFreeTypeBuilderFlags_LoadColor	include/dear_imgui/imgui_freetype.h	/^    ImGuiFreeTypeBuilderFlags_LoadColor     = 1 << 8,   \/\/ Enable FreeType color-layered glyph/;"	e	enum:ImGuiFreeTypeBuilderFlags
+ImGuiFreeTypeBuilderFlags_MonoHinting	include/dear_imgui/imgui_freetype.h	/^    ImGuiFreeTypeBuilderFlags_MonoHinting   = 1 << 4,   \/\/ Strong hinting algorithm that shoul/;"	e	enum:ImGuiFreeTypeBuilderFlags
+ImGuiFreeTypeBuilderFlags_Monochrome	include/dear_imgui/imgui_freetype.h	/^    ImGuiFreeTypeBuilderFlags_Monochrome    = 1 << 7,   \/\/ Disable anti-aliasing. Combine this/;"	e	enum:ImGuiFreeTypeBuilderFlags
+ImGuiFreeTypeBuilderFlags_NoAutoHint	include/dear_imgui/imgui_freetype.h	/^    ImGuiFreeTypeBuilderFlags_NoAutoHint    = 1 << 1,   \/\/ Disable auto-hinter.$/;"	e	enum:ImGuiFreeTypeBuilderFlags
+ImGuiFreeTypeBuilderFlags_NoHinting	include/dear_imgui/imgui_freetype.h	/^    ImGuiFreeTypeBuilderFlags_NoHinting     = 1 << 0,   \/\/ Disable hinting. This generally gen/;"	e	enum:ImGuiFreeTypeBuilderFlags
+ImGuiFreeTypeBuilderFlags_Oblique	include/dear_imgui/imgui_freetype.h	/^    ImGuiFreeTypeBuilderFlags_Oblique       = 1 << 6,   \/\/ Styling: Should we slant the font, /;"	e	enum:ImGuiFreeTypeBuilderFlags
 ImGuiGetNameFromIndexOldToNewCallback	src/imgui_widgets.cpp	/^static const char* ImGuiGetNameFromIndexOldToNewCallback(void* user_data, int idx)$/;"	f	typeref:typename:const char *	file:
 ImGuiGetNameFromIndexOldToNewCallbackData	src/imgui_widgets.cpp	/^struct ImGuiGetNameFromIndexOldToNewCallbackData { void* UserData; bool (*OldCallback)(void*, in/;"	s	file:
 ImGuiGroupData	include/dear_imgui/imgui_internal.h	/^struct IMGUI_API ImGuiGroupData$/;"	s
@@ -6718,6 +6730,7 @@ KeysRoutingTable	include/dear_imgui/imgui_internal.h	/^    ImGuiKeyRoutingTable 
 LIBS	Makefile	/^LIBS = -lm -ldl -lreadline$/;"	m
 LIGHT_GRAY	include/typedefs.h	/^  LIGHT_GRAY = 0x8BAC0F,$/;"	e	enum:__anon2b513dd20303
 LINE_LENGTH	roms/gameboy-doctor/gameboy-doctor	/^LINE_LENGTH= 73$/;"	v
+LY	include/typedefs.h	/^#define LY /;"	d
 Label	src/imgui.cpp	/^    struct KeyLayoutData { int Row, Col; const char* Label; ImGuiKey Key; };$/;"	m	struct:ImGui::DebugRenderKeyboardPreview::KeyLayoutData	typeref:typename:const char *	file:
 LabelText	src/imgui_widgets.cpp	/^void ImGui::LabelText(const char* label, const char* fmt, ...)$/;"	f	class:ImGui	typeref:typename:void
 LabelTextV	src/imgui_widgets.cpp	/^void ImGui::LabelTextV(const char* label, const char* fmt, va_list args)$/;"	f	class:ImGui	typeref:typename:void
@@ -7482,6 +7495,7 @@ RowPosY1	include/dear_imgui/imgui_internal.h	/^    float                       R
 RowPosY2	include/dear_imgui/imgui_internal.h	/^    float                       RowPosY2;$/;"	m	struct:ImGuiTable	typeref:typename:float
 RowTextBaseline	include/dear_imgui/imgui_internal.h	/^    float                       RowTextBaseline;$/;"	m	struct:ImGuiTable	typeref:typename:float
 SCRIPT_DIR	roms/gameboy-doctor/gameboy-doctor	/^SCRIPT_DIR = pathlib.Path(__file__).resolve().parent$/;"	v
+SHADER_H	shader/shader.h	/^#define SHADER_H$/;"	d
 SHARED_H	include/shared.h	/^#define SHARED_H$/;"	d
 SRCDIR	Makefile	/^SRCDIR = src$/;"	m
 STBRP_ASSERT	include/dear_imgui/imstb_rectpack.h	/^#define STBRP_ASSERT /;"	d
@@ -9211,6 +9225,7 @@ append	src/imgui.cpp	/^void ImGuiTextBuffer::append(const char* str, const char*
 append	src/imgui.cpp	/^void ImGuiTextIndex::append(const char* base, int old_size, int new_size)$/;"	f	class:ImGuiTextIndex	typeref:typename:void
 appendf	src/imgui.cpp	/^void ImGuiTextBuffer::appendf(const char* fmt, ...)$/;"	f	class:ImGuiTextBuffer	typeref:typename:void
 appendfv	src/imgui.cpp	/^void ImGuiTextBuffer::appendfv(const char* fmt, va_list args)$/;"	f	class:ImGuiTextBuffer	typeref:typename:void
+apply_shader	shader/shader.cpp	/^void apply_shader(GLuint fbo, GLuint texture) {$/;"	f	typeref:typename:void
 args	roms/gameboy-doctor/gameboy-doctor	/^    args = parser.parse_args()$/;"	v
 array_of_unicode_codepoints	include/dear_imgui/imstb_truetype.h	/^   int *array_of_unicode_codepoints;       \/\/ if non-zero, then this is an array of unicode co/;"	m	struct:__anon64cd3d130508	typeref:typename:int *
 b	include/dear_imgui/imgui.h	/^        const char*     b;$/;"	m	struct:ImGuiTextFilter::ImGuiTextRange	typeref:typename:const char *
@@ -9306,6 +9321,7 @@ bit_7_hlp	src/ops.c	/^void bit_7_hlp(GB *vm) {$/;"	f	typeref:typename:void
 bit_7_l	src/ops.c	/^void bit_7_l(GB *vm) {$/;"	f	typeref:typename:void
 bit_get_val	src/gb.c	/^int bit_get_val(u8 byte, int bit) { return (byte >> bit) & 1; }$/;"	f	typeref:typename:int
 blankcount	include/typedefs.h	/^  u8 blankcount;$/;"	m	struct:GB	typeref:typename:u8
+boot_rom	include/typedefs.h	/^  u8 *boot_rom;         \/\/\/> 0x0000-0100: Nintendo boot rom$/;"	m	struct:__anon2b513dd21508	typeref:typename:u8 *
 border_size	src/gui.cpp	/^float border_size = 3.0;              \/\/\/< Border size between windows$/;"	v	typeref:typename:float
 bottom_y	include/dear_imgui/imstb_truetype.h	/^   int x,y,bottom_y;$/;"	m	struct:__anon64cd3d131108	typeref:typename:int
 bounds	include/dear_imgui/imstb_truetype.h	/^   int bounds;$/;"	m	struct:__anon64cd3d130f08	typeref:typename:int
@@ -9380,6 +9396,7 @@ checksums_compare	roms/gb-test-roms/cpu_instrs/source/common/checksums.s	/^check
 checksums_init	roms/gb-test-roms/cpu_instrs/source/common/checksums.s	/^checksums_init:$/;"	l
 chunk_size	include/dear_imgui/imgui_internal.h	/^    int     chunk_size(const T* p)      { return ((const int*)p)[-1]; }$/;"	f	struct:ImChunkStream	typeref:typename:int
 clean	Makefile	/^clean:$/;"	t
+cleanup_shaders	shader/shader.cpp	/^void cleanup_shaders() {$/;"	f	typeref:typename:void
 clear	include/dear_imgui/imgui.h	/^    inline void         clear()                             { if (Data) { Size = Capacity = 0; I/;"	f	struct:ImVector	typeref:typename:void
 clear	include/dear_imgui/imgui.h	/^    void                clear()                 { Buf.clear(); }$/;"	f	struct:ImGuiTextBuffer	typeref:typename:void
 clear	include/dear_imgui/imgui_internal.h	/^    void            clear()                                 { LineOffsets.clear(); EndOffset = 0/;"	f	struct:ImGuiTextIndex	typeref:typename:void
@@ -9400,6 +9417,7 @@ colorDarkestGreen	src/gui.cpp	/^ImVec4 colorDarkestGreen = ImVec4(0.06f, 0.22f, 
 colorLightGreen	src/gui.cpp	/^ImVec4 colorLightGreen = ImVec4(0.54f, 0.67f, 0.06f, 1.00f);    \/\/\/> #8BAC0F$/;"	v	typeref:typename:ImVec4
 colorLightestGreen	src/gui.cpp	/^ImVec4 colorLightestGreen = ImVec4(0.61f, 0.73f, 0.06f, 1.00f); \/\/\/> #9BBC0F$/;"	v	typeref:typename:ImVec4
 color_map	src/gui.cpp	/^    color_map = \/\/\/< String, ImVec4 map of term colours to ImGui colours$/;"	v	typeref:typename:std::map<std::string,ImVec4>
+compileShader	shader/shader.cpp	/^GLuint compileShader(const char *source, GLenum type) {$/;"	f	typeref:typename:GLuint
 console_apply_scroll_	roms/gb-test-roms/cgb_sound/source/common/console.s	/^console_apply_scroll_:$/;"	l
 console_apply_scroll_	roms/gb-test-roms/cpu_instrs/source/common/console.s	/^console_apply_scroll_:$/;"	l
 console_apply_scroll_	roms/gb-test-roms/dmg_sound/source/common/console.s	/^console_apply_scroll_:$/;"	l
@@ -10071,7 +10089,6 @@ cycles	roms/gameboy-doctor/opcode_annotations.json	/^      "cycles": [$/;"	a	obj
 cycles	roms/gameboy-doctor/opcode_annotations.json	/^      "cycles": [$/;"	a	object:unprefixed.0xfb
 cycles	roms/gameboy-doctor/opcode_annotations.json	/^      "cycles": [$/;"	a	object:unprefixed.0xfe
 cycles	roms/gameboy-doctor/opcode_annotations.json	/^      "cycles": [$/;"	a	object:unprefixed.0xff
-cycles	src/gui.cpp	/^static int cycles = 0;$/;"	v	typeref:typename:int	file:
 d	include/typedefs.h	/^        u8 d;$/;"	m	struct:__anon2b513dd20708::__anon2b513dd20e08::__anon2b513dd20f0a::__anon2b513dd21008	typeref:typename:u8
 daa	src/ops.c	/^void daa(GB *vm) {$/;"	f	typeref:typename:void
 data	include/dear_imgui/imstb_truetype.h	/^   unsigned char  * data;              \/\/ pointer to .ttf file$/;"	m	struct:stbtt_fontinfo	typeref:typename:unsigned char *
@@ -10081,6 +10098,7 @@ data	include/typedefs.h	/^  u8 *data;             \/\/\/> 0x0000-FFFF$/;"	m	stru
 de	include/typedefs.h	/^      u16 de;$/;"	m	union:__anon2b513dd20708::__anon2b513dd20e08::__anon2b513dd20f0a	typeref:typename:u16
 debug_str	include/typedefs.h	/^  const char *debug_str;$/;"	m	struct:__anon2b513dd21a08	typeref:typename:const char *
 debug_str	include/typedefs.h	/^  const char *debug_str;$/;"	m	struct:__anon2b513dd21c08	typeref:typename:const char *
+debug_tile_display	src/gb.c	/^void debug_tile_display(GB *vm) {$/;"	f	typeref:typename:void
 dec	roms/gb-test-roms/instr_timing/source/common/timer.s	/^     dec  de        ; 2$/;"	d
 dec	roms/gb-test-roms/oam_bug/source/2-causes.s	/^     dec  de$/;"	d
 dec	roms/gb-test-roms/oam_bug/source/3-non_causes.s	/^     dec  de$/;"	d
@@ -11527,6 +11545,7 @@ init_runtime	roms/gb-test-roms/mem_timing/source/common/build_gbs.s	/^init_runti
 init_runtime	roms/gb-test-roms/mem_timing/source/common/build_rom.s	/^init_runtime:$/;"	l
 init_runtime	roms/gb-test-roms/oam_bug/source/common/build_gbs.s	/^init_runtime:$/;"	l
 init_runtime	roms/gb-test-roms/oam_bug/source/common/build_rom.s	/^init_runtime:$/;"	l
+init_shaders	shader/shader.cpp	/^bool init_shaders(const char *vertexPath, const char *fragmentPath) {$/;"	f	typeref:typename:bool
 init_testing	roms/gb-test-roms/cgb_sound/source/common/testing.s	/^init_testing:$/;"	l
 init_testing	roms/gb-test-roms/cpu_instrs/source/common/testing.s	/^init_testing:$/;"	l
 init_testing	roms/gb-test-roms/dmg_sound/source/common/testing.s	/^init_testing:$/;"	l
@@ -11589,7 +11608,6 @@ interrupt_master_enable	include/typedefs.h	/^  bool interrupt_master_enable;$/;"
 invert	include/dear_imgui/imstb_truetype.h	/^   int invert;$/;"	m	struct:stbtt__edge	typeref:typename:int
 ioReset	src/tables.c	/^const unsigned char ioReset[0x100] = {$/;"	v	typeref:typename:const unsigned char[0x100]
 io_registers	include/typedefs.h	/^  u8 *io_registers;     \/\/\/> 0xFF00-FF7F: I\/O Registers$/;"	m	struct:__anon2b513dd21508	typeref:typename:u8 *
-isBlack	src/gui.cpp	/^static bool isBlack = true;$/;"	v	typeref:typename:bool	file:
 is_clock_enabled	src/gb.c	/^bool is_clock_enabled(GB *vm) { return (read_u8(vm, 0xFF07) & 0x04) != 0; }$/;"	f	typeref:typename:bool
 is_lcd_enabled	src/gb.c	/^bool is_lcd_enabled(GB *vm) { return (read_u8(vm, 0xFF40) & 0x80) != 0; }$/;"	f	typeref:typename:bool
 is_separator	src/imgui_widgets.cpp	/^static bool is_separator(unsigned int c)$/;"	f	namespace:ImStb	typeref:typename:bool	file:
@@ -12317,6 +12335,13 @@ load_wave	roms/gb-test-roms/cpu_instrs/source/common/apu.s	/^load_wave:$/;"	l
 loca	include/dear_imgui/imstb_truetype.h	/^   int loca,head,glyf,hhea,hmtx,kern,gpos,svg; \/\/ table locations as offset from start of .ttf$/;"	m	struct:stbtt_fontinfo	typeref:typename:int
 logo	include/typedefs.h	/^  u8 *logo;                     \/\/\/> 0x0104-0133$/;"	m	struct:__anon2b513dd21608	typeref:typename:u8 *
 logo_match	include/typedefs.h	/^  bool logo_match;$/;"	m	struct:__anon2b513dd21408	typeref:typename:bool
+m_CurrentRAMBank	src/gb.c	/^u8 m_CurrentRAMBank = 0;$/;"	v	typeref:typename:u8
+m_CurrentROMBank	src/gb.c	/^u8 m_CurrentROMBank = 1;$/;"	v	typeref:typename:u8
+m_EnableRAM	src/gb.c	/^bool m_EnableRAM = false;$/;"	v	typeref:typename:bool
+m_MBC1	src/gb.c	/^bool m_MBC1 = false;$/;"	v	typeref:typename:bool
+m_MBC2	src/gb.c	/^bool m_MBC2 = false;$/;"	v	typeref:typename:bool
+m_RAMBanks	src/gb.c	/^u8 m_RAMBanks[0x8000];$/;"	v	typeref:typename:u8[0x8000]
+m_RomBanking	src/gb.c	/^bool m_RomBanking = true;$/;"	v	typeref:typename:bool
 main	roms/gb-test-roms/cgb_sound/source/01-registers.s	/^main:$/;"	l
 main	roms/gb-test-roms/cgb_sound/source/02-len ctr.s	/^main:$/;"	l
 main	roms/gb-test-roms/cgb_sound/source/03-trigger.s	/^main:$/;"	l
@@ -13773,6 +13798,7 @@ parse_line	roms/gameboy-doctor/gameboy-doctor	/^def parse_line(line:str, display
 parse_version	include/dear_imgui/imgui_impl_opengl3_loader.h	/^static int parse_version(void)$/;"	f	typeref:typename:int
 parser	roms/gameboy-doctor/gameboy-doctor	/^    parser = argparse.ArgumentParser($/;"	v
 passed	roms/gb-test-roms/cpu_instrs/source/common/instr_test.s	/^passed:$/;"	l
+paused	include/typedefs.h	/^  bool paused;$/;"	m	struct:GB	typeref:typename:bool
 pc	include/typedefs.h	/^  u16 pc;$/;"	m	struct:__anon2b513dd20708	typeref:typename:u16
 pixels	include/dear_imgui/imstb_truetype.h	/^   unsigned char *pixels;$/;"	m	struct:__anon64cd3d130808	typeref:typename:unsigned char *
 pixels	include/dear_imgui/imstb_truetype.h	/^   unsigned char *pixels;$/;"	m	struct:stbtt_pack_context	typeref:typename:unsigned char *
@@ -14068,9 +14094,12 @@ push_de	src/ops.c	/^void push_de(GB *vm) {$/;"	f	typeref:typename:void
 push_front	include/dear_imgui/imgui.h	/^    inline void         push_front(const T& v)              { if (Size == 0) push_back(v); else /;"	f	struct:ImVector	typeref:typename:void
 push_hl	src/ops.c	/^void push_hl(GB *vm) {$/;"	f	typeref:typename:void
 pvertices	include/dear_imgui/imstb_truetype.h	/^   stbtt_vertex *pvertices;$/;"	m	struct:__anon64cd3d130f08	typeref:typename:stbtt_vertex *
+quadVAO	shader/shader.cpp	/^static GLuint quadVAO, quadVBO;$/;"	v	typeref:typename:GLuint	file:
+quadVBO	shader/shader.cpp	/^static GLuint quadVAO, quadVBO;$/;"	v	typeref:typename:GLuint	file:
 r	include/typedefs.h	/^  Registers r;$/;"	m	struct:GB	typeref:typename:Registers
 ram_get_size_str	src/gb.c	/^const char *ram_get_size_str(GB *vm) {$/;"	f	typeref:typename:const char *
 ram_size	include/typedefs.h	/^  u8 ram_size;                  \/\/\/> 0x0149$/;"	m	struct:__anon2b513dd21608	typeref:typename:u8
+readFile	shader/shader.cpp	/^char *readFile(const char *filePath) {$/;"	f	typeref:typename:char *
 read_u16	src/gb.c	/^u16 read_u16(GB *vm, u16 addr) {$/;"	f	typeref:typename:u16
 read_u8	src/gb.c	/^u8 read_u8(GB *vm, u16 addr) {$/;"	f	typeref:typename:u8
 rect_height_compare	include/dear_imgui/imstb_rectpack.h	/^static int STBRP__CDECL rect_height_compare(const void *a, const void *b)$/;"	f	typeref:typename:int STBRP__CDECL
@@ -14086,7 +14115,6 @@ redo_char_point	include/dear_imgui/imstb_textedit.h	/^   int undo_char_point, re
 redo_point	include/dear_imgui/imstb_textedit.h	/^   short undo_point, redo_point;$/;"	m	struct:__anon9d6d931c0208	typeref:typename:short
 regs_should_be_clear	roms/gb-test-roms/cgb_sound/source/01-registers.s	/^regs_should_be_clear:$/;"	l
 regs_should_be_clear	roms/gb-test-roms/dmg_sound/source/01-registers.s	/^regs_should_be_clear:$/;"	l
-render_background	src/gb.c	/^void render_background(GB *vm) {}$/;"	f	typeref:typename:void
 render_sprites	src/gb.c	/^void render_sprites(GB *vm) {$/;"	f	typeref:typename:void
 render_tiles	src/gb.c	/^void render_tiles(GB *vm) {$/;"	f	typeref:typename:void
 request_interrupt	src/gb.c	/^void request_interrupt(GB *vm, u8 interrupt_flag) {$/;"	f	typeref:typename:void
@@ -14341,8 +14369,10 @@ set_test_	roms/gb-test-roms/instr_timing/source/common/testing.s	/^set_test_:$/;
 set_test_	roms/gb-test-roms/mem_timing-2/source/common/testing.s	/^set_test_:$/;"	l
 set_test_	roms/gb-test-roms/mem_timing/source/common/testing.s	/^set_test_:$/;"	l
 set_test_	roms/gb-test-roms/oam_bug/source/common/testing.s	/^set_test_:$/;"	l
+setupQuad	shader/shader.cpp	/^void setupQuad() {$/;"	f	typeref:typename:void
 sgb	include/typedefs.h	/^  bool sgb;$/;"	m	struct:__anon2b513dd21408	typeref:typename:bool
 sgb_flag	include/typedefs.h	/^  u8 sgb_flag;                  \/\/\/> 0x0146$/;"	m	struct:__anon2b513dd21608	typeref:typename:u8
+shaderProgram	shader/shader.cpp	/^static GLuint shaderProgram;$/;"	v	typeref:typename:GLuint	file:
 shift_loop	roms/gb-test-roms/cgb_sound/source/06-overflow on trigger.s	/^shift_loop:$/;"	l
 shift_loop	roms/gb-test-roms/dmg_sound/source/06-overflow on trigger.s	/^shift_loop:$/;"	l
 shift_loop2	roms/gb-test-roms/cgb_sound/source/06-overflow on trigger.s	/^shift_loop2:$/;"	l
@@ -14872,7 +14902,6 @@ width	include/dear_imgui/imstb_truetype.h	/^   int width,height;$/;"	m	struct:__
 width	src/gui.cpp	/^static int width = 160;$/;"	v	typeref:typename:int	file:
 window_file_size	src/gui.cpp	/^ImVec2 window_file_size(0.0f, 0.0f);  \/\/\/< File window size$/;"	v	typeref:typename:ImVec2
 window_init	src/gui.cpp	/^GLFWwindow *window_init() {$/;"	f	typeref:typename:GLFWwindow *
-window_main_size	src/gui.cpp	/^ImVec2 window_main_size(0.0f, 0.0f);  \/\/\/< Main window size$/;"	v	typeref:typename:ImVec2
 window_menu_size	src/gui.cpp	/^ImVec2 window_menu_size(0.0f, 0.0f);  \/\/\/< Menu window size$/;"	v	typeref:typename:ImVec2
 window_shell_size	src/gui.cpp	/^ImVec2 window_shell_size(0.0f, 0.0f); \/\/\/< Shell window size$/;"	v	typeref:typename:ImVec2
 window_stack_size	src/gui.cpp	/^ImVec2 window_stack_size(0.0f, 0.0f); \/\/\/< Stack window size$/;"	v	typeref:typename:ImVec2
