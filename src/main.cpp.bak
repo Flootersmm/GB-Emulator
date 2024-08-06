@@ -1,0 +1,111 @@
+#include "dear_imgui/imgui_wrapper.h"
+#include "gb.h"
+#include "shared.h"
+#include <GLFW/glfw3.h>
+#include <SDL2/SDL.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <atomic>
+#include <mutex>
+#include <thread>
+#include <chrono>
+
+std::atomic<bool> running(true);
+std::mutex emu_mutex;
+std::atomic<bool> step_requested(true);
+const double GAMEBOY_CLOCK_SPEED = 4194304.0;
+const double FRAME_RATE = 59.73;
+const double CYCLES_PER_FRAME = GAMEBOY_CLOCK_SPEED / FRAME_RATE;
+
+/// Emulator thread handler for stepping and halting
+void emulator_thread(GB *vm) {
+  bool breakpoint_hit = false;
+
+  while (running) {
+    uint32_t start_ticks = SDL_GetTicks();
+
+    {
+      std::lock_guard<std::mutex> lock(emu_mutex);
+
+      if (vm->flag.halt) {
+        running = false;
+        break;
+      }
+
+      if (breakpoint_hit) {
+        if (step_requested) {
+          step(vm);
+          step_requested = false;
+        }
+      } else {
+        step(vm);
+
+        if (vm->r.pc == 0x00FAFF) { // Change for breakpoint
+          breakpoint_hit = true;
+          step_requested = false;
+        }
+      }
+    }
+
+    uint32_t end_ticks = SDL_GetTicks();
+    uint32_t elapsed_ticks = end_ticks - start_ticks;
+
+    // Calculate the target ticks to sleep
+    uint32_t target_sleep_ticks =
+        static_cast<uint32_t>((vm->timer_counter / GAMEBOY_CLOCK_SPEED) * 1000);
+
+    if (elapsed_ticks < target_sleep_ticks) {
+      SDL_Delay(target_sleep_ticks - elapsed_ticks);
+    }
+  }
+}
+
+/// Main function
+///
+/// Runs emulator in one thread, GUI in another
+int main(int argc, char **argv) {
+  if (argc < 2) {
+    fprintf(stderr, "Usage: %s <rom_path>\n", argv[0]);
+    exit(EXIT_FAILURE);
+  }
+
+  const char *rom_path = argv[1];
+
+  if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) != 0) {
+    fprintf(stderr, "Could not initialize SDL: %s\n", SDL_GetError());
+    return -1;
+  }
+
+  GLFWwindow *window = window_init();
+  if (!window) {
+    fprintf(stderr, "Failed to initialize GLFW window\n");
+    SDL_Quit();
+    return -1;
+  }
+
+  GB *vm = gb_init(rom_path);
+  if (!vm) {
+    fprintf(stderr, "Failed to initialize GB\n");
+    glfwDestroyWindow(window);
+    glfwTerminate();
+    SDL_Quit();
+    return -1;
+  }
+
+  imgui_init(window, vm);
+  texture_init();
+
+  std::thread emu_thread(emulator_thread, vm);
+
+  main_loop(window, vm);
+
+  running = false;
+  emu_thread.join();
+  texture_destroy();
+  gb_destroy(vm);
+  glfwDestroyWindow(window);
+  glfwTerminate();
+  SDL_Quit();
+
+  return 0;
+}

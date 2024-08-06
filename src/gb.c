@@ -140,7 +140,7 @@ int gb_power_on(GB *vm) {
   // So, we need memory banks up and running first.
 
   memcpy(vm->mem.data, vm->cart.data, vm->cart.size);
-  // memcpy(vm->mem.data, vm->mem.boot_rom, 0x0100);
+  memcpy(vm->mem.data, vm->mem.boot_rom, 0x0100);
 
   vm->mem.data[0xFF50] = 1; // This unmaps the boot ROM, if I had that set up
 
@@ -183,7 +183,7 @@ int gb_power_on(GB *vm) {
   } else {
     reg_set_flag(vm, 1, 0, 1, 1);
   }
-  vm->r.pc = 0x0100; // 100 to skip boot rom
+  vm->r.pc = 0x0000; // 100 to skip boot rom
   vm->r.sp = 0xFFFE;
 
   // DMG
@@ -458,7 +458,7 @@ const char *ram_get_size_str(GB *vm) {
 ///
 /// @return Destination code string
 const char *destination_code_get_str(GB *vm) {
-  static char buffer[128]; // Adjust size as needed
+  static char buffer[128];
   const char *code = NULL;
   const char *destination = NULL;
 
@@ -625,7 +625,7 @@ void step(GB *vm) {
 
 void debug_tile_display(GB *vm) {
   int tile_index = 0;
-  int tile_size = 16; // Each tile is 16 bytes (8x8 pixels, 2 bits per pixel)
+  int tile_size = 16;
 
   for (int tile_y = 0; tile_y < 144; tile_y += 8) {
     for (int tile_x = 0; tile_x < 160; tile_x += 8) {
@@ -680,7 +680,7 @@ void update_graphics(GB *vm, int cycles) {
     vm->scanline_counter = 456;
 
     if (vm->mem.data[LY] == 144) {
-      vm->mem.data[0xFF85] = 0; // Otherwise Tetris loops idk
+      vm->mem.data[0xFF85] = 0;
       request_interrupt(vm, 0);
     } else if (vm->mem.data[LY] > 153) {
       write_u8(vm, LY, 0);
